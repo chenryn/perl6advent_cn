@@ -24,7 +24,7 @@
 
 
 
-	<title>三斗室 &raquo; 2010年Perl6圣诞月历(一)到达星球</title>
+	<title>三斗室 &raquo; 2010年Perl6圣诞月历(十六)Perl6里的时间</title>
 
 
 	<link rel="alternate" type="application/rss+xml" title="RSS 2.0 - 所有文章" href="http://chenlinux.com/feed" />
@@ -88,14 +88,14 @@
 
 
 
-	<link rel="alternate" type="application/rss+xml" title="三斗室 &raquo; 2010年Perl6圣诞月历(一)到达星球 评论 Feed" href="http://chenlinux.com/2011/12/13/day1-reaching_stars.html/feed" />
+	<link rel="alternate" type="application/rss+xml" title="三斗室 &raquo; 2010年Perl6圣诞月历(十六)Perl6里的时间 评论 Feed" href="http://chenlinux.com/2011/12/14/day16-time_in_perl6.html/feed" />
 <link rel="EditURI" type="application/rsd+xml" title="RSD" href="http://chenlinux.com/xmlrpc.php?rsd" />
 <link rel="wlwmanifest" type="application/wlwmanifest+xml" href="http://chenlinux.com/wp-includes/wlwmanifest.xml" /> 
-<link rel='prev' title='nginx_perl试用' href='http://chenlinux.com/2011/12/12/nginx_perl_demo.html' />
-<link rel='next' title='2010年Perl6圣诞月历(二)用main函数控制命令行交互' href='http://chenlinux.com/2011/12/13/day2-interacting_with_the_command_line_with_main_subs.html' />
+<link rel='prev' title='2010年Perl6圣诞月历(十五)调用本地库' href='http://chenlinux.com/2011/12/14/day15-calling_native_libraries_from_perl_6.html' />
+<link rel='next' title='2010年Perl6圣诞月历(十七)罗塞塔代码' href='http://chenlinux.com/2011/12/14/day17-rosetta_code.html' />
 <meta name="generator" content="WordPress 3.3" />
-<link rel='canonical' href='http://chenlinux.com/2011/12/13/day1-reaching_stars.html' />
-<link rel='shortlink' href='http://chenlinux.com/?p=2720' />
+<link rel='canonical' href='http://chenlinux.com/2011/12/14/day16-time_in_perl6.html' />
+<link rel='shortlink' href='http://chenlinux.com/?p=2781' />
 <link rel="stylesheet" type="text/css" media="screen" href="http://chenlinux.com/wp-content/plugins/down-as-pdf/down-as-pdf.css" />
 
 <link rel="stylesheet" href="http://chenlinux.com/wp-content/themes/inove/wp-syntax.css" type="text/css" media="screen" />
@@ -443,7 +443,7 @@
 
 		 &gt; <a href="http://chenlinux.com/category/ops/script" title="查看 脚本 中的全部文章" rel="category tag">脚本</a>
 
-		 &gt; 2010年Perl6圣诞月历(一)到达星球
+		 &gt; 2010年Perl6圣诞月历(十六)Perl6里的时间
 
 	</div>
 
@@ -451,16 +451,16 @@
 
 
 
-	<div class="post" id="post-2720">
+	<div class="post" id="post-2781">
 
 
-		<h2>2010年Perl6圣诞月历(一)到达星球</h2>
+		<h2>2010年Perl6圣诞月历(十六)Perl6里的时间</h2>
 
 
 		<div class="info">
 
 
-			<span class="date">2011年12月13日</span>
+			<span class="date">2011年12月14日</span>
 
 
 			<span class="author"><a href="http://chenlinux.com/author/admin" title="由 admin 发布" rel="author">admin</a></span>
@@ -486,16 +486,42 @@
 		<div class="content">
 
 
-			<p>大把时间空闲，用来练习英语好了~~<br />
-<hr />
-从perl5世界或者其他各种地方来到本星球的人们，你们或许认为编程语言以及编程语言的实现是一回事，或者说至少是相互紧密关联在一起的。但是Perl6可不是。Perl6的正式内容只包括规范说明（概要）和测试套件。Perl6鼓励大家通过多种途径来实现。只要这个实现完成了规范中的内容并且可以通过官方的测试套件，它就是“一个Perl6的实现”。虽然现在还没有这样的完整实现，但Perl6世界的生态系统中也已经有几个编译器了。<br />
-比如Rakudo，它针对Parrot虚拟机，它也是目前为止最完整的Perl6实现；还有Niecza，它针对.NET虚拟机，旨在研究性能问题。还有Yapsi，Yapsi的作者声称其“发表正式版半年来，还没出过神马问题”^=^~在之后的例子里，我们会使用Rakudo来书写样例，毕竟它是最接近完整的实现，而且其周边生态系统也是搞的最大的。<br />
-和Perl类似，也没有一个“Rakudo”来统治世界。Rakudo开发小组一直把分发版和编译器拆开。也就是说，Rakudo release发布的不是一个带着模块、文档和虚拟机的即开即用的Perl6归档包——大概半年前开始发布的Rakudo Star才是。整个Star里包括了Perl6程序员所需用的一切工具：一个Parrot虚拟机，关于Perl6的书，一把子模块，最后，Rakudo自己。（译者注：重复了三遍，其实就是一句话，Rakudo本身不代表perl6全部。外国佬说话真累……）<br />
-最后，你可以从github上下载可爱的Rakudo Star归档包，具体url是：<br />
-<a href="https://github.com/rakudo/star/downloads" target="_blank">https://github.com/rakudo/star/downloads</a><br />
-赶紧搞定它，然后继续你的圣诞旅行吧~</p>
+			<p>今天是圣诞月历的第0&#215;10天，是时候学习一下perl6里的时间了。S32::Temporal简介在过去一年中有了大量的修改，今天我们就来介绍一下在perl6实现中关于时间的一些基础知识。<br />
+<strong>time和now</strong><br />
+time和now是两个可以返回当前时间（至少是你的系统认为的当前时间）的词。简单的展示一下：</p>
+
+<div class="wp_syntax"><div class="code"><pre class="perl" style="font-family:monospace;"><span style="color: #339933;">&gt;</span> say <span style="color: #000066;">time</span><span style="color: #339933;">;</span> say now<span style="color: #339933;">;</span>
+<span style="color: #cc66cc;">1292460064</span>
+Instant<span style="color: #339933;">:</span><span style="color: #cc66cc;">2010</span><span style="color: #339933;">-</span><span style="color: #cc66cc;">12</span><span style="color: #339933;">-</span>16T00<span style="color: #339933;">:</span><span style="color: #cc66cc;">41</span><span style="color: #339933;">:</span>4<span style="color: #339933;">.</span>873248Z</pre></div></div>
+
+<p>第一个明显的区别，前者返回的是POSIX格式的数值型的结果；而后者返回的是一个瞬间的对象。如果你想获取秒级以下小数点位或者说闰秒，请用now；如果不用，那用time获取POSIX格式就够了。随你的便。<br />
+<strong>DateTime和他的伙伴</strong><br />
+大多数时候，你要的不是当前时间。这种时候，你需要的是DateTime。比如还是获取当前时间：</p>
+
+<div class="wp_syntax"><div class="code"><pre class="perl" style="font-family:monospace;"><span style="color: #b1b100;">my</span> <span style="color: #0000ff;">$moment</span> <span style="color: #339933;">=</span> DateTime<span style="color: #339933;">.</span><span style="color: #000000; font-weight: bold;">new</span><span style="color: #009900;">&#40;</span>now<span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span> <span style="color: #666666; font-style: italic;"># 或者DateTime.new(time)</span></pre></div></div>
+
+<p>你有两种方式来创建DateTime对象：</p>
+
+<div class="wp_syntax"><div class="code"><pre class="perl" style="font-family:monospace;"><span style="color: #b1b100;">my</span> <span style="color: #0000ff;">$dw</span> <span style="color: #339933;">=</span> DateTime<span style="color: #339933;">.</span><span style="color: #000000; font-weight: bold;">new</span><span style="color: #009900;">&#40;</span><span style="color: #339933;">:</span>year<span style="color: #009900;">&#40;</span><span style="color: #cc66cc;">1963</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">,</span> <span style="color: #339933;">:</span>month<span style="color: #009900;">&#40;</span><span style="color: #cc66cc;">11</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">,</span> <span style="color: #339933;">:</span>day<span style="color: #009900;">&#40;</span><span style="color: #cc66cc;">23</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">,</span> <span style="color: #339933;">:</span>hour<span style="color: #009900;">&#40;</span><span style="color: #cc66cc;">17</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">,</span> <span style="color: #339933;">:</span>minute<span style="color: #009900;">&#40;</span><span style="color: #cc66cc;">15</span><span style="color: #009900;">&#41;</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span></pre></div></div>
+
+<p>这是UTC时区，如果你要更改时区的话，再加上:timezone就好了。这个格式里，只有:year是必须的，其他的默认就是1月1号半夜0点0分。<br />
+上面这种写法确实乏味，你可以采用ISO8601格式的输入，来创建一个DateTime对象：</p>
+
+<div class="wp_syntax"><div class="code"><pre class="perl" style="font-family:monospace;"><span style="color: #b1b100;">my</span> <span style="color: #0000ff;">$dw</span> <span style="color: #339933;">=</span> DateTime<span style="color: #339933;">.</span><span style="color: #000000; font-weight: bold;">new</span><span style="color: #009900;">&#40;</span><span style="color: #ff0000;">&quot;1963-11-23T17:15:00Z&quot;</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span></pre></div></div>
+
+<p>其中Z表示UTC，想改变的话，把Z替换成+hhmm或者-hhmm就好了。hh表示小时，mm表示分钟。<br />
+此外，还有一个更简略的Date对象。只包括年月日的：</p>
+
+<div class="wp_syntax"><div class="code"><pre class="perl" style="font-family:monospace;"><span style="color: #b1b100;">my</span> <span style="color: #0000ff;">$jfk</span> <span style="color: #339933;">=</span> Date<span style="color: #339933;">.</span><span style="color: #000000; font-weight: bold;">new</span><span style="color: #009900;">&#40;</span><span style="color: #ff0000;">&quot;1963-11-22&quot;</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span> <span style="color: #666666; font-style: italic;"># 你也可以用:year等的写法</span></pre></div></div>
+
+<p>引入Date对象，是吸取了CPAN上DateTime模块的教训：有时候你压根不关心什么时区啊闰秒啊的。Date对象非常容易处理，比如它有内置的.succ和.pred方法，用来简单的递增和递减。</p>
+
+<div class="wp_syntax"><div class="code"><pre class="perl" style="font-family:monospace;"><span style="color: #0000ff;">$jfk</span><span style="color: #339933;">++;</span> <span style="color: #666666; font-style: italic;"># 肯尼迪遇刺后的第二天</span></pre></div></div>
+
+<p><strong>最后&#8230;</strong><br />
+以上就是关于Perl6里的时间的内容了，想了解更多细节，去看看<a href="http://perlcabal.org/syn/S32/Temporal.html" target="_blank">规范</a>吧；或者去社区里提问。</p>
 <div id="downaspdf">
-                    <a title="下载此文章的 PDF 文档" href="http://chenlinux.com/wp-content/plugins/down-as-pdf/generate.php?id=2720">
+                    <a title="下载此文章的 PDF 文档" href="http://chenlinux.com/wp-content/plugins/down-as-pdf/generate.php?id=2781">
                       <span>Download as PDF</span>
                     </a>
                 </div>
@@ -579,7 +605,7 @@
 
 	
 
-		<span class="addtrackback"><a href="http://chenlinux.com/2011/12/13/day1-reaching_stars.html/trackback">Trackback</a></span>
+		<span class="addtrackback"><a href="http://chenlinux.com/2011/12/14/day16-time_in_perl6.html/trackback">Trackback</a></span>
 
 
 	
@@ -784,7 +810,7 @@
 
 			
 
-			<input type="hidden" name="comment_post_ID" value="2720" />
+			<input type="hidden" name="comment_post_ID" value="2781" />
 
 
 			<div class="fixed"></div>
@@ -799,7 +825,7 @@
 	</div>
 
 
-	<input type="hidden" name="robots_check" value="37541a9790cc25decc43131655784904" />	<p id="sw_button" class="sw_button">
+	<input type="hidden" name="robots_check" value="7d2b33966996cb9df303c11f6d146b69" />	<p id="sw_button" class="sw_button">
 
 		<a href="javascript:void(0)" onClick="window.open('http://chenlinux.com/?is_ajax=yes&action=www_yaha_me_weibo_login_start_ajax', 'www_yaha_me_weibo_Window','width=800,height=600,left=150,top=100,scrollbar=no,resize=no');return false;">
 
@@ -867,10 +893,10 @@ var atreply = "authorlink";
 	<div id="postnavi">
 
 
-		<span class="prev"><a href="http://chenlinux.com/2011/12/13/day2-interacting_with_the_command_line_with_main_subs.html" rel="next">2010年Perl6圣诞月历(二)用main函数控制命令行交互</a></span>
+		<span class="prev"><a href="http://chenlinux.com/2011/12/14/day17-rosetta_code.html" rel="next">2010年Perl6圣诞月历(十七)罗塞塔代码</a></span>
 
 
-		<span class="next"><a href="http://chenlinux.com/2011/12/12/nginx_perl_demo.html" rel="prev">nginx_perl试用</a></span>
+		<span class="next"><a href="http://chenlinux.com/2011/12/14/day15-calling_native_libraries_from_perl_6.html" rel="prev">2010年Perl6圣诞月历(十五)调用本地库</a></span>
 
 
 		<div class="fixed"></div>
@@ -1331,7 +1357,7 @@ OMD系列(三)shinken的discovery配置与运行">20</a></td><td>21</td><td>22</
 		<td class="pad" colspan="1">&nbsp;</td>
 	</tr>
 	</tbody>
-	</table></div></div>	        <div id="wp-cumulus" class="widget wp_cumulus_widget">							<h3>3D标签云</h3>						<!-- SWFObject embed by Geoff Stearns geoff@deconcept.com http://blog.deconcept.com/swfobject/ --><script type="text/javascript" src="http://chenlinux.com/wp-content/plugins/wp-cumulus/swfobject.js"></script><div id="wpcumuluswidgetcontent4906154"><p><a href='http://chenlinux.com/tag/apache' class='tag-link-4' title='13 个话题' style='font-size: 12.389830508475pt;'>apache</a>
+	</table></div></div>	        <div id="wp-cumulus" class="widget wp_cumulus_widget">							<h3>3D标签云</h3>						<!-- SWFObject embed by Geoff Stearns geoff@deconcept.com http://blog.deconcept.com/swfobject/ --><script type="text/javascript" src="http://chenlinux.com/wp-content/plugins/wp-cumulus/swfobject.js"></script><div id="wpcumuluswidgetcontent5861158"><p><a href='http://chenlinux.com/tag/apache' class='tag-link-4' title='13 个话题' style='font-size: 12.389830508475pt;'>apache</a>
 <a href='http://chenlinux.com/tag/awk' class='tag-link-6' title='23 个话题' style='font-size: 15.118644067797pt;'>awk</a>
 <a href='http://chenlinux.com/tag/c' class='tag-link-9' title='9 个话题' style='font-size: 10.610169491525pt;'>c</a>
 <a href='http://chenlinux.com/tag/cache' class='tag-link-10' title='28 个话题' style='font-size: 16.067796610169pt;'>cache</a>
@@ -1375,7 +1401,7 @@ OMD系列(三)shinken的discovery配置与运行">20</a></td><td>21</td><td>22</
 <a href='http://chenlinux.com/tag/%e8%8a%b1%e9%97%b4%e9%9b%86' class='tag-link-50' title='40 个话题' style='font-size: 17.847457627119pt;'>花间集</a>
 <a href='http://chenlinux.com/tag/%e8%af%b4%e8%af%8d' class='tag-link-64' title='6 个话题' style='font-size: 8.8305084745763pt;'>说词</a>
 <a href='http://chenlinux.com/tag/%e8%b5%8b' class='tag-link-65' title='16 个话题' style='font-size: 13.338983050847pt;'>赋</a>
-<a href='http://chenlinux.com/tag/%e9%95%bf%e8%b0%83' class='tag-link-54' title='44 个话题' style='font-size: 18.322033898305pt;'>长调</a></p><p>WP Cumulus Flash tag cloud by <a href="http://www.roytanck.com" rel="nofollow">Roy Tanck</a> requires <a href="http://www.macromedia.com/go/getflashplayer">Flash Player</a> 9 or better.</p></div><script type="text/javascript">var widget_so1915062 = new SWFObject("http://chenlinux.com/wp-content/plugins/wp-cumulus/tagcloud.swf?r=3232597", "tagcloudflash", "230", "230", "9", "#F7F7F7");widget_so1915062.addParam("wmode", "transparent");widget_so1915062.addParam("allowScriptAccess", "always");widget_so1915062.addVariable("tcolor", "0x333333");widget_so1915062.addVariable("tcolor2", "0x333333");widget_so1915062.addVariable("hicolor", "0x000000");widget_so1915062.addVariable("tspeed", "100");widget_so1915062.addVariable("distr", "true");widget_so1915062.addVariable("mode", "tags");widget_so1915062.addVariable("tagcloud", "%3Ctags%3E%3Ca+href%3D%27http%3A%2F%2Fchenlinux.com%2Ftag%2Fapache%27+class%3D%27tag-link-4%27+title%3D%2713+%E4%B8%AA%E8%AF%9D%E9%A2%98%27+style%3D%27font-size%3A+12.389830508475pt%3B%27%3Eapache%3C%2Fa%3E%0A%3Ca+href%3D%27http%3A%2F%2Fchenlinux.com%2Ftag%2Fawk%27+class%3D%27tag-link-6%27+title%3D%2723+%E4%B8%AA%E8%AF%9D%E9%A2%98%27+style%3D%27font-size%3A+15.118644067797pt%3B%27%3Eawk%3C%2Fa%3E%0A%3Ca+href%3D%27http%3A%2F%2Fchenlinux.com%2Ftag%2Fc%27+class%3D%27tag-link-9%27+title%3D%279+%E4%B8%AA%E8%AF%9D%E9%A2%98%27+style%3D%27font-size%3A+10.610169491525pt%3B%27%3Ec%3C%2Fa%3E%0A%3Ca+href%3D%27http%3A%2F%2Fchenlinux.com%2Ftag%2Fcache%27+class%3D%27tag-link-10%27+title%3D%2728+%E4%B8%AA%E8%AF%9D%E9%A2%98%27+style%3D%27font-size%3A+16.067796610169pt%3B%27%3Ecache%3C%2Fa%3E%0A%3Ca+href%3D%27http%3A%2F%2Fchenlinux.com%2Ftag%2Fcacti%27+class%3D%27tag-link-11%27+title%3D%277+%E4%B8%AA%E8%AF%9D%E9%A2%98%27+style%3D%27font-size%3A+9.4237288135593pt%3B%27%3Ecacti%3C%2Fa%3E%0A%3Ca+href%3D%27http%3A%2F%2Fchenlinux.com%2Ftag%2Fcdn%27+class%3D%27tag-link-12%27+title%3D%278+%E4%B8%AA%E8%AF%9D%E9%A2%98%27+style%3D%27font-size%3A+10.016949152542pt%3B%27%3Ecdn%3C%2Fa%3E%0A%3Ca+href%3D%27http%3A%2F%2Fchenlinux.com%2Ftag%2Fcurl%27+class%3D%27tag-link-17%27+title%3D%275+%E4%B8%AA%E8%AF%9D%E9%A2%98%27+style%3D%27font-size%3A+8pt%3B%27%3Ecurl%3C%2Fa%3E%0A%3Ca+href%3D%27http%3A%2F%2Fchenlinux.com%2Ftag%2Fdancer%27+class%3D%27tag-link-284%27+title%3D%279+%E4%B8%AA%E8%AF%9D%E9%A2%98%27+style%3D%27font-size%3A+10.610169491525pt%3B%27%3Edancer%3C%2Fa%3E%0A%3Ca+href%3D%27http%3A%2F%2Fchenlinux.com%2Ftag%2Fexpect%27+class%3D%27tag-link-41%27+title%3D%276+%E4%B8%AA%E8%AF%9D%E9%A2%98%27+style%3D%27font-size%3A+8.8305084745763pt%3B%27%3Eexpect%3C%2Fa%3E%0A%3Ca+href%3D%27http%3A%2F%2Fchenlinux.com%2Ftag%2Fgearman%27+class%3D%27tag-link-261%27+title%3D%276+%E4%B8%AA%E8%AF%9D%E9%A2%98%27+style%3D%27font-size%3A+8.8305084745763pt%3B%27%3Egearman%3C%2Fa%3E%0A%3Ca+href%3D%27http%3A%2F%2Fchenlinux.com%2Ftag%2Fhttp%27+class%3D%27tag-link-85%27+title%3D%275+%E4%B8%AA%E8%AF%9D%E9%A2%98%27+style%3D%27font-size%3A+8pt%3B%27%3Ehttp%3C%2Fa%3E%0A%3Ca+href%3D%27http%3A%2F%2Fchenlinux.com%2Ftag%2Fk%25e7%25ba%25bf%25e5%259b%25be%27+class%3D%27tag-link-97%27+title%3D%2710+%E4%B8%AA%E8%AF%9D%E9%A2%98%27+style%3D%27font-size%3A+11.084745762712pt%3B%27%3EK%E7%BA%BF%E5%9B%BE%3C%2Fa%3E%0A%3Ca+href%3D%27http%3A%2F%2Fchenlinux.com%2Ftag%2Flinux%27+class%3D%27tag-link-102%27+title%3D%2737+%E4%B8%AA%E8%AF%9D%E9%A2%98%27+style%3D%27font-size%3A+17.491525423729pt%3B%27%3Elinux%3C%2Fa%3E%0A%3Ca+href%3D%27http%3A%2F%2Fchenlinux.com%2Ftag%2Fmonitor%27+class%3D%27tag-link-108%27+title%3D%278+%E4%B8%AA%E8%AF%9D%E9%A2%98%27+style%3D%27font-size%3A+10.016949152542pt%3B%27%3Emonitor%3C%2Fa%3E%0A%3Ca+href%3D%27http%3A%2F%2Fchenlinux.com%2Ftag%2Fmysql%27+class%3D%27tag-link-112%27+title%3D%2718+%E4%B8%AA%E8%AF%9D%E9%A2%98%27+style%3D%27font-size%3A+13.932203389831pt%3B%27%3Emysql%3C%2Fa%3E%0A%3Ca+href%3D%27http%3A%2F%2Fchenlinux.com%2Ftag%2Fnagios%27+class%3D%27tag-link-113%27+title%3D%2714+%E4%B8%AA%E8%AF%9D%E9%A2%98%27+style%3D%27font-size%3A+12.745762711864pt%3B%27%3Enagios%3C%2Fa%3E%0A%3Ca+href%3D%27http%3A%2F%2Fchenlinux.com%2Ftag%2Fnginx%27+class%3D%27tag-link-118%27+title%3D%2726+%E4%B8%AA%E8%AF%9D%E9%A2%98%27+style%3D%27font-size%3A+15.71186440678pt%3B%27%3Enginx%3C%2Fa%3E%0A%3Ca+href%3D%27http%3A%2F%2Fchenlinux.com%2Ftag%2Fperl%27+class%3D%27tag-link-121%27+title%3D%2790+%E4%B8%AA%E8%AF%9D%E9%A2%98%27+style%3D%27font-size%3A+22pt%3B%27%3Eperl%3C%2Fa%3E%0A%3Ca+href%3D%27http%3A%2F%2Fchenlinux.com%2Ftag%2Fperl6advent%27+class%3D%27tag-link-306%27+title%3D%2723+%E4%B8%AA%E8%AF%9D%E9%A2%98%27+style%3D%27font-size%3A+15.118644067797pt%3B%27%3Eperl6advent%3C%2Fa%3E%0A%3Ca+href%3D%27http%3A%2F%2Fchenlinux.com%2Ftag%2Fphp%27+class%3D%27tag-link-122%27+title%3D%2715+%E4%B8%AA%E8%AF%9D%E9%A2%98%27+style%3D%27font-size%3A+12.983050847458pt%3B%27%3Ephp%3C%2Fa%3E%0A%3Ca+href%3D%27http%3A%2F%2Fchenlinux.com%2Ftag%2Fproxy%27+class%3D%27tag-link-127%27+title%3D%275+%E4%B8%AA%E8%AF%9D%E9%A2%98%27+style%3D%27font-size%3A+8pt%3B%27%3Eproxy%3C%2Fa%3E%0A%3Ca+href%3D%27http%3A%2F%2Fchenlinux.com%2Ftag%2Frewrite%27+class%3D%27tag-link-133%27+title%3D%2725+%E4%B8%AA%E8%AF%9D%E9%A2%98%27+style%3D%27font-size%3A+15.474576271186pt%3B%27%3Erewrite%3C%2Fa%3E%0A%3Ca+href%3D%27http%3A%2F%2Fchenlinux.com%2Ftag%2Fshell%27+class%3D%27tag-link-140%27+title%3D%2731+%E4%B8%AA%E8%AF%9D%E9%A2%98%27+style%3D%27font-size%3A+16.661016949153pt%3B%27%3Eshell%3C%2Fa%3E%0A%3Ca+href%3D%27http%3A%2F%2Fchenlinux.com%2Ftag%2Fsnmp%27+class%3D%27tag-link-141%27+title%3D%277+%E4%B8%AA%E8%AF%9D%E9%A2%98%27+style%3D%27font-size%3A+9.4237288135593pt%3B%27%3Esnmp%3C%2Fa%3E%0A%3Ca+href%3D%27http%3A%2F%2Fchenlinux.com%2Ftag%2Fsquid%27+class%3D%27tag-link-143%27+title%3D%2764+%E4%B8%AA%E8%AF%9D%E9%A2%98%27+style%3D%27font-size%3A+20.220338983051pt%3B%27%3Esquid%3C%2Fa%3E%0A%3Ca+href%3D%27http%3A%2F%2Fchenlinux.com%2Ftag%2Fssh%27+class%3D%27tag-link-144%27+title%3D%277+%E4%B8%AA%E8%AF%9D%E9%A2%98%27+style%3D%27font-size%3A+9.4237288135593pt%3B%27%3Essh%3C%2Fa%3E%0A%3Ca+href%3D%27http%3A%2F%2Fchenlinux.com%2Ftag%2Fsysctl%27+class%3D%27tag-link-149%27+title%3D%277+%E4%B8%AA%E8%AF%9D%E9%A2%98%27+style%3D%27font-size%3A+9.4237288135593pt%3B%27%3Esysctl%3C%2Fa%3E%0A%3Ca+href%3D%27http%3A%2F%2Fchenlinux.com%2Ftag%2Ftcp%27+class%3D%27tag-link-153%27+title%3D%277+%E4%B8%AA%E8%AF%9D%E9%A2%98%27+style%3D%27font-size%3A+9.4237288135593pt%3B%27%3Etcp%3C%2Fa%3E%0A%3Ca+href%3D%27http%3A%2F%2Fchenlinux.com%2Ftag%2F%25e4%25b8%2583%25e5%25be%258b%27+class%3D%27tag-link-220%27+title%3D%278+%E4%B8%AA%E8%AF%9D%E9%A2%98%27+style%3D%27font-size%3A+10.016949152542pt%3B%27%3E%E4%B8%83%E5%BE%8B%3C%2Fa%3E%0A%3Ca+href%3D%27http%3A%2F%2Fchenlinux.com%2Ftag%2F%25e4%25b8%2583%25e7%25bb%259d%27+class%3D%27tag-link-217%27+title%3D%278+%E4%B8%AA%E8%AF%9D%E9%A2%98%27+style%3D%27font-size%3A+10.016949152542pt%3B%27%3E%E4%B8%83%E7%BB%9D%3C%2Fa%3E%0A%3Ca+href%3D%27http%3A%2F%2Fchenlinux.com%2Ftag%2F%25e4%25b8%25ad%25e8%25b0%2583%27+class%3D%27tag-link-229%27+title%3D%2721+%E4%B8%AA%E8%AF%9D%E9%A2%98%27+style%3D%27font-size%3A+14.64406779661pt%3B%27%3E%E4%B8%AD%E8%B0%83%3C%2Fa%3E%0A%3Ca+href%3D%27http%3A%2F%2Fchenlinux.com%2Ftag%2F%25e4%25b8%25b4%25e5%25b7%259d%27+class%3D%27tag-link-231%27+title%3D%275+%E4%B8%AA%E8%AF%9D%E9%A2%98%27+style%3D%27font-size%3A+8pt%3B%27%3E%E4%B8%B4%E5%B7%9D%3C%2Fa%3E%0A%3Ca+href%3D%27http%3A%2F%2Fchenlinux.com%2Ftag%2F%25e4%25ba%25a4%25e5%25a4%25a7%27+class%3D%27tag-link-239%27+title%3D%279+%E4%B8%AA%E8%AF%9D%E9%A2%98%27+style%3D%27font-size%3A+10.610169491525pt%3B%27%3E%E4%BA%A4%E5%A4%A7%3C%2Fa%3E%0A%3Ca+href%3D%27http%3A%2F%2Fchenlinux.com%2Ftag%2F%25e5%2586%2599%25e5%259c%25a8%25e9%2597%25a8%25e5%25a4%2596%27+class%3D%27tag-link-166%27+title%3D%2711+%E4%B8%AA%E8%AF%9D%E9%A2%98%27+style%3D%27font-size%3A+11.559322033898pt%3B%27%3E%E5%86%99%E5%9C%A8%E9%97%A8%E5%A4%96%3C%2Fa%3E%0A%3Ca+href%3D%27http%3A%2F%2Fchenlinux.com%2Ftag%2F%25e5%258e%2586%25e5%258f%25b2%27+class%3D%27tag-link-171%27+title%3D%275+%E4%B8%AA%E8%AF%9D%E9%A2%98%27+style%3D%27font-size%3A+8pt%3B%27%3E%E5%8E%86%E5%8F%B2%3C%2Fa%3E%0A%3Ca+href%3D%27http%3A%2F%2Fchenlinux.com%2Ftag%2F%25e5%25a4%258d%25e7%259b%2598%27+class%3D%27tag-link-177%27+title%3D%2728+%E4%B8%AA%E8%AF%9D%E9%A2%98%27+style%3D%27font-size%3A+16.067796610169pt%3B%27%3E%E5%A4%8D%E7%9B%98%3C%2Fa%3E%0A%3Ca+href%3D%27http%3A%2F%2Fchenlinux.com%2Ftag%2F%25e5%25b0%258f%25e4%25bb%25a4%27+class%3D%27tag-link-185%27+title%3D%2790+%E4%B8%AA%E8%AF%9D%E9%A2%98%27+style%3D%27font-size%3A+22pt%3B%27%3E%E5%B0%8F%E4%BB%A4%3C%2Fa%3E%0A%3Ca+href%3D%27http%3A%2F%2Fchenlinux.com%2Ftag%2F%25e6%2581%25b6%25e6%2590%259e%27+class%3D%27tag-link-188%27+title%3D%2721+%E4%B8%AA%E8%AF%9D%E9%A2%98%27+style%3D%27font-size%3A+14.64406779661pt%3B%27%3E%E6%81%B6%E6%90%9E%3C%2Fa%3E%0A%3Ca+href%3D%27http%3A%2F%2Fchenlinux.com%2Ftag%2F%25e6%2595%25a3%25e6%259b%25b2%27+class%3D%27tag-link-192%27+title%3D%2713+%E4%B8%AA%E8%AF%9D%E9%A2%98%27+style%3D%27font-size%3A+12.389830508475pt%3B%27%3E%E6%95%A3%E6%9B%B2%3C%2Fa%3E%0A%3Ca+href%3D%27http%3A%2F%2Fchenlinux.com%2Ftag%2F%25e6%25b1%25b6%25e5%25b7%259d%27+class%3D%27tag-link-214%27+title%3D%2711+%E4%B8%AA%E8%AF%9D%E9%A2%98%27+style%3D%27font-size%3A+11.559322033898pt%3B%27%3E%E6%B1%B6%E5%B7%9D%3C%2Fa%3E%0A%3Ca+href%3D%27http%3A%2F%2Fchenlinux.com%2Ftag%2F%25e7%25ac%2594%25e8%25ae%25b0%27+class%3D%27tag-link-25%27+title%3D%2786+%E4%B8%AA%E8%AF%9D%E9%A2%98%27+style%3D%27font-size%3A+21.762711864407pt%3B%27%3E%E7%AC%94%E8%AE%B0%3C%2Fa%3E%0A%3Ca+href%3D%27http%3A%2F%2Fchenlinux.com%2Ftag%2F%25e8%258a%25b1%25e9%2597%25b4%25e9%259b%2586%27+class%3D%27tag-link-50%27+title%3D%2740+%E4%B8%AA%E8%AF%9D%E9%A2%98%27+style%3D%27font-size%3A+17.847457627119pt%3B%27%3E%E8%8A%B1%E9%97%B4%E9%9B%86%3C%2Fa%3E%0A%3Ca+href%3D%27http%3A%2F%2Fchenlinux.com%2Ftag%2F%25e8%25af%25b4%25e8%25af%258d%27+class%3D%27tag-link-64%27+title%3D%276+%E4%B8%AA%E8%AF%9D%E9%A2%98%27+style%3D%27font-size%3A+8.8305084745763pt%3B%27%3E%E8%AF%B4%E8%AF%8D%3C%2Fa%3E%0A%3Ca+href%3D%27http%3A%2F%2Fchenlinux.com%2Ftag%2F%25e8%25b5%258b%27+class%3D%27tag-link-65%27+title%3D%2716+%E4%B8%AA%E8%AF%9D%E9%A2%98%27+style%3D%27font-size%3A+13.338983050847pt%3B%27%3E%E8%B5%8B%3C%2Fa%3E%0A%3Ca+href%3D%27http%3A%2F%2Fchenlinux.com%2Ftag%2F%25e9%2595%25bf%25e8%25b0%2583%27+class%3D%27tag-link-54%27+title%3D%2744+%E4%B8%AA%E8%AF%9D%E9%A2%98%27+style%3D%27font-size%3A+18.322033898305pt%3B%27%3E%E9%95%BF%E8%B0%83%3C%2Fa%3E%3C%2Ftags%3E");widget_so1915062.write("wpcumuluswidgetcontent4906154");</script>	        </div>		<div id="categories-2" class="widget widget_categories"><h3>分类目录</h3>		<ul>
+<a href='http://chenlinux.com/tag/%e9%95%bf%e8%b0%83' class='tag-link-54' title='44 个话题' style='font-size: 18.322033898305pt;'>长调</a></p><p>WP Cumulus Flash tag cloud by <a href="http://www.roytanck.com" rel="nofollow">Roy Tanck</a> requires <a href="http://www.macromedia.com/go/getflashplayer">Flash Player</a> 9 or better.</p></div><script type="text/javascript">var widget_so8783263 = new SWFObject("http://chenlinux.com/wp-content/plugins/wp-cumulus/tagcloud.swf?r=2552290", "tagcloudflash", "230", "230", "9", "#F7F7F7");widget_so8783263.addParam("wmode", "transparent");widget_so8783263.addParam("allowScriptAccess", "always");widget_so8783263.addVariable("tcolor", "0x333333");widget_so8783263.addVariable("tcolor2", "0x333333");widget_so8783263.addVariable("hicolor", "0x000000");widget_so8783263.addVariable("tspeed", "100");widget_so8783263.addVariable("distr", "true");widget_so8783263.addVariable("mode", "tags");widget_so8783263.addVariable("tagcloud", "%3Ctags%3E%3Ca+href%3D%27http%3A%2F%2Fchenlinux.com%2Ftag%2Fapache%27+class%3D%27tag-link-4%27+title%3D%2713+%E4%B8%AA%E8%AF%9D%E9%A2%98%27+style%3D%27font-size%3A+12.389830508475pt%3B%27%3Eapache%3C%2Fa%3E%0A%3Ca+href%3D%27http%3A%2F%2Fchenlinux.com%2Ftag%2Fawk%27+class%3D%27tag-link-6%27+title%3D%2723+%E4%B8%AA%E8%AF%9D%E9%A2%98%27+style%3D%27font-size%3A+15.118644067797pt%3B%27%3Eawk%3C%2Fa%3E%0A%3Ca+href%3D%27http%3A%2F%2Fchenlinux.com%2Ftag%2Fc%27+class%3D%27tag-link-9%27+title%3D%279+%E4%B8%AA%E8%AF%9D%E9%A2%98%27+style%3D%27font-size%3A+10.610169491525pt%3B%27%3Ec%3C%2Fa%3E%0A%3Ca+href%3D%27http%3A%2F%2Fchenlinux.com%2Ftag%2Fcache%27+class%3D%27tag-link-10%27+title%3D%2728+%E4%B8%AA%E8%AF%9D%E9%A2%98%27+style%3D%27font-size%3A+16.067796610169pt%3B%27%3Ecache%3C%2Fa%3E%0A%3Ca+href%3D%27http%3A%2F%2Fchenlinux.com%2Ftag%2Fcacti%27+class%3D%27tag-link-11%27+title%3D%277+%E4%B8%AA%E8%AF%9D%E9%A2%98%27+style%3D%27font-size%3A+9.4237288135593pt%3B%27%3Ecacti%3C%2Fa%3E%0A%3Ca+href%3D%27http%3A%2F%2Fchenlinux.com%2Ftag%2Fcdn%27+class%3D%27tag-link-12%27+title%3D%278+%E4%B8%AA%E8%AF%9D%E9%A2%98%27+style%3D%27font-size%3A+10.016949152542pt%3B%27%3Ecdn%3C%2Fa%3E%0A%3Ca+href%3D%27http%3A%2F%2Fchenlinux.com%2Ftag%2Fcurl%27+class%3D%27tag-link-17%27+title%3D%275+%E4%B8%AA%E8%AF%9D%E9%A2%98%27+style%3D%27font-size%3A+8pt%3B%27%3Ecurl%3C%2Fa%3E%0A%3Ca+href%3D%27http%3A%2F%2Fchenlinux.com%2Ftag%2Fdancer%27+class%3D%27tag-link-284%27+title%3D%279+%E4%B8%AA%E8%AF%9D%E9%A2%98%27+style%3D%27font-size%3A+10.610169491525pt%3B%27%3Edancer%3C%2Fa%3E%0A%3Ca+href%3D%27http%3A%2F%2Fchenlinux.com%2Ftag%2Fexpect%27+class%3D%27tag-link-41%27+title%3D%276+%E4%B8%AA%E8%AF%9D%E9%A2%98%27+style%3D%27font-size%3A+8.8305084745763pt%3B%27%3Eexpect%3C%2Fa%3E%0A%3Ca+href%3D%27http%3A%2F%2Fchenlinux.com%2Ftag%2Fgearman%27+class%3D%27tag-link-261%27+title%3D%276+%E4%B8%AA%E8%AF%9D%E9%A2%98%27+style%3D%27font-size%3A+8.8305084745763pt%3B%27%3Egearman%3C%2Fa%3E%0A%3Ca+href%3D%27http%3A%2F%2Fchenlinux.com%2Ftag%2Fhttp%27+class%3D%27tag-link-85%27+title%3D%275+%E4%B8%AA%E8%AF%9D%E9%A2%98%27+style%3D%27font-size%3A+8pt%3B%27%3Ehttp%3C%2Fa%3E%0A%3Ca+href%3D%27http%3A%2F%2Fchenlinux.com%2Ftag%2Fk%25e7%25ba%25bf%25e5%259b%25be%27+class%3D%27tag-link-97%27+title%3D%2710+%E4%B8%AA%E8%AF%9D%E9%A2%98%27+style%3D%27font-size%3A+11.084745762712pt%3B%27%3EK%E7%BA%BF%E5%9B%BE%3C%2Fa%3E%0A%3Ca+href%3D%27http%3A%2F%2Fchenlinux.com%2Ftag%2Flinux%27+class%3D%27tag-link-102%27+title%3D%2737+%E4%B8%AA%E8%AF%9D%E9%A2%98%27+style%3D%27font-size%3A+17.491525423729pt%3B%27%3Elinux%3C%2Fa%3E%0A%3Ca+href%3D%27http%3A%2F%2Fchenlinux.com%2Ftag%2Fmonitor%27+class%3D%27tag-link-108%27+title%3D%278+%E4%B8%AA%E8%AF%9D%E9%A2%98%27+style%3D%27font-size%3A+10.016949152542pt%3B%27%3Emonitor%3C%2Fa%3E%0A%3Ca+href%3D%27http%3A%2F%2Fchenlinux.com%2Ftag%2Fmysql%27+class%3D%27tag-link-112%27+title%3D%2718+%E4%B8%AA%E8%AF%9D%E9%A2%98%27+style%3D%27font-size%3A+13.932203389831pt%3B%27%3Emysql%3C%2Fa%3E%0A%3Ca+href%3D%27http%3A%2F%2Fchenlinux.com%2Ftag%2Fnagios%27+class%3D%27tag-link-113%27+title%3D%2714+%E4%B8%AA%E8%AF%9D%E9%A2%98%27+style%3D%27font-size%3A+12.745762711864pt%3B%27%3Enagios%3C%2Fa%3E%0A%3Ca+href%3D%27http%3A%2F%2Fchenlinux.com%2Ftag%2Fnginx%27+class%3D%27tag-link-118%27+title%3D%2726+%E4%B8%AA%E8%AF%9D%E9%A2%98%27+style%3D%27font-size%3A+15.71186440678pt%3B%27%3Enginx%3C%2Fa%3E%0A%3Ca+href%3D%27http%3A%2F%2Fchenlinux.com%2Ftag%2Fperl%27+class%3D%27tag-link-121%27+title%3D%2790+%E4%B8%AA%E8%AF%9D%E9%A2%98%27+style%3D%27font-size%3A+22pt%3B%27%3Eperl%3C%2Fa%3E%0A%3Ca+href%3D%27http%3A%2F%2Fchenlinux.com%2Ftag%2Fperl6advent%27+class%3D%27tag-link-306%27+title%3D%2723+%E4%B8%AA%E8%AF%9D%E9%A2%98%27+style%3D%27font-size%3A+15.118644067797pt%3B%27%3Eperl6advent%3C%2Fa%3E%0A%3Ca+href%3D%27http%3A%2F%2Fchenlinux.com%2Ftag%2Fphp%27+class%3D%27tag-link-122%27+title%3D%2715+%E4%B8%AA%E8%AF%9D%E9%A2%98%27+style%3D%27font-size%3A+12.983050847458pt%3B%27%3Ephp%3C%2Fa%3E%0A%3Ca+href%3D%27http%3A%2F%2Fchenlinux.com%2Ftag%2Fproxy%27+class%3D%27tag-link-127%27+title%3D%275+%E4%B8%AA%E8%AF%9D%E9%A2%98%27+style%3D%27font-size%3A+8pt%3B%27%3Eproxy%3C%2Fa%3E%0A%3Ca+href%3D%27http%3A%2F%2Fchenlinux.com%2Ftag%2Frewrite%27+class%3D%27tag-link-133%27+title%3D%2725+%E4%B8%AA%E8%AF%9D%E9%A2%98%27+style%3D%27font-size%3A+15.474576271186pt%3B%27%3Erewrite%3C%2Fa%3E%0A%3Ca+href%3D%27http%3A%2F%2Fchenlinux.com%2Ftag%2Fshell%27+class%3D%27tag-link-140%27+title%3D%2731+%E4%B8%AA%E8%AF%9D%E9%A2%98%27+style%3D%27font-size%3A+16.661016949153pt%3B%27%3Eshell%3C%2Fa%3E%0A%3Ca+href%3D%27http%3A%2F%2Fchenlinux.com%2Ftag%2Fsnmp%27+class%3D%27tag-link-141%27+title%3D%277+%E4%B8%AA%E8%AF%9D%E9%A2%98%27+style%3D%27font-size%3A+9.4237288135593pt%3B%27%3Esnmp%3C%2Fa%3E%0A%3Ca+href%3D%27http%3A%2F%2Fchenlinux.com%2Ftag%2Fsquid%27+class%3D%27tag-link-143%27+title%3D%2764+%E4%B8%AA%E8%AF%9D%E9%A2%98%27+style%3D%27font-size%3A+20.220338983051pt%3B%27%3Esquid%3C%2Fa%3E%0A%3Ca+href%3D%27http%3A%2F%2Fchenlinux.com%2Ftag%2Fssh%27+class%3D%27tag-link-144%27+title%3D%277+%E4%B8%AA%E8%AF%9D%E9%A2%98%27+style%3D%27font-size%3A+9.4237288135593pt%3B%27%3Essh%3C%2Fa%3E%0A%3Ca+href%3D%27http%3A%2F%2Fchenlinux.com%2Ftag%2Fsysctl%27+class%3D%27tag-link-149%27+title%3D%277+%E4%B8%AA%E8%AF%9D%E9%A2%98%27+style%3D%27font-size%3A+9.4237288135593pt%3B%27%3Esysctl%3C%2Fa%3E%0A%3Ca+href%3D%27http%3A%2F%2Fchenlinux.com%2Ftag%2Ftcp%27+class%3D%27tag-link-153%27+title%3D%277+%E4%B8%AA%E8%AF%9D%E9%A2%98%27+style%3D%27font-size%3A+9.4237288135593pt%3B%27%3Etcp%3C%2Fa%3E%0A%3Ca+href%3D%27http%3A%2F%2Fchenlinux.com%2Ftag%2F%25e4%25b8%2583%25e5%25be%258b%27+class%3D%27tag-link-220%27+title%3D%278+%E4%B8%AA%E8%AF%9D%E9%A2%98%27+style%3D%27font-size%3A+10.016949152542pt%3B%27%3E%E4%B8%83%E5%BE%8B%3C%2Fa%3E%0A%3Ca+href%3D%27http%3A%2F%2Fchenlinux.com%2Ftag%2F%25e4%25b8%2583%25e7%25bb%259d%27+class%3D%27tag-link-217%27+title%3D%278+%E4%B8%AA%E8%AF%9D%E9%A2%98%27+style%3D%27font-size%3A+10.016949152542pt%3B%27%3E%E4%B8%83%E7%BB%9D%3C%2Fa%3E%0A%3Ca+href%3D%27http%3A%2F%2Fchenlinux.com%2Ftag%2F%25e4%25b8%25ad%25e8%25b0%2583%27+class%3D%27tag-link-229%27+title%3D%2721+%E4%B8%AA%E8%AF%9D%E9%A2%98%27+style%3D%27font-size%3A+14.64406779661pt%3B%27%3E%E4%B8%AD%E8%B0%83%3C%2Fa%3E%0A%3Ca+href%3D%27http%3A%2F%2Fchenlinux.com%2Ftag%2F%25e4%25b8%25b4%25e5%25b7%259d%27+class%3D%27tag-link-231%27+title%3D%275+%E4%B8%AA%E8%AF%9D%E9%A2%98%27+style%3D%27font-size%3A+8pt%3B%27%3E%E4%B8%B4%E5%B7%9D%3C%2Fa%3E%0A%3Ca+href%3D%27http%3A%2F%2Fchenlinux.com%2Ftag%2F%25e4%25ba%25a4%25e5%25a4%25a7%27+class%3D%27tag-link-239%27+title%3D%279+%E4%B8%AA%E8%AF%9D%E9%A2%98%27+style%3D%27font-size%3A+10.610169491525pt%3B%27%3E%E4%BA%A4%E5%A4%A7%3C%2Fa%3E%0A%3Ca+href%3D%27http%3A%2F%2Fchenlinux.com%2Ftag%2F%25e5%2586%2599%25e5%259c%25a8%25e9%2597%25a8%25e5%25a4%2596%27+class%3D%27tag-link-166%27+title%3D%2711+%E4%B8%AA%E8%AF%9D%E9%A2%98%27+style%3D%27font-size%3A+11.559322033898pt%3B%27%3E%E5%86%99%E5%9C%A8%E9%97%A8%E5%A4%96%3C%2Fa%3E%0A%3Ca+href%3D%27http%3A%2F%2Fchenlinux.com%2Ftag%2F%25e5%258e%2586%25e5%258f%25b2%27+class%3D%27tag-link-171%27+title%3D%275+%E4%B8%AA%E8%AF%9D%E9%A2%98%27+style%3D%27font-size%3A+8pt%3B%27%3E%E5%8E%86%E5%8F%B2%3C%2Fa%3E%0A%3Ca+href%3D%27http%3A%2F%2Fchenlinux.com%2Ftag%2F%25e5%25a4%258d%25e7%259b%2598%27+class%3D%27tag-link-177%27+title%3D%2728+%E4%B8%AA%E8%AF%9D%E9%A2%98%27+style%3D%27font-size%3A+16.067796610169pt%3B%27%3E%E5%A4%8D%E7%9B%98%3C%2Fa%3E%0A%3Ca+href%3D%27http%3A%2F%2Fchenlinux.com%2Ftag%2F%25e5%25b0%258f%25e4%25bb%25a4%27+class%3D%27tag-link-185%27+title%3D%2790+%E4%B8%AA%E8%AF%9D%E9%A2%98%27+style%3D%27font-size%3A+22pt%3B%27%3E%E5%B0%8F%E4%BB%A4%3C%2Fa%3E%0A%3Ca+href%3D%27http%3A%2F%2Fchenlinux.com%2Ftag%2F%25e6%2581%25b6%25e6%2590%259e%27+class%3D%27tag-link-188%27+title%3D%2721+%E4%B8%AA%E8%AF%9D%E9%A2%98%27+style%3D%27font-size%3A+14.64406779661pt%3B%27%3E%E6%81%B6%E6%90%9E%3C%2Fa%3E%0A%3Ca+href%3D%27http%3A%2F%2Fchenlinux.com%2Ftag%2F%25e6%2595%25a3%25e6%259b%25b2%27+class%3D%27tag-link-192%27+title%3D%2713+%E4%B8%AA%E8%AF%9D%E9%A2%98%27+style%3D%27font-size%3A+12.389830508475pt%3B%27%3E%E6%95%A3%E6%9B%B2%3C%2Fa%3E%0A%3Ca+href%3D%27http%3A%2F%2Fchenlinux.com%2Ftag%2F%25e6%25b1%25b6%25e5%25b7%259d%27+class%3D%27tag-link-214%27+title%3D%2711+%E4%B8%AA%E8%AF%9D%E9%A2%98%27+style%3D%27font-size%3A+11.559322033898pt%3B%27%3E%E6%B1%B6%E5%B7%9D%3C%2Fa%3E%0A%3Ca+href%3D%27http%3A%2F%2Fchenlinux.com%2Ftag%2F%25e7%25ac%2594%25e8%25ae%25b0%27+class%3D%27tag-link-25%27+title%3D%2786+%E4%B8%AA%E8%AF%9D%E9%A2%98%27+style%3D%27font-size%3A+21.762711864407pt%3B%27%3E%E7%AC%94%E8%AE%B0%3C%2Fa%3E%0A%3Ca+href%3D%27http%3A%2F%2Fchenlinux.com%2Ftag%2F%25e8%258a%25b1%25e9%2597%25b4%25e9%259b%2586%27+class%3D%27tag-link-50%27+title%3D%2740+%E4%B8%AA%E8%AF%9D%E9%A2%98%27+style%3D%27font-size%3A+17.847457627119pt%3B%27%3E%E8%8A%B1%E9%97%B4%E9%9B%86%3C%2Fa%3E%0A%3Ca+href%3D%27http%3A%2F%2Fchenlinux.com%2Ftag%2F%25e8%25af%25b4%25e8%25af%258d%27+class%3D%27tag-link-64%27+title%3D%276+%E4%B8%AA%E8%AF%9D%E9%A2%98%27+style%3D%27font-size%3A+8.8305084745763pt%3B%27%3E%E8%AF%B4%E8%AF%8D%3C%2Fa%3E%0A%3Ca+href%3D%27http%3A%2F%2Fchenlinux.com%2Ftag%2F%25e8%25b5%258b%27+class%3D%27tag-link-65%27+title%3D%2716+%E4%B8%AA%E8%AF%9D%E9%A2%98%27+style%3D%27font-size%3A+13.338983050847pt%3B%27%3E%E8%B5%8B%3C%2Fa%3E%0A%3Ca+href%3D%27http%3A%2F%2Fchenlinux.com%2Ftag%2F%25e9%2595%25bf%25e8%25b0%2583%27+class%3D%27tag-link-54%27+title%3D%2744+%E4%B8%AA%E8%AF%9D%E9%A2%98%27+style%3D%27font-size%3A+18.322033898305pt%3B%27%3E%E9%95%BF%E8%B0%83%3C%2Fa%3E%3C%2Ftags%3E");widget_so8783263.write("wpcumuluswidgetcontent5861158");</script>	        </div>		<div id="categories-2" class="widget widget_categories"><h3>分类目录</h3>		<ul>
 	<li class="cat-item cat-item-252"><a href="http://chenlinux.com/category/ops/cdn-ops" title="查看 CDN 下的所有文章">CDN</a>
 </li>
 	<li class="cat-item cat-item-254"><a href="http://chenlinux.com/category/ops/database" title="查看 Database 下的所有文章">Database</a>
@@ -1564,3 +1590,11 @@ document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3
 
 
 </html>
+
+
+
+
+
+
+
+
