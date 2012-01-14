@@ -1,99 +1,46 @@
-
-
-
-
-
 	<div class="post" id="post-2792">
-
-
 		<h2>2010年Perl6圣诞月历(十九)假作真时真亦假</h2>
-
-
 		<div class="info">
-
-
 			<span class="date">2011年12月14日</span>
-
-
 			<span class="author"><a href="http://chenlinux.com/author/admin" title="由 admin 发布" rel="author">admin</a></span>
-
 			
-
 			
-
 				<span class="addcomment"><a href="#respond">发表评论</a></span>
-
-
 				<span class="comments"><a href="#comments">阅读评论</a></span>
-
-
 			
-
 			<div class="fixed"></div>
-
-
 		</div>
-
-
 		<div class="content">
-
-
 			<p>今天的圣临礼物是教大家怎么用混淆完成一个小邪恶滴目的，吼吼~看起来这个功能挺疯狂的，其实有时候蛮有用的。先看下面这个用but的例子：</p>
-
 <div class="wp_syntax"><div class="code"><pre class="perl" style="font-family:monospace;"><span style="color: #b1b100;">my</span> <span style="color: #0000ff;">$value</span> <span style="color: #339933;">=</span> <span style="color: #cc66cc;">42</span> but role <span style="color: #009900;">&#123;</span> method Bool  <span style="color: #009900;">&#123;</span> False <span style="color: #009900;">&#125;</span> <span style="color: #009900;">&#125;</span><span style="color: #339933;">;</span>
 say <span style="color: #0000ff;">$value</span><span style="color: #339933;">;</span>    <span style="color: #666666; font-style: italic;"># 42</span>
 say <span style="color: #339933;">?</span><span style="color: #0000ff;">$value</span><span style="color: #339933;">;</span>   <span style="color: #666666; font-style: italic;"># False</span></pre></div></div>
-
 <p>你看，我们改变了$value的.Bool方法。他不影响程序里其他所有的整数，哪怕别的变量也是42。一般情况下，对于Int型，.Bool方法（通过?操作符）返回值依据是是否等于0。但这次它永远都返回false了。<br />
 事实上，我们还可以写的更简单，因为False是一个枚举值：</p>
-
 <div class="wp_syntax"><div class="code"><pre class="perl" style="font-family:monospace;"><span style="color: #b1b100;">my</span> <span style="color: #0000ff;">$value</span> <span style="color: #339933;">=</span> <span style="color: #cc66cc;">42</span> but False<span style="color: #339933;">;</span></pre></div></div>
-
 <p>因为False是Bool值，所有它会自动重载.Bool方法。这是Perl6的一种转换方法。其他的值，也会对应的重载。<br />
 这样在有的时候，这个东西就比较有用了：在Perl5里，你用system调用shell的时候，得牢牢记住在shell里，返回0才是正常的：</p>
-
 <div class="wp_syntax"><div class="code"><pre class="perl" style="font-family:monospace;"><span style="color: #b1b100;">if</span> <span style="color: #009900;">&#40;</span> <span style="color: #000066;">system</span><span style="color: #009900;">&#40;</span><span style="color: #0000ff;">$cmd</span><span style="color: #009900;">&#41;</span> <span style="color: #339933;">==</span> <span style="color: #cc66cc;">0</span> <span style="color: #009900;">&#41;</span> <span style="color: #009900;">&#123;</span>  <span style="color: #666666; font-style: italic;"># 或者!system($cmd)</span>
     <span style="color: #666666; font-style: italic;"># ...</span>
 <span style="color: #009900;">&#125;</span></pre></div></div>
-
 <p>而在Perl6中，对应的run命令返回的是上面说的这种重载过的Int，当且仅当返回值是0的时候，它的bool变成了True，这正是我们想要的额！</p>
-
 <div class="wp_syntax"><div class="code"><pre class="perl" style="font-family:monospace;"><span style="color: #b1b100;">if</span> run<span style="color: #009900;">&#40;</span><span style="color: #0000ff;">$cmd</span><span style="color: #009900;">&#41;</span> <span style="color: #009900;">&#123;</span>  <span style="color: #666666; font-style: italic;">#不需要否定了</span>
     <span style="color: #666666; font-style: italic;"># ...</span>
 <span style="color: #009900;">&#125;</span></pre></div></div>
-
 <p>好了，现在进入最疯狂的部分——我们可以重载布尔值的布尔方法：</p>
-
 <div class="wp_syntax"><div class="code"><pre class="perl" style="font-family:monospace;"><span style="color: #b1b100;">my</span> <span style="color: #0000ff;">$value</span> <span style="color: #339933;">=</span> True but False<span style="color: #339933;">;</span>
 say <span style="color: #0000ff;">$value</span><span style="color: #339933;">;</span>    <span style="color: #666666; font-style: italic;"># True</span>
 say <span style="color: #339933;">?</span><span style="color: #0000ff;">$value</span><span style="color: #339933;">;</span>   <span style="color: #666666; font-style: italic;"># False</span></pre></div></div>
-
 <p>没错，Perl6允许你这样自己踢自己屁股~~虽然我也不知道除了捣乱外怎么会有人愿意这么做，但是我还是很高兴看到Perl6保持这种微妙的跟踪和重载类型的心态。我可没有……</p>
 <div id="downaspdf">
                     <a title="下载此文章的 PDF 文档" href="http://chenlinux.com/wp-content/plugins/down-as-pdf/generate.php?id=2792">
                       <span>Download as PDF</span>
                     </a>
                 </div>
-
 			<div class="fixed"></div>
-
-
 		</div>
-
-
 		<div class="under">
-
-
 			<span class="categories">分类: </span><span><a href="http://chenlinux.com/category/ops/script" title="查看 脚本 中的全部文章" rel="category tag">脚本</a></span>
-
 			<span class="tags">标签: </span><span><a href="http://chenlinux.com/tag/perl" rel="tag">perl</a>, <a href="http://chenlinux.com/tag/perl6advent" rel="tag">perl6advent</a></span>
-
 		</div>
-
-
 	</div>
-
-
-
-
-

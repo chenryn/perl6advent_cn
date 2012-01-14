@@ -1,68 +1,34 @@
-
-
-
-
-
 	<div class="post" id="post-2724">
-
-
 		<h2>2010年Perl6圣诞月历(三)文件操作</h2>
-
-
 		<div class="info">
-
-
 			<span class="date">2011年12月13日</span>
-
-
 			<span class="author"><a href="http://chenlinux.com/author/admin" title="由 admin 发布" rel="author">admin</a></span>
-
 			
-
 			
-
 				<span class="addcomment"><a href="#respond">发表评论</a></span>
-
-
 				<span class="comments"><a href="#comments">阅读评论</a></span>
-
-
 			
-
 			<div class="fixed"></div>
-
-
 		</div>
-
-
 		<div class="content">
-
-
 			<p><strong>目录</strong><br />
 不再用opendir和其他神马滴，Perl6中有专门的dir函数，用来列出指定目录（默认是当前所在目录）下所有的文件。好了，直接贴代码：</p>
-
 <div class="wp_syntax"><div class="code"><pre class="perl" style="font-family:monospace;"> <span style="color: #666666; font-style: italic;">#在Rakudo源码目录里</span>
     <span style="color: #339933;">&gt;</span> dir
     build parrot_install Makefile VERSION parrot docs Configure<span style="color: #339933;">.</span>pl
     README dynext t src tools CREDITS LICENSE Test<span style="color: #339933;">.</span>pm
     <span style="color: #339933;">&gt;</span> dir <span style="color: #ff0000;">'t'</span>
     00<span style="color: #339933;">-</span>parrot 02<span style="color: #339933;">-</span>embed spec harness 01<span style="color: #339933;">-</span>sanity pmc spectest<span style="color: #339933;">.</span>data</pre></div></div>
-
 <p>dir还有一个可选的命名参数test，用来grep结果，这样：</p>
-
 <div class="wp_syntax"><div class="code"><pre class="perl" style="font-family:monospace;">   <span style="color: #339933;">&gt;</span> dir <span style="color: #ff0000;">'src/core'</span><span style="color: #339933;">,</span> test <span style="color: #339933;">=&gt;</span> any<span style="color: #009900;">&#40;</span><span style="color: #009966; font-style: italic;">/^C/</span><span style="color: #339933;">,</span> <span style="color: #009966; font-style: italic;">/^P/</span><span style="color: #009900;">&#41;</span>
     Parcel<span style="color: #339933;">.</span>pm Cool<span style="color: #339933;">.</span>pm Parameter<span style="color: #339933;">.</span>pm Code<span style="color: #339933;">.</span>pm Complex<span style="color: #339933;">.</span>pm
     CallFrame<span style="color: #339933;">.</span>pm Positional<span style="color: #339933;">.</span>pm Capture<span style="color: #339933;">.</span>pm Pair<span style="color: #339933;">.</span>pm Cool<span style="color: #339933;">-</span>num<span style="color: #339933;">.</span>pm Callable<span style="color: #339933;">.</span>pm Cool<span style="color: #339933;">-</span>str<span style="color: #339933;">.</span>pm</pre></div></div>
-
 <p>创建目录，还是mkdir函数没错啦~<br />
 <strong>文件</strong><br />
 最简单的读取文件的办法，是直接使用slurp函数，这个函数以标量形式返回文件的内容，这样：</p>
-
 <div class="wp_syntax"><div class="code"><pre class="perl" style="font-family:monospace;"> <span style="color: #339933;">&gt;</span> slurp <span style="color: #ff0000;">'VERSION'</span>
     <span style="color: #cc66cc;">2010.11</span></pre></div></div>
-
 <p>当然原始的文件句柄方式还是有效的，这样：</p>
-
 <div class="wp_syntax"><div class="code"><pre class="perl" style="font-family:monospace;">   <span style="color: #339933;">&gt;</span> <span style="color: #b1b100;">my</span> <span style="color: #0000ff;">$fh</span> <span style="color: #339933;">=</span> <span style="color: #000066;">open</span> <span style="color: #ff0000;">'CREDITS'</span>
     IO<span style="color: #009900;">&#40;</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">&lt;</span>0x1105a068<span style="color: #339933;">&gt;</span>
     <span style="color: #339933;">&gt;</span> <span style="color: #0000ff;">$fh</span><span style="color: #339933;">.</span><span style="color: #000066;">getc</span> <span style="color: #666666; font-style: italic;">#读取一个字符</span>
@@ -77,58 +43,35 @@
     Bool<span style="color: #339933;">::</span><span style="color: #006600;">True</span>
     <span style="color: #339933;">&gt;</span> <span style="color: #0000ff;">$fh</span><span style="color: #339933;">.</span><span style="color: #000066;">close</span><span style="color: #339933;">;</span> say slurp<span style="color: #009900;">&#40;</span><span style="color: #ff0000;">'new'</span><span style="color: #009900;">&#41;</span>
     foobar</pre></div></div>
-
 <p><strong>文件测试</strong><br />
 如果要测试文件是否存在以及文件的具体类型，直接使用~~操作符就搞定了，还是用代码说话：</p>
-
 <div class="wp_syntax"><div class="code"><pre class="perl" style="font-family:monospace;">  <span style="color: #339933;">&gt;</span> <span style="color: #ff0000;">'LICENSE'</span><span style="color: #339933;">.</span>IO <span style="color: #339933;">~~</span> <span style="color: #339933;">:</span>e <span style="color: #666666; font-style: italic;">#文件(广义的)是否存在</span>
     Bool<span style="color: #339933;">::</span><span style="color: #006600;">True</span>
     <span style="color: #339933;">&gt;</span> <span style="color: #ff0000;">'LICENSE'</span><span style="color: #339933;">.</span>IO <span style="color: #339933;">~~</span> <span style="color: #339933;">:</span>d <span style="color: #666666; font-style: italic;">#那么他是目录么？</span>
     Bool<span style="color: #339933;">::</span><span style="color: #006600;">False</span>
     <span style="color: #339933;">&gt;</span> <span style="color: #ff0000;">'LICENSE'</span><span style="color: #339933;">.</span>IO <span style="color: #339933;">~~</span> <span style="color: #339933;">:</span>f <span style="color: #666666; font-style: italic;">#那么是文件(狭义的)？</span>
     Bool<span style="color: #339933;">::</span><span style="color: #006600;">True</span></pre></div></div>
-
 <p>容易吧~~<br />
 <strong>File::Find</strong><br />
 如果这些个标准特性还不够，那模块就派上用场了。File::Tools包里的File::Find模块可以递归你指定的目录找你要的东西然后列出来。这个模块应该是跟着Rakudo Star一起打包了，如果你只裸装了Rakudo，那么用neutro命令安装也是挺方便的~~<br />
 额，还是要例子？好吧~很简单的一行find(:dir<t/dir1>, :type<file>, :name(/foo/))，这就会在t/dir1目录下，寻找名字匹配foo的文件，然后以树的形式列出来~不过要注意的是：这命令的返回可不是文本标量，而是一个个包括他们的完整路径在内的对象，而且还提供文件本身以及文件所在目录的访问器！更多信息，直接看<a href="https://github.com/tadzik/perl6-File-Tools/blob/master/lib/File/Find.pm" title="文档" target="_blank">文档</a>吧。<br />
 <strong>有用的示例</strong><br />
 1、创建新文件</p>
-
 <div class="wp_syntax"><div class="code"><pre class="perl" style="font-family:monospace;">    <span style="color: #000066;">open</span><span style="color: #009900;">&#40;</span><span style="color: #ff0000;">'new'</span><span style="color: #339933;">,</span> <span style="color: #339933;">:</span>w<span style="color: #009900;">&#41;</span><span style="color: #339933;">.</span><span style="color: #000066;">close</span></pre></div></div>
-
 <p>2、匿名文件句柄</p>
-
 <div class="wp_syntax"><div class="code"><pre class="perl" style="font-family:monospace;">    given <span style="color: #000066;">open</span><span style="color: #009900;">&#40;</span><span style="color: #ff0000;">'foo'</span><span style="color: #339933;">,</span> <span style="color: #339933;">:</span>w<span style="color: #009900;">&#41;</span> <span style="color: #009900;">&#123;</span>
         <span style="color: #339933;">.</span>say<span style="color: #009900;">&#40;</span><span style="color: #ff0000;">'Hello, world!'</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span>
         <span style="color: #339933;">.</span><span style="color: #000066;">close</span>
     <span style="color: #009900;">&#125;</span></pre></div></div>
-
 <div id="downaspdf">
                     <a title="下载此文章的 PDF 文档" href="http://chenlinux.com/wp-content/plugins/down-as-pdf/generate.php?id=2724">
                       <span>Download as PDF</span>
                     </a>
                 </div>
-
 			<div class="fixed"></div>
-
-
 		</div>
-
-
 		<div class="under">
-
-
 			<span class="categories">分类: </span><span><a href="http://chenlinux.com/category/ops/script" title="查看 脚本 中的全部文章" rel="category tag">脚本</a></span>
-
 			<span class="tags">标签: </span><span><a href="http://chenlinux.com/tag/perl" rel="tag">perl</a>, <a href="http://chenlinux.com/tag/perl6advent" rel="tag">perl6advent</a></span>
-
 		</div>
-
-
 	</div>
-
-
-
-
-

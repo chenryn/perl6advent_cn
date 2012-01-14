@@ -1,75 +1,36 @@
-
-
-
-
-
 	<div class="post" id="post-2781">
-
-
 		<h2>2010年Perl6圣诞月历(十六)Perl6里的时间</h2>
-
-
 		<div class="info">
-
-
 			<span class="date">2011年12月14日</span>
-
-
 			<span class="author"><a href="http://chenlinux.com/author/admin" title="由 admin 发布" rel="author">admin</a></span>
-
 			
-
 			
-
 				<span class="addcomment"><a href="#respond">发表评论</a></span>
-
-
 				<span class="comments"><a href="#comments">阅读评论</a></span>
-
-
 			
-
 			<div class="fixed"></div>
-
-
 		</div>
-
-
 		<div class="content">
-
-
 			<p>今天是圣诞月历的第0&#215;10天，是时候学习一下perl6里的时间了。S32::Temporal简介在过去一年中有了大量的修改，今天我们就来介绍一下在perl6实现中关于时间的一些基础知识。<br />
 <strong>time和now</strong><br />
 time和now是两个可以返回当前时间（至少是你的系统认为的当前时间）的词。简单的展示一下：</p>
-
 <div class="wp_syntax"><div class="code"><pre class="perl" style="font-family:monospace;"><span style="color: #339933;">&gt;</span> say <span style="color: #000066;">time</span><span style="color: #339933;">;</span> say now<span style="color: #339933;">;</span>
 <span style="color: #cc66cc;">1292460064</span>
 Instant<span style="color: #339933;">:</span><span style="color: #cc66cc;">2010</span><span style="color: #339933;">-</span><span style="color: #cc66cc;">12</span><span style="color: #339933;">-</span>16T00<span style="color: #339933;">:</span><span style="color: #cc66cc;">41</span><span style="color: #339933;">:</span>4<span style="color: #339933;">.</span>873248Z</pre></div></div>
-
 <p>第一个明显的区别，前者返回的是POSIX格式的数值型的结果；而后者返回的是一个瞬间的对象。如果你想获取秒级以下小数点位或者说闰秒，请用now；如果不用，那用time获取POSIX格式就够了。随你的便。<br />
 <strong>DateTime和他的伙伴</strong><br />
 大多数时候，你要的不是当前时间。这种时候，你需要的是DateTime。比如还是获取当前时间：</p>
-
 <div class="wp_syntax"><div class="code"><pre class="perl" style="font-family:monospace;"><span style="color: #b1b100;">my</span> <span style="color: #0000ff;">$moment</span> <span style="color: #339933;">=</span> DateTime<span style="color: #339933;">.</span><span style="color: #000000; font-weight: bold;">new</span><span style="color: #009900;">&#40;</span>now<span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span> <span style="color: #666666; font-style: italic;"># 或者DateTime.new(time)</span></pre></div></div>
-
 <p>你有两种方式来创建DateTime对象：</p>
-
 <div class="wp_syntax"><div class="code"><pre class="perl" style="font-family:monospace;"><span style="color: #b1b100;">my</span> <span style="color: #0000ff;">$dw</span> <span style="color: #339933;">=</span> DateTime<span style="color: #339933;">.</span><span style="color: #000000; font-weight: bold;">new</span><span style="color: #009900;">&#40;</span><span style="color: #339933;">:</span>year<span style="color: #009900;">&#40;</span><span style="color: #cc66cc;">1963</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">,</span> <span style="color: #339933;">:</span>month<span style="color: #009900;">&#40;</span><span style="color: #cc66cc;">11</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">,</span> <span style="color: #339933;">:</span>day<span style="color: #009900;">&#40;</span><span style="color: #cc66cc;">23</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">,</span> <span style="color: #339933;">:</span>hour<span style="color: #009900;">&#40;</span><span style="color: #cc66cc;">17</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">,</span> <span style="color: #339933;">:</span>minute<span style="color: #009900;">&#40;</span><span style="color: #cc66cc;">15</span><span style="color: #009900;">&#41;</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span></pre></div></div>
-
 <p>这是UTC时区，如果你要更改时区的话，再加上:timezone就好了。这个格式里，只有:year是必须的，其他的默认就是1月1号半夜0点0分。<br />
 上面这种写法确实乏味，你可以采用ISO8601格式的输入，来创建一个DateTime对象：</p>
-
 <div class="wp_syntax"><div class="code"><pre class="perl" style="font-family:monospace;"><span style="color: #b1b100;">my</span> <span style="color: #0000ff;">$dw</span> <span style="color: #339933;">=</span> DateTime<span style="color: #339933;">.</span><span style="color: #000000; font-weight: bold;">new</span><span style="color: #009900;">&#40;</span><span style="color: #ff0000;">&quot;1963-11-23T17:15:00Z&quot;</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span></pre></div></div>
-
 <p>其中Z表示UTC，想改变的话，把Z替换成+hhmm或者-hhmm就好了。hh表示小时，mm表示分钟。<br />
 此外，还有一个更简略的Date对象。只包括年月日的：</p>
-
 <div class="wp_syntax"><div class="code"><pre class="perl" style="font-family:monospace;"><span style="color: #b1b100;">my</span> <span style="color: #0000ff;">$jfk</span> <span style="color: #339933;">=</span> Date<span style="color: #339933;">.</span><span style="color: #000000; font-weight: bold;">new</span><span style="color: #009900;">&#40;</span><span style="color: #ff0000;">&quot;1963-11-22&quot;</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span> <span style="color: #666666; font-style: italic;"># 你也可以用:year等的写法</span></pre></div></div>
-
 <p>引入Date对象，是吸取了CPAN上DateTime模块的教训：有时候你压根不关心什么时区啊闰秒啊的。Date对象非常容易处理，比如它有内置的.succ和.pred方法，用来简单的递增和递减。</p>
-
 <div class="wp_syntax"><div class="code"><pre class="perl" style="font-family:monospace;"><span style="color: #0000ff;">$jfk</span><span style="color: #339933;">++;</span> <span style="color: #666666; font-style: italic;"># 肯尼迪遇刺后的第二天</span></pre></div></div>
-
 <p><strong>最后&#8230;</strong><br />
 以上就是关于Perl6里的时间的内容了，想了解更多细节，去看看<a href="http://perlcabal.org/syn/S32/Temporal.html" target="_blank">规范</a>吧；或者去社区里提问。</p>
 <div id="downaspdf">
@@ -77,26 +38,10 @@ Instant<span style="color: #339933;">:</span><span style="color: #cc66cc;">2010<
                       <span>Download as PDF</span>
                     </a>
                 </div>
-
 			<div class="fixed"></div>
-
-
 		</div>
-
-
 		<div class="under">
-
-
 			<span class="categories">分类: </span><span><a href="http://chenlinux.com/category/ops/script" title="查看 脚本 中的全部文章" rel="category tag">脚本</a></span>
-
 			<span class="tags">标签: </span><span><a href="http://chenlinux.com/tag/perl" rel="tag">perl</a>, <a href="http://chenlinux.com/tag/perl6advent" rel="tag">perl6advent</a></span>
-
 		</div>
-
-
 	</div>
-
-
-
-
-

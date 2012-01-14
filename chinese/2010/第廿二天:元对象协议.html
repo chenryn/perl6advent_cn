@@ -1,46 +1,18 @@
-
-
-
-
-
 	<div class="post" id="post-2802">
-
-
 		<h2>2010年Perl6圣诞月历(廿二)元对象协议</h2>
-
-
 		<div class="info">
-
-
 			<span class="date">2011年12月15日</span>
-
-
 			<span class="author"><a href="http://chenlinux.com/author/admin" title="由 admin 发布" rel="author">admin</a></span>
-
 			
-
 			
-
 				<span class="addcomment"><a href="#respond">发表评论</a></span>
-
-
 				<span class="comments"><a href="#comments">阅读评论</a></span>
-
-
 			
-
 			<div class="fixed"></div>
-
-
 		</div>
-
-
 		<div class="content">
-
-
 			<p>你有没有想过用你最爱的编程语言写一个类——但是不是按部就班的写类定义，而是通过几行代码？有些语言提供了API来完成这个功能。这些API的后面，就是元对象协议(Meta-Object Protocol)，简称MOP。<br />
 Perl6就有MOP，你可以自己创建类、角色、语法，添加方法和属性，并且内省类。比如我们可以调用MOP查看Rakudo是如何实现Rat类型（有理数）的。调用MOP，只要把一般的.换成.^就可以了。</p>
-
 <div class="wp_syntax"><div class="code"><pre class="bash" style="font-family:monospace;">$ perl6
  <span style="color: #000000; font-weight: bold;">&gt;</span> say <span style="color: #c20cb9; font-weight: bold;">join</span> <span style="color: #ff0000;">', '</span>, Rat.^attributes
  <span style="color: #007800;">$!</span>numerator, <span style="color: #007800;">$!</span>denominator
@@ -49,10 +21,8 @@ Perl6就有MOP，你可以自己创建类、角色、语法，添加方法和属
  unpolar, ceiling, reals, Str, round
  <span style="color: #000000; font-weight: bold;">&gt;</span> say Rat.^methods<span style="color: #7a0874; font-weight: bold;">&#40;</span>:<span style="color: #7a0874; font-weight: bold;">local</span><span style="color: #7a0874; font-weight: bold;">&#41;</span>.grep<span style="color: #7a0874; font-weight: bold;">&#40;</span><span style="color: #ff0000;">'log'</span><span style="color: #7a0874; font-weight: bold;">&#41;</span>.<span style="color: #7a0874; font-weight: bold;">&#91;</span><span style="color: #000000;">0</span><span style="color: #7a0874; font-weight: bold;">&#93;</span>.signature.perl
  :<span style="color: #7a0874; font-weight: bold;">&#40;</span>Numeric <span style="color: #007800;">$x</span>: Numeric <span style="color: #007800;">$base</span> = <span style="color: #7a0874; font-weight: bold;">&#123;</span> ... <span style="color: #7a0874; font-weight: bold;">&#125;</span><span style="color: #000000; font-weight: bold;">;;</span> <span style="color: #000000; font-weight: bold;">*%</span>_<span style="color: #7a0874; font-weight: bold;">&#41;</span></pre></div></div>
-
 <p>显示出来的这几行信息相信都是不言自明了。Rat有两个属性，$!numerator和$!denominator；有很多方法，其中log方法可接受的第一个变量是数值型invocant(译者注：不知道怎么翻译，反正就是对象本身的引用$_[0])，用冒号标记过；第二个变量参数是可选的，名字是$base，它设有一个默认值，不过Rakudo不打算告诉你……<br />
 Perl6的数据库接口代码里有一个很不错的使用实例。它有一个选项用来记录对象的调用，但是只是记录一部分特定角色（比如和连接管理或者数据检索有关的）。下面是dbi里的代码：</p>
-
 <div class="wp_syntax"><div class="code"><pre class="perl" style="font-family:monospace;"> <span style="color: #000000; font-weight: bold;">sub</span> log<span style="color: #339933;">-</span>calls<span style="color: #009900;">&#40;</span><span style="color: #0000ff;">$obj</span><span style="color: #339933;">,</span> Role <span style="color: #0000ff;">$r</span><span style="color: #009900;">&#41;</span> <span style="color: #009900;">&#123;</span>
      <span style="color: #b1b100;">my</span> <span style="color: #0000ff;">$wrapper</span> <span style="color: #339933;">=</span> RoleHOW<span style="color: #339933;">.</span><span style="color: #000000; font-weight: bold;">new</span><span style="color: #339933;">;</span>
      <span style="color: #b1b100;">for</span> <span style="color: #0000ff;">$r</span><span style="color: #339933;">.^</span>methods <span style="color: #339933;">-&gt;</span> <span style="color: #0000ff;">$m</span> <span style="color: #009900;">&#123;</span>
@@ -81,7 +51,6 @@ Perl6的数据库接口代码里有一个很不错的使用实例。它有一个
  <span style="color: #0000ff;">$o</span><span style="color: #339933;">.</span>greet<span style="color: #009900;">&#40;</span><span style="color: #ff0000;">'you'</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span>
  <span style="color: #666666; font-style: italic;"># not logged, because not provided by the role</span>
  <span style="color: #0000ff;">$o</span><span style="color: #339933;">.</span>LOLGREET<span style="color: #009900;">&#40;</span><span style="color: #ff0000;">'u'</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span></pre></div></div>
-
 <p>运行结果如下：</p>
 <pre> >> greet
  hello, you
@@ -92,26 +61,10 @@ Perl6的数据库接口代码里有一个很不错的使用实例。它有一个
                       <span>Download as PDF</span>
                     </a>
                 </div>
-
 			<div class="fixed"></div>
-
-
 		</div>
-
-
 		<div class="under">
-
-
 			<span class="categories">分类: </span><span><a href="http://chenlinux.com/category/ops/script" title="查看 脚本 中的全部文章" rel="category tag">脚本</a></span>
-
 			<span class="tags">标签: </span><span><a href="http://chenlinux.com/tag/perl" rel="tag">perl</a>, <a href="http://chenlinux.com/tag/perl6advent" rel="tag">perl6advent</a></span>
-
 		</div>
-
-
 	</div>
-
-
-
-
-

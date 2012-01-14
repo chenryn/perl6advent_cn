@@ -1,135 +1,74 @@
-
-
-
-
-
 	<div class="post" id="post-2729">
-
-
 		<h2>2010年Perl6圣诞月历(四)序列操作符</h2>
-
-
 		<div class="info">
-
-
 			<span class="date">2011年12月13日</span>
-
-
 			<span class="author"><a href="http://chenlinux.com/author/admin" title="由 admin 发布" rel="author">admin</a></span>
-
 			
-
 			
-
 				<span class="addcomment"><a href="#respond">发表评论</a></span>
-
-
 				<span class="comments"><a href="#comments">阅读评论</a></span>
-
-
 			
-
 			<div class="fixed"></div>
-
-
 		</div>
-
-
 		<div class="content">
-
-
 			<p>去年就有一个<a href="http://perl6advent.wordpress.com/2009/12/23/day-23-lazy-fruits-from-the-gather-of-eden/" title="简单的序列操作">简单的序列操作</a>的文章，一年过去了，需要稍微调整一下，还是可以继续用的：</p>
-
 <div class="wp_syntax"><div class="code"><pre class="perl" style="font-family:monospace;"><span style="color: #b1b100;">my</span> <span style="color: #0000ff;">@even</span><span style="color: #339933;">-</span>numbers  <span style="color: #339933;">:=</span> <span style="color: #cc66cc;">0</span><span style="color: #339933;">,</span> <span style="color: #cc66cc;">2</span> <span style="color: #339933;">...</span> <span style="color: #339933;">*;</span>    <span style="color: #666666; font-style: italic;">#算术序列</span>
 <span style="color: #b1b100;">my</span> <span style="color: #0000ff;">@odd</span><span style="color: #339933;">-</span>numbers   <span style="color: #339933;">:=</span> <span style="color: #cc66cc;">1</span><span style="color: #339933;">,</span> <span style="color: #cc66cc;">3</span> <span style="color: #339933;">...</span> <span style="color: #339933;">*;</span>
 <span style="color: #b1b100;">my</span> <span style="color: #0000ff;">@powers</span><span style="color: #339933;">-</span>of<span style="color: #339933;">-</span>two <span style="color: #339933;">:=</span> <span style="color: #cc66cc;">1</span><span style="color: #339933;">,</span> <span style="color: #cc66cc;">2</span><span style="color: #339933;">,</span> <span style="color: #cc66cc;">4</span> <span style="color: #339933;">...</span> <span style="color: #339933;">*;</span> <span style="color: #666666; font-style: italic;"># 几何序列</span></pre></div></div>
-
 <p>现在在Rakudo里这么写：</p>
-
 <div class="wp_syntax"><div class="code"><pre class="perl" style="font-family:monospace;"><span style="color: #339933;">&gt;</span> <span style="color: #b1b100;">my</span> <span style="color: #0000ff;">@powers</span><span style="color: #339933;">-</span>of<span style="color: #339933;">-</span>two <span style="color: #339933;">:=</span> <span style="color: #cc66cc;">1</span><span style="color: #339933;">,</span> <span style="color: #cc66cc;">2</span><span style="color: #339933;">,</span> <span style="color: #cc66cc;">4</span> <span style="color: #339933;">...</span> <span style="color: #339933;">*;</span> <span style="color: #cc66cc;">1</span><span style="color: #339933;">;</span>
 <span style="color: #cc66cc;">1</span>
 <span style="color: #339933;">&gt;</span> <span style="color: #0000ff;">@powers</span><span style="color: #339933;">-</span>of<span style="color: #339933;">-</span>two<span style="color: #009900;">&#91;</span><span style="color: #339933;">^</span><span style="color: #cc66cc;">10</span><span style="color: #009900;">&#93;</span>
 <span style="color: #cc66cc;">1</span> <span style="color: #cc66cc;">2</span> <span style="color: #cc66cc;">4</span> <span style="color: #cc66cc;">8</span> <span style="color: #cc66cc;">16</span> <span style="color: #cc66cc;">32</span> <span style="color: #cc66cc;">64</span> <span style="color: #cc66cc;">128</span> <span style="color: #cc66cc;">256</span> <span style="color: #cc66cc;">512</span></pre></div></div>
-
 <p>(注释：说明一下为什么定义数组后面还加了一个”1;”——因为这里用的是Rakudo-REPL，这样不用命令行参数也能查看最后一个表达式的运行效果。但是这个@powers-of-two是一个无限长的列表，可不能让他显示……所以加一个1;，让REPL打印1就好了~~)<br />
 当正式使用的时候，我们需要裁剪一下列表，免得rakudo花太长时间在无限循环上==!比如这里我就是直接请求了[^10]，即前十个元素。需要注意的是，当数组绑定在一个无限序列上的时候，这些曾经计算过的元素就从此被记下了，这是一种快速<a href="http://justrakudoit.wordpress.com/2010/08/28/the-serial-operator-and-memoization/" title="memoization" target="_blank">memoization</a>（译者注：memoization找不到翻译，理解成函数返回值的缓存吧）的形式。<br />
 在生成无限序列的时候，序列操作符&#8230;是一种很有用的工具。上面的例子就小小的演示了一下他的用法。给他一个数字，他从这个数字开始计数（除非是序列末尾的数反而更小，那就会倒计数）；再给一个数字，组成序列，根据这两个数计算下一个数；最后给第三个数字，用来检查前面计算的结果，看看序列是算术的还是几何的。然后一直算下去……<br />
 当然，很多序列既不是算术也不是几何排序的。这种情况下，你就得自己提供一个sub来生成序列的下一个数字了：</p>
-
 <div class="wp_syntax"><div class="code"><pre class="perl" style="font-family:monospace;"><span style="color: #339933;">&gt;</span> <span style="color: #b1b100;">my</span> <span style="color: #0000ff;">@Fibonacci</span> <span style="color: #339933;">:=</span> <span style="color: #cc66cc;">0</span><span style="color: #339933;">,</span> <span style="color: #cc66cc;">1</span><span style="color: #339933;">,</span> <span style="color: #339933;">-&gt;</span> <span style="color: #0000ff;">$a</span><span style="color: #339933;">,</span> <span style="color: #0000ff;">$b</span> <span style="color: #009900;">&#123;</span> <span style="color: #0000ff;">$a</span> <span style="color: #339933;">+</span> <span style="color: #0000ff;">$b</span> <span style="color: #009900;">&#125;</span> <span style="color: #339933;">...</span> <span style="color: #339933;">*;</span> <span style="color: #cc66cc;">1</span><span style="color: #339933;">;</span>
 <span style="color: #cc66cc;">1</span>
 <span style="color: #339933;">&gt;</span> <span style="color: #0000ff;">@Fibonacci</span><span style="color: #009900;">&#91;</span><span style="color: #339933;">^</span><span style="color: #cc66cc;">10</span><span style="color: #009900;">&#93;</span>
 <span style="color: #cc66cc;">0</span> <span style="color: #cc66cc;">1</span> <span style="color: #cc66cc;">1</span> <span style="color: #cc66cc;">2</span> <span style="color: #cc66cc;">3</span> <span style="color: #cc66cc;">5</span> <span style="color: #cc66cc;">8</span> <span style="color: #cc66cc;">13</span> <span style="color: #cc66cc;">21</span> <span style="color: #cc66cc;">34</span></pre></div></div>
-
 <p>嗯，这段代码&#8217;-> $a,$b{$a+$b}&#8217;有个尖块就是个lambda函数，给两个参数，返回他们的和。序列操作符分析函数需要几个参数，然后从序列的队尾取出来相应数量，计算结果作为下一个数字。依此循环，一直下去~<br />
 停！其实也可以不一直下去——上面所有的例子里，序列的右边都是空的，这个意思就是“没有终止条件”。也就是说，如果你在序列的最右端加上一个数字，序列就会在到达这个数字的时候停下来了：</p>
-
 <div class="wp_syntax"><div class="code"><pre class="perl" style="font-family:monospace;"><span style="color: #339933;">&gt;</span> <span style="color: #cc66cc;">1</span><span style="color: #339933;">,</span> <span style="color: #cc66cc;">1.1</span> <span style="color: #339933;">...</span> <span style="color: #cc66cc;">2</span>
 <span style="color: #cc66cc;">1</span> <span style="color: #cc66cc;">1.1</span> <span style="color: #cc66cc;">1.2</span> <span style="color: #cc66cc;">1.3</span> <span style="color: #cc66cc;">1.4</span> <span style="color: #cc66cc;">1.5</span> <span style="color: #cc66cc;">1.6</span> <span style="color: #cc66cc;">1.7</span> <span style="color: #cc66cc;">1.8</span> <span style="color: #cc66cc;">1.9</span> <span style="color: #cc66cc;">2</span>
 <span style="color: #339933;">&gt;</span> <span style="color: #cc66cc;">1</span><span style="color: #339933;">,</span> <span style="color: #cc66cc;">1.1</span> <span style="color: #339933;">...</span> <span style="color: #cc66cc;">2.01</span>
 <span style="color: #339933;">...</span> Rakudo spins its wheels<span style="color: #339933;">,</span> because this is an infinite lis <span style="color: #339933;">...</span>
 <span style="color: #339933;">&gt;</span> <span style="color: #009900;">&#40;</span><span style="color: #cc66cc;">1</span><span style="color: #339933;">,</span> <span style="color: #cc66cc;">1.1</span> <span style="color: #339933;">...</span> <span style="color: #cc66cc;">2.01</span><span style="color: #009900;">&#41;</span><span style="color: #009900;">&#91;</span><span style="color: #339933;">^</span><span style="color: #cc66cc;">14</span><span style="color: #009900;">&#93;</span>
 <span style="color: #cc66cc;">1</span> <span style="color: #cc66cc;">1.1</span> <span style="color: #cc66cc;">1.2</span> <span style="color: #cc66cc;">1.3</span> <span style="color: #cc66cc;">1.4</span> <span style="color: #cc66cc;">1.5</span> <span style="color: #cc66cc;">1.6</span> <span style="color: #cc66cc;">1.7</span> <span style="color: #cc66cc;">1.8</span> <span style="color: #cc66cc;">1.9</span> <span style="color: #cc66cc;">2</span> <span style="color: #cc66cc;">2.1</span> <span style="color: #cc66cc;">2.2</span> <span style="color: #cc66cc;">2.3</span></pre></div></div>
-
 <p>上面三个定义，第一个自然终止了；第二个rakudo在后台无限循环，不显示在终端；第三个定义前14个元素，以便观察效果。<br />
 不过实际运用中，你做浮点型数值运算的时候，很可能出现增加0.1却溢出2的危险情况。在Perl6里，使用了分数来尽可能避免这种情况。不过传统观念还是非常坚定的，所以如果你要找到小于10000的斐波那契数，那提前预知最后终止处的数字可就难了~~不过幸运的是，除了用sub定义下一个数字，一样也可以用sub定义最后一个数字！如下：</p>
-
 <div class="wp_syntax"><div class="code"><pre class="perl" style="font-family:monospace;"><span style="color: #339933;">&gt;</span> <span style="color: #cc66cc;">0</span><span style="color: #339933;">,</span> <span style="color: #cc66cc;">1</span><span style="color: #339933;">,</span> <span style="color: #339933;">-&gt;</span> <span style="color: #0000ff;">$a</span><span style="color: #339933;">,</span> <span style="color: #0000ff;">$b</span> <span style="color: #009900;">&#123;</span> <span style="color: #0000ff;">$a</span> <span style="color: #339933;">+</span> <span style="color: #0000ff;">$b</span> <span style="color: #009900;">&#125;</span> <span style="color: #339933;">...</span> <span style="color: #339933;">-&gt;</span> <span style="color: #0000ff;">$a</span> <span style="color: #009900;">&#123;</span> <span style="color: #0000ff;">$a</span> <span style="color: #339933;">&gt;</span> <span style="color: #cc66cc;">10000</span> <span style="color: #009900;">&#125;</span><span style="color: #339933;">;</span>
 <span style="color: #cc66cc;">0</span> <span style="color: #cc66cc;">1</span> <span style="color: #cc66cc;">1</span> <span style="color: #cc66cc;">2</span> <span style="color: #cc66cc;">3</span> <span style="color: #cc66cc;">5</span> <span style="color: #cc66cc;">8</span> <span style="color: #cc66cc;">13</span> <span style="color: #cc66cc;">21</span> <span style="color: #cc66cc;">34</span> <span style="color: #cc66cc;">55</span> <span style="color: #cc66cc;">89</span> <span style="color: #cc66cc;">144</span> <span style="color: #cc66cc;">233</span> <span style="color: #cc66cc;">377</span> <span style="color: #cc66cc;">610</span> <span style="color: #cc66cc;">987</span> <span style="color: #cc66cc;">1597</span> <span style="color: #cc66cc;">2584</span> <span style="color: #cc66cc;">4181</span> <span style="color: #cc66cc;">6765</span> <span style="color: #cc66cc;">10946</span></pre></div></div>
-
 <p>这次的小尖块&#8217;->$a{$a>10000}&#8217;里带了一个参数，在变量大于10000的时候返回为真。嗯，正是我们想要的！<br />
 但是我们要的是小于10000的，这里还多出来一个，所以还要稍微再改改：</p>
-
 <div class="wp_syntax"><div class="code"><pre class="perl" style="font-family:monospace;"><span style="color: #339933;">&gt;</span> <span style="color: #cc66cc;">0</span><span style="color: #339933;">,</span> <span style="color: #cc66cc;">1</span><span style="color: #339933;">,</span> <span style="color: #339933;">-&gt;</span> <span style="color: #0000ff;">$a</span><span style="color: #339933;">,</span> <span style="color: #0000ff;">$b</span> <span style="color: #009900;">&#123;</span> <span style="color: #0000ff;">$a</span> <span style="color: #339933;">+</span> <span style="color: #0000ff;">$b</span> <span style="color: #009900;">&#125;</span> <span style="color: #339933;">...^</span> <span style="color: #339933;">-&gt;</span> <span style="color: #0000ff;">$a</span> <span style="color: #009900;">&#123;</span> <span style="color: #0000ff;">$a</span> <span style="color: #339933;">&gt;</span> <span style="color: #cc66cc;">10000</span> <span style="color: #009900;">&#125;</span><span style="color: #339933;">;</span>
 <span style="color: #cc66cc;">0</span> <span style="color: #cc66cc;">1</span> <span style="color: #cc66cc;">1</span> <span style="color: #cc66cc;">2</span> <span style="color: #cc66cc;">3</span> <span style="color: #cc66cc;">5</span> <span style="color: #cc66cc;">8</span> <span style="color: #cc66cc;">13</span> <span style="color: #cc66cc;">21</span> <span style="color: #cc66cc;">34</span> <span style="color: #cc66cc;">55</span> <span style="color: #cc66cc;">89</span> <span style="color: #cc66cc;">144</span> <span style="color: #cc66cc;">233</span> <span style="color: #cc66cc;">377</span> <span style="color: #cc66cc;">610</span> <span style="color: #cc66cc;">987</span> <span style="color: #cc66cc;">1597</span> <span style="color: #cc66cc;">2584</span> <span style="color: #cc66cc;">4181</span> <span style="color: #cc66cc;">6765</span></pre></div></div>
-
 <p>把&#8230;改成&#8230;^就可以了。这个意思就是测试条件为真的那个元素不包含在返回结果内~<br />
 好了，又有两个注释：上面的写法其实在perl6里属于很累赘的写法。我在这里没法写太多关于闭包的东西，不过去年似乎有过些解释。用闭包可以很简单的写成这个样子：</p>
-
 <div class="wp_syntax"><div class="code"><pre class="perl" style="font-family:monospace;"><span style="color: #339933;">&gt;</span> <span style="color: #cc66cc;">0</span><span style="color: #339933;">,</span> <span style="color: #cc66cc;">1</span><span style="color: #339933;">,</span> <span style="color: #339933;">*</span> <span style="color: #339933;">+</span> <span style="color: #339933;">*</span> <span style="color: #339933;">...^</span> <span style="color: #339933;">*</span> <span style="color: #339933;">&gt;</span> <span style="color: #cc66cc;">10000</span><span style="color: #339933;">;</span>
 <span style="color: #cc66cc;">0</span> <span style="color: #cc66cc;">1</span> <span style="color: #cc66cc;">1</span> <span style="color: #cc66cc;">2</span> <span style="color: #cc66cc;">3</span> <span style="color: #cc66cc;">5</span> <span style="color: #cc66cc;">8</span> <span style="color: #cc66cc;">13</span> <span style="color: #cc66cc;">21</span> <span style="color: #cc66cc;">34</span> <span style="color: #cc66cc;">55</span> <span style="color: #cc66cc;">89</span> <span style="color: #cc66cc;">144</span> <span style="color: #cc66cc;">233</span> <span style="color: #cc66cc;">377</span> <span style="color: #cc66cc;">610</span> <span style="color: #cc66cc;">987</span> <span style="color: #cc66cc;">1597</span> <span style="color: #cc66cc;">2584</span> <span style="color: #cc66cc;">4181</span> <span style="color: #cc66cc;">6765</span></pre></div></div>
-
 <p>至于你是不是看得惯这种简洁，那就不是我能管的了，记住TIMTOWTDI。<br />
 同样，序列操作符的左边，也可以是任何列表，包括无限序列本身。这样你可以很简单的用一个中断块搞定一个已有的无线序列的截取：</p>
-
 <div class="wp_syntax"><div class="code"><pre class="perl" style="font-family:monospace;"><span style="color: #339933;">&gt;</span> <span style="color: #b1b100;">my</span> <span style="color: #0000ff;">@Fibonacci</span> <span style="color: #339933;">:=</span> <span style="color: #cc66cc;">0</span><span style="color: #339933;">,</span> <span style="color: #cc66cc;">1</span><span style="color: #339933;">,</span> <span style="color: #339933;">*</span> <span style="color: #339933;">+</span> <span style="color: #339933;">*</span> <span style="color: #339933;">...</span> <span style="color: #339933;">*;</span> <span style="color: #cc66cc;">1</span><span style="color: #339933;">;</span>
 <span style="color: #cc66cc;">1</span>
 <span style="color: #339933;">&gt;</span> <span style="color: #0000ff;">@Fibonacci</span> <span style="color: #339933;">...^</span> <span style="color: #339933;">*</span> <span style="color: #339933;">&gt;</span> <span style="color: #cc66cc;">10000</span>
 <span style="color: #cc66cc;">0</span> <span style="color: #cc66cc;">1</span> <span style="color: #cc66cc;">1</span> <span style="color: #cc66cc;">2</span> <span style="color: #cc66cc;">3</span> <span style="color: #cc66cc;">5</span> <span style="color: #cc66cc;">8</span> <span style="color: #cc66cc;">13</span> <span style="color: #cc66cc;">21</span> <span style="color: #cc66cc;">34</span> <span style="color: #cc66cc;">55</span> <span style="color: #cc66cc;">89</span> <span style="color: #cc66cc;">144</span> <span style="color: #cc66cc;">233</span> <span style="color: #cc66cc;">377</span> <span style="color: #cc66cc;">610</span> <span style="color: #cc66cc;">987</span> <span style="color: #cc66cc;">1597</span> <span style="color: #cc66cc;">2584</span> <span style="color: #cc66cc;">4181</span> <span style="color: #cc66cc;">6765</span>
 <span style="color: #339933;">&gt;</span> <span style="color: #0000ff;">@Fibonacci</span><span style="color: #009900;">&#91;</span><span style="color: #cc66cc;">30</span><span style="color: #009900;">&#93;</span>
 <span style="color: #cc66cc;">832040</span></pre></div></div>
-
 <p>（第三次操作只是为了证明在第二次操作获取列表后，原数组没有变化，还是可以得到大于10000的元素的）<br />
 好了，所有这些内容，都只是给大家泛泛的展示一下序列能干什么。详细的信息，请查看Perl6规范中序列操作符的内容（注意：描述的功能还没有完全实现。这玩意儿相当的复杂！）。<br />
 最后的最后，序列操作符并没有被约束在数字操作上！只要你想，你可以创建任何类型的序列……好了，我要走了，准备下一个圣临月历内容去~~</p>
-
 <div class="wp_syntax"><div class="code"><pre class="perl" style="font-family:monospace;">&nbsp;</pre></div></div>
-
 <div id="downaspdf">
                     <a title="下载此文章的 PDF 文档" href="http://chenlinux.com/wp-content/plugins/down-as-pdf/generate.php?id=2729">
                       <span>Download as PDF</span>
                     </a>
                 </div>
-
 			<div class="fixed"></div>
-
-
 		</div>
-
-
 		<div class="under">
-
-
 			<span class="categories">分类: </span><span><a href="http://chenlinux.com/category/ops/script" title="查看 脚本 中的全部文章" rel="category tag">脚本</a>, <a href="http://chenlinux.com/category/ops" title="查看 运维 中的全部文章" rel="category tag">运维</a></span>
-
 			<span class="tags">标签: </span><span><a href="http://chenlinux.com/tag/perl" rel="tag">perl</a>, <a href="http://chenlinux.com/tag/perl6advent" rel="tag">perl6advent</a></span>
-
 		</div>
-
-
 	</div>
-
-
-
-
-

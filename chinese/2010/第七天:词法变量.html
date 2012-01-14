@@ -1,56 +1,26 @@
-
-
-
-
-
 	<div class="post" id="post-2739">
-
-
 		<h2>2010年Perl6圣诞月历(七)词法变量</h2>
-
-
 		<div class="info">
-
-
 			<span class="date">2011年12月13日</span>
-
-
 			<span class="author"><a href="http://chenlinux.com/author/admin" title="由 admin 发布" rel="author">admin</a></span>
-
 			
-
 			
-
 				<span class="addcomment"><a href="#respond">发表评论</a></span>
-
-
 				<span class="comments"><a href="#comments">阅读评论</a></span>
-
-
 			
-
 			<div class="fixed"></div>
-
-
 		</div>
-
-
 		<div class="content">
-
-
 			<p>编程总是件很难持续做下去的事情。串几行代码很容易，根据想法做一个原型也是轻松愉快的。但随着程序慢慢变大，维护时间慢慢变长，事情慢慢就棘手起来了……最后，如果不幸的话，我们就得被迫重构——不是因为早先的问题复杂，而是因为程序本身复杂了……在不断的调试中急白了头的程序员们，早就不记得到底要怎么扩展程序以完成目的了……<br />
 所以我们回溯一下编程史，找找对着复杂性的办法。而答案就在那里，不来不去——限制长度。当你架构一个成百上千模块组成的大型程序的时候，你必须能够让这些组件通过表面上很小的设置进行交互——否则你就等着被乱七八糟的组合干死吧。<br />
 在各层次的编程上，我们都可以看到这么一个原则。因为他就只关心这一件事情：分散注意，专一的做一件事情！BCNF范式、monads(译者注：不知道这东东咋翻译)、单子，例程，类，角色，模块，包等。这些都是在督促和指导我们限制编程的长度。这样我们才不会输在组合学上。而这方面最简单的例子，就是此法变量。</p>
-
 <div class="wp_syntax"><div class="code"><pre class="perl" style="font-family:monospace;"><span style="color: #009900;">&#123;</span>
     <span style="color: #b1b100;">my</span> <span style="color: #0000ff;">$var</span><span style="color: #339933;">;</span>
     <span style="color: #666666; font-style: italic;"># $var可见</span>
 <span style="color: #009900;">&#125;</span>
 <span style="color: #666666; font-style: italic;"># $var不可见</span></pre></div></div>
-
 <p>哈哈，这就是今天要介绍的一个非常酷的功能了！非常有趣的说~<br />
 Perl从第一版开始，在这方面一直不太对。比如Perl5的默认变量作用域是包。而这就是全局变量的一种。我在某个代码块里定义了一个变量，其他地方居然也能看到……</p>
-
 <div class="wp_syntax"><div class="code"><pre class="bash" style="font-family:monospace;">$ <span style="color: #c20cb9; font-weight: bold;">perl</span> <span style="color: #660033;">-v</span>
 This is <span style="color: #c20cb9; font-weight: bold;">perl</span> <span style="color: #000000;">5</span>, version <span style="color: #000000;">12</span>, subversion <span style="color: #000000;">1</span> <span style="color: #7a0874; font-weight: bold;">&#40;</span>v5.12.1<span style="color: #7a0874; font-weight: bold;">&#41;</span>
 $ <span style="color: #c20cb9; font-weight: bold;">perl</span> <span style="color: #660033;">-E</span> <span style="color: #ff0000;">'{ $var = 42 }; say $var'</span>
@@ -58,28 +28,22 @@ $ <span style="color: #c20cb9; font-weight: bold;">perl</span> <span style="colo
 $ <span style="color: #c20cb9; font-weight: bold;">perl</span> <span style="color: #660033;">-wE</span> <span style="color: #ff0000;">'{ my $var= 42 }; say $var'</span>
 Name <span style="color: #ff0000;">&quot;main::var&quot;</span> used only once: possible typo at <span style="color: #660033;">-e</span> line <span style="color: #000000;">1</span>.
 Use of uninitialized value <span style="color: #007800;">$var</span> <span style="color: #000000; font-weight: bold;">in</span> say at <span style="color: #660033;">-e</span> line <span style="color: #000000;">1</span>.</pre></div></div>
-
 <p>在Perl6里，词法变量变成了默认设置。在Rakudo上运行上面的代码，根本无法通过编译：</p>
-
 <div class="wp_syntax"><div class="code"><pre class="bash" style="font-family:monospace;">$ perl6 <span style="color: #660033;">-e</span> <span style="color: #ff0000;">'{ $var = 42 }; say $var'</span>
 ===SORRY<span style="color: #000000; font-weight: bold;">!</span>===
 Symbol <span style="color: #ff0000;">'$var'</span> not predeclared <span style="color: #000000; font-weight: bold;">in</span> <span style="color: #000000; font-weight: bold;">&lt;</span>anonymous<span style="color: #000000; font-weight: bold;">&gt;</span>
 $ perl6 <span style="color: #660033;">-e</span> <span style="color: #ff0000;">'{ my $var = 42 }; say $var'</span>
 ===SORRY<span style="color: #000000; font-weight: bold;">!</span>===
 Symbol <span style="color: #ff0000;">'$var'</span> not predeclared <span style="color: #000000; font-weight: bold;">in</span> <span style="color: #000000; font-weight: bold;">&lt;</span>anonymous<span style="color: #000000; font-weight: bold;">&gt;</span></pre></div></div>
-
 <p>好了，你可能说：“嗯，可以减少点打错字的可能了”。这当然没错，但是更重要的是：这让你认真坦诚的对待变量作用域。这对你控制代码复杂性很有利！<br />
 我们可以说出很多很多解释来说明为啥Perl5这么做。比如Perl5已经建议大家use warnings;use strict;，比如Perl5承诺的向后兼容，嗯，很伟大的做法，而Perl1压根没打算用来写大型程序和管理带来的复杂性；比如全局变量在单行模式下的各种方便……<br />
 Perl6内置的强制你从小处着手，帮你在系统扩容的时候，更苛责的关注架构基础。在变量方面，也就是在脚本和模块中，将词法变量作为默认设置。不过在perl -e执行的单行命令中，默认依然是全局变量。（Rakudo还没有实现这个，目前单行依然是词法变量，期待实现的那天~）<br />
 继续。好像到这里你感觉词法变量的价值已经说完了？没有！正确设计的结果可是令人惊讶和奖金源源不断啊~考虑一下这个子程序：</p>
-
 <div class="wp_syntax"><div class="code"><pre class="perl" style="font-family:monospace;"><span style="color: #000000; font-weight: bold;">sub</span> counter<span style="color: #009900;">&#40;</span><span style="color: #0000ff;">$start_value</span><span style="color: #009900;">&#41;</span> <span style="color: #009900;">&#123;</span>
     <span style="color: #b1b100;">my</span> <span style="color: #0000ff;">$count</span> <span style="color: #339933;">=</span> <span style="color: #0000ff;">$start_value</span><span style="color: #339933;">;</span>
     <span style="color: #000066;">return</span> <span style="color: #009900;">&#123;</span> <span style="color: #0000ff;">$count</span><span style="color: #339933;">++</span> <span style="color: #009900;">&#125;</span><span style="color: #339933;">;</span>
 <span style="color: #009900;">&#125;</span></pre></div></div>
-
 <p>这里返回的是一个代码块。所以每次我们调用counter()的时候，得到的都是一小片断开的代码。然后看看当我创建两片这样的代码后的结果：</p>
-
 <div class="wp_syntax"><div class="code"><pre class="perl" style="font-family:monospace;"><span style="color: #b1b100;">my</span> <span style="color: #0000ff;">$c1</span> <span style="color: #339933;">=</span> counter<span style="color: #009900;">&#40;</span><span style="color: #cc66cc;">5</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span>
 say <span style="color: #0000ff;">$c1</span><span style="color: #009900;">&#40;</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span>           <span style="color: #666666; font-style: italic;"># 5</span>
 say <span style="color: #0000ff;">$c1</span><span style="color: #009900;">&#40;</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span>           <span style="color: #666666; font-style: italic;"># 6</span>
@@ -88,7 +52,6 @@ say <span style="color: #0000ff;">$c1</span><span style="color: #009900;">&#40;<
 say <span style="color: #0000ff;">$c2</span><span style="color: #009900;">&#40;</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span>           <span style="color: #666666; font-style: italic;"># 42</span>
 say <span style="color: #0000ff;">$c1</span><span style="color: #009900;">&#40;</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span>           <span style="color: #666666; font-style: italic;"># 7</span>
 say <span style="color: #0000ff;">$c2</span><span style="color: #009900;">&#40;</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span>           <span style="color: #666666; font-style: italic;"># 43</span></pre></div></div>
-
 <p>看到了吧，$c1和$c2是完全分开的，他们相互独立互不影响。尽管他们都写成$count的样子，看起来真是差不多，但他们都有自己独立的存储单元——因为每次我们运行进入那个代码块的时候，就是一次重新开始。这个小代码块从运行中的计数器里返回，这些计数器里保留了存储单元的对应关系。（他“关闭”这个存储单元，保护它不被GC回收掉。这类代码块叫闭包）<br />
 这个闭包看起来像是个轻量级的对象？gxgx，他们确实就是。闭包背后的原则，即规范对闭包值的访问方式，与面向对象背后的封装和信息的原则是一样的。他们都是尽力限制事情的程度，在事情变得糟糕的时候，帮忙减少其影响和损失。<br />
 你可以用词法变量做些很有趣的事情，比如闭包；而包变量不行。词法变量最酷啦！吼吼~~</p>
@@ -97,26 +60,10 @@ say <span style="color: #0000ff;">$c2</span><span style="color: #009900;">&#40;<
                       <span>Download as PDF</span>
                     </a>
                 </div>
-
 			<div class="fixed"></div>
-
-
 		</div>
-
-
 		<div class="under">
-
-
 			<span class="categories">分类: </span><span><a href="http://chenlinux.com/category/ops/script" title="查看 脚本 中的全部文章" rel="category tag">脚本</a></span>
-
 			<span class="tags">标签: </span><span><a href="http://chenlinux.com/tag/perl" rel="tag">perl</a>, <a href="http://chenlinux.com/tag/perl6advent" rel="tag">perl6advent</a></span>
-
 		</div>
-
-
 	</div>
-
-
-
-
-

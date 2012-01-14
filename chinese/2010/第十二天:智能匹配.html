@@ -1,51 +1,21 @@
-
-
-
-
-
 	<div class="post" id="post-2760">
-
-
 		<h2>2010年Perl6圣诞月历(十二)智能匹配</h2>
-
-
 		<div class="info">
-
-
 			<span class="date">2011年12月14日</span>
-
-
 			<span class="author"><a href="http://chenlinux.com/author/admin" title="由 admin 发布" rel="author">admin</a></span>
-
 			
-
 			
-
 				<span class="addcomment"><a href="#respond">发表评论</a></span>
-
-
 				<span class="comments"><a href="#comments">阅读评论</a></span>
-
-
 			
-
 			<div class="fixed"></div>
-
-
 		</div>
-
-
 		<div class="content">
-
-
 			<p>还记得第四天里怎么终止序列的无限循环么？</p>
-
 <div class="wp_syntax"><div class="code"><pre class="perl" style="font-family:monospace;"><span style="color: #cc66cc;">1</span><span style="color: #339933;">,</span> <span style="color: #cc66cc;">2</span><span style="color: #339933;">,</span> <span style="color: #cc66cc;">4</span> <span style="color: #339933;">...</span> <span style="color: #cc66cc;">32</span><span style="color: #339933;">;</span>         <span style="color: #666666; font-style: italic;"># 1 2 4 8 16 32</span>
     <span style="color: #cc66cc;">1</span><span style="color: #339933;">,</span> <span style="color: #cc66cc;">2</span><span style="color: #339933;">,</span> <span style="color: #cc66cc;">4</span> <span style="color: #339933;">...</span> <span style="color: #339933;">*</span> <span style="color: #339933;">&gt;</span> <span style="color: #cc66cc;">10</span><span style="color: #339933;">;</span>     <span style="color: #666666; font-style: italic;"># 1 2 4 8 16</span></pre></div></div>
-
 <p>第一个例子直接使用数字，第二个则更有趣一点，你可以把*>10改写成闭包的形式->$x{$x>10}。<br />
 就像上面这样，序列操作符会根据匹配的类型，做出像魔法一样神奇的比较。这种比较的名字就叫“智能匹配”。在Perl6中，很多地方都会体现出这个概念来。比如：</p>
-
 <div class="wp_syntax"><div class="code"><pre class="perl" style="font-family:monospace;">    <span style="color: #666666; font-style: italic;"># 在关键字when后出现</span>
     given <span style="color: #0000ff;">$age</span> <span style="color: #009900;">&#123;</span>
         when <span style="color: #cc66cc;">100</span>    <span style="color: #009900;">&#123;</span> say <span style="color: #ff0000;">&quot;congratulations!&quot;</span>      <span style="color: #009900;">&#125;</span>
@@ -59,9 +29,7 @@
     <span style="color: #009900;">&#125;</span>
     <span style="color: #666666; font-style: italic;"># 作为grep()/first()的参数等等</span>
     <span style="color: #b1b100;">my</span> <span style="color: #0000ff;">@even</span> <span style="color: #339933;">=</span> <span style="color: #0000ff;">@numbers</span><span style="color: #339933;">.</span><span style="color: #000066;">grep</span><span style="color: #339933;">:</span> Even<span style="color: #339933;">;</span></pre></div></div>
-
 <p>当出现在~~和when/where右边的时候，默认要被匹配的值就是$_变量。我们可以想使用m//和.match_call一样构建和操作$_的内容。具体的使用方法见下面的例子：</p>
-
 <div class="wp_syntax"><div class="code"><pre class="perl" style="font-family:monospace;">    <span style="color: #666666; font-style: italic;"># 变量是字符串类型么？</span>
     <span style="color: #0000ff;">$foo</span> <span style="color: #339933;">~~</span> Str
     <span style="color: #666666; font-style: italic;"># 值等于6么？</span>
@@ -76,11 +44,9 @@
     <span style="color: #0000ff;">$foo</span> <span style="color: #339933;">~~</span> <span style="color: #339933;">-&gt;</span> <span style="color: #0000ff;">$x</span> <span style="color: #009900;">&#123;</span> say <span style="color: #ff0000;">'ok'</span> <span style="color: #b1b100;">if</span> <span style="color: #cc66cc;">5</span> <span style="color: #339933;">&lt;</span> <span style="color: #0000ff;">$x</span> <span style="color: #339933;">&lt;</span> <span style="color: #cc66cc;">25</span> <span style="color: #009900;">&#125;</span>
     <span style="color: #666666; font-style: italic;"># 是不是一个有6个元素的数组，而且奇数位上的元素值都是1？</span>
     <span style="color: #0000ff;">$foo</span> <span style="color: #339933;">~~</span> <span style="color: #009900;">&#91;</span><span style="color: #cc66cc;">1</span><span style="color: #339933;">,</span> <span style="color: #339933;">*,</span> <span style="color: #cc66cc;">1</span><span style="color: #339933;">,</span> <span style="color: #339933;">*,</span> <span style="color: #cc66cc;">1</span><span style="color: #339933;">,</span> <span style="color: #339933;">*</span><span style="color: #009900;">&#93;</span></pre></div></div>
-
 <p>更完整的内容，见：<a href="http://perlcabal.org/syn/S03.html#Smart_matching." target="_blank">http://perlcabal.org/syn/S03.html#Smart_matching.</a>。<br />
 值得注意的是：跟Perl5不一样，Perl6里智能匹配是唯一一种正则匹配的语法，再没有什么特殊的操作符了。而且，在大多数智能匹配返回布尔值的时候，对正则表达式的智能匹配返回的是一个Match对象——在布尔上下文也也是如此。<br />
 你可能在疑惑了：这都是给内置的类型的，那我怎么用在我自己的类里呢？答案是：你要在自己的class里定义一个特殊的ACCEPTS方法。好吧，请出我们的老朋友，Point类：</p>
-
 <div class="wp_syntax"><div class="code"><pre class="perl" style="font-family:monospace;">    class Point <span style="color: #009900;">&#123;</span>
         has $<span style="color: #339933;">.</span>x<span style="color: #339933;">;</span>
         has $<span style="color: #339933;">.</span><span style="color: #000066;">y</span><span style="color: #339933;">;</span>
@@ -88,39 +54,20 @@
             <span style="color: #000066;">return</span> $<span style="color: #339933;">.</span>x <span style="color: #339933;">==</span> <span style="color: #0000ff;">$p2</span><span style="color: #009900;">&#91;</span><span style="color: #cc66cc;">0</span><span style="color: #009900;">&#93;</span> <span style="color: #b1b100;">and</span> $<span style="color: #339933;">.</span><span style="color: #000066;">y</span> <span style="color: #339933;">==</span> <span style="color: #0000ff;">$p2</span><span style="color: #009900;">&#91;</span><span style="color: #cc66cc;">1</span><span style="color: #009900;">&#93;</span>
         <span style="color: #009900;">&#125;</span>
     <span style="color: #009900;">&#125;</span></pre></div></div>
-
 <p>都看明白了没？再看看运行效果好了：</p>
-
 <div class="wp_syntax"><div class="code"><pre class="perl" style="font-family:monospace;">    <span style="color: #b1b100;">my</span> <span style="color: #0000ff;">$a</span> <span style="color: #339933;">=</span> Point<span style="color: #339933;">.</span><span style="color: #000000; font-weight: bold;">new</span><span style="color: #009900;">&#40;</span>x <span style="color: #339933;">=&gt;</span> <span style="color: #cc66cc;">7</span><span style="color: #339933;">,</span> <span style="color: #000066;">y</span> <span style="color: #339933;">=&gt;</span> <span style="color: #cc66cc;">9</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span>
     say <span style="color: #009900;">&#91;</span><span style="color: #cc66cc;">3</span><span style="color: #339933;">,</span> <span style="color: #cc66cc;">5</span><span style="color: #009900;">&#93;</span> <span style="color: #339933;">~~</span> <span style="color: #0000ff;">$a</span><span style="color: #339933;">;</span> <span style="color: #666666; font-style: italic;"># Bool::False</span>
     say <span style="color: #009900;">&#40;</span><span style="color: #cc66cc;">7</span><span style="color: #339933;">,</span> <span style="color: #cc66cc;">9</span><span style="color: #009900;">&#41;</span> <span style="color: #339933;">~~</span> <span style="color: #0000ff;">$a</span><span style="color: #339933;">;</span> <span style="color: #666666; font-style: italic;"># Bool::True</span></pre></div></div>
-
 <p>这样，Perl6可以做到你想要的效果了，哪怕是你自己的类里~~</p>
 <div id="downaspdf">
                     <a title="下载此文章的 PDF 文档" href="http://chenlinux.com/wp-content/plugins/down-as-pdf/generate.php?id=2760">
                       <span>Download as PDF</span>
                     </a>
                 </div>
-
 			<div class="fixed"></div>
-
-
 		</div>
-
-
 		<div class="under">
-
-
 			<span class="categories">分类: </span><span><a href="http://chenlinux.com/category/ops/script" title="查看 脚本 中的全部文章" rel="category tag">脚本</a></span>
-
 			<span class="tags">标签: </span><span><a href="http://chenlinux.com/tag/perl" rel="tag">perl</a>, <a href="http://chenlinux.com/tag/perl6advent" rel="tag">perl6advent</a></span>
-
 		</div>
-
-
 	</div>
-
-
-
-
-

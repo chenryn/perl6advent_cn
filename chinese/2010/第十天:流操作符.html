@@ -1,100 +1,45 @@
-
-
-
-
-
 	<div class="post" id="post-2751">
-
-
 		<h2>2010年Perl6圣诞月历(十)流操作符</h2>
-
-
 		<div class="info">
-
-
 			<span class="date">2011年12月13日</span>
-
-
 			<span class="author"><a href="http://chenlinux.com/author/admin" title="由 admin 发布" rel="author">admin</a></span>
-
 			
-
 			
-
 				<span class="addcomment"><a href="#respond">发表评论</a></span>
-
-
 				<span class="comments"><a href="#comments">阅读评论</a></span>
-
-
 			
-
 			<div class="fixed"></div>
-
-
 		</div>
-
-
 		<div class="content">
-
-
 			<p>每一个写过一阵子perl5的程序员应该都跑过或者写过下面这样的代码：</p>
-
 <div class="wp_syntax"><div class="code"><pre class="perl" style="font-family:monospace;"><span style="color: #b1b100;">my</span> <span style="color: #339933;">@</span><span style="color: #000000; font-weight: bold;">new</span> <span style="color: #339933;">=</span> <span style="color: #000066;">sort</span> <span style="color: #009900;">&#123;</span> <span style="color: #339933;">...</span> <span style="color: #009900;">&#125;</span> <span style="color: #000066;">map</span> <span style="color: #009900;">&#123;</span> <span style="color: #339933;">...</span> <span style="color: #009900;">&#125;</span> <span style="color: #000066;">grep</span> <span style="color: #009900;">&#123;</span> <span style="color: #339933;">...</span> <span style="color: #009900;">&#125;</span> <span style="color: #0000ff;">@original</span><span style="color: #339933;">;</span></pre></div></div>
-
 <p>在这个结构中，数据从@original数组中流出到grep，然后流到map，然后流到sort，最后赋值到@new数组。因为每步操作的最后一个参数都是列表，所以简单的通过位置（译者注：原文为simple by juxtposition，我觉得是个typo，所以按照just position翻译了）就完成了数据流从一个到下一个的过程。<br />
 Perl6中通过另一个方法实现这个数据从一端流向另一端的过程，这就是引入“流操作符”。上面的perl5代码在perl6中可以写成这个样子：</p>
-
 <div class="wp_syntax"><div class="code"><pre class="perl" style="font-family:monospace;"><span style="color: #b1b100;">my</span> <span style="color: #339933;">@</span><span style="color: #000000; font-weight: bold;">new</span> <span style="color: #339933;">&lt;==</span> <span style="color: #000066;">sort</span> <span style="color: #009900;">&#123;</span> <span style="color: #339933;">...</span> <span style="color: #009900;">&#125;</span> <span style="color: #339933;">&lt;==</span> <span style="color: #000066;">map</span> <span style="color: #009900;">&#123;</span> <span style="color: #339933;">...</span> <span style="color: #009900;">&#125;</span> <span style="color: #339933;">&lt;==</span> <span style="color: #000066;">grep</span> <span style="color: #009900;">&#123;</span> <span style="color: #339933;">...</span> <span style="color: #009900;">&#125;</span> <span style="color: #339933;">&lt;==</span> <span style="color: #0000ff;">@original</span><span style="color: #339933;">;</span></pre></div></div>
-
 <p>注意：TMTOWTDI在perl6中依然成立。所以你还是可以把代码写的跟perl5极其类似：</p>
-
 <div class="wp_syntax"><div class="code"><pre class="perl" style="font-family:monospace;"><span style="color: #b1b100;">my</span> <span style="color: #339933;">@</span><span style="color: #000000; font-weight: bold;">new</span> <span style="color: #339933;">=</span> <span style="color: #000066;">sort</span> <span style="color: #009900;">&#123;</span> <span style="color: #339933;">...</span> <span style="color: #009900;">&#125;</span><span style="color: #339933;">,</span> <span style="color: #000066;">map</span> <span style="color: #009900;">&#123;</span> <span style="color: #339933;">...</span> <span style="color: #009900;">&#125;</span><span style="color: #339933;">,</span> <span style="color: #000066;">grep</span> <span style="color: #009900;">&#123;</span> <span style="color: #339933;">...</span> <span style="color: #009900;">&#125;</span><span style="color: #339933;">,</span> <span style="color: #0000ff;">@original</span><span style="color: #339933;">;</span></pre></div></div>
-
 <p>唯一的不同就是加了逗号。<br />
 额，这样的话，我们用这些流操作符有啥好处呢？首先，我们读代码的习惯，一般都是从左到右的。那么在读perl5的写法的时候，你会从左到右一直读到你认识到这行代码的数据流方向是从右到左的。然后你再跳到最右边，重新从右往左读起。而现在perl6明确的用语法标识告诉你数据流的方向了。<br />
 当然，你可能还是觉得写这么多流操作符挺麻烦的。也是，如果是上面举例的这种单行情况，感觉确实累赘。但如果这些grep、map、sort变得稍微复杂一些，那可以想象的到，你要直接找到最后结尾的地方也不是那么容易了。<br />
 现在我很高兴的告诉你们，perl6里完全可以倒过来，按照从左到右的习惯写：</p>
-
 <div class="wp_syntax"><div class="code"><pre class="perl" style="font-family:monospace;"><span style="color: #0000ff;">@original</span> <span style="color: #339933;">==&gt;</span> <span style="color: #000066;">grep</span> <span style="color: #009900;">&#123;</span> <span style="color: #339933;">...</span> <span style="color: #009900;">&#125;</span> <span style="color: #339933;">==&gt;</span> <span style="color: #000066;">map</span> <span style="color: #009900;">&#123;</span> <span style="color: #339933;">...</span> <span style="color: #009900;">&#125;</span> <span style="color: #339933;">==&gt;</span> <span style="color: #000066;">sort</span> <span style="color: #009900;">&#123;</span> <span style="color: #339933;">...</span> <span style="color: #009900;">&#125;</span>  <span style="color: #339933;">==&gt;</span> <span style="color: #b1b100;">my</span> <span style="color: #339933;">@</span><span style="color: #000000; font-weight: bold;">new</span><span style="color: #339933;">;</span></pre></div></div>
-
 <p>流向好像变化了，但效果跟之前一模一样！<br />
 最后举两个真实的例子，用perl6的流操作符写的：</p>
-
 <div class="wp_syntax"><div class="code"><pre class="perl" style="font-family:monospace;"><span style="color: #b1b100;">my</span> <span style="color: #0000ff;">@random</span><span style="color: #339933;">-</span>nums <span style="color: #339933;">=</span> <span style="color: #009900;">&#40;</span><span style="color: #cc66cc;">1</span><span style="color: #339933;">..</span><span style="color: #cc66cc;">100</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">.</span>pick<span style="color: #009900;">&#40;</span><span style="color: #339933;">*</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span>
     <span style="color: #b1b100;">my</span> <span style="color: #0000ff;">@odds</span><span style="color: #339933;">-</span>squared <span style="color: #339933;">&lt;==</span> <span style="color: #000066;">sort</span> <span style="color: #339933;">&lt;==</span> <span style="color: #000066;">map</span> <span style="color: #009900;">&#123;</span> <span style="color: #0000ff;">$_</span> <span style="color: #339933;">**</span> <span style="color: #cc66cc;">2</span> <span style="color: #009900;">&#125;</span> <span style="color: #339933;">&lt;==</span> <span style="color: #000066;">grep</span> <span style="color: #009900;">&#123;</span> <span style="color: #0000ff;">$_</span> <span style="color: #339933;">%</span> <span style="color: #cc66cc;">2</span> <span style="color: #009900;">&#125;</span> <span style="color: #339933;">&lt;==</span> <span style="color: #0000ff;">@random</span><span style="color: #339933;">-</span>nums<span style="color: #339933;">;</span>
     say <span style="color: #339933;">~</span><span style="color: #0000ff;">@odds</span><span style="color: #339933;">-</span>squared<span style="color: #339933;">;</span></pre></div></div>
-
-
 <div class="wp_syntax"><div class="code"><pre class="perl" style="font-family:monospace;"><span style="color: #b1b100;">my</span> <span style="color: #0000ff;">@rakudo</span><span style="color: #339933;">-</span>people <span style="color: #339933;">=</span> <span style="color: #339933;">&lt;</span>scott patrick carl moritz jonathan jerry stephen<span style="color: #339933;">&gt;;</span>
     <span style="color: #0000ff;">@rakudo</span><span style="color: #339933;">-</span>people <span style="color: #339933;">==&gt;</span> <span style="color: #000066;">grep</span> <span style="color: #009900;">&#123;</span> <span style="color: #009966; font-style: italic;">/at/</span> <span style="color: #009900;">&#125;</span> <span style="color: #339933;">==&gt;</span> <span style="color: #000066;">map</span> <span style="color: #009900;">&#123;</span> <span style="color: #339933;">.</span><span style="color: #000066;">ucfirst</span> <span style="color: #009900;">&#125;</span> <span style="color: #339933;">==&gt;</span> <span style="color: #b1b100;">my</span> <span style="color: #0000ff;">@who</span><span style="color: #339933;">-</span>it<span style="color: #ff0000;">'s-at;
     say ~@who-it'</span>s<span style="color: #339933;">-</span>at<span style="color: #339933;">;</span></pre></div></div>
-
 <div id="downaspdf">
                     <a title="下载此文章的 PDF 文档" href="http://chenlinux.com/wp-content/plugins/down-as-pdf/generate.php?id=2751">
                       <span>Download as PDF</span>
                     </a>
                 </div>
-
 			<div class="fixed"></div>
-
-
 		</div>
-
-
 		<div class="under">
-
-
 			<span class="categories">分类: </span><span><a href="http://chenlinux.com/category/ops/script" title="查看 脚本 中的全部文章" rel="category tag">脚本</a></span>
-
 			<span class="tags">标签: </span><span><a href="http://chenlinux.com/tag/perl" rel="tag">perl</a>, <a href="http://chenlinux.com/tag/perl6advent" rel="tag">perl6advent</a></span>
-
 		</div>
-
-
 	</div>
-
-
-
-
-
