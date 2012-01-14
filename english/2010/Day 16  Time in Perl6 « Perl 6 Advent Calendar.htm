@@ -1,0 +1,546 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en">
+
+<head profile="http://gmpg.org/xfn/11">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+<title>Day 16: Time in Perl6 &laquo; Perl 6 Advent Calendar</title>
+
+<link rel="stylesheet" href="http://s0.wp.com/wp-content/themes/pub/kubrick/style.css?m=1321457826g&amp;3" type="text/css" media="screen" />
+<!--[if lte IE 8]><link rel="stylesheet" href="http://s0.wp.com/wp-content/themes/pub/kubrick/ie.css?m=1308949913g" type="text/css" media="screen" /><![endif]-->
+<link rel="pingback" href="http://perl6advent.wordpress.com/xmlrpc.php" />
+
+<meta name="google-site-verification" content="YPNxtMSK3Jj7JR2XCK-hDqmF9xDIeBEyvYm3aT1s71Y" />
+<link rel="alternate" type="application/rss+xml" title="Perl 6 Advent Calendar &raquo; Feed" href="http://perl6advent.wordpress.com/feed/" />
+<link rel="alternate" type="application/rss+xml" title="Perl 6 Advent Calendar &raquo; Comments Feed" href="http://perl6advent.wordpress.com/comments/feed/" />
+<link rel="alternate" type="application/rss+xml" title="Perl 6 Advent Calendar &raquo; Day 16: Time in&nbsp;Perl6 Comments Feed" href="http://perl6advent.wordpress.com/2010/12/16/day-16-time-in-perl6/feed/" />
+<script type="text/javascript">
+/* <![CDATA[ */
+function addLoadEvent(func){var oldonload=window.onload;if(typeof window.onload!='function'){window.onload=func;}else{window.onload=function(){oldonload();func();}}}
+/* ]]> */
+</script>
+<link rel="stylesheet" href="http://s0.wp.com/wp-content/themes/h4/global.css?m=1313010129g" type="text/css" />
+<link rel='stylesheet' id='loggedout-subscribe-css'  href='http://s1.wp.com/wp-content/blog-plugins/loggedout-follow/widget.css?m=1322602717g&#038;ver=20111128' type='text/css' media='all' />
+<link rel='stylesheet' id='post-reactions-css'  href='http://s0.wp.com/wp-content/mu-plugins/post-flair/style.css?m=1322086818g&#038;ver=3' type='text/css' media='all' />
+<script type='text/javascript' src='http://s2.wp.com/wp-includes/js/jquery/jquery.js?m=1322588682g&#038;ver=1.7.1'></script>
+<script type='text/javascript' src='http://s0.wp.com/wp-content/blog-plugins/loggedout-follow/widget.js?m=1320005311g&#038;ver=20111128'></script>
+<script type='text/javascript' src='http://s1.wp.com/wp-includes/js/comment-reply.js?m=1308949884g&#038;ver=20090102'></script>
+<link rel='stylesheet' id='highlander-comments-css'  href='http://s1.wp.com/wp-content/mu-plugins/highlander-comments/style.css?m=1323127130g&#038;ver=20110620' type='text/css' media='all' />
+<!--[if lt IE 8]>
+<link rel='stylesheet' id='highlander-comments-ie7-css'  href='http://s1.wp.com/wp-content/mu-plugins/highlander-comments/style-ie7.css?m=1308949891g&#038;ver=20110606' type='text/css' media='all' />
+<![endif]-->
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="http://perl6advent.wordpress.com/xmlrpc.php?rsd" />
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="http://perl6advent.wordpress.com/wp-includes/wlwmanifest.xml" /> 
+<link rel='prev' title='Day 15 &#8211; Calling native libraries from Perl&nbsp;6' href='http://perl6advent.wordpress.com/2010/12/15/day-15-calling-native-libraries-from-perl-6/' />
+<link rel='next' title='Day 17 &#8211; Rosetta&nbsp;Code' href='http://perl6advent.wordpress.com/2010/12/17/day-17-rosetta-code/' />
+<meta name="generator" content="WordPress.com" />
+<link rel='canonical' href='http://perl6advent.wordpress.com/2010/12/16/day-16-time-in-perl6/' />
+<link rel='shortlink' href='http://wp.me/pJ3YZ-al' />
+<link rel="alternate" type="application/json+oembed" href="http://public-api.wordpress.com/oembed/1.0/?format=json&url=http%3A%2F%2Fperl6advent.wordpress.com%2F2010%2F12%2F16%2Fday-16-time-in-perl6%2F&for=wpcom-auto-discovery" /><link rel="alternate" type="application/xml+oembed" href="http://public-api.wordpress.com/oembed/1.0/?format=xml&url=http%3A%2F%2Fperl6advent.wordpress.com%2F2010%2F12%2F16%2Fday-16-time-in-perl6%2F&for=wpcom-auto-discovery" /><meta property="og:type" content="article" />
+<meta property="og:title" content="Day 16: Time in&nbsp;Perl6" />
+<meta property="og:url" content="http://perl6advent.wordpress.com/2010/12/16/day-16-time-in-perl6/" />
+<meta property="og:description" content="It&#039;s the 0x10th day of Christmas, and it&#039;s time for you to learn of time. The synopsis S32::Temporal has been heavily revised in the past year, and today&#039;s post details some of the basics of time a..." />
+<meta property="og:site_name" content="Perl 6 Advent Calendar" />
+<link rel="shortcut icon" type="image/x-icon" href="http://s2.wp.com/i/favicon.ico?m=1311976024g" sizes="16x16 24x24 32x32 48x48" />
+<link rel="icon" type="image/x-icon" href="http://s2.wp.com/i/favicon.ico?m=1311976024g" sizes="16x16 24x24 32x32 48x48" />
+<link rel="apple-touch-icon-precomposed" href="http://s0.wp.com/i/webclip.png?m=1311618118g" />
+<link rel='openid.server' href='http://perl6advent.wordpress.com/?openidserver=1' />
+<link rel='openid.delegate' href='http://perl6advent.wordpress.com/' />
+<link rel="search" type="application/opensearchdescription+xml" href="http://perl6advent.wordpress.com/osd.xml" title="Perl 6 Advent Calendar" />
+<link rel="search" type="application/opensearchdescription+xml" href="http://wordpress.com/opensearch.xml" title="WordPress.com" />
+	<style type="text/css">
+	/* <![CDATA[ */
+			/* ]]> */
+	</style>
+	<style type="text/css">
+#header     { margin: 0 !important; margin: 0 0 0 1px; padding: 1px; height: 198px; width: 758px; }
+#headerimg  { margin: 7px 9px 0; height: 192px; width: 740px; }
+#headerimg { background: url(http://perl6advent.files.wordpress.com/2009/12/perl6advent2.png) no-repeat top;}
+#header h1 a, #header h1 a:hover, #header .description {
+	color: #ffffff;
+}
+</style>
+<style type='text/css'><!--
+body { background: url("http://s0.wp.com/wp-content/themes/pub/kubrick/images/kubrickbgcolor.gif?m=1308949913g"); }
+#page { background: url("http://s0.wp.com/wp-content/themes/pub/kubrick/images/kubrickbgwide.gif?m=1308949913g") repeat-y top !important; border: none; }
+#header { background: url("http://s0.wp.com/wp-content/themes/pub/kubrick/images/kubrickheader.gif?m=1308949913g") no-repeat bottom center; }
+#footer { background: url("http://s0.wp.com/wp-content/themes/pub/kubrick/images/kubrickfooter.gif?m=1308949913g") no-repeat bottom; border: none;}
+#header { margin: 0 !important; margin: 0 0 0 1px; padding: 1px; height: 198px; width: 758px; }
+#headerimg { margin: 7px 9px 0; height: 192px; width: 740px; }
+#headerimg h1 a, #headerimg h1 a:visited, #headerimg .description { color: #FFFFFF; }
+#headerimg h1 a, #headerimg .description { display:  }
+
+	--></style><meta name="application-name" content="Perl 6 Advent Calendar" /><meta name="msapplication-window" content="width=device-width;height=device-height" /><meta name="msapplication-tooltip" content="Something cool about Perl 6 every day" /><meta name="msapplication-task" content="name=Subscribe;action-uri=http://perl6advent.wordpress.com/feed/;icon-uri=http://s2.wp.com/i/favicon.ico" /><meta name="msapplication-task" content="name=Sign up for a free blog;action-uri=http://wordpress.com/signup/;icon-uri=http://s2.wp.com/i/favicon.ico" /><meta name="msapplication-task" content="name=WordPress.com Support;action-uri=http://support.wordpress.com/;icon-uri=http://s2.wp.com/i/favicon.ico" /><meta name="msapplication-task" content="name=WordPress.com Forums;action-uri=http://forums.wordpress.com/;icon-uri=http://s2.wp.com/i/favicon.ico" />
+<script type="text/javascript" src="http://rt.liftdna.com/liftrtb2_1.js"></script>
+<script type="text/javascript" src="http://rt.liftdna.com/WP.js"></script>
+<script type="text/javascript"> 
+	window.google_analytics_uacct = "UA-52447-2"; 
+</script>
+
+<script type="text/javascript">
+	var _gaq = _gaq || [];
+	_gaq.push(['_setAccount', 'UA-52447-2']);
+	_gaq.push(['_setDomainName', 'wordpress.com']);
+	_gaq.push(['_initData']);
+	_gaq.push(['_trackPageview']);
+
+	(function() {
+		var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+		ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+		(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(ga);
+	})();
+</script>
+</head>
+<body class="typekit-enabled highlander-enabled highlander-light">
+<div id="page">
+
+
+<div id="header">
+	<div id="headerimg" onclick=" location.href='http://perl6advent.wordpress.com';" style="cursor: pointer;">
+		<h1><a href="http://perl6advent.wordpress.com/">Perl 6 Advent Calendar</a></h1>
+		<div class="description">Something cool about Perl 6 every day</div>
+	</div>
+</div>
+<hr />
+
+	<div id="content" class="widecolumn">
+
+	
+		<div class="navigation">
+			<div class="alignleft">&laquo; <a href="http://perl6advent.wordpress.com/2010/12/15/day-15-calling-native-libraries-from-perl-6/" rel="prev">Day 15 &#8211; Calling native libraries from Perl&nbsp;6</a></div>
+			<div class="alignright"><a href="http://perl6advent.wordpress.com/2010/12/17/day-17-rosetta-code/" rel="next">Day 17 &#8211; Rosetta&nbsp;Code</a> &raquo;</div>
+		</div>
+
+		<div class="post-641 post type-post status-publish format-standard hentry category-2010 tag-perl6 tag-time clear" id="post-641">
+						<h2>Day 16: Time in&nbsp;Perl6</h2>
+			<small class="single-by"><span class="by-author"><span class="sep">by</span> <span class="author vcard"><a class="url fn n" href="http://perl6advent.wordpress.com/author/lueinc/" title="View all posts by lueinc" rel="author">lueinc</a></span> </span></small>
+
+			<div class="entry">
+				<p>It&#8217;s the 0x10th day of Christmas, and it&#8217;s time for you to learn of time. The synopsis S32::Temporal has been heavily revised in the past year, and today&#8217;s post details some of the basics of time as it is implemented in Perl 6.</p>
+<h2>time and now</h2>
+<p>The two terms that give the current time (at least what your system thinks is the current time) are <code>time</code>; and <code>now</code>. Here&#8217;s a quick example:<br />
+<code>&gt; say time; say now;<br />
+1292460064<br />
+Instant:2010-12-16T00:41:4.873248Z</code><br />
+The first (obvious) difference is that <code>time</code> returns POSIX time, as an integer. <code>now</code> returns an object known as an <code>Instant</code>. Use <code>now</code> if  you want fractions of a second and recognition of leap seconds. <code>time</code> won&#8217;t give you fractions of a second or leap seconds, because it returns POSIX time. Which one you use all depends on what you need.</p>
+<h2>DateTime and friend</h2>
+<p>Most of the time, you will want to store dates other than now. For this, the <code>DateTime</code> object is what you need. If you want to store the current time, you can use:</p>
+<p><code>my $moment = DateTime.new(now); # or DateTime.new(time)</code></p>
+<p>Otherwise, there are two ways of creating a DateTime object:</p>
+<p><code>my $dw = DateTime.new(:year(1963), :month(11), :day(23), :hour(17), :minute(15));</code></p>
+<p>This is in UTC, if you want to enter it in in another timezone, use the <code>:timezone</code> adverb. Here, only <code>:year</code> is required, the rest defaults to midnight on January 1 of the year.</p>
+<p>This way is also pretty tedious. You could instead create a DateTime object by inputting an ISO 8601 timestamp, as a string.</p>
+<p><code>my $dw = DateTime.new("1963-11-23T17:15:00Z");</code></p>
+<p>The Z denotes UTC. To change that, replace Z with +hhmm or -hhmm, where &#8216;hh&#8217; is the number of hours offset and &#8216;mm&#8217; the number of minutes.</p>
+<p>There is also a Date object, which is created in a similar way, but without hours, minutes, or seconds. For example:</p>
+<p><code>my $jfk = Date.new("1963-11-22"); # you can also use :year and so on</code></p>
+<p>The introduction of the Date object is actually a lesson from CPAN&#8217;s DateTime module: sometimes you want to treat days without having to worry about things like time zones and leap seconds. It&#8217;s inherently <em>easier</em> to handle pure dates. For example Date has built-in .succ and .pred methods, so you can increment and decrement them in your code.</p>
+<p><code>$jfk++; # Day after JFK</code></p>
+<h2>Finally&#8230;</h2>
+<p>That&#8217;s about it for Time in P6. To see all the gritty details go to <a href="http://perlcabal.org/syn/S32/Temporal.html">the Temporal specification</a> or ask about it in the community!</p>
+
+<div id="wpcom_below_post"  class="wpadvert" style="text-align: center; padding: 5px; background: #; padding: 5px; margin: 10px auto; width: 310px;">
+<!-- <span style="text-align: left; letter-spacing: 1px; font: 8px/1em Verdana, sans-serif; color: #ccc; text-transform: uppercase; display: block; padding: 0 1px;">Advertisement</span> -->
+<script type="text/javascript">
+LD_AddCustomAttr("AdOpt", "1");
+LD_AddCustomAttr("Origin", "other");
+LD_AddCustomAttr("theme_bg", "ffffff"); 
+LD_AddCustomAttr("theme_text", "333333"); 
+LD_AddCustomAttr("theme_link", "0066cc"); 
+LD_AddCustomAttr("theme_border", "f9f9f9"); 
+LD_AddCustomAttr("theme_url", "114477"); 
+LD_AddCustomAttr("LangId", "1");
+LD_AddCustomAttr("Autotag", "technology");
+LD_AddCustomAttr("Tag", "2010");
+LD_AddCustomAttr("Tag", "perl6");
+LD_AddCustomAttr("Tag", "time");
+
+LD_AddSlot("wpcom_below_post");
+LD_GetBids();
+</script>
+</div><div class="sharedaddy sd-like-enabled"><div id="wpl-likebox" class="sd-block sd-like"><h3 class="sd-title">Like this:</h3><div class="sd-content"><div id="wpl-button"><a href='http://perl6advent.wordpress.com/2010/12/16/day-16-time-in-perl6/?like=1&amp;_wpnonce=762128a6f3' title='I like this post' class='like needs-login sd-button' rel='nofollow'><span>Like</span></a></div><div id="wpl-count" class="sd-like-count">Be the first to like this post.</div></div></div></div>
+								<p class="clear">Tags: <a href="http://perl6advent.wordpress.com/tag/perl6/" rel="tag">perl6</a>, <a href="http://perl6advent.wordpress.com/tag/time/" rel="tag">time</a></p>
+				<p class="postmetadata alt">
+					<small>
+												This entry was posted on December 16, 2010 at 1:56 am and is filed under <a href="http://perl6advent.wordpress.com/category/2010/" title="View all posts in 2010" rel="category tag">2010</a>.						You can follow any responses to this entry through the <a href='http://perl6advent.wordpress.com/2010/12/16/day-16-time-in-perl6/feed/'>RSS 2.0</a> feed.
+													You can <a href="#respond">leave a response</a>, or <a href="http://perl6advent.wordpress.com/2010/12/16/day-16-time-in-perl6/trackback/" rel="trackback">trackback</a> from your own site.
+						
+					</small>
+				</p>
+
+			</div>
+					</div>
+
+	
+<!-- You can start editing here. -->
+	<h3 id="comments">4 Responses to &#8220;Day 16: Time in&nbsp;Perl6&#8221;</h3>
+
+	<ol class="commentlist">
+					<li class="comment even thread-even depth-1 highlander-comment" id="comment-559">
+			<img alt='' src='http://0.gravatar.com/avatar/8c23117fe61bfe1504fde64c5ccab8a3?s=32&amp;d=identicon&amp;r=G' class='avatar avatar-32' height='32' width='32' />			<cite>Maletin</cite> Says:						<br />
+
+			<small class="commentmetadata"><a href="#comment-559" title="">December 18, 2010 at 1:17 am</a> | <a class='comment-reply-link' href='/2010/12/16/day-16-time-in-perl6/?replytocom=559#respond' onclick='return addComment.moveForm("comment-559", "559", "respond", "641")'>Reply</a> </small>
+
+			<p>Instant:2010-12-16T00:41:4.873248Z<br />
+I miss a Zero to have a two digitsecond.<br />
+I miss succ and pred for Years/months/sec.<br />
+I miss timezone names.<br />
+I miss Operations on Intervalls like &#8217;1 month 2h5m&#8217; in postgres.<br />
+I can&#8217;t use the String Instant in html5 &#8216;input type=&#8221;date&#8221;&#8216;.<br />
+But i&#8217;m happy to see progress after so many years.</p>
+</li>
+			<li class="comment odd alt thread-odd thread-alt depth-1 highlander-comment" id="comment-699">
+			<img alt='' src='http://0.gravatar.com/avatar/8179a59c38a58269bc239a8eb56d2f4f?s=32&amp;d=identicon&amp;r=G' class='avatar avatar-32' height='32' width='32' />			<cite><a href='http://paulbeard.org' rel='external nofollow' class='url'>paul</a></cite> Says:						<br />
+
+			<small class="commentmetadata"><a href="#comment-699" title="">December 25, 2010 at 5:16 am</a> | <a class='comment-reply-link' href='/2010/12/16/day-16-time-in-perl6/?replytocom=699#respond' onclick='return addComment.moveForm("comment-699", "699", "respond", "641")'>Reply</a> </small>
+
+			<p>The 16th day of December, maybe, but Christmas has only 12 days, the first of which is tomorrow. Maybe you could have used the Advent idea here?</p>
+</li>
+			<li class="comment even thread-even depth-1 highlander-comment" id="comment-892">
+			<img alt='' src='http://1.gravatar.com/avatar/554aaec31a7a83a96fb44c9b6f621766?s=32&amp;d=identicon&amp;r=G' class='avatar avatar-32' height='32' width='32' />			<cite>Georgy</cite> Says:						<br />
+
+			<small class="commentmetadata"><a href="#comment-892" title="">June 14, 2011 at 7:46 am</a> | <a class='comment-reply-link' href='/2010/12/16/day-16-time-in-perl6/?replytocom=892#respond' onclick='return addComment.moveForm("comment-892", "892", "respond", "641")'>Reply</a> </small>
+
+			<p>What about milliseconds?</p>
+</li>
+			<li class="comment odd alt thread-odd thread-alt depth-1 highlander-comment" id="comment-893">
+			<img alt='' src='http://1.gravatar.com/avatar/554aaec31a7a83a96fb44c9b6f621766?s=32&amp;d=identicon&amp;r=G' class='avatar avatar-32' height='32' width='32' />			<cite>Georgy</cite> Says:						<br />
+
+			<small class="commentmetadata"><a href="#comment-893" title="">June 14, 2011 at 8:49 am</a> | <a class='comment-reply-link' href='/2010/12/16/day-16-time-in-perl6/?replytocom=893#respond' onclick='return addComment.moveForm("comment-893", "893", "respond", "641")'>Reply</a> </small>
+
+			<p>Oh, got it!</p>
+<p>&gt; my $past = now<br />
+Instant:2011-06-14T08:47:29.753213Z<br />
+&gt; now &#8211; $past<br />
+22.9191123836793<br />
+&gt; now &#8211; $past<br />
+24.2476572958501<br />
+&gt; now &#8211; $past<br />
+25.3030592734226</p>
+</li>
+	
+	</ol>
+
+	<div class="navigation">
+		<div class="alignleft"></div>
+		<div class="alignright"></div>
+	</div>
+
+ 
+
+
+								<div id="respond">
+				<h3 id="reply-title">Leave a Reply <small><a rel="nofollow" id="cancel-comment-reply-link" href="/2010/12/16/day-16-time-in-perl6/#respond" style="display:none;">Cancel reply</a></small></h3>
+									<form action="http://perl6advent.wordpress.com/wp-comments-post.php" method="post" id="commentform">
+																										
+
+
+												
+<input type="hidden" name="hc_post_as" id="hc_post_as" value="guest" />
+
+<div class="comment-form-field comment-textarea">
+	<label for="comment">Enter your comment here...</label>
+	<div id="comment-form-comment"><textarea id="comment" name="comment"></textarea></div>
+</div>
+
+<div id="comment-form-identity">
+
+	<div id="comment-form-nascar">
+		<p>Fill in your details below or click an icon to log in:</p>
+		<ul>
+			<li class="selected" style="display:none;">
+				<a href="#comment-form-guest" id="postas-guest" title="Guest">
+					<span></span>
+				</a>
+			</li>
+			<li>
+				<a href="#comment-form-wordpress" id="postas-wordpress" title="WordPress.com">
+					<span></span>
+				</a>
+			</li>
+			<li>
+				<a href="#comment-form-load-service:Twitter" id="postas-twitter" title="Twitter">
+					<span></span>
+				</a>
+			</li>
+			<li>
+				<a href="#comment-form-load-service:Facebook" id="postas-facebook" title="Facebook">
+					<span></span>
+				</a>
+			</li>
+		</ul>
+	</div>
+
+	<div id="comment-form-guest" class="comment-form-service selected">
+		<div class="comment-form-padder">
+			<div class="comment-form-avatar">
+				<img src="http://www.gravatar.com/avatar/ad516503a11cd5ca435acc9bb6523536?s=25&d=mm" alt="Gravatar" width="25" class="no-grav" />
+			</div>
+
+				<div class="comment-form-fields">
+				<div class="comment-form-field comment-form-email">
+					<label for="email">Email <span class="required">(required)</span> <span class="nopublish">(Not published)</span></label>
+					<div class="comment-form-input"><input id="email" name="email" type="text" value="" /></div>
+				</div>
+				<div class="comment-form-field comment-form-author">
+					<label for="author">Name <span class="required">(required)</span></label>
+					<div class="comment-form-input"><input id="author" name="author" type="text" value="" /></div>
+				</div>
+				<div class="comment-form-field comment-form-url">
+					<label for="url">Website</label>
+					<div class="comment-form-input"><input id="url" name="url" type="text" value="" /></div>
+				</div> 
+			</div>
+	
+		</div>
+	</div>
+
+	<div id="comment-form-wordpress" class="comment-form-service">
+		<div class="comment-form-padder">
+			<div class="comment-form-avatar">
+				<img src="http://s2.wp.com/wp-content/mu-plugins/highlander-comments/images/wplogo.png?m=1308949891g" alt="WordPress.com Logo" width="25" class="no-grav" />
+			</div>
+
+				<div class="comment-form-fields">
+					<p id="wordpress-login-first">Please log in to WordPress.com to post a comment to your blog.</p>
+				<iframe id="wordpress-login-iframe" data-srcurl="http://perl6advent.wordpress.com/wp-login.php?redirect_to=http%3A%2F%2Fperl6advent.wordpress.com%2Fhighlander.login%2F&#038;action=highlander-login&#038;skin=light"></iframe>
+				</div>
+	
+		</div>
+	</div>
+
+	<div id="comment-form-twitter" class="comment-form-service">
+		<div class="comment-form-padder">
+			<div class="comment-form-avatar">
+				<img src="http://www.gravatar.com/avatar/ad516503a11cd5ca435acc9bb6523536?s=25&d=mm" alt="Twitter picture" width="25" class="no-grav" />
+			</div>
+
+				<div class="comment-form-fields">
+				<input type="hidden" name="twitter_avatar" id="twitter-avatar" class="comment-meta-twitter" value="" />
+				<input type="hidden" name="twitter_user_id" id="twitter-user_id" class="comment-meta-twitter" value="" />
+				<input type="hidden" name="twitter_access_token" id="twitter-access_token" class="comment-meta-twitter" value="" />
+				<p class="comment-form-posting-as pa-twitter"><strong></strong> You are commenting using your Twitter account. <span class="comment-form-log-out">(&nbsp;<a href="javascript:HighlanderComments.doExternalLogout( 'twitter' );">Log&nbsp;Out</a>&nbsp;/&nbsp;<a href="#" onclick="javascript:HighlanderComments.switchAccount();return false;">Change</a>&nbsp;)</span></p>
+			</div>
+	
+		</div>
+	</div>
+
+	<div id="comment-form-facebook" class="comment-form-service">
+		<div class="comment-form-padder">
+			<div class="comment-form-avatar">
+				<img src="http://www.gravatar.com/avatar/ad516503a11cd5ca435acc9bb6523536?s=25&d=mm" alt="Facebook photo" width="25" class="no-grav" />
+			</div>
+
+				<div class="comment-form-fields">
+				<input type="hidden" name="fb_avatar" id="facebook-avatar" class="comment-meta-facebook" value="" />
+				<input type="hidden" name="fb_user_id" id="facebook-user_id" class="comment-meta-facebook" value="" />
+				<input type="hidden" name="fb_access_token" id="facebook-access_token" class="comment-meta-facebook" value="" />
+				<p class="comment-form-posting-as pa-facebook"><strong></strong> You are commenting using your Facebook account. <span class="comment-form-log-out">(&nbsp;<a href="javascript:HighlanderComments.doExternalLogout( 'facebook' );">Log&nbsp;Out</a>&nbsp;/&nbsp;<a href="#" onclick="javascript:HighlanderComments.switchAccount();return false;">Change</a>&nbsp;)</span></p>
+			</div>
+	
+		</div>
+	</div>
+
+
+	<div id="comment-form-load-service" class="comment-form-service"> 
+		<div class="comment-form-posting-as-cancel"><a href="javascript:HighlanderComments.cancelExternalWindow();">Cancel</a></div>
+		<p>Connecting to %s</p> 
+	</div>
+	
+	
+</div>
+
+
+<div id="comment-form-subscribe"> 
+<p class="comment-subscription-form"><input type="checkbox" name="subscribe" id="subscribe" value="subscribe" style="width: auto;" tabindex="6"/> <label class="subscribe-label" id="subscribe-label" for="subscribe">Notify me of follow-up comments via email.</label></p></div>
+
+	<script type="text/javascript">
+	jQuery(document).ready(function(){
+		HighlanderComments.comment_registration = '';
+		HighlanderComments.userIsLoggedIn = false;
+			});
+	</script>
+												<p class="form-submit">
+							<input name="submit" type="submit" id="comment-submit" value="Post Comment" />
+							<input type='hidden' name='comment_post_ID' value='641' id='comment_post_ID' />
+<input type='hidden' name='comment_parent' id='comment_parent' value='0' />
+						</p>
+						
+<input type="hidden" name="genseq" value="1323709604" />
+<p style="display: none;"><input type="hidden" id="akismet_comment_nonce" name="akismet_comment_nonce" value="15f1b234ae" /></p><script type='text/javascript' src='http://s0.wp.com/wp-content/mu-plugins/akismet-2.5/form.js?m=1308949891g&#038;ver=1'></script>
+<p style="display: none;"><input type="hidden" id="ak_js" name="ak_js" value="18"/></p>					</form>
+							</div><!-- #respond -->
+			<div style="clear: both"></div>			
+
+	
+	</div>
+
+
+<hr />
+<div id="footer">
+	<p>
+		Theme: <a href="http://theme.wordpress.com/themes/kubrick/">Kubrick</a>. <a href="http://wordpress.com/?ref=footer" rel="generator">Blog at WordPress.com</a>. 
+		<br /><a href="http://perl6advent.wordpress.com/feed/">Entries (RSS)</a> and <a href="http://perl6advent.wordpress.com/comments/feed/">Comments (RSS)</a>.	</p>
+</div>
+</div>
+
+<script type='text/javascript' src='http://s.gravatar.com/js/gprofiles.js?aa&#038;ver=MU'></script>
+<script type='text/javascript'>
+/* <![CDATA[ */
+var WPGroHo = {"my_hash":""};
+/* ]]> */
+</script>
+<script type='text/javascript' src='http://s0.wp.com/wp-content/mu-plugins/gravatar-hovercards/wpgroho.js?m=1318621577g&#038;ver=MU'></script>
+
+<script type="text/javascript">
+var _qevents = _qevents || [];
+(function() {var elem = document.createElement('script');elem.src = (document.location.protocol == "https:" ? "https://secure" : "http://edge") + ".quantserve.com/quant.js";elem.async = true;elem.type = "text/javascript";var scpt = document.getElementsByTagName('script')[0];scpt.parentNode.insertBefore(elem, scpt);  })();
+_qevents.push( { qacct:"p-18-mFEk4J448M", labels:",language.en,type.wpcom,posttag.perl6,posttag.time,as" } );
+</script>
+<noscript><div style="display: none;"><img src="//pixel.quantserve.com/pixel/p-18-mFEk4J448M.gif?labels=%2Clanguage.en%2Ctype.wpcom%2Cposttag.perl6%2Cposttag.time%2Cas" height="1" width="1" alt="" /></div></noscript>
+
+	<script type="text/javascript">
+	/* <![CDATA[ */
+		jQuery(document).ready( function($) {
+			
+			$('#wpl-button > a.like').click( function(e) {
+				e.preventDefault();
+				
+				$('#wpl-mustlogin').remove();
+				
+				$.post( 'http://perl6advent.wordpress.com/wp-admin/admin-ajax.php', { 
+					'action': 'wpl_record_stat',
+					'stat_name': 'loggedout_like_click'
+				} );
+
+				var tenMins = new Date();
+				tenMins.setTime( tenMins.getTime() + 600000 );
+				document.cookie = 'wpl_rand=528fad1e7d; expires=' + tenMins.toGMTString() + '; domain=wordpress.com; path=/;';
+				
+				$('#wpl-count').after( '\
+					<div id="wpl-mustlogin"> \
+						<form action="https://perl6advent.wordpress.com/wp-login.php" method="post"> \
+							<p>Just one more step to like this post:</p> \
+							<label><span>Username</span> <input type="text" name="log" id="user_login" class="input" value="" size="20" tabindex="80" /></label> \
+							<label><span>Password</span> <input type="password" name="pwd" id="user_pass" class="input" value="" size="20" tabindex="81" /></label> \
+							<input type="submit" name="wp-submit" id="wp-submit" class="button-primary" value="Log In" tabindex="82" /> \
+							<input type="hidden" name="redirect_to" value="http://perl6advent.wordpress.com/2010/12/16/day-16-time-in-perl6/?like=1" /> \
+							<input type="hidden" name="wpl_rand" value="528fad1e7d" /> \
+							<p>Not a member yet? <a href="http://wordpress.com/signup/?ref=likebox" id="wpl-signup-link">Sign up with WordPress.com</a></p> \
+						</form> \
+					</div> \
+				');
+				
+				$('#wpl-mustlogin').hide().slideDown('fast');
+			} );
+			
+			$('#wpl-mustlogin input.input').live( 'focus', function() {
+				$(this).prev().hide();
+			}).live( 'blur', function() {
+				if ( $(this).val() == '' )
+					$(this).prev().show();
+			});
+			
+			$('#wpl-mustlogin input#wp-submit').live( 'click', function(e) {
+				e.preventDefault();
+				
+				$.post( 'http://perl6advent.wordpress.com/wp-admin/admin-ajax.php', { 
+					'action': 'wpl_record_stat',
+					'stat_name': 'loggedout_login_submit'
+				}, function() {
+					$('#wpl-mustlogin form').submit();
+				} );
+			});			
+			
+			$('#wpl-mustlogin a#wpl-signup-link').live( 'click', function(e) {
+				e.preventDefault();
+				
+				var link = $(this).attr('href');
+				
+				$.post( 'http://perl6advent.wordpress.com/wp-admin/admin-ajax.php', { 
+					'action': 'wpl_record_stat',
+					'stat_name': 'loggedout_signup_click'
+				}, function() {
+					location.href = link;
+				} );
+			});					
+			
+		});
+	/* ]]> */
+	</script>
+<script>jQuery(document).ready(function($){ Gravatar.profile_cb = function( h, d ) { WPGroHo.syncProfileData( h, d );	}; Gravatar.my_hash = WPGroHo.my_hash; Gravatar.init( 'body', '#wpadminbar' ); });</script>	<div style="display:none">
+	<div class="grofile-hash-map-8c23117fe61bfe1504fde64c5ccab8a3">
+	</div>
+	<div class="grofile-hash-map-8179a59c38a58269bc239a8eb56d2f4f">
+	</div>
+	<div class="grofile-hash-map-554aaec31a7a83a96fb44c9b6f621766">
+	</div>
+	</div>
+		<style type="text/css">
+			
+				.reblog-from img                   { margin: 0 10px 0 0; vertical-align: middle; padding: 0; border: 0; }
+				.reblogger-note img.avatar         { float: left; padding: 0; border: 0; }
+				.reblogger-note-content            { margin: 0 0 20px 35px; }
+				.reblog-post                       { border-left: 3px solid #eee; padding-left: 15px; }
+				.reblog-post ul.thumb-list         { display: block; list-style: none; margin: 2px 0; padding: 0; clear: both; }
+				.reblog-post ul.thumb-list li      { display: inline; margin: 0; padding: 0 1px; border: 0; }
+				.reblog-post ul.thumb-list li a    { margin: 0; padding: 0; border: 0; }
+				.reblog-post ul.thumb-list li img  { margin: 0; padding: 0; border: 0; }
+				.reblog-post                       { border-left: 3px solid #eee; padding-left: 15px; }
+					</style><script type='text/javascript'>
+/* <![CDATA[ */
+var HighlanderComments = {"loggingInText":"Logging In\u2026","submittingText":"Posting Comment\u2026","postCommentText":"Post Comment","connectingToText":"Connecting to %s","commentingAsText":"%1$s: You are commenting using your %2$s account.","logoutText":"Log Out","loginText":"Log In","connectURL":"http:\/\/perl6advent.wordpress.com\/public.api\/connect\/?action=request","homeURL":"http:\/\/perl6advent.wordpress.com\/","postID":"641","gravDefault":"identicon","enterACommentError":"Please enter a comment","enterEmailError":"Email address required","invalidEmailError":"Invalid email address","enterAuthorError":"Name required","gravatarFromEmail":"Your email address will be used to look up your Gravatar.","logInToExternalAccount":"Log in to use details from one of these accounts.","change":"Change","changeAccount":"Change Account"};
+/* ]]> */
+</script>
+<script type='text/javascript' src='http://s2.wp.com/wp-content/mu-plugins/highlander-comments/script.js?m=1322513933g&#038;ver=20110804'></script>
+	
+	<div id="bit" class="loggedout-follow-normal">
+		<a class="bsub" href="javascript:void(0)"><span id='bsub-text'>Follow</span></a>
+		<div id="bitsubscribe">
+			
+					<h3><label for="loggedout-follow-field">Follow Perl 6 Advent Calendar</label></h3>
+		
+			<form action="http://subscribe.wordpress.com" method="post" accept-charset="utf-8" id="loggedout-follow">
+			<p>Get every new post delivered to your Inbox.</p>
+
+					
+			
+			<p><input type="text" name="email" style="width: 95%; padding: 1px 2px" value="Enter email address" onfocus='this.value=(this.value=="Enter email address") ? "" : this.value;' onblur='this.value=(this.value=="") ? "Enter email address" : this.value;'  id="loggedout-follow-field"/></p>
+
+			<input type="hidden" name="action" value="subscribe"/>
+			<input type="hidden" name="blog_id" value="10740073"/>
+			<input type="hidden" name="source" value="http://perl6advent.wordpress.com/2010/12/16/day-16-time-in-perl6/"/>
+			<input type="hidden" name="sub-type" value="loggedout-follow"/>
+
+			<input type="hidden" id="_wpnonce" name="_wpnonce" value="535b507c2f" /><input type="hidden" name="_wp_http_referer" value="/2010/12/16/day-16-time-in-perl6/" />
+			<p id='bsub-subscribe-button'><input type="submit" value="Sign me up!" /></p>
+			</form>
+					<div id='bsub-credit'><a href="http://wordpress.com/signup/?ref=lof">Powered by WordPress.com</a></div>
+		</div><!-- #bitsubscribe -->
+	</div><!-- #bit -->
+<script type="text/javascript" src="http://b.scorecardresearch.com/beacon.js"></script><script type="text/javascript">try{COMSCORE.beacon({c1:2,c2:7518284});}catch(e){}</script><noscript><p class="robots-nocontent"><img src="http://b.scorecardresearch.com/p?cj=1c1=2&#038;c2=7518284" alt="" style="display:none" width="1" height="1" /></p></noscript><script type="text/javascript">
+// <![CDATA[
+(function() {
+try{
+  if ( window.external &&'msIsSiteMode' in window.external) {
+    if (window.external.msIsSiteMode()) {
+      var jl = document.createElement('script');
+      jl.type='text/javascript';
+      jl.async=true;
+      jl.src='/wp-content/plugins/ie-sitemode/custom-jumplist.php';
+      var s = document.getElementsByTagName('script')[0];
+      s.parentNode.insertBefore(jl, s);
+    }
+  }
+}catch(e){}
+})();
+// ]]>
+</script><script src="http://s.stats.wordpress.com/w.js?21" type="text/javascript"></script>
+<script type="text/javascript">
+st_go({'blog':'10740073','v':'wpcom','user_id':'0','post':'641','subd':'perl6advent'});
+ex_go({'crypt':'UE5XaGUuOTlwaD85flAmcm1mcmZsaDhkV11YdWFnNncxc1tjZG9XVXhReTFqanhKV3x0UkQxQldDVUV4ZVR+cSt8Ny8tTm40WHJCJm0yem40UEhxUkw4QyxOai11PS9zMEdMUmc2cnc1LC1MRHJiTjFWeGpoNThTT3RXUkEuY0Z+WW9sfDhrQnZxNlpERT1aMnQlSXxFP3k4cnJYcHdzLDBlbklXLDFRP05qdExNa2hUNiZHVmJIQ1FXLHZwMWVrVnxvcnBSSS1hPy9XblEuZVVXcWhmLkpHdXRxeHNfOSx4R2ZhWSxrZmMuL1ho'});
+addLoadEvent(function(){linktracker_init('10740073',641);});
+	</script>
+<noscript><img src="http://stats.wordpress.com/b.gif?v=noscript" style="height:0px;width:0px;overflow:hidden" alt="" /></noscript>
+</body>
+</html>

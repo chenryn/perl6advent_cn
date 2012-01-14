@@ -1,0 +1,616 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en">
+
+<head profile="http://gmpg.org/xfn/11">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+<title>Day 14 &#8211; nextsame and its cousins &laquo; Perl 6 Advent Calendar</title>
+
+<link rel="stylesheet" href="http://s0.wp.com/wp-content/themes/pub/kubrick/style.css?m=1321457822g&amp;3" type="text/css" media="screen" />
+<!--[if lte IE 8]><link rel="stylesheet" href="http://s0.wp.com/wp-content/themes/pub/kubrick/ie.css?m=1308177904g" type="text/css" media="screen" /><![endif]-->
+<link rel="pingback" href="http://perl6advent.wordpress.com/xmlrpc.php" />
+
+<meta name="google-site-verification" content="YPNxtMSK3Jj7JR2XCK-hDqmF9xDIeBEyvYm3aT1s71Y" />
+<link rel="alternate" type="application/rss+xml" title="Perl 6 Advent Calendar &raquo; Feed" href="http://perl6advent.wordpress.com/feed/" />
+<link rel="alternate" type="application/rss+xml" title="Perl 6 Advent Calendar &raquo; Comments Feed" href="http://perl6advent.wordpress.com/comments/feed/" />
+<link rel="alternate" type="application/rss+xml" title="Perl 6 Advent Calendar &raquo; Day 14 &#8211; nextsame and its&nbsp;cousins Comments Feed" href="http://perl6advent.wordpress.com/2010/12/14/day-14-nextsame-and-its-cousins/feed/" />
+<script type="text/javascript">
+/* <![CDATA[ */
+function addLoadEvent(func){var oldonload=window.onload;if(typeof window.onload!='function'){window.onload=func;}else{window.onload=function(){oldonload();func();}}}
+/* ]]> */
+</script>
+<link rel="stylesheet" href="http://s0.wp.com/wp-content/themes/h4/global.css?m=1313010129g" type="text/css" />
+<link rel='stylesheet' id='loggedout-subscribe-css'  href='http://s0.wp.com/wp-content/blog-plugins/loggedout-follow/widget.css?m=1322602716g&#038;ver=20111128' type='text/css' media='all' />
+<link rel='stylesheet' id='post-reactions-css'  href='http://s2.wp.com/wp-content/mu-plugins/post-flair/style.css?m=1322086815g&#038;ver=3' type='text/css' media='all' />
+<script type='text/javascript' src='http://s2.wp.com/wp-includes/js/jquery/jquery.js?m=1322588682g&#038;ver=1.7.1'></script>
+<script type='text/javascript' src='http://s0.wp.com/wp-content/blog-plugins/loggedout-follow/widget.js?m=1320005309g&#038;ver=20111128'></script>
+<script type='text/javascript' src='http://s2.wp.com/wp-includes/js/comment-reply.js?m=1308177818g&#038;ver=20090102'></script>
+<link rel='stylesheet' id='highlander-comments-css'  href='http://s1.wp.com/wp-content/mu-plugins/highlander-comments/style.css?m=1323127130g&#038;ver=20110620' type='text/css' media='all' />
+<!--[if lt IE 8]>
+<link rel='stylesheet' id='highlander-comments-ie7-css'  href='http://s2.wp.com/wp-content/mu-plugins/highlander-comments/style-ie7.css?m=1308177848g&#038;ver=20110606' type='text/css' media='all' />
+<![endif]-->
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="http://perl6advent.wordpress.com/xmlrpc.php?rsd" />
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="http://perl6advent.wordpress.com/wp-includes/wlwmanifest.xml" /> 
+<link rel='prev' title='Day 13 – The Perl6&nbsp;Community' href='http://perl6advent.wordpress.com/2010/12/13/the-perl6-community/' />
+<link rel='next' title='Day 15 &#8211; Calling native libraries from Perl&nbsp;6' href='http://perl6advent.wordpress.com/2010/12/15/day-15-calling-native-libraries-from-perl-6/' />
+<meta name="generator" content="WordPress.com" />
+<link rel='canonical' href='http://perl6advent.wordpress.com/2010/12/14/day-14-nextsame-and-its-cousins/' />
+<link rel='shortlink' href='http://wp.me/pJ3YZ-9Z' />
+<link rel="alternate" type="application/json+oembed" href="http://public-api.wordpress.com/oembed/1.0/?format=json&url=http%3A%2F%2Fperl6advent.wordpress.com%2F2010%2F12%2F14%2Fday-14-nextsame-and-its-cousins%2F&for=wpcom-auto-discovery" /><link rel="alternate" type="application/xml+oembed" href="http://public-api.wordpress.com/oembed/1.0/?format=xml&url=http%3A%2F%2Fperl6advent.wordpress.com%2F2010%2F12%2F14%2Fday-14-nextsame-and-its-cousins%2F&for=wpcom-auto-discovery" /><meta property="og:type" content="article" />
+<meta property="og:title" content="Day 14 &#8211; nextsame and its&nbsp;cousins" />
+<meta property="og:url" content="http://perl6advent.wordpress.com/2010/12/14/day-14-nextsame-and-its-cousins/" />
+<meta property="og:description" content="Maybe you&#039;re familiar with the way the keyword super in Java allows you to delegate to the method (or constructor) of a base class. Perl 6 has something similar... but in a world with multiple inhe..." />
+<meta property="og:site_name" content="Perl 6 Advent Calendar" />
+<link rel="shortcut icon" type="image/x-icon" href="http://s2.wp.com/i/favicon.ico?m=1311976024g" sizes="16x16 24x24 32x32 48x48" />
+<link rel="icon" type="image/x-icon" href="http://s2.wp.com/i/favicon.ico?m=1311976024g" sizes="16x16 24x24 32x32 48x48" />
+<link rel="apple-touch-icon-precomposed" href="http://s0.wp.com/i/webclip.png?m=1311618118g" />
+<link rel='openid.server' href='http://perl6advent.wordpress.com/?openidserver=1' />
+<link rel='openid.delegate' href='http://perl6advent.wordpress.com/' />
+<link rel="search" type="application/opensearchdescription+xml" href="http://perl6advent.wordpress.com/osd.xml" title="Perl 6 Advent Calendar" />
+<link rel="search" type="application/opensearchdescription+xml" href="http://wordpress.com/opensearch.xml" title="WordPress.com" />
+	<style type="text/css">
+	/* <![CDATA[ */
+			/* ]]> */
+	</style>
+	<style type="text/css">
+#header     { margin: 0 !important; margin: 0 0 0 1px; padding: 1px; height: 198px; width: 758px; }
+#headerimg  { margin: 7px 9px 0; height: 192px; width: 740px; }
+#headerimg { background: url(http://perl6advent.files.wordpress.com/2009/12/perl6advent2.png) no-repeat top;}
+#header h1 a, #header h1 a:hover, #header .description {
+	color: #ffffff;
+}
+</style>
+<style type='text/css'><!--
+body { background: url("http://s0.wp.com/wp-content/themes/pub/kubrick/images/kubrickbgcolor.gif?m=1308177904g"); }
+#page { background: url("http://s0.wp.com/wp-content/themes/pub/kubrick/images/kubrickbgwide.gif?m=1308177904g") repeat-y top !important; border: none; }
+#header { background: url("http://s0.wp.com/wp-content/themes/pub/kubrick/images/kubrickheader.gif?m=1308177904g") no-repeat bottom center; }
+#footer { background: url("http://s0.wp.com/wp-content/themes/pub/kubrick/images/kubrickfooter.gif?m=1308177904g") no-repeat bottom; border: none;}
+#header { margin: 0 !important; margin: 0 0 0 1px; padding: 1px; height: 198px; width: 758px; }
+#headerimg { margin: 7px 9px 0; height: 192px; width: 740px; }
+#headerimg h1 a, #headerimg h1 a:visited, #headerimg .description { color: #FFFFFF; }
+#headerimg h1 a, #headerimg .description { display:  }
+
+	--></style><meta name="application-name" content="Perl 6 Advent Calendar" /><meta name="msapplication-window" content="width=device-width;height=device-height" /><meta name="msapplication-tooltip" content="Something cool about Perl 6 every day" /><meta name="msapplication-task" content="name=Subscribe;action-uri=http://perl6advent.wordpress.com/feed/;icon-uri=http://s2.wp.com/i/favicon.ico" /><meta name="msapplication-task" content="name=Sign up for a free blog;action-uri=http://wordpress.com/signup/;icon-uri=http://s2.wp.com/i/favicon.ico" /><meta name="msapplication-task" content="name=WordPress.com Support;action-uri=http://support.wordpress.com/;icon-uri=http://s2.wp.com/i/favicon.ico" /><meta name="msapplication-task" content="name=WordPress.com Forums;action-uri=http://forums.wordpress.com/;icon-uri=http://s2.wp.com/i/favicon.ico" />
+<script type="text/javascript" src="http://rt.liftdna.com/liftrtb2_1.js"></script>
+<script type="text/javascript" src="http://rt.liftdna.com/WP.js"></script>
+<script type="text/javascript"> 
+	window.google_analytics_uacct = "UA-52447-2"; 
+</script>
+
+<script type="text/javascript">
+	var _gaq = _gaq || [];
+	_gaq.push(['_setAccount', 'UA-52447-2']);
+	_gaq.push(['_setDomainName', 'wordpress.com']);
+	_gaq.push(['_initData']);
+	_gaq.push(['_trackPageview']);
+
+	(function() {
+		var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+		ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+		(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(ga);
+	})();
+</script>
+</head>
+<body class="typekit-enabled highlander-enabled highlander-light">
+<div id="page">
+
+
+<div id="header">
+	<div id="headerimg" onclick=" location.href='http://perl6advent.wordpress.com';" style="cursor: pointer;">
+		<h1><a href="http://perl6advent.wordpress.com/">Perl 6 Advent Calendar</a></h1>
+		<div class="description">Something cool about Perl 6 every day</div>
+	</div>
+</div>
+<hr />
+
+	<div id="content" class="widecolumn">
+
+	
+		<div class="navigation">
+			<div class="alignleft">&laquo; <a href="http://perl6advent.wordpress.com/2010/12/13/the-perl6-community/" rel="prev">Day 13 – The Perl6&nbsp;Community</a></div>
+			<div class="alignright"><a href="http://perl6advent.wordpress.com/2010/12/15/day-15-calling-native-libraries-from-perl-6/" rel="next">Day 15 &#8211; Calling native libraries from Perl&nbsp;6</a> &raquo;</div>
+		</div>
+
+		<div class="post-619 post type-post status-publish format-standard hentry category-2010 clear" id="post-619">
+						<h2>Day 14 &#8211; nextsame and its&nbsp;cousins</h2>
+			<small class="single-by"><span class="by-author"><span class="sep">by</span> <span class="author vcard"><a class="url fn n" href="http://perl6advent.wordpress.com/author/brushingupmyknuth/" title="View all posts by carl" rel="author">carl</a></span> </span></small>
+
+			<div class="entry">
+				<p>Maybe you&#8217;re familiar with the way the keyword <code>super</code> in Java allows you to delegate to the method (or constructor) of a base class. Perl 6 has something similar&#8230; but in a world with multiple inheritance and mixins it makes less sense to call it <code>super</code>. So it&#8217;s called <code>nextsame</code>. Here&#8217;s an example of its use:</p>
+<pre>
+class A {
+    method sing {
+        say "life is but a dream.";
+    }
+}
+
+class B is A {
+    method sing {
+        say ("merrily," xx 4).join(" ");
+        <b>nextsame</b>;
+    }
+}
+
+class C is B {
+    method sing {
+        say "row, row, row your boat,";
+        say "gently down the stream.";
+        <b>nextsame</b>;
+    }
+}
+</pre>
+<p>Now, when we call <code>C.new.sing</code>, our class hierarchy will output this:</p>
+<pre>
+row, row, row your boat,
+gently down the stream.
+merrily, merrily, merrily, merrily,
+life is but a dream.
+</pre>
+<p>You&#8217;ll note how the call finds its way from <code>C.sing</code> via <code>B.sing</code> over to <code>A.sing</code>. Those transitions are (of course) mediated by the <code>nextsame</code> calls. You&#8217;ll note the similarity to, for example, Java&#8217;s <code>super</code>.</p>
+<p>But calling along the inheritance chain is not the only place where <code>nextsame</code> proves useful. Here&#8217;s an example not involving object orientation:</p>
+<pre>
+sub bray {
+    say "EE-I-EE-I-OO.";
+}
+
+# Oh right, forgot to add the first line of the song...
+&amp;bray.wrap( {
+    say "Old MacDonald had a farm,";
+    <b>nextsame</b>;
+} );
+
+bray(); # Old MacDonald had a farm,
+        # EE-I-EE-I-OO.
+</pre>
+<p>So that&#8217;s another reason <code>nextsame</code> is not called <code>super</code>: it&#8217;s not necessarily related to the base class, because there might not be a base class. Instead, there&#8217;s some more general phenomenon involved. What might that be?</p>
+<p>Every time we do a call to something, there&#8217;s a part of the language runtime making sure that the call ends up in the right routine. Such a part is called a <em>dispatcher</em>. A dispatcher makes sure that the following multi call ends up in the appropriate routine:</p>
+<pre>
+multi foo(    $x) { say "Any argument" }
+multi foo(Int $x) { say "Int argument" }
+
+foo(42) # Int argument
+</pre>
+<p>(And a <code>nextsame</code> in the second <code>multi foo</code> would re-dispatch to the first. But that doesn&#8217;t work in Rakudo yet.)</p>
+<p>Dispatchers are everywhere in Perl 6. They&#8217;re involved in method calls, so that a method can defer along the inheritance chain, as we did in the beginning of the post. They&#8217;re in wrapped routines, so that the code doing the wrapping can call into the code being wrapped. And they participate in multi dispatch, so that multi variants can defer to each other. It&#8217;s all the same principle, but in different guises.</p>
+<p>And <code>nextsame</code> is just a way to talk directly to your friendly neighborhood dispatcher. By the way, the keyword is called <strong>nextsame</strong> because it instructs the dispatcher to defer to the <strong>next</strong> candidate with the <strong>same</strong> signature. There are variants, as you&#8217;ll see below.</p>
+<p>You can use <code>nextsame</code> in mixins, too:</p>
+<pre>
+class A {
+    method foo { "OH HAI" }
+}
+
+role LogFoo {
+    method foo {
+        note ".foo was called";
+        <b>nextsame</b>;
+    }
+}
+
+my $logged_A = A.new but LogFoo;
+
+say $logged_A.foo; # .foo was called
+                   # OH HAI
+</pre>
+<p>I like this way to use mixins to inject behavior. I once <a href="http://strangelyconsistent.org/blog/dreaming-in-mixins">wrote a post about it</a>, and jnthn has written <a href="https://github.com/jnthn/test-mock">a Perl 6 module</a> that exploits it.</p>
+<p>Though pretty cool, this use of <code>nextsame</code> isn&#8217;t really anything new; in fact it&#8217;s just another example of the defer-along-the-OO-callchain dispatcher. That&#8217;s because mixing in the role <code>LogFoo</code> with <code>but</code> causes an anonymous subclass to be created, one that also does <code>LogFoo</code>. So role mixin <code>nextsame</code> boils down to just inheritance <code>nextsame</code>. (But we don&#8217;t need to actually grok that to use it, and it still feels slightly magical and very nice to use.)</p>
+<p>In summary, <code>nextsame</code> works in a lot of places you&#8217;d expect it to work, and it works the way you expect it to. It defers to the next thing.</p>
+<p>Oh, and <code>nextsame</code> has three closely related cousin keywords:</p>
+<pre>
+nextsame             Defer with the same arguments, don't return
+callsame             Defer with the same arguments, then  return
+
+nextwith($p1, $p2, ...) Defer with these arguments, don't return
+callwith($p1, $p2, ...) Defer with these arguments, then  return
+</pre>
+<p>Naturally, the other three can be used in the same situations <code>nextsame</code> can.</p>
+
+<div id="wpcom_below_post"  class="wpadvert" style="text-align: center; padding: 5px; background: #; padding: 5px; margin: 10px auto; width: 310px;">
+<!-- <span style="text-align: left; letter-spacing: 1px; font: 8px/1em Verdana, sans-serif; color: #ccc; text-transform: uppercase; display: block; padding: 0 1px;">Advertisement</span> -->
+<script type="text/javascript">
+LD_AddCustomAttr("AdOpt", "1");
+LD_AddCustomAttr("Origin", "other");
+LD_AddCustomAttr("theme_bg", "ffffff"); 
+LD_AddCustomAttr("theme_text", "333333"); 
+LD_AddCustomAttr("theme_link", "0066cc"); 
+LD_AddCustomAttr("theme_border", "f9f9f9"); 
+LD_AddCustomAttr("theme_url", "114477"); 
+LD_AddCustomAttr("LangId", "1");
+LD_AddCustomAttr("Autotag", "entertainment");
+LD_AddCustomAttr("Autotag", "music");
+LD_AddCustomAttr("Autotag", "technology");
+LD_AddCustomAttr("Tag", "2010");
+
+LD_AddSlot("wpcom_below_post");
+LD_GetBids();
+</script>
+</div><div class="sharedaddy sd-like-enabled"><div id="wpl-likebox" class="sd-block sd-like"><h3 class="sd-title">Like this:</h3><div class="sd-content"><div id="wpl-button"><a href='http://perl6advent.wordpress.com/2010/12/14/day-14-nextsame-and-its-cousins/?like=1&amp;_wpnonce=762128a6f3' title='I like this post' class='like needs-login sd-button' rel='nofollow'><span>Like</span></a></div><div id="wpl-count" class="sd-like-count">One blogger likes this post.</div><ul id="wpl-avatars" class="sd-like-gravatars"><li><a href="http://gravatar.com/foobar123" title="Moritz" class="wpl-liker"><img src='http://0.gravatar.com/avatar/eb69242357e150e580be56604b208a83?s=30&amp;d=identicon&amp;r=G' class='avatar avatar-30' alt='Moritz' width='30' height='30' /></a></li></ul></div></div></div>
+								
+				<p class="postmetadata alt">
+					<small>
+												This entry was posted on December 14, 2010 at 12:01 am and is filed under <a href="http://perl6advent.wordpress.com/category/2010/" title="View all posts in 2010" rel="category tag">2010</a>.						You can follow any responses to this entry through the <a href='http://perl6advent.wordpress.com/2010/12/14/day-14-nextsame-and-its-cousins/feed/'>RSS 2.0</a> feed.
+													You can <a href="#respond">leave a response</a>, or <a href="http://perl6advent.wordpress.com/2010/12/14/day-14-nextsame-and-its-cousins/trackback/" rel="trackback">trackback</a> from your own site.
+						
+					</small>
+				</p>
+
+			</div>
+					</div>
+
+	
+<!-- You can start editing here. -->
+	<h3 id="comments">4 Responses to &#8220;Day 14 &#8211; nextsame and its&nbsp;cousins&#8221;</h3>
+
+	<ol class="commentlist">
+					<li class="comment even thread-even depth-1 highlander-comment" id="comment-542">
+			<img alt='' src='http://0.gravatar.com/avatar/27c607e7c4e255128bf64718dc5d4601?s=32&amp;d=identicon&amp;r=G' class='avatar avatar-32' height='32' width='32' />			<cite>Jake</cite> Says:						<br />
+
+			<small class="commentmetadata"><a href="#comment-542" title="">December 15, 2010 at 11:09 pm</a> | <a class='comment-reply-link' href='/2010/12/14/day-14-nextsame-and-its-cousins/?replytocom=542#respond' onclick='return addComment.moveForm("comment-542", "542", "respond", "619")'>Reply</a> </small>
+
+			<p>Im wondering if there is (or if there should be) a way of using nextsame in a functional way (other than with multisubs) with module inheritance. Say, if you have two modules:</p>
+<p>    module A {<br />
+        sub foo {say &#8220;A::foo&#8221;}<br />
+    }</p>
+<p>    module B is A {<br />
+        sub foo {say &#8220;B::foo&#8221;; nextsame}<br />
+    }</p>
+<p>Or is module inheritance like this not possible?</p>
+<ul class='children'>
+			<li class="comment byuser comment-author-brushingupmyknuth bypostauthor odd alt depth-2 highlander-comment" id="comment-545">
+			<img alt='' src='http://0.gravatar.com/avatar/2d9d4815e8e5927a4e04cdea13ca1e36?s=32&amp;d=identicon&amp;r=G' class='avatar avatar-32' height='32' width='32' />			<cite>carl</cite> Says:						<br />
+
+			<small class="commentmetadata"><a href="#comment-545" title="">December 16, 2010 at 8:57 am</a> | <a class='comment-reply-link' href='/2010/12/14/day-14-nextsame-and-its-cousins/?replytocom=545#respond' onclick='return addComment.moveForm("comment-545", "545", "respond", "619")'>Reply</a> </small>
+
+			<p>&#8220;Module inheritance&#8221; is a bit of an oxymoron, since inheritance is a relation between classes, and becomes expressed through the dispatching of methods. A module of subs is twice removed from such action.</p>
+<p>I tried the above in Rakudo. It doesn&#8217;t work, but to my surprise the &#8216;module B is A&#8217;  declaration didn&#8217;t throw a Big Fat Error. I think it should (to catch misunderstandings like this early), so I submitted <a href="http://rt.perl.org/rt3/Ticket/Display.html?id=80856" rel="nofollow">a rakudobug</a> about it.</p>
+</li>
+</ul>
+</li>
+			<li class="comment even thread-odd thread-alt depth-1 highlander-comment" id="comment-912">
+			<img alt='' src='http://0.gravatar.com/avatar/2e1e6e17270c837fb11b63651639f49f?s=32&amp;d=identicon&amp;r=G' class='avatar avatar-32' height='32' width='32' />			<cite>Joek</cite> Says:						<br />
+
+			<small class="commentmetadata"><a href="#comment-912" title="">November 8, 2011 at 6:29 pm</a> | <a class='comment-reply-link' href='/2010/12/14/day-14-nextsame-and-its-cousins/?replytocom=912#respond' onclick='return addComment.moveForm("comment-912", "912", "respond", "619")'>Reply</a> </small>
+
+			<p>does any example for<br />
+nextwith and callwith</p>
+<ul class='children'>
+			<li class="comment byuser comment-author-brushingupmyknuth bypostauthor odd alt depth-2 highlander-comment" id="comment-913">
+			<img alt='' src='http://0.gravatar.com/avatar/2d9d4815e8e5927a4e04cdea13ca1e36?s=32&amp;d=identicon&amp;r=G' class='avatar avatar-32' height='32' width='32' />			<cite>carl</cite> Says:						<br />
+
+			<small class="commentmetadata"><a href="#comment-913" title="">November 8, 2011 at 8:15 pm</a> | <a class='comment-reply-link' href='/2010/12/14/day-14-nextsame-and-its-cousins/?replytocom=913#respond' onclick='return addComment.moveForm("comment-913", "913", "respond", "619")'>Reply</a> </small>
+
+			<p>Yes, we reply to non-fully-formed questions, too!</p>
+<pre>
+multi foo(Any $x) { say "general" };
+multi foo(Int $x) { say "specific"; nextwith("") };
+foo(42);
+</pre>
+<p>The above code will print <code>specific</code> and then <code>general</code>. Works in Rakudo today.</p>
+</li>
+</ul>
+</li>
+	
+	</ol>
+
+	<div class="navigation">
+		<div class="alignleft"></div>
+		<div class="alignright"></div>
+	</div>
+
+ 
+
+
+								<div id="respond">
+				<h3 id="reply-title">Leave a Reply <small><a rel="nofollow" id="cancel-comment-reply-link" href="/2010/12/14/day-14-nextsame-and-its-cousins/#respond" style="display:none;">Cancel reply</a></small></h3>
+									<form action="http://perl6advent.wordpress.com/wp-comments-post.php" method="post" id="commentform">
+																										
+
+
+												
+<input type="hidden" name="hc_post_as" id="hc_post_as" value="guest" />
+
+<div class="comment-form-field comment-textarea">
+	<label for="comment">Enter your comment here...</label>
+	<div id="comment-form-comment"><textarea id="comment" name="comment"></textarea></div>
+</div>
+
+<div id="comment-form-identity">
+
+	<div id="comment-form-nascar">
+		<p>Fill in your details below or click an icon to log in:</p>
+		<ul>
+			<li class="selected" style="display:none;">
+				<a href="#comment-form-guest" id="postas-guest" title="Guest">
+					<span></span>
+				</a>
+			</li>
+			<li>
+				<a href="#comment-form-wordpress" id="postas-wordpress" title="WordPress.com">
+					<span></span>
+				</a>
+			</li>
+			<li>
+				<a href="#comment-form-load-service:Twitter" id="postas-twitter" title="Twitter">
+					<span></span>
+				</a>
+			</li>
+			<li>
+				<a href="#comment-form-load-service:Facebook" id="postas-facebook" title="Facebook">
+					<span></span>
+				</a>
+			</li>
+		</ul>
+	</div>
+
+	<div id="comment-form-guest" class="comment-form-service selected">
+		<div class="comment-form-padder">
+			<div class="comment-form-avatar">
+				<img src="http://www.gravatar.com/avatar/ad516503a11cd5ca435acc9bb6523536?s=25&d=mm" alt="Gravatar" width="25" class="no-grav" />
+			</div>
+
+				<div class="comment-form-fields">
+				<div class="comment-form-field comment-form-email">
+					<label for="email">Email <span class="required">(required)</span> <span class="nopublish">(Not published)</span></label>
+					<div class="comment-form-input"><input id="email" name="email" type="text" value="" /></div>
+				</div>
+				<div class="comment-form-field comment-form-author">
+					<label for="author">Name <span class="required">(required)</span></label>
+					<div class="comment-form-input"><input id="author" name="author" type="text" value="" /></div>
+				</div>
+				<div class="comment-form-field comment-form-url">
+					<label for="url">Website</label>
+					<div class="comment-form-input"><input id="url" name="url" type="text" value="" /></div>
+				</div> 
+			</div>
+	
+		</div>
+	</div>
+
+	<div id="comment-form-wordpress" class="comment-form-service">
+		<div class="comment-form-padder">
+			<div class="comment-form-avatar">
+				<img src="http://s2.wp.com/wp-content/mu-plugins/highlander-comments/images/wplogo.png?m=1308177848g" alt="WordPress.com Logo" width="25" class="no-grav" />
+			</div>
+
+				<div class="comment-form-fields">
+					<p id="wordpress-login-first">Please log in to WordPress.com to post a comment to your blog.</p>
+				<iframe id="wordpress-login-iframe" data-srcurl="http://perl6advent.wordpress.com/wp-login.php?redirect_to=http%3A%2F%2Fperl6advent.wordpress.com%2Fhighlander.login%2F&#038;action=highlander-login&#038;skin=light"></iframe>
+				</div>
+	
+		</div>
+	</div>
+
+	<div id="comment-form-twitter" class="comment-form-service">
+		<div class="comment-form-padder">
+			<div class="comment-form-avatar">
+				<img src="http://www.gravatar.com/avatar/ad516503a11cd5ca435acc9bb6523536?s=25&d=mm" alt="Twitter picture" width="25" class="no-grav" />
+			</div>
+
+				<div class="comment-form-fields">
+				<input type="hidden" name="twitter_avatar" id="twitter-avatar" class="comment-meta-twitter" value="" />
+				<input type="hidden" name="twitter_user_id" id="twitter-user_id" class="comment-meta-twitter" value="" />
+				<input type="hidden" name="twitter_access_token" id="twitter-access_token" class="comment-meta-twitter" value="" />
+				<p class="comment-form-posting-as pa-twitter"><strong></strong> You are commenting using your Twitter account. <span class="comment-form-log-out">(&nbsp;<a href="javascript:HighlanderComments.doExternalLogout( 'twitter' );">Log&nbsp;Out</a>&nbsp;/&nbsp;<a href="#" onclick="javascript:HighlanderComments.switchAccount();return false;">Change</a>&nbsp;)</span></p>
+			</div>
+	
+		</div>
+	</div>
+
+	<div id="comment-form-facebook" class="comment-form-service">
+		<div class="comment-form-padder">
+			<div class="comment-form-avatar">
+				<img src="http://www.gravatar.com/avatar/ad516503a11cd5ca435acc9bb6523536?s=25&d=mm" alt="Facebook photo" width="25" class="no-grav" />
+			</div>
+
+				<div class="comment-form-fields">
+				<input type="hidden" name="fb_avatar" id="facebook-avatar" class="comment-meta-facebook" value="" />
+				<input type="hidden" name="fb_user_id" id="facebook-user_id" class="comment-meta-facebook" value="" />
+				<input type="hidden" name="fb_access_token" id="facebook-access_token" class="comment-meta-facebook" value="" />
+				<p class="comment-form-posting-as pa-facebook"><strong></strong> You are commenting using your Facebook account. <span class="comment-form-log-out">(&nbsp;<a href="javascript:HighlanderComments.doExternalLogout( 'facebook' );">Log&nbsp;Out</a>&nbsp;/&nbsp;<a href="#" onclick="javascript:HighlanderComments.switchAccount();return false;">Change</a>&nbsp;)</span></p>
+			</div>
+	
+		</div>
+	</div>
+
+
+	<div id="comment-form-load-service" class="comment-form-service"> 
+		<div class="comment-form-posting-as-cancel"><a href="javascript:HighlanderComments.cancelExternalWindow();">Cancel</a></div>
+		<p>Connecting to %s</p> 
+	</div>
+	
+	
+</div>
+
+
+<div id="comment-form-subscribe"> 
+<p class="comment-subscription-form"><input type="checkbox" name="subscribe" id="subscribe" value="subscribe" style="width: auto;" tabindex="6"/> <label class="subscribe-label" id="subscribe-label" for="subscribe">Notify me of follow-up comments via email.</label></p></div>
+
+	<script type="text/javascript">
+	jQuery(document).ready(function(){
+		HighlanderComments.comment_registration = '';
+		HighlanderComments.userIsLoggedIn = false;
+			});
+	</script>
+												<p class="form-submit">
+							<input name="submit" type="submit" id="comment-submit" value="Post Comment" />
+							<input type='hidden' name='comment_post_ID' value='619' id='comment_post_ID' />
+<input type='hidden' name='comment_parent' id='comment_parent' value='0' />
+						</p>
+						
+<input type="hidden" name="genseq" value="1323709601" />
+<p style="display: none;"><input type="hidden" id="akismet_comment_nonce" name="akismet_comment_nonce" value="7a07662c06" /></p><script type='text/javascript' src='http://s1.wp.com/wp-content/mu-plugins/akismet-2.5/form.js?m=1308783981g&#038;ver=1'></script>
+<p style="display: none;"><input type="hidden" id="ak_js" name="ak_js" value="2"/></p>					</form>
+							</div><!-- #respond -->
+			<div style="clear: both"></div>			
+
+	
+	</div>
+
+
+<hr />
+<div id="footer">
+	<p>
+		Theme: <a href="http://theme.wordpress.com/themes/kubrick/">Kubrick</a>. <a href="http://wordpress.com/?ref=footer" rel="generator">Blog at WordPress.com</a>. 
+		<br /><a href="http://perl6advent.wordpress.com/feed/">Entries (RSS)</a> and <a href="http://perl6advent.wordpress.com/comments/feed/">Comments (RSS)</a>.	</p>
+</div>
+</div>
+
+<script type='text/javascript' src='http://s.gravatar.com/js/gprofiles.js?aa&#038;ver=MU'></script>
+<script type='text/javascript'>
+/* <![CDATA[ */
+var WPGroHo = {"my_hash":""};
+/* ]]> */
+</script>
+<script type='text/javascript' src='http://s0.wp.com/wp-content/mu-plugins/gravatar-hovercards/wpgroho.js?m=1318621576g&#038;ver=MU'></script>
+
+<script type="text/javascript">
+var _qevents = _qevents || [];
+(function() {var elem = document.createElement('script');elem.src = (document.location.protocol == "https:" ? "https://secure" : "http://edge") + ".quantserve.com/quant.js";elem.async = true;elem.type = "text/javascript";var scpt = document.getElementsByTagName('script')[0];scpt.parentNode.insertBefore(elem, scpt);  })();
+_qevents.push( { qacct:"p-18-mFEk4J448M", labels:",language.en,type.wpcom,as" } );
+</script>
+<noscript><div style="display: none;"><img src="//pixel.quantserve.com/pixel/p-18-mFEk4J448M.gif?labels=%2Clanguage.en%2Ctype.wpcom%2Cas" height="1" width="1" alt="" /></div></noscript>
+
+	<script type="text/javascript">
+	/* <![CDATA[ */
+		jQuery(document).ready( function($) {
+			
+			$('#wpl-button > a.like').click( function(e) {
+				e.preventDefault();
+				
+				$('#wpl-mustlogin').remove();
+				
+				$.post( 'http://perl6advent.wordpress.com/wp-admin/admin-ajax.php', { 
+					'action': 'wpl_record_stat',
+					'stat_name': 'loggedout_like_click'
+				} );
+
+				var tenMins = new Date();
+				tenMins.setTime( tenMins.getTime() + 600000 );
+				document.cookie = 'wpl_rand=6730d927df; expires=' + tenMins.toGMTString() + '; domain=wordpress.com; path=/;';
+				
+				$('#wpl-count').after( '\
+					<div id="wpl-mustlogin"> \
+						<form action="https://perl6advent.wordpress.com/wp-login.php" method="post"> \
+							<p>Just one more step to like this post:</p> \
+							<label><span>Username</span> <input type="text" name="log" id="user_login" class="input" value="" size="20" tabindex="80" /></label> \
+							<label><span>Password</span> <input type="password" name="pwd" id="user_pass" class="input" value="" size="20" tabindex="81" /></label> \
+							<input type="submit" name="wp-submit" id="wp-submit" class="button-primary" value="Log In" tabindex="82" /> \
+							<input type="hidden" name="redirect_to" value="http://perl6advent.wordpress.com/2010/12/14/day-14-nextsame-and-its-cousins/?like=1" /> \
+							<input type="hidden" name="wpl_rand" value="6730d927df" /> \
+							<p>Not a member yet? <a href="http://wordpress.com/signup/?ref=likebox" id="wpl-signup-link">Sign up with WordPress.com</a></p> \
+						</form> \
+					</div> \
+				');
+				
+				$('#wpl-mustlogin').hide().slideDown('fast');
+			} );
+			
+			$('#wpl-mustlogin input.input').live( 'focus', function() {
+				$(this).prev().hide();
+			}).live( 'blur', function() {
+				if ( $(this).val() == '' )
+					$(this).prev().show();
+			});
+			
+			$('#wpl-mustlogin input#wp-submit').live( 'click', function(e) {
+				e.preventDefault();
+				
+				$.post( 'http://perl6advent.wordpress.com/wp-admin/admin-ajax.php', { 
+					'action': 'wpl_record_stat',
+					'stat_name': 'loggedout_login_submit'
+				}, function() {
+					$('#wpl-mustlogin form').submit();
+				} );
+			});			
+			
+			$('#wpl-mustlogin a#wpl-signup-link').live( 'click', function(e) {
+				e.preventDefault();
+				
+				var link = $(this).attr('href');
+				
+				$.post( 'http://perl6advent.wordpress.com/wp-admin/admin-ajax.php', { 
+					'action': 'wpl_record_stat',
+					'stat_name': 'loggedout_signup_click'
+				}, function() {
+					location.href = link;
+				} );
+			});					
+			
+		});
+	/* ]]> */
+	</script>
+<script>jQuery(document).ready(function($){ Gravatar.profile_cb = function( h, d ) { WPGroHo.syncProfileData( h, d );	}; Gravatar.my_hash = WPGroHo.my_hash; Gravatar.init( 'body', '#wpadminbar' ); });</script>	<div style="display:none">
+	<div class="grofile-hash-map-27c607e7c4e255128bf64718dc5d4601">
+	</div>
+	<div class="grofile-hash-map-2d9d4815e8e5927a4e04cdea13ca1e36">
+	</div>
+	<div class="grofile-hash-map-2e1e6e17270c837fb11b63651639f49f">
+	</div>
+	</div>
+		<style type="text/css">
+			
+				.reblog-from img                   { margin: 0 10px 0 0; vertical-align: middle; padding: 0; border: 0; }
+				.reblogger-note img.avatar         { float: left; padding: 0; border: 0; }
+				.reblogger-note-content            { margin: 0 0 20px 35px; }
+				.reblog-post                       { border-left: 3px solid #eee; padding-left: 15px; }
+				.reblog-post ul.thumb-list         { display: block; list-style: none; margin: 2px 0; padding: 0; clear: both; }
+				.reblog-post ul.thumb-list li      { display: inline; margin: 0; padding: 0 1px; border: 0; }
+				.reblog-post ul.thumb-list li a    { margin: 0; padding: 0; border: 0; }
+				.reblog-post ul.thumb-list li img  { margin: 0; padding: 0; border: 0; }
+				.reblog-post                       { border-left: 3px solid #eee; padding-left: 15px; }
+					</style><script type='text/javascript'>
+/* <![CDATA[ */
+var HighlanderComments = {"loggingInText":"Logging In\u2026","submittingText":"Posting Comment\u2026","postCommentText":"Post Comment","connectingToText":"Connecting to %s","commentingAsText":"%1$s: You are commenting using your %2$s account.","logoutText":"Log Out","loginText":"Log In","connectURL":"http:\/\/perl6advent.wordpress.com\/public.api\/connect\/?action=request","homeURL":"http:\/\/perl6advent.wordpress.com\/","postID":"619","gravDefault":"identicon","enterACommentError":"Please enter a comment","enterEmailError":"Email address required","invalidEmailError":"Invalid email address","enterAuthorError":"Name required","gravatarFromEmail":"Your email address will be used to look up your Gravatar.","logInToExternalAccount":"Log in to use details from one of these accounts.","change":"Change","changeAccount":"Change Account"};
+/* ]]> */
+</script>
+<script type='text/javascript' src='http://s2.wp.com/wp-content/mu-plugins/highlander-comments/script.js?m=1322513933g&#038;ver=20110804'></script>
+	
+	<div id="bit" class="loggedout-follow-normal">
+		<a class="bsub" href="javascript:void(0)"><span id='bsub-text'>Follow</span></a>
+		<div id="bitsubscribe">
+			
+					<h3><label for="loggedout-follow-field">Follow Perl 6 Advent Calendar</label></h3>
+		
+			<form action="http://subscribe.wordpress.com" method="post" accept-charset="utf-8" id="loggedout-follow">
+			<p>Get every new post delivered to your Inbox.</p>
+
+					
+			
+			<p><input type="text" name="email" style="width: 95%; padding: 1px 2px" value="Enter email address" onfocus='this.value=(this.value=="Enter email address") ? "" : this.value;' onblur='this.value=(this.value=="") ? "Enter email address" : this.value;'  id="loggedout-follow-field"/></p>
+
+			<input type="hidden" name="action" value="subscribe"/>
+			<input type="hidden" name="blog_id" value="10740073"/>
+			<input type="hidden" name="source" value="http://perl6advent.wordpress.com/2010/12/14/day-14-nextsame-and-its-cousins/"/>
+			<input type="hidden" name="sub-type" value="loggedout-follow"/>
+
+			<input type="hidden" id="_wpnonce" name="_wpnonce" value="535b507c2f" /><input type="hidden" name="_wp_http_referer" value="/2010/12/14/day-14-nextsame-and-its-cousins/" />
+			<p id='bsub-subscribe-button'><input type="submit" value="Sign me up!" /></p>
+			</form>
+					<div id='bsub-credit'><a href="http://wordpress.com/signup/?ref=lof">Powered by WordPress.com</a></div>
+		</div><!-- #bitsubscribe -->
+	</div><!-- #bit -->
+<script type="text/javascript" src="http://b.scorecardresearch.com/beacon.js"></script><script type="text/javascript">try{COMSCORE.beacon({c1:2,c2:7518284});}catch(e){}</script><noscript><p class="robots-nocontent"><img src="http://b.scorecardresearch.com/p?cj=1c1=2&#038;c2=7518284" alt="" style="display:none" width="1" height="1" /></p></noscript><script type="text/javascript">
+// <![CDATA[
+(function() {
+try{
+  if ( window.external &&'msIsSiteMode' in window.external) {
+    if (window.external.msIsSiteMode()) {
+      var jl = document.createElement('script');
+      jl.type='text/javascript';
+      jl.async=true;
+      jl.src='/wp-content/plugins/ie-sitemode/custom-jumplist.php';
+      var s = document.getElementsByTagName('script')[0];
+      s.parentNode.insertBefore(jl, s);
+    }
+  }
+}catch(e){}
+})();
+// ]]>
+</script><script src="http://s.stats.wordpress.com/w.js?21" type="text/javascript"></script>
+<script type="text/javascript">
+st_go({'blog':'10740073','v':'wpcom','user_id':'0','post':'619','subd':'perl6advent'});
+ex_go({'crypt':'UE5XaGUuOTlwaD85flAmcm1mcmZsaDhkV11YdWFnNncxc1tjZG9XVXhReTFqanhKV3x0UkQxQldDVUV4ZVR+cSt8Ny8tTm40WHJCJm0yem40UEhxUkw4QyxOai11PS9zMEdMUmc2cnc1LC1MRHJiTjFWeGpoNThTT3RXUkEuY0Z+WW9sfDhrQnZxNlpERT1aMnQlSXxFP3k4cnJYcHdzLDBlbklXLDFRP05qdExNa2hUNiZHVmJIQ1FXLHZwMWVrVnxvcnBSSS1hPy9XblEuZVVXcWhmLkpHdXRxeHNfOSx4R2ZhWSxrZmMuL1ho'});
+addLoadEvent(function(){linktracker_init('10740073',619);});
+	</script>
+<noscript><img src="http://stats.wordpress.com/b.gif?v=noscript" style="height:0px;width:0px;overflow:hidden" alt="" /></noscript>
+</body>
+</html>

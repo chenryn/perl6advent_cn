@@ -1,0 +1,518 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en">
+
+<head profile="http://gmpg.org/xfn/11">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+<title>Day 18 &#8211; ABC Module &laquo; Perl 6 Advent Calendar</title>
+
+<link rel="stylesheet" href="http://s0.wp.com/wp-content/themes/pub/kubrick/style.css?m=1321457825g&amp;3" type="text/css" media="screen" />
+<!--[if lte IE 8]><link rel="stylesheet" href="http://s0.wp.com/wp-content/themes/pub/kubrick/ie.css?m=1304062150g" type="text/css" media="screen" /><![endif]-->
+<link rel="pingback" href="http://perl6advent.wordpress.com/xmlrpc.php" />
+
+<meta name="google-site-verification" content="YPNxtMSK3Jj7JR2XCK-hDqmF9xDIeBEyvYm3aT1s71Y" />
+<link rel="alternate" type="application/rss+xml" title="Perl 6 Advent Calendar &raquo; Feed" href="http://perl6advent.wordpress.com/feed/" />
+<link rel="alternate" type="application/rss+xml" title="Perl 6 Advent Calendar &raquo; Comments Feed" href="http://perl6advent.wordpress.com/comments/feed/" />
+<link rel="alternate" type="application/rss+xml" title="Perl 6 Advent Calendar &raquo; Day 18 &#8211; ABC&nbsp;Module Comments Feed" href="http://perl6advent.wordpress.com/2010/12/18/day-18-abc-module/feed/" />
+<script type="text/javascript">
+/* <![CDATA[ */
+function addLoadEvent(func){var oldonload=window.onload;if(typeof window.onload!='function'){window.onload=func;}else{window.onload=function(){oldonload();func();}}}
+/* ]]> */
+</script>
+<link rel="stylesheet" href="http://s0.wp.com/wp-content/themes/h4/global.css?m=1313010131g" type="text/css" />
+<link rel='stylesheet' id='loggedout-subscribe-css'  href='http://s0.wp.com/wp-content/blog-plugins/loggedout-follow/widget.css?m=1322602716g&#038;ver=20111128' type='text/css' media='all' />
+<link rel='stylesheet' id='post-reactions-css'  href='http://s0.wp.com/wp-content/mu-plugins/post-flair/style.css?m=1322086818g&#038;ver=3' type='text/css' media='all' />
+<script type='text/javascript' src='http://s2.wp.com/wp-includes/js/jquery/jquery.js?m=1322588682g&#038;ver=1.7.1'></script>
+<script type='text/javascript' src='http://s2.wp.com/wp-content/blog-plugins/loggedout-follow/widget.js?m=1320005313g&#038;ver=20111128'></script>
+<script type='text/javascript' src='http://s1.wp.com/wp-includes/js/comment-reply.js?m=1304062078g&#038;ver=20090102'></script>
+<link rel='stylesheet' id='highlander-comments-css'  href='http://s1.wp.com/wp-content/mu-plugins/highlander-comments/style.css?m=1323127130g&#038;ver=20110620' type='text/css' media='all' />
+<!--[if lt IE 8]>
+<link rel='stylesheet' id='highlander-comments-ie7-css'  href='http://s0.wp.com/wp-content/mu-plugins/highlander-comments/style-ie7.css?m=1307172301g&#038;ver=20110606' type='text/css' media='all' />
+<![endif]-->
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="http://perl6advent.wordpress.com/xmlrpc.php?rsd" />
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="http://perl6advent.wordpress.com/wp-includes/wlwmanifest.xml" /> 
+<link rel='prev' title='Day 17 &#8211; Rosetta&nbsp;Code' href='http://perl6advent.wordpress.com/2010/12/17/day-17-rosetta-code/' />
+<link rel='next' title='Day 19 &#8211; False&nbsp;truth' href='http://perl6advent.wordpress.com/2010/12/19/day-19-false-truth/' />
+<meta name="generator" content="WordPress.com" />
+<link rel='canonical' href='http://perl6advent.wordpress.com/2010/12/18/day-18-abc-module/' />
+<link rel='shortlink' href='http://wp.me/pJ3YZ-aC' />
+<link rel="alternate" type="application/json+oembed" href="http://public-api.wordpress.com/oembed/1.0/?format=json&url=http%3A%2F%2Fperl6advent.wordpress.com%2F2010%2F12%2F18%2Fday-18-abc-module%2F&for=wpcom-auto-discovery" /><link rel="alternate" type="application/xml+oembed" href="http://public-api.wordpress.com/oembed/1.0/?format=xml&url=http%3A%2F%2Fperl6advent.wordpress.com%2F2010%2F12%2F18%2Fday-18-abc-module%2F&for=wpcom-auto-discovery" /><meta property="og:type" content="article" />
+<meta property="og:title" content="Day 18 &#8211; ABC&nbsp;Module" />
+<meta property="og:url" content="http://perl6advent.wordpress.com/2010/12/18/day-18-abc-module/" />
+<meta property="og:description" content="Instead of focusing on a particular feature of Perl 6 today, I&#039;d like to take you on a quick tour of the ABC module.  I think it&#039;s a nice example of some of the strengths of Perl 6.
+
+ABC Notation..." />
+<meta property="og:site_name" content="Perl 6 Advent Calendar" />
+<link rel="shortcut icon" type="image/x-icon" href="http://s2.wp.com/i/favicon.ico?m=1311976024g" sizes="16x16 24x24 32x32 48x48" />
+<link rel="icon" type="image/x-icon" href="http://s2.wp.com/i/favicon.ico?m=1311976024g" sizes="16x16 24x24 32x32 48x48" />
+<link rel="apple-touch-icon-precomposed" href="http://s0.wp.com/i/webclip.png?m=1311618117g" />
+<link rel='openid.server' href='http://perl6advent.wordpress.com/?openidserver=1' />
+<link rel='openid.delegate' href='http://perl6advent.wordpress.com/' />
+<link rel="search" type="application/opensearchdescription+xml" href="http://perl6advent.wordpress.com/osd.xml" title="Perl 6 Advent Calendar" />
+<link rel="search" type="application/opensearchdescription+xml" href="http://wordpress.com/opensearch.xml" title="WordPress.com" />
+	<style type="text/css">
+	/* <![CDATA[ */
+			/* ]]> */
+	</style>
+	<style type="text/css">
+#header     { margin: 0 !important; margin: 0 0 0 1px; padding: 1px; height: 198px; width: 758px; }
+#headerimg  { margin: 7px 9px 0; height: 192px; width: 740px; }
+#headerimg { background: url(http://perl6advent.files.wordpress.com/2009/12/perl6advent2.png) no-repeat top;}
+#header h1 a, #header h1 a:hover, #header .description {
+	color: #ffffff;
+}
+</style>
+<style type='text/css'><!--
+body { background: url("http://s0.wp.com/wp-content/themes/pub/kubrick/images/kubrickbgcolor.gif?m=1304062150g"); }
+#page { background: url("http://s0.wp.com/wp-content/themes/pub/kubrick/images/kubrickbgwide.gif?m=1304062150g") repeat-y top !important; border: none; }
+#header { background: url("http://s0.wp.com/wp-content/themes/pub/kubrick/images/kubrickheader.gif?m=1304062150g") no-repeat bottom center; }
+#footer { background: url("http://s0.wp.com/wp-content/themes/pub/kubrick/images/kubrickfooter.gif?m=1304062150g") no-repeat bottom; border: none;}
+#header { margin: 0 !important; margin: 0 0 0 1px; padding: 1px; height: 198px; width: 758px; }
+#headerimg { margin: 7px 9px 0; height: 192px; width: 740px; }
+#headerimg h1 a, #headerimg h1 a:visited, #headerimg .description { color: #FFFFFF; }
+#headerimg h1 a, #headerimg .description { display:  }
+
+	--></style><meta name="application-name" content="Perl 6 Advent Calendar" /><meta name="msapplication-window" content="width=device-width;height=device-height" /><meta name="msapplication-tooltip" content="Something cool about Perl 6 every day" /><meta name="msapplication-task" content="name=Subscribe;action-uri=http://perl6advent.wordpress.com/feed/;icon-uri=http://s2.wp.com/i/favicon.ico" /><meta name="msapplication-task" content="name=Sign up for a free blog;action-uri=http://wordpress.com/signup/;icon-uri=http://s2.wp.com/i/favicon.ico" /><meta name="msapplication-task" content="name=WordPress.com Support;action-uri=http://support.wordpress.com/;icon-uri=http://s2.wp.com/i/favicon.ico" /><meta name="msapplication-task" content="name=WordPress.com Forums;action-uri=http://forums.wordpress.com/;icon-uri=http://s2.wp.com/i/favicon.ico" /></head>
+<body class="typekit-enabled highlander-enabled highlander-light">
+<div id="page">
+
+
+<div id="header">
+	<div id="headerimg" onclick=" location.href='http://perl6advent.wordpress.com';" style="cursor: pointer;">
+		<h1><a href="http://perl6advent.wordpress.com/">Perl 6 Advent Calendar</a></h1>
+		<div class="description">Something cool about Perl 6 every day</div>
+	</div>
+</div>
+<hr />
+
+	<div id="content" class="widecolumn">
+
+	
+		<div class="navigation">
+			<div class="alignleft">&laquo; <a href="http://perl6advent.wordpress.com/2010/12/17/day-17-rosetta-code/" rel="prev">Day 17 &#8211; Rosetta&nbsp;Code</a></div>
+			<div class="alignright"><a href="http://perl6advent.wordpress.com/2010/12/19/day-19-false-truth/" rel="next">Day 19 &#8211; False&nbsp;truth</a> &raquo;</div>
+		</div>
+
+		<div class="post-658 post type-post status-publish format-standard hentry category-2010 clear" id="post-658">
+						<h2>Day 18 &#8211; ABC&nbsp;Module</h2>
+			<small class="single-by"><span class="by-author"><span class="sep">by</span> <span class="author vcard"><a class="url fn n" href="http://perl6advent.wordpress.com/author/colomon/" title="View all posts by colomon" rel="author">colomon</a></span> </span></small>
+
+			<div class="entry">
+				<p>Instead of focusing on a particular feature of Perl 6 today, I&#8217;d like to take you on a quick tour of the <a href="https://github.com/colomon/ABC">ABC module</a>.  I think it&#8217;s a nice example of some of the strengths of Perl 6.</p>
+<p><a href="http://abcnotation.com/">ABC Notation</a> is a simple text file format designed to make it easy to support musical notation.  It&#8217;s widely used in the world of traditional dance music because it is very lightweight and more than powerful enough to support notating jigs and reels.  Here&#8217;s an example in honor of the season:<br />
+<pre class="brush: plain;">
+X:1
+T:While Shepherds Watched Their Flocks
+M:5/4
+L:1/4
+O:Green's Harbour, Newfoundland
+K:A major
+E|:[M:5/4] A A/B/ B2 A|B c/B/ A2 A/B/|
+[M:6/4]c d/c/ B2 B2|[M:4/4] A3 E|AB AG|
+FE FE|AB AG|F2 F2|E2 G2|A/G/ F/E/ DF|
+[1 [M:6/4] E C/B,/ A,3 E:|[2 [M:5/4] E C/B,/ A,3|]
+</pre><br />
+I won&#8217;t get into the details &#8212; here&#8217;s a <a href="http://abcnotation.com/blog/2010/01/31/how-to-understand-abc-the-basics/">tutorial</a> if you&#8217;d like to know more &#8212; but the structure of the file is simple.  The first section is the header, with general information about the tune.  The remainder is the tune itself.  This one is a bit more complicated than many because of all the embedded time signature changes, like <code>[M:6/4]</code>.</p>
+<p>I was always surprised there wasn&#8217;t a CPAN module for handling ABC notation, and even seriously considered writing one myself at one point.  But <a href="http://www.norbeck.nu/abc/bnf/abc20bnf.htm">parsing ABC</a> is a complicated process, and I gave up in frustration before getting very far.</p>
+<p>Enter Perl 6 and <a href="http://perl6advent.wordpress.com/2009/12/21/day-21-grammars-and-actions/">its grammars</a>.  About <a href="https://github.com/colomon/ABC/blob/master/lib/ABC/Grammar.pm">60 lines of simple regexes</a> is all that is needed to parse most of the tunes I am interested in.  (Several of the more complicated features of ABC, like lyrics and multi-staff music are not implemented yet.)  Here&#8217;s a snatch of it:<br />
+<pre class="brush: plain;">
+    regex basenote { &lt;[a..g]+[A..G]&gt; }
+    regex octave { &quot;'&quot;+ | &quot;,&quot;+ }
+    regex accidental { '^' | '^^' | '_' | '__' | '=' }
+    regex pitch { &lt;accidental&gt;? &lt;basenote&gt; &lt;octave&gt;? }
+</pre><br />
+Compare that to the model <a href="http://www.norbeck.nu/abc/bnf/abc20bnf.htm">BNF grammar for ABC</a>:<br />
+<pre class="brush: plain;">
+basenote ::= %x43 / %x44 / %x45 / %x46 / %x47 / %x41 / %x42 / %x63 / %x64 / %x65 / %x66 / %x67 / %x61 / %x62 ; CDEFGABcdefgab
+octave ::= 1*&quot;'&quot; / 1*&quot;,&quot; 
+accidental ::= &quot;^&quot; / &quot;^^&quot; / &quot;_&quot; / &quot;__&quot; / &quot;=&quot; 
+pitch ::= [accidental] basenote [octave]
+</pre><br />
+It&#8217;s clearly a very straightforward translation process.</p>
+<p>By default, parsing with a Perl 6 grammar just gives you a basic <code>Match</code> object.  Adding an object to specify <a href="https://github.com/colomon/ABC/blob/master/lib/ABC/Actions.pm">actions</a> to go with the grammar allows you to easily process the information as it is parsed.  A simple example is<br />
+<pre class="brush: plain;">
+    method rest($/) {
+        make ABC::Rest.new(~$&lt;rest_type&gt;, 
+                           $&lt;note_length&gt;.ast);
+    }
+</pre><br />
+Whenever the <code>rest</code> regex fires, it returns a new <a href="https://github.com/colomon/ABC/blob/master/lib/ABC/Rest.pm"><code>ABC::Rest</code></a> object.  The constructor is passed the string form of the <code>rest_type</code> regex, and an <a href="https://github.com/colomon/ABC/blob/master/lib/ABC/Duration.pm"><code>ABC::Duration</code></a> object created by the action for <code>note_length</code>.</p>
+<p>Speaking of durations, another feature of Perl 6 comes very handy here.  Durations are represented exactly using the rational number <a href="http://perl6advent.wordpress.com/2009/12/14/day-14-going-to-the-rats/">Rat</a> type.  If we didn&#8217;t have them available, we&#8217;d have to code up something similar by hand in order to handle things like triplets whose durations cannot be exactly represented by a floating point number.</p>
+<p>So far there is only one significant application using these tools &#8212; the <a href="https://github.com/colomon/ABC/blob/master/bin/abc2ly.pl"><code>abc2ly.pl</code> script</a> included in the ABC module.  It converts ABC files to the Lilypond music notation format.  Lilypond is a very powerful open source music notation system which produces gorgeous sheet music output.  This is a great way to print out good looking music notation from ABC files.  (I know there is an <code>abc2ly</code> program included with Lilypond, but last time I checked its output looked tragically bad.  <code>abc2ly.pl</code> is already working well enough that I&#8217;m hoping to produce a book of sheet music using it in 2011.) So let me leave you with the <a href="http://harmonyware.com/tunes/shepherds.pdf">PDF of the above carol</a>, produced using these tools, Rakudo Perl 6, and Lilypond.</p>
+<div class="sharedaddy sd-like-enabled"><div id="wpl-likebox" class="sd-block sd-like"><h3 class="sd-title">Like this:</h3><div class="sd-content"><div id="wpl-button"><a href='http://perl6advent.wordpress.com/2010/12/18/day-18-abc-module/?like=1&amp;_wpnonce=762128a6f3' title='I like this post' class='like needs-login sd-button' rel='nofollow'><span>Like</span></a></div><div id="wpl-count" class="sd-like-count">Be the first to like this post.</div></div></div></div>
+								
+				<p class="postmetadata alt">
+					<small>
+												This entry was posted on December 18, 2010 at 6:40 pm and is filed under <a href="http://perl6advent.wordpress.com/category/2010/" title="View all posts in 2010" rel="category tag">2010</a>.						You can follow any responses to this entry through the <a href='http://perl6advent.wordpress.com/2010/12/18/day-18-abc-module/feed/'>RSS 2.0</a> feed.
+													You can <a href="#respond">leave a response</a>, or <a href="http://perl6advent.wordpress.com/2010/12/18/day-18-abc-module/trackback/" rel="trackback">trackback</a> from your own site.
+						
+					</small>
+				</p>
+
+			</div>
+					</div>
+
+	
+<!-- You can start editing here. -->
+	<h3 id="comments">One Response to &#8220;Day 18 &#8211; ABC&nbsp;Module&#8221;</h3>
+
+	<ol class="commentlist">
+					<li class="comment even thread-even depth-1 highlander-comment" id="comment-565">
+			<img alt='' src='http://0.gravatar.com/avatar/672aa8b373071ef9f06db563d1c08d77?s=32&amp;d=identicon&amp;r=G' class='avatar avatar-32' height='32' width='32' />			<cite>Jakub Narębski</cite> Says:						<br />
+
+			<small class="commentmetadata"><a href="#comment-565" title="">December 18, 2010 at 8:54 pm</a> | <a class='comment-reply-link' href='/2010/12/18/day-18-abc-module/?replytocom=565#respond' onclick='return addComment.moveForm("comment-565", "565", "respond", "658")'>Reply</a> </small>
+
+			<p>Well, there is <a href="http://p3rl.org/Regexp::Grammars" rel="nofollow">Regexp::Grammars</a> for Perl 6-like grammatical parsing features in Perl 5.10.x</p>
+<p>And there is for example <a href="http://p3rl.org/Marpa" rel="nofollow">Marpa</a>, which can parse any language one can describe in BNF&#8230; so if you have BNF describing grammar it would make creating a parser even easier than in Perl 6.</p>
+</li>
+	
+	</ol>
+
+	<div class="navigation">
+		<div class="alignleft"></div>
+		<div class="alignright"></div>
+	</div>
+
+ 
+
+
+								<div id="respond">
+				<h3 id="reply-title">Leave a Reply <small><a rel="nofollow" id="cancel-comment-reply-link" href="/2010/12/18/day-18-abc-module/#respond" style="display:none;">Cancel reply</a></small></h3>
+									<form action="http://perl6advent.wordpress.com/wp-comments-post.php" method="post" id="commentform">
+																										
+
+
+												
+<input type="hidden" name="hc_post_as" id="hc_post_as" value="guest" />
+
+<div class="comment-form-field comment-textarea">
+	<label for="comment">Enter your comment here...</label>
+	<div id="comment-form-comment"><textarea id="comment" name="comment"></textarea></div>
+</div>
+
+<div id="comment-form-identity">
+
+	<div id="comment-form-nascar">
+		<p>Fill in your details below or click an icon to log in:</p>
+		<ul>
+			<li class="selected" style="display:none;">
+				<a href="#comment-form-guest" id="postas-guest" title="Guest">
+					<span></span>
+				</a>
+			</li>
+			<li>
+				<a href="#comment-form-wordpress" id="postas-wordpress" title="WordPress.com">
+					<span></span>
+				</a>
+			</li>
+			<li>
+				<a href="#comment-form-load-service:Twitter" id="postas-twitter" title="Twitter">
+					<span></span>
+				</a>
+			</li>
+			<li>
+				<a href="#comment-form-load-service:Facebook" id="postas-facebook" title="Facebook">
+					<span></span>
+				</a>
+			</li>
+		</ul>
+	</div>
+
+	<div id="comment-form-guest" class="comment-form-service selected">
+		<div class="comment-form-padder">
+			<div class="comment-form-avatar">
+				<img src="http://www.gravatar.com/avatar/ad516503a11cd5ca435acc9bb6523536?s=25&d=mm" alt="Gravatar" width="25" class="no-grav" />
+			</div>
+
+				<div class="comment-form-fields">
+				<div class="comment-form-field comment-form-email">
+					<label for="email">Email <span class="required">(required)</span> <span class="nopublish">(Not published)</span></label>
+					<div class="comment-form-input"><input id="email" name="email" type="text" value="" /></div>
+				</div>
+				<div class="comment-form-field comment-form-author">
+					<label for="author">Name <span class="required">(required)</span></label>
+					<div class="comment-form-input"><input id="author" name="author" type="text" value="" /></div>
+				</div>
+				<div class="comment-form-field comment-form-url">
+					<label for="url">Website</label>
+					<div class="comment-form-input"><input id="url" name="url" type="text" value="" /></div>
+				</div> 
+			</div>
+	
+		</div>
+	</div>
+
+	<div id="comment-form-wordpress" class="comment-form-service">
+		<div class="comment-form-padder">
+			<div class="comment-form-avatar">
+				<img src="http://s2.wp.com/wp-content/mu-plugins/highlander-comments/images/wplogo.png?m=1304062104g" alt="WordPress.com Logo" width="25" class="no-grav" />
+			</div>
+
+				<div class="comment-form-fields">
+					<p id="wordpress-login-first">Please log in to WordPress.com to post a comment to your blog.</p>
+				<iframe id="wordpress-login-iframe" data-srcurl="http://perl6advent.wordpress.com/wp-login.php?redirect_to=http%3A%2F%2Fperl6advent.wordpress.com%2Fhighlander.login%2F&#038;action=highlander-login&#038;skin=light"></iframe>
+				</div>
+	
+		</div>
+	</div>
+
+	<div id="comment-form-twitter" class="comment-form-service">
+		<div class="comment-form-padder">
+			<div class="comment-form-avatar">
+				<img src="http://www.gravatar.com/avatar/ad516503a11cd5ca435acc9bb6523536?s=25&d=mm" alt="Twitter picture" width="25" class="no-grav" />
+			</div>
+
+				<div class="comment-form-fields">
+				<input type="hidden" name="twitter_avatar" id="twitter-avatar" class="comment-meta-twitter" value="" />
+				<input type="hidden" name="twitter_user_id" id="twitter-user_id" class="comment-meta-twitter" value="" />
+				<input type="hidden" name="twitter_access_token" id="twitter-access_token" class="comment-meta-twitter" value="" />
+				<p class="comment-form-posting-as pa-twitter"><strong></strong> You are commenting using your Twitter account. <span class="comment-form-log-out">(&nbsp;<a href="javascript:HighlanderComments.doExternalLogout( 'twitter' );">Log&nbsp;Out</a>&nbsp;/&nbsp;<a href="#" onclick="javascript:HighlanderComments.switchAccount();return false;">Change</a>&nbsp;)</span></p>
+			</div>
+	
+		</div>
+	</div>
+
+	<div id="comment-form-facebook" class="comment-form-service">
+		<div class="comment-form-padder">
+			<div class="comment-form-avatar">
+				<img src="http://www.gravatar.com/avatar/ad516503a11cd5ca435acc9bb6523536?s=25&d=mm" alt="Facebook photo" width="25" class="no-grav" />
+			</div>
+
+				<div class="comment-form-fields">
+				<input type="hidden" name="fb_avatar" id="facebook-avatar" class="comment-meta-facebook" value="" />
+				<input type="hidden" name="fb_user_id" id="facebook-user_id" class="comment-meta-facebook" value="" />
+				<input type="hidden" name="fb_access_token" id="facebook-access_token" class="comment-meta-facebook" value="" />
+				<p class="comment-form-posting-as pa-facebook"><strong></strong> You are commenting using your Facebook account. <span class="comment-form-log-out">(&nbsp;<a href="javascript:HighlanderComments.doExternalLogout( 'facebook' );">Log&nbsp;Out</a>&nbsp;/&nbsp;<a href="#" onclick="javascript:HighlanderComments.switchAccount();return false;">Change</a>&nbsp;)</span></p>
+			</div>
+	
+		</div>
+	</div>
+
+
+	<div id="comment-form-load-service" class="comment-form-service"> 
+		<div class="comment-form-posting-as-cancel"><a href="javascript:HighlanderComments.cancelExternalWindow();">Cancel</a></div>
+		<p>Connecting to %s</p> 
+	</div>
+	
+	
+</div>
+
+
+<div id="comment-form-subscribe"> 
+<p class="comment-subscription-form"><input type="checkbox" name="subscribe" id="subscribe" value="subscribe" style="width: auto;" tabindex="6"/> <label class="subscribe-label" id="subscribe-label" for="subscribe">Notify me of follow-up comments via email.</label></p></div>
+
+	<script type="text/javascript">
+	jQuery(document).ready(function(){
+		HighlanderComments.comment_registration = '';
+		HighlanderComments.userIsLoggedIn = false;
+			});
+	</script>
+												<p class="form-submit">
+							<input name="submit" type="submit" id="comment-submit" value="Post Comment" />
+							<input type='hidden' name='comment_post_ID' value='658' id='comment_post_ID' />
+<input type='hidden' name='comment_parent' id='comment_parent' value='0' />
+						</p>
+						
+<input type="hidden" name="genseq" value="1323709608" />
+<p style="display: none;"><input type="hidden" id="akismet_comment_nonce" name="akismet_comment_nonce" value="dc214a002a" /></p><script type='text/javascript' src='http://s1.wp.com/wp-content/mu-plugins/akismet-2.5/form.js?m=1308783979g&#038;ver=1'></script>
+<p style="display: none;"><input type="hidden" id="ak_js" name="ak_js" value="35"/></p>					</form>
+							</div><!-- #respond -->
+			<div style="clear: both"></div>			
+
+	
+	</div>
+
+
+<hr />
+<div id="footer">
+	<p>
+		Theme: <a href="http://theme.wordpress.com/themes/kubrick/">Kubrick</a>. <a href="http://wordpress.com/?ref=footer" rel="generator">Blog at WordPress.com</a>. 
+		<br /><a href="http://perl6advent.wordpress.com/feed/">Entries (RSS)</a> and <a href="http://perl6advent.wordpress.com/comments/feed/">Comments (RSS)</a>.	</p>
+</div>
+</div>
+
+<script type='text/javascript' src='http://s.gravatar.com/js/gprofiles.js?aa&#038;ver=MU'></script>
+<script type='text/javascript'>
+/* <![CDATA[ */
+var WPGroHo = {"my_hash":""};
+/* ]]> */
+</script>
+<script type='text/javascript' src='http://s0.wp.com/wp-content/mu-plugins/gravatar-hovercards/wpgroho.js?m=1318621576g&#038;ver=MU'></script>
+
+<script type="text/javascript">
+var _qevents = _qevents || [];
+(function() {var elem = document.createElement('script');elem.src = (document.location.protocol == "https:" ? "https://secure" : "http://edge") + ".quantserve.com/quant.js";elem.async = true;elem.type = "text/javascript";var scpt = document.getElementsByTagName('script')[0];scpt.parentNode.insertBefore(elem, scpt);  })();
+_qevents.push( { qacct:"p-18-mFEk4J448M", labels:",language.en,type.wpcom" } );
+</script>
+<noscript><div style="display: none;"><img src="//pixel.quantserve.com/pixel/p-18-mFEk4J448M.gif?labels=%2Clanguage.en%2Ctype.wpcom" height="1" width="1" alt="" /></div></noscript>
+
+	<script type="text/javascript">
+	/* <![CDATA[ */
+		jQuery(document).ready( function($) {
+			
+			$('#wpl-button > a.like').click( function(e) {
+				e.preventDefault();
+				
+				$('#wpl-mustlogin').remove();
+				
+				$.post( 'http://perl6advent.wordpress.com/wp-admin/admin-ajax.php', { 
+					'action': 'wpl_record_stat',
+					'stat_name': 'loggedout_like_click'
+				} );
+
+				var tenMins = new Date();
+				tenMins.setTime( tenMins.getTime() + 600000 );
+				document.cookie = 'wpl_rand=bd06911abd; expires=' + tenMins.toGMTString() + '; domain=wordpress.com; path=/;';
+				
+				$('#wpl-count').after( '\
+					<div id="wpl-mustlogin"> \
+						<form action="https://perl6advent.wordpress.com/wp-login.php" method="post"> \
+							<p>Just one more step to like this post:</p> \
+							<label><span>Username</span> <input type="text" name="log" id="user_login" class="input" value="" size="20" tabindex="80" /></label> \
+							<label><span>Password</span> <input type="password" name="pwd" id="user_pass" class="input" value="" size="20" tabindex="81" /></label> \
+							<input type="submit" name="wp-submit" id="wp-submit" class="button-primary" value="Log In" tabindex="82" /> \
+							<input type="hidden" name="redirect_to" value="http://perl6advent.wordpress.com/2010/12/18/day-18-abc-module/?like=1" /> \
+							<input type="hidden" name="wpl_rand" value="bd06911abd" /> \
+							<p>Not a member yet? <a href="http://wordpress.com/signup/?ref=likebox" id="wpl-signup-link">Sign up with WordPress.com</a></p> \
+						</form> \
+					</div> \
+				');
+				
+				$('#wpl-mustlogin').hide().slideDown('fast');
+			} );
+			
+			$('#wpl-mustlogin input.input').live( 'focus', function() {
+				$(this).prev().hide();
+			}).live( 'blur', function() {
+				if ( $(this).val() == '' )
+					$(this).prev().show();
+			});
+			
+			$('#wpl-mustlogin input#wp-submit').live( 'click', function(e) {
+				e.preventDefault();
+				
+				$.post( 'http://perl6advent.wordpress.com/wp-admin/admin-ajax.php', { 
+					'action': 'wpl_record_stat',
+					'stat_name': 'loggedout_login_submit'
+				}, function() {
+					$('#wpl-mustlogin form').submit();
+				} );
+			});			
+			
+			$('#wpl-mustlogin a#wpl-signup-link').live( 'click', function(e) {
+				e.preventDefault();
+				
+				var link = $(this).attr('href');
+				
+				$.post( 'http://perl6advent.wordpress.com/wp-admin/admin-ajax.php', { 
+					'action': 'wpl_record_stat',
+					'stat_name': 'loggedout_signup_click'
+				}, function() {
+					location.href = link;
+				} );
+			});					
+			
+		});
+	/* ]]> */
+	</script>
+<script>jQuery(document).ready(function($){ Gravatar.profile_cb = function( h, d ) { WPGroHo.syncProfileData( h, d );	}; Gravatar.my_hash = WPGroHo.my_hash; Gravatar.init( 'body', '#wpadminbar' ); });</script>	<div style="display:none">
+	<div class="grofile-hash-map-672aa8b373071ef9f06db563d1c08d77">
+	</div>
+	</div>
+		<style type="text/css">
+			
+				.reblog-from img                   { margin: 0 10px 0 0; vertical-align: middle; padding: 0; border: 0; }
+				.reblogger-note img.avatar         { float: left; padding: 0; border: 0; }
+				.reblogger-note-content            { margin: 0 0 20px 35px; }
+				.reblog-post                       { border-left: 3px solid #eee; padding-left: 15px; }
+				.reblog-post ul.thumb-list         { display: block; list-style: none; margin: 2px 0; padding: 0; clear: both; }
+				.reblog-post ul.thumb-list li      { display: inline; margin: 0; padding: 0 1px; border: 0; }
+				.reblog-post ul.thumb-list li a    { margin: 0; padding: 0; border: 0; }
+				.reblog-post ul.thumb-list li img  { margin: 0; padding: 0; border: 0; }
+				.reblog-post                       { border-left: 3px solid #eee; padding-left: 15px; }
+					</style><script type='text/javascript'>
+/* <![CDATA[ */
+var HighlanderComments = {"loggingInText":"Logging In\u2026","submittingText":"Posting Comment\u2026","postCommentText":"Post Comment","connectingToText":"Connecting to %s","commentingAsText":"%1$s: You are commenting using your %2$s account.","logoutText":"Log Out","loginText":"Log In","connectURL":"http:\/\/perl6advent.wordpress.com\/public.api\/connect\/?action=request","homeURL":"http:\/\/perl6advent.wordpress.com\/","postID":"658","gravDefault":"identicon","enterACommentError":"Please enter a comment","enterEmailError":"Email address required","invalidEmailError":"Invalid email address","enterAuthorError":"Name required","gravatarFromEmail":"Your email address will be used to look up your Gravatar.","logInToExternalAccount":"Log in to use details from one of these accounts.","change":"Change","changeAccount":"Change Account"};
+/* ]]> */
+</script>
+<script type='text/javascript' src='http://s2.wp.com/wp-content/mu-plugins/highlander-comments/script.js?m=1322513933g&#038;ver=20110804'></script>
+	
+	<div id="bit" class="loggedout-follow-normal">
+		<a class="bsub" href="javascript:void(0)"><span id='bsub-text'>Follow</span></a>
+		<div id="bitsubscribe">
+			
+					<h3><label for="loggedout-follow-field">Follow Perl 6 Advent Calendar</label></h3>
+		
+			<form action="http://subscribe.wordpress.com" method="post" accept-charset="utf-8" id="loggedout-follow">
+			<p>Get every new post delivered to your Inbox.</p>
+
+					
+			
+			<p><input type="text" name="email" style="width: 95%; padding: 1px 2px" value="Enter email address" onfocus='this.value=(this.value=="Enter email address") ? "" : this.value;' onblur='this.value=(this.value=="") ? "Enter email address" : this.value;'  id="loggedout-follow-field"/></p>
+
+			<input type="hidden" name="action" value="subscribe"/>
+			<input type="hidden" name="blog_id" value="10740073"/>
+			<input type="hidden" name="source" value="http://perl6advent.wordpress.com/2010/12/18/day-18-abc-module/"/>
+			<input type="hidden" name="sub-type" value="loggedout-follow"/>
+
+			<input type="hidden" id="_wpnonce" name="_wpnonce" value="535b507c2f" /><input type="hidden" name="_wp_http_referer" value="/2010/12/18/day-18-abc-module/" />
+			<p id='bsub-subscribe-button'><input type="submit" value="Sign me up!" /></p>
+			</form>
+					<div id='bsub-credit'><a href="http://wordpress.com/signup/?ref=lof">Powered by WordPress.com</a></div>
+		</div><!-- #bitsubscribe -->
+	</div><!-- #bit -->
+<script type="text/javascript" src="http://b.scorecardresearch.com/beacon.js"></script><script type="text/javascript">try{COMSCORE.beacon({c1:2,c2:7518284});}catch(e){}</script><noscript><p class="robots-nocontent"><img src="http://b.scorecardresearch.com/p?cj=1c1=2&#038;c2=7518284" alt="" style="display:none" width="1" height="1" /></p></noscript><script type='text/javascript' src='http://s1.wp.com/wp-content/plugins/syntaxhighlighter/syntaxhighlighter/scripts/shCore.js?m=1304062115g&#038;ver=2.1.364b'></script>
+<script type='text/javascript' src='http://s2.wp.com/wp-content/plugins/syntaxhighlighter/syntaxhighlighter/scripts/shBrushPlain.js?m=1304062115g&#038;ver=2.1.364b'></script>
+<script type='text/javascript'>
+	(function(){
+		var corecss = document.createElement('link');
+		var themecss = document.createElement('link');
+		var themecssurl = "http://s0.wp.com/wp-content/plugins/syntaxhighlighter-wpcom/shThemeDefault.css?m=1304062109g&amp;ver=2.1.364b";
+		if ( themecss.setAttribute ) {
+				themecss.setAttribute( "rel", "stylesheet" );
+				themecss.setAttribute( "type", "text/css" );
+				themecss.setAttribute( "href", themecssurl );
+		} else {
+				themecss.rel = "stylesheet";
+				themecss.href = themecssurl;
+		}
+		document.getElementsByTagName("head")[0].appendChild(themecss);
+	})();
+	SyntaxHighlighter.config.clipboardSwf = 'http://s2.wp.com/wp-content/plugins/syntaxhighlighter/syntaxhighlighter/scripts/clipboard.swf?m=1304062115g';
+	SyntaxHighlighter.config.strings.expandSource = 'show source';
+	SyntaxHighlighter.config.strings.viewSource = 'view source';
+	SyntaxHighlighter.config.strings.copyToClipboard = 'copy to clipboard';
+	SyntaxHighlighter.config.strings.copyToClipboardConfirmation = 'The code is in your clipboard now';
+	SyntaxHighlighter.config.strings.print = 'print';
+	SyntaxHighlighter.config.strings.help = '?';
+	SyntaxHighlighter.config.strings.alert = 'SyntaxHighlighter\n\n';
+	SyntaxHighlighter.config.strings.noBrush = 'Can\'t find brush for: ';
+	SyntaxHighlighter.config.strings.brushNotHtmlScript = 'Brush wasn\'t configured for html-script option: ';
+	SyntaxHighlighter.all();
+</script>
+<script type="text/javascript">
+// <![CDATA[
+(function() {
+try{
+  if ( window.external &&'msIsSiteMode' in window.external) {
+    if (window.external.msIsSiteMode()) {
+      var jl = document.createElement('script');
+      jl.type='text/javascript';
+      jl.async=true;
+      jl.src='/wp-content/plugins/ie-sitemode/custom-jumplist.php';
+      var s = document.getElementsByTagName('script')[0];
+      s.parentNode.insertBefore(jl, s);
+    }
+  }
+}catch(e){}
+})();
+// ]]>
+</script><script src="http://s.stats.wordpress.com/w.js?21" type="text/javascript"></script>
+<script type="text/javascript">
+st_go({'blog':'10740073','v':'wpcom','user_id':'0','post':'658','subd':'perl6advent'});
+ex_go({'crypt':'UE40eW5QN0p8M2Y/RE1oOHBqWkJdYy5wL35xRnR4SVtWLmluVHQrZ3JBRDNRaV9yeU4rX041RXBzU1FiayxfJjYsMDhLNmIrWEkxPVkvdjlBRFMzN11ULkhmU1YxYWc4ekFbU2dtci9uPTdnJmZpLy4zN3ZwY2kwN0R1N19reDE9UGpzNFtdeEcldExDMDcvSzksTlkxUFdPc2pKaltyNCs9alBkK2MzQSxocjVKVnlGbmpKNkt8d2lMTVpSNHVtYmRlRGF+VmpVSUw5ZW9USnczW3lGZ25PJmhzcy1fRFFiTTR+TkpQcjlt'});
+addLoadEvent(function(){linktracker_init('10740073',658);});
+	</script>
+<noscript><img src="http://stats.wordpress.com/b.gif?v=noscript" style="height:0px;width:0px;overflow:hidden" alt="" /></noscript>
+</body>
+</html>

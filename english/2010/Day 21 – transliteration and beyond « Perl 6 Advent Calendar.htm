@@ -1,0 +1,559 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en">
+
+<head profile="http://gmpg.org/xfn/11">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+<title>Day 21 &#8211; transliteration and beyond &laquo; Perl 6 Advent Calendar</title>
+
+<link rel="stylesheet" href="http://s0.wp.com/wp-content/themes/pub/kubrick/style.css?m=1321457825g&amp;3" type="text/css" media="screen" />
+<!--[if lte IE 8]><link rel="stylesheet" href="http://s0.wp.com/wp-content/themes/pub/kubrick/ie.css?m=1304062294g" type="text/css" media="screen" /><![endif]-->
+<link rel="pingback" href="http://perl6advent.wordpress.com/xmlrpc.php" />
+
+<meta name="google-site-verification" content="YPNxtMSK3Jj7JR2XCK-hDqmF9xDIeBEyvYm3aT1s71Y" />
+<link rel="alternate" type="application/rss+xml" title="Perl 6 Advent Calendar &raquo; Feed" href="http://perl6advent.wordpress.com/feed/" />
+<link rel="alternate" type="application/rss+xml" title="Perl 6 Advent Calendar &raquo; Comments Feed" href="http://perl6advent.wordpress.com/comments/feed/" />
+<link rel="alternate" type="application/rss+xml" title="Perl 6 Advent Calendar &raquo; Day 21 &#8211; transliteration and&nbsp;beyond Comments Feed" href="http://perl6advent.wordpress.com/2010/12/21/day-21-transliteration-and-beyond/feed/" />
+<script type="text/javascript">
+/* <![CDATA[ */
+function addLoadEvent(func){var oldonload=window.onload;if(typeof window.onload!='function'){window.onload=func;}else{window.onload=function(){oldonload();func();}}}
+/* ]]> */
+</script>
+<link rel="stylesheet" href="http://s0.wp.com/wp-content/themes/h4/global.css?m=1313010128g" type="text/css" />
+<link rel='stylesheet' id='loggedout-subscribe-css'  href='http://s0.wp.com/wp-content/blog-plugins/loggedout-follow/widget.css?m=1322602713g&#038;ver=20111128' type='text/css' media='all' />
+<link rel='stylesheet' id='post-reactions-css'  href='http://s0.wp.com/wp-content/mu-plugins/post-flair/style.css?m=1322086817g&#038;ver=3' type='text/css' media='all' />
+<script type='text/javascript' src='http://s2.wp.com/wp-includes/js/jquery/jquery.js?m=1322588682g&#038;ver=1.7.1'></script>
+<script type='text/javascript' src='http://s2.wp.com/wp-content/blog-plugins/loggedout-follow/widget.js?m=1320005313g&#038;ver=20111128'></script>
+<script type='text/javascript' src='http://s0.wp.com/wp-includes/js/comment-reply.js?m=1304062275g&#038;ver=20090102'></script>
+<link rel='stylesheet' id='highlander-comments-css'  href='http://s1.wp.com/wp-content/mu-plugins/highlander-comments/style.css?m=1323127127g&#038;ver=20110620' type='text/css' media='all' />
+<!--[if lt IE 8]>
+<link rel='stylesheet' id='highlander-comments-ie7-css'  href='http://s0.wp.com/wp-content/mu-plugins/highlander-comments/style-ie7.css?m=1307172301g&#038;ver=20110606' type='text/css' media='all' />
+<![endif]-->
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="http://perl6advent.wordpress.com/xmlrpc.php?rsd" />
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="http://perl6advent.wordpress.com/wp-includes/wlwmanifest.xml" /> 
+<link rel='prev' title='Day 20 &#8211; The Perl 6&nbsp;Synopses' href='http://perl6advent.wordpress.com/2010/12/20/day-20-the-perl-6-synopses/' />
+<link rel='next' title='Day 22 &#8211; The Meta-Object&nbsp;Protocol' href='http://perl6advent.wordpress.com/2010/12/22/day-22-the-meta-object-protocol/' />
+<meta name="generator" content="WordPress.com" />
+<link rel='canonical' href='http://perl6advent.wordpress.com/2010/12/21/day-21-transliteration-and-beyond/' />
+<link rel='shortlink' href='http://wp.me/pJ3YZ-bd' />
+<link rel="alternate" type="application/json+oembed" href="http://public-api.wordpress.com/oembed/1.0/?format=json&url=http%3A%2F%2Fperl6advent.wordpress.com%2F2010%2F12%2F21%2Fday-21-transliteration-and-beyond%2F&for=wpcom-auto-discovery" /><link rel="alternate" type="application/xml+oembed" href="http://public-api.wordpress.com/oembed/1.0/?format=xml&url=http%3A%2F%2Fperl6advent.wordpress.com%2F2010%2F12%2F21%2Fday-21-transliteration-and-beyond%2F&for=wpcom-auto-discovery" /><meta property="og:type" content="article" />
+<meta property="og:title" content="Day 21 &#8211; transliteration and&nbsp;beyond" />
+<meta property="og:url" content="http://perl6advent.wordpress.com/2010/12/21/day-21-transliteration-and-beyond/" />
+<meta property="og:description" content="Transliteration sounds like it has Latin roots and means a changing of letters. And that&#039;s what the Str.trans method does.
+
+
+say &quot;GATTACA&quot;.trans( &quot;TCAG&quot; =&gt; &quot;0123&quot; );  # prints &quot;3200212\n&quot;
+
+..." />
+<meta property="og:site_name" content="Perl 6 Advent Calendar" />
+<link rel="shortcut icon" type="image/x-icon" href="http://s2.wp.com/i/favicon.ico?m=1311976024g" sizes="16x16 24x24 32x32 48x48" />
+<link rel="icon" type="image/x-icon" href="http://s2.wp.com/i/favicon.ico?m=1311976024g" sizes="16x16 24x24 32x32 48x48" />
+<link rel="apple-touch-icon-precomposed" href="http://s0.wp.com/i/webclip.png?m=1311618117g" />
+<link rel='openid.server' href='http://perl6advent.wordpress.com/?openidserver=1' />
+<link rel='openid.delegate' href='http://perl6advent.wordpress.com/' />
+<link rel="search" type="application/opensearchdescription+xml" href="http://perl6advent.wordpress.com/osd.xml" title="Perl 6 Advent Calendar" />
+<link rel="search" type="application/opensearchdescription+xml" href="http://wordpress.com/opensearch.xml" title="WordPress.com" />
+	<style type="text/css">
+	/* <![CDATA[ */
+			/* ]]> */
+	</style>
+	<style type="text/css">
+#header     { margin: 0 !important; margin: 0 0 0 1px; padding: 1px; height: 198px; width: 758px; }
+#headerimg  { margin: 7px 9px 0; height: 192px; width: 740px; }
+#headerimg { background: url(http://perl6advent.files.wordpress.com/2009/12/perl6advent2.png) no-repeat top;}
+#header h1 a, #header h1 a:hover, #header .description {
+	color: #ffffff;
+}
+</style>
+<style type='text/css'><!--
+body { background: url("http://s0.wp.com/wp-content/themes/pub/kubrick/images/kubrickbgcolor.gif?m=1304062294g"); }
+#page { background: url("http://s0.wp.com/wp-content/themes/pub/kubrick/images/kubrickbgwide.gif?m=1304062294g") repeat-y top !important; border: none; }
+#header { background: url("http://s0.wp.com/wp-content/themes/pub/kubrick/images/kubrickheader.gif?m=1304062294g") no-repeat bottom center; }
+#footer { background: url("http://s0.wp.com/wp-content/themes/pub/kubrick/images/kubrickfooter.gif?m=1304062294g") no-repeat bottom; border: none;}
+#header { margin: 0 !important; margin: 0 0 0 1px; padding: 1px; height: 198px; width: 758px; }
+#headerimg { margin: 7px 9px 0; height: 192px; width: 740px; }
+#headerimg h1 a, #headerimg h1 a:visited, #headerimg .description { color: #FFFFFF; }
+#headerimg h1 a, #headerimg .description { display:  }
+
+	--></style><meta name="application-name" content="Perl 6 Advent Calendar" /><meta name="msapplication-window" content="width=device-width;height=device-height" /><meta name="msapplication-tooltip" content="Something cool about Perl 6 every day" /><meta name="msapplication-task" content="name=Subscribe;action-uri=http://perl6advent.wordpress.com/feed/;icon-uri=http://s2.wp.com/i/favicon.ico" /><meta name="msapplication-task" content="name=Sign up for a free blog;action-uri=http://wordpress.com/signup/;icon-uri=http://s2.wp.com/i/favicon.ico" /><meta name="msapplication-task" content="name=WordPress.com Support;action-uri=http://support.wordpress.com/;icon-uri=http://s2.wp.com/i/favicon.ico" /><meta name="msapplication-task" content="name=WordPress.com Forums;action-uri=http://forums.wordpress.com/;icon-uri=http://s2.wp.com/i/favicon.ico" />
+<script type="text/javascript" src="http://rt.liftdna.com/liftrtb2_1.js"></script>
+<script type="text/javascript" src="http://rt.liftdna.com/WP.js"></script>
+<script type="text/javascript"> 
+	window.google_analytics_uacct = "UA-52447-2"; 
+</script>
+
+<script type="text/javascript">
+	var _gaq = _gaq || [];
+	_gaq.push(['_setAccount', 'UA-52447-2']);
+	_gaq.push(['_setDomainName', 'wordpress.com']);
+	_gaq.push(['_initData']);
+	_gaq.push(['_trackPageview']);
+
+	(function() {
+		var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+		ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+		(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(ga);
+	})();
+</script>
+</head>
+<body class="typekit-enabled highlander-enabled highlander-light">
+<div id="page">
+
+
+<div id="header">
+	<div id="headerimg" onclick=" location.href='http://perl6advent.wordpress.com';" style="cursor: pointer;">
+		<h1><a href="http://perl6advent.wordpress.com/">Perl 6 Advent Calendar</a></h1>
+		<div class="description">Something cool about Perl 6 every day</div>
+	</div>
+</div>
+<hr />
+
+	<div id="content" class="widecolumn">
+
+	
+		<div class="navigation">
+			<div class="alignleft">&laquo; <a href="http://perl6advent.wordpress.com/2010/12/20/day-20-the-perl-6-synopses/" rel="prev">Day 20 &#8211; The Perl 6&nbsp;Synopses</a></div>
+			<div class="alignright"><a href="http://perl6advent.wordpress.com/2010/12/22/day-22-the-meta-object-protocol/" rel="next">Day 22 &#8211; The Meta-Object&nbsp;Protocol</a> &raquo;</div>
+		</div>
+
+		<div class="post-695 post type-post status-publish format-standard hentry category-2010 clear" id="post-695">
+						<h2>Day 21 &#8211; transliteration and&nbsp;beyond</h2>
+			<small class="single-by"><span class="by-author"><span class="sep">by</span> <span class="author vcard"><a class="url fn n" href="http://perl6advent.wordpress.com/author/brushingupmyknuth/" title="View all posts by carl" rel="author">carl</a></span> </span></small>
+
+			<div class="entry">
+				<p><em>Transliteration</em> sounds like it has Latin roots and means <em>a changing of letters</em>. And that&#8217;s what the <code>Str.trans</code> method does.</p>
+<pre>
+say "GATTACA".trans( "TCAG" =&gt; "0123" );  # prints "3200212\n"
+</pre>
+<p>Perl 5 people (and Unix shell folk) immediately recognize this as <code>tr/tcag/0123/</code>, but here&#8217;s a quick explanation for the rest of you out there: for every instance of <code>T</code> we find in the string, we replace it by <code>0</code>, we replace every instance of <code>C</code> by <code>1</code>, and so on. The two strings <code>TCAG</code> and <code>0123</code> supply <em>alphabets</em> to be translated to and from, respectively.</p>
+<p>This can be used for any number of time-saving ends. Here, for example, is a simple subroutine that &#8220;encrypts&#8221; a text with ROT-13:</p>
+<pre>
+sub rot13($text) { $text.trans( "A..Za..z" =&gt; "N..ZA..Mn..za..m" ) }
+</pre>
+<p>When <code>.trans</code> sees those <code>..</code> ranges, it expands them internally (so <code>"n..z"</code> really means <code>"nopqrstuvwxyz"</code>). Thus, the ultimate effect of the <code>rot13</code> sub is to map certain parts of the ASCII alphabet to certain other parts.</p>
+<p>In Perl 5, the two dots (<code>..</code>) are a dash (<code>-</code>), but we&#8217;ve tried in Perl 6 to have those two dots stand for the concept &#8220;range&#8221;; in the main language, in regexes, and here in transliterations.</p>
+<p>Note also that the <code>.trans</code> method is non-mutating; it doesn&#8217;t change <code>$text</code>, but just returns a new value. This is also a general theme in Perl 6; in the core language we prefer to offer the side-effect-free variants of methods. You can easily get the mutating behavior by doing <code>.=trans</code>:</p>
+<pre>
+$kabbala.=trans("A..Ia..i" =&gt; "1..91..9");
+</pre>
+<p>(And that goes not only for <code>.trans</code>, but for all methods. It&#8217;s a silent encouragement to you as a programmer to write your libraries with non-mutating methods, making the world a happier, more composable place.)</p>
+<p>But Perl 6 wouldn&#8217;t be Perl 6 if <code>.trans</code> didn&#8217;t also contain a hidden weapon which takes the Perl 5 <code>tr///</code> and just completely blows it out of the water. Here&#8217;s what it also does:</p>
+<p>Let&#8217;s say we want to escape some HTML, that is, replace things according to this table:</p>
+<pre>
+    &amp; =&gt; &amp;amp;
+    &lt; =&gt; &amp;lt;
+    &gt; =&gt; &amp;gt;
+</pre>
+<p>(By the way, I hope if you ever need to escape HTML, that there will be a library routine for you ready that does it for you. But the general principle is important; and in the few instances when you <em>do</em> need to do something like this, it&#8217;s good to know the tools are there, built into the language.)</p>
+<p>This is nothing that a few well-placed regexes can&#8217;t handle. So what&#8217;s the big deal? Well, a naive in-place per-match replacement of the above three characters might be unlucky enough to get stuck in an infinite loop. (<code>&amp; =&gt; &amp;amp; =&gt; &amp;amp;amp; =&gt; ...</code>) So you need to do various sordid trickery to avoid that.</p>
+<p>But that&#8217;s not even the fundamental problem, which is that you want to resort to stitching together pieces of strings, rather than thinking of the problem in a more high-level manner. Generally, we wouldn&#8217;t want a solution that depends on the order of the substitutions. That would also affect something like this:</p>
+<pre>
+    foo         =&gt; bar
+    foolishness =&gt; folly
+</pre>
+<p>If the former substitution is attempted first each time, there won&#8217;t ever be an occasion to perform the latter one &mdash; probably not what was intented. Generally, we want to try and match the longer substrings before shorter ones.</p>
+<p>So, it seems we want a <em>longest-token substitution matcher</em> that <em>avoids infinite cycles</em> due to accidental re-substitution.</p>
+<p>That&#8217;s what <code>.trans</code> in Perl 6 provides. That&#8217;s its hidden weapon: sending in a pair of arrays rather than strings. For the HTML escaping, all we need to do is this:</p>
+<pre>
+my $escaped = $html.trans(
+    [ '&amp;',     '&lt;',    '&gt;'    ] =&gt;
+    [ '&amp;amp;', '&amp;lt;', '&amp;gt;' ]
+);
+</pre>
+<p>&#8230;and the non-trivial problems of replacing things in the right order and avoiding cyclical replacement are taken care of for us.</p>
+
+<div id="wpcom_below_post"  class="wpadvert" style="text-align: center; padding: 5px; background: #; padding: 5px; margin: 10px auto; width: 310px;">
+<!-- <span style="text-align: left; letter-spacing: 1px; font: 8px/1em Verdana, sans-serif; color: #ccc; text-transform: uppercase; display: block; padding: 0 1px;">Advertisement</span> -->
+<script type="text/javascript">
+LD_AddCustomAttr("AdOpt", "1");
+LD_AddCustomAttr("Origin", "other");
+LD_AddCustomAttr("theme_bg", "ffffff"); 
+LD_AddCustomAttr("theme_text", "333333"); 
+LD_AddCustomAttr("theme_link", "0066cc"); 
+LD_AddCustomAttr("theme_border", "f9f9f9"); 
+LD_AddCustomAttr("theme_url", "114477"); 
+LD_AddCustomAttr("LangId", "1");
+LD_AddCustomAttr("Autotag", "technology");
+LD_AddCustomAttr("Tag", "2010");
+
+LD_AddSlot("wpcom_below_post");
+LD_GetBids();
+</script>
+</div><div class="sharedaddy sd-like-enabled"><div id="wpl-likebox" class="sd-block sd-like"><h3 class="sd-title">Like this:</h3><div class="sd-content"><div id="wpl-button"><a href='http://perl6advent.wordpress.com/2010/12/21/day-21-transliteration-and-beyond/?like=1&amp;_wpnonce=762128a6f3' title='I like this post' class='like needs-login sd-button' rel='nofollow'><span>Like</span></a></div><div id="wpl-count" class="sd-like-count">Be the first to like this post.</div></div></div></div>
+								
+				<p class="postmetadata alt">
+					<small>
+												This entry was posted on December 21, 2010 at 4:35 am and is filed under <a href="http://perl6advent.wordpress.com/category/2010/" title="View all posts in 2010" rel="category tag">2010</a>.						You can follow any responses to this entry through the <a href='http://perl6advent.wordpress.com/2010/12/21/day-21-transliteration-and-beyond/feed/'>RSS 2.0</a> feed.
+													You can <a href="#respond">leave a response</a>, or <a href="http://perl6advent.wordpress.com/2010/12/21/day-21-transliteration-and-beyond/trackback/" rel="trackback">trackback</a> from your own site.
+						
+					</small>
+				</p>
+
+			</div>
+					</div>
+
+	
+<!-- You can start editing here. -->
+	<h3 id="comments">4 Responses to &#8220;Day 21 &#8211; transliteration and&nbsp;beyond&#8221;</h3>
+
+	<ol class="commentlist">
+					<li class="comment even thread-even depth-1 highlander-comment" id="comment-621">
+			<img alt='' src='http://0.gravatar.com/avatar/c11987e837fc1a223f8cd60fe18e6129?s=32&amp;d=identicon&amp;r=G' class='avatar avatar-32' height='32' width='32' />			<cite>trans=</cite> Says:						<br />
+
+			<small class="commentmetadata"><a href="#comment-621" title="">December 21, 2010 at 7:04 pm</a> | <a class='comment-reply-link' href='/2010/12/21/day-21-transliteration-and-beyond/?replytocom=621#respond' onclick='return addComment.moveForm("comment-621", "621", "respond", "695")'>Reply</a> </small>
+
+			<p>&#8220;You can easily get the mutating behavior by doing .=trans:&#8221;</p>
+<p>Wouldn&#8217;t it have made more sense to call it trans= , by analogy to += , *= and so on? Or does trailing equal already have a different meaning?</p>
+<ul class='children'>
+			<li class="comment byuser comment-author-thundergnat odd alt depth-2 highlander-comment" id="comment-622">
+			<img alt='' src='http://1.gravatar.com/avatar/75b919e10c5aed65ac3eb9fedc395860?s=32&amp;d=identicon&amp;r=G' class='avatar avatar-32' height='32' width='32' />			<cite>thundergnat</cite> Says:						<br />
+
+			<small class="commentmetadata"><a href="#comment-622" title="">December 21, 2010 at 8:15 pm</a> | <a class='comment-reply-link' href='/2010/12/21/day-21-transliteration-and-beyond/?replytocom=622#respond' onclick='return addComment.moveForm("comment-622", "622", "respond", "695")'>Reply</a> </small>
+
+			<p>The .= IS the general method mutator. It works for any method. $x.=lc, $x.=uc, $x.=flip, $x.=subst(&#8216;for&#8217;,'bar&#8217;), whatever.</p>
+<p>Just like $foo + 3 is different from $foo += 3, $foo.trans( &#8216;bar&#8217; =&gt; &#8216;pog&#8217; ) is different from $foo.=trans( &#8216;bar&#8217; =&gt; &#8216;pog&#8217; ). In the first instance $foo is not being modified, in the second it is.</p>
+</li>
+			<li class="comment even depth-2 highlander-comment" id="comment-623">
+			<img alt='' src='http://1.gravatar.com/avatar/3f0eb150ff9dbbe6aa2cf803396c0f03?s=32&amp;d=identicon&amp;r=G' class='avatar avatar-32' height='32' width='32' />			<cite>Dave</cite> Says:						<br />
+
+			<small class="commentmetadata"><a href="#comment-623" title="">December 21, 2010 at 8:28 pm</a> | <a class='comment-reply-link' href='/2010/12/21/day-21-transliteration-and-beyond/?replytocom=623#respond' onclick='return addComment.moveForm("comment-623", "623", "respond", "695")'>Reply</a> </small>
+
+			<p>Think of it as &#8220;$object .= method&#8221; &#8212; i.e. it&#8217;s the &#8220;.&#8221; method call operator that gets extended by analogy with &#8220;+=&#8221; etc., not the method name.</p>
+<ul class='children'>
+			<li class="comment odd alt depth-3 highlander-comment" id="comment-624">
+			<img alt='' src='http://0.gravatar.com/avatar/c11987e837fc1a223f8cd60fe18e6129?s=32&amp;d=identicon&amp;r=G' class='avatar avatar-32' height='32' width='32' />			<cite>trans=</cite> Says:						<br />
+
+			<small class="commentmetadata"><a href="#comment-624" title="">December 21, 2010 at 9:06 pm</a> </small>
+
+			<p>Thanks, that is a really helpful way to think about it and it does make sense that way.</p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+	
+	</ol>
+
+	<div class="navigation">
+		<div class="alignleft"></div>
+		<div class="alignright"></div>
+	</div>
+
+ 
+
+
+								<div id="respond">
+				<h3 id="reply-title">Leave a Reply <small><a rel="nofollow" id="cancel-comment-reply-link" href="/2010/12/21/day-21-transliteration-and-beyond/#respond" style="display:none;">Cancel reply</a></small></h3>
+									<form action="http://perl6advent.wordpress.com/wp-comments-post.php" method="post" id="commentform">
+																										
+
+
+												
+<input type="hidden" name="hc_post_as" id="hc_post_as" value="guest" />
+
+<div class="comment-form-field comment-textarea">
+	<label for="comment">Enter your comment here...</label>
+	<div id="comment-form-comment"><textarea id="comment" name="comment"></textarea></div>
+</div>
+
+<div id="comment-form-identity">
+
+	<div id="comment-form-nascar">
+		<p>Fill in your details below or click an icon to log in:</p>
+		<ul>
+			<li class="selected" style="display:none;">
+				<a href="#comment-form-guest" id="postas-guest" title="Guest">
+					<span></span>
+				</a>
+			</li>
+			<li>
+				<a href="#comment-form-wordpress" id="postas-wordpress" title="WordPress.com">
+					<span></span>
+				</a>
+			</li>
+			<li>
+				<a href="#comment-form-load-service:Twitter" id="postas-twitter" title="Twitter">
+					<span></span>
+				</a>
+			</li>
+			<li>
+				<a href="#comment-form-load-service:Facebook" id="postas-facebook" title="Facebook">
+					<span></span>
+				</a>
+			</li>
+		</ul>
+	</div>
+
+	<div id="comment-form-guest" class="comment-form-service selected">
+		<div class="comment-form-padder">
+			<div class="comment-form-avatar">
+				<img src="http://www.gravatar.com/avatar/ad516503a11cd5ca435acc9bb6523536?s=25&d=mm" alt="Gravatar" width="25" class="no-grav" />
+			</div>
+
+				<div class="comment-form-fields">
+				<div class="comment-form-field comment-form-email">
+					<label for="email">Email <span class="required">(required)</span> <span class="nopublish">(Not published)</span></label>
+					<div class="comment-form-input"><input id="email" name="email" type="text" value="" /></div>
+				</div>
+				<div class="comment-form-field comment-form-author">
+					<label for="author">Name <span class="required">(required)</span></label>
+					<div class="comment-form-input"><input id="author" name="author" type="text" value="" /></div>
+				</div>
+				<div class="comment-form-field comment-form-url">
+					<label for="url">Website</label>
+					<div class="comment-form-input"><input id="url" name="url" type="text" value="" /></div>
+				</div> 
+			</div>
+	
+		</div>
+	</div>
+
+	<div id="comment-form-wordpress" class="comment-form-service">
+		<div class="comment-form-padder">
+			<div class="comment-form-avatar">
+				<img src="http://s2.wp.com/wp-content/mu-plugins/highlander-comments/images/wplogo.png?m=1304062283g" alt="WordPress.com Logo" width="25" class="no-grav" />
+			</div>
+
+				<div class="comment-form-fields">
+					<p id="wordpress-login-first">Please log in to WordPress.com to post a comment to your blog.</p>
+				<iframe id="wordpress-login-iframe" data-srcurl="http://perl6advent.wordpress.com/wp-login.php?redirect_to=http%3A%2F%2Fperl6advent.wordpress.com%2Fhighlander.login%2F&#038;action=highlander-login&#038;skin=light"></iframe>
+				</div>
+	
+		</div>
+	</div>
+
+	<div id="comment-form-twitter" class="comment-form-service">
+		<div class="comment-form-padder">
+			<div class="comment-form-avatar">
+				<img src="http://www.gravatar.com/avatar/ad516503a11cd5ca435acc9bb6523536?s=25&d=mm" alt="Twitter picture" width="25" class="no-grav" />
+			</div>
+
+				<div class="comment-form-fields">
+				<input type="hidden" name="twitter_avatar" id="twitter-avatar" class="comment-meta-twitter" value="" />
+				<input type="hidden" name="twitter_user_id" id="twitter-user_id" class="comment-meta-twitter" value="" />
+				<input type="hidden" name="twitter_access_token" id="twitter-access_token" class="comment-meta-twitter" value="" />
+				<p class="comment-form-posting-as pa-twitter"><strong></strong> You are commenting using your Twitter account. <span class="comment-form-log-out">(&nbsp;<a href="javascript:HighlanderComments.doExternalLogout( 'twitter' );">Log&nbsp;Out</a>&nbsp;/&nbsp;<a href="#" onclick="javascript:HighlanderComments.switchAccount();return false;">Change</a>&nbsp;)</span></p>
+			</div>
+	
+		</div>
+	</div>
+
+	<div id="comment-form-facebook" class="comment-form-service">
+		<div class="comment-form-padder">
+			<div class="comment-form-avatar">
+				<img src="http://www.gravatar.com/avatar/ad516503a11cd5ca435acc9bb6523536?s=25&d=mm" alt="Facebook photo" width="25" class="no-grav" />
+			</div>
+
+				<div class="comment-form-fields">
+				<input type="hidden" name="fb_avatar" id="facebook-avatar" class="comment-meta-facebook" value="" />
+				<input type="hidden" name="fb_user_id" id="facebook-user_id" class="comment-meta-facebook" value="" />
+				<input type="hidden" name="fb_access_token" id="facebook-access_token" class="comment-meta-facebook" value="" />
+				<p class="comment-form-posting-as pa-facebook"><strong></strong> You are commenting using your Facebook account. <span class="comment-form-log-out">(&nbsp;<a href="javascript:HighlanderComments.doExternalLogout( 'facebook' );">Log&nbsp;Out</a>&nbsp;/&nbsp;<a href="#" onclick="javascript:HighlanderComments.switchAccount();return false;">Change</a>&nbsp;)</span></p>
+			</div>
+	
+		</div>
+	</div>
+
+
+	<div id="comment-form-load-service" class="comment-form-service"> 
+		<div class="comment-form-posting-as-cancel"><a href="javascript:HighlanderComments.cancelExternalWindow();">Cancel</a></div>
+		<p>Connecting to %s</p> 
+	</div>
+	
+	
+</div>
+
+
+<div id="comment-form-subscribe"> 
+<p class="comment-subscription-form"><input type="checkbox" name="subscribe" id="subscribe" value="subscribe" style="width: auto;" tabindex="6"/> <label class="subscribe-label" id="subscribe-label" for="subscribe">Notify me of follow-up comments via email.</label></p></div>
+
+	<script type="text/javascript">
+	jQuery(document).ready(function(){
+		HighlanderComments.comment_registration = '';
+		HighlanderComments.userIsLoggedIn = false;
+			});
+	</script>
+												<p class="form-submit">
+							<input name="submit" type="submit" id="comment-submit" value="Post Comment" />
+							<input type='hidden' name='comment_post_ID' value='695' id='comment_post_ID' />
+<input type='hidden' name='comment_parent' id='comment_parent' value='0' />
+						</p>
+						
+<input type="hidden" name="genseq" value="1323709613" />
+<p style="display: none;"><input type="hidden" id="akismet_comment_nonce" name="akismet_comment_nonce" value="082e0c2839" /></p><script type='text/javascript' src='http://s1.wp.com/wp-content/mu-plugins/akismet-2.5/form.js?m=1308783980g&#038;ver=1'></script>
+<p style="display: none;"><input type="hidden" id="ak_js" name="ak_js" value="210"/></p>					</form>
+							</div><!-- #respond -->
+			<div style="clear: both"></div>			
+
+	
+	</div>
+
+
+<hr />
+<div id="footer">
+	<p>
+		Theme: <a href="http://theme.wordpress.com/themes/kubrick/">Kubrick</a>. <a href="http://wordpress.com/?ref=footer" rel="generator">Blog at WordPress.com</a>. 
+		<br /><a href="http://perl6advent.wordpress.com/feed/">Entries (RSS)</a> and <a href="http://perl6advent.wordpress.com/comments/feed/">Comments (RSS)</a>.	</p>
+</div>
+</div>
+
+<script type='text/javascript' src='http://s.gravatar.com/js/gprofiles.js?aa&#038;ver=MU'></script>
+<script type='text/javascript'>
+/* <![CDATA[ */
+var WPGroHo = {"my_hash":""};
+/* ]]> */
+</script>
+<script type='text/javascript' src='http://s0.wp.com/wp-content/mu-plugins/gravatar-hovercards/wpgroho.js?m=1318621577g&#038;ver=MU'></script>
+
+<script type="text/javascript">
+var _qevents = _qevents || [];
+(function() {var elem = document.createElement('script');elem.src = (document.location.protocol == "https:" ? "https://secure" : "http://edge") + ".quantserve.com/quant.js";elem.async = true;elem.type = "text/javascript";var scpt = document.getElementsByTagName('script')[0];scpt.parentNode.insertBefore(elem, scpt);  })();
+_qevents.push( { qacct:"p-18-mFEk4J448M", labels:",language.en,type.wpcom,as" } );
+</script>
+<noscript><div style="display: none;"><img src="//pixel.quantserve.com/pixel/p-18-mFEk4J448M.gif?labels=%2Clanguage.en%2Ctype.wpcom%2Cas" height="1" width="1" alt="" /></div></noscript>
+
+	<script type="text/javascript">
+	/* <![CDATA[ */
+		jQuery(document).ready( function($) {
+			
+			$('#wpl-button > a.like').click( function(e) {
+				e.preventDefault();
+				
+				$('#wpl-mustlogin').remove();
+				
+				$.post( 'http://perl6advent.wordpress.com/wp-admin/admin-ajax.php', { 
+					'action': 'wpl_record_stat',
+					'stat_name': 'loggedout_like_click'
+				} );
+
+				var tenMins = new Date();
+				tenMins.setTime( tenMins.getTime() + 600000 );
+				document.cookie = 'wpl_rand=132a492a5f; expires=' + tenMins.toGMTString() + '; domain=wordpress.com; path=/;';
+				
+				$('#wpl-count').after( '\
+					<div id="wpl-mustlogin"> \
+						<form action="https://perl6advent.wordpress.com/wp-login.php" method="post"> \
+							<p>Just one more step to like this post:</p> \
+							<label><span>Username</span> <input type="text" name="log" id="user_login" class="input" value="" size="20" tabindex="80" /></label> \
+							<label><span>Password</span> <input type="password" name="pwd" id="user_pass" class="input" value="" size="20" tabindex="81" /></label> \
+							<input type="submit" name="wp-submit" id="wp-submit" class="button-primary" value="Log In" tabindex="82" /> \
+							<input type="hidden" name="redirect_to" value="http://perl6advent.wordpress.com/2010/12/21/day-21-transliteration-and-beyond/?like=1" /> \
+							<input type="hidden" name="wpl_rand" value="132a492a5f" /> \
+							<p>Not a member yet? <a href="http://wordpress.com/signup/?ref=likebox" id="wpl-signup-link">Sign up with WordPress.com</a></p> \
+						</form> \
+					</div> \
+				');
+				
+				$('#wpl-mustlogin').hide().slideDown('fast');
+			} );
+			
+			$('#wpl-mustlogin input.input').live( 'focus', function() {
+				$(this).prev().hide();
+			}).live( 'blur', function() {
+				if ( $(this).val() == '' )
+					$(this).prev().show();
+			});
+			
+			$('#wpl-mustlogin input#wp-submit').live( 'click', function(e) {
+				e.preventDefault();
+				
+				$.post( 'http://perl6advent.wordpress.com/wp-admin/admin-ajax.php', { 
+					'action': 'wpl_record_stat',
+					'stat_name': 'loggedout_login_submit'
+				}, function() {
+					$('#wpl-mustlogin form').submit();
+				} );
+			});			
+			
+			$('#wpl-mustlogin a#wpl-signup-link').live( 'click', function(e) {
+				e.preventDefault();
+				
+				var link = $(this).attr('href');
+				
+				$.post( 'http://perl6advent.wordpress.com/wp-admin/admin-ajax.php', { 
+					'action': 'wpl_record_stat',
+					'stat_name': 'loggedout_signup_click'
+				}, function() {
+					location.href = link;
+				} );
+			});					
+			
+		});
+	/* ]]> */
+	</script>
+<script>jQuery(document).ready(function($){ Gravatar.profile_cb = function( h, d ) { WPGroHo.syncProfileData( h, d );	}; Gravatar.my_hash = WPGroHo.my_hash; Gravatar.init( 'body', '#wpadminbar' ); });</script>	<div style="display:none">
+	<div class="grofile-hash-map-c11987e837fc1a223f8cd60fe18e6129">
+	</div>
+	<div class="grofile-hash-map-75b919e10c5aed65ac3eb9fedc395860">
+	</div>
+	<div class="grofile-hash-map-3f0eb150ff9dbbe6aa2cf803396c0f03">
+	</div>
+	</div>
+		<style type="text/css">
+			
+				.reblog-from img                   { margin: 0 10px 0 0; vertical-align: middle; padding: 0; border: 0; }
+				.reblogger-note img.avatar         { float: left; padding: 0; border: 0; }
+				.reblogger-note-content            { margin: 0 0 20px 35px; }
+				.reblog-post                       { border-left: 3px solid #eee; padding-left: 15px; }
+				.reblog-post ul.thumb-list         { display: block; list-style: none; margin: 2px 0; padding: 0; clear: both; }
+				.reblog-post ul.thumb-list li      { display: inline; margin: 0; padding: 0 1px; border: 0; }
+				.reblog-post ul.thumb-list li a    { margin: 0; padding: 0; border: 0; }
+				.reblog-post ul.thumb-list li img  { margin: 0; padding: 0; border: 0; }
+				.reblog-post                       { border-left: 3px solid #eee; padding-left: 15px; }
+					</style><script type='text/javascript'>
+/* <![CDATA[ */
+var HighlanderComments = {"loggingInText":"Logging In\u2026","submittingText":"Posting Comment\u2026","postCommentText":"Post Comment","connectingToText":"Connecting to %s","commentingAsText":"%1$s: You are commenting using your %2$s account.","logoutText":"Log Out","loginText":"Log In","connectURL":"http:\/\/perl6advent.wordpress.com\/public.api\/connect\/?action=request","homeURL":"http:\/\/perl6advent.wordpress.com\/","postID":"695","gravDefault":"identicon","enterACommentError":"Please enter a comment","enterEmailError":"Email address required","invalidEmailError":"Invalid email address","enterAuthorError":"Name required","gravatarFromEmail":"Your email address will be used to look up your Gravatar.","logInToExternalAccount":"Log in to use details from one of these accounts.","change":"Change","changeAccount":"Change Account"};
+/* ]]> */
+</script>
+<script type='text/javascript' src='http://s0.wp.com/wp-content/mu-plugins/highlander-comments/script.js?m=1322513930g&#038;ver=20110804'></script>
+	
+	<div id="bit" class="loggedout-follow-normal">
+		<a class="bsub" href="javascript:void(0)"><span id='bsub-text'>Follow</span></a>
+		<div id="bitsubscribe">
+			
+					<h3><label for="loggedout-follow-field">Follow Perl 6 Advent Calendar</label></h3>
+		
+			<form action="http://subscribe.wordpress.com" method="post" accept-charset="utf-8" id="loggedout-follow">
+			<p>Get every new post delivered to your Inbox.</p>
+
+					
+			
+			<p><input type="text" name="email" style="width: 95%; padding: 1px 2px" value="Enter email address" onfocus='this.value=(this.value=="Enter email address") ? "" : this.value;' onblur='this.value=(this.value=="") ? "Enter email address" : this.value;'  id="loggedout-follow-field"/></p>
+
+			<input type="hidden" name="action" value="subscribe"/>
+			<input type="hidden" name="blog_id" value="10740073"/>
+			<input type="hidden" name="source" value="http://perl6advent.wordpress.com/2010/12/21/day-21-transliteration-and-beyond/"/>
+			<input type="hidden" name="sub-type" value="loggedout-follow"/>
+
+			<input type="hidden" id="_wpnonce" name="_wpnonce" value="535b507c2f" /><input type="hidden" name="_wp_http_referer" value="/2010/12/21/day-21-transliteration-and-beyond/" />
+			<p id='bsub-subscribe-button'><input type="submit" value="Sign me up!" /></p>
+			</form>
+					<div id='bsub-credit'><a href="http://wordpress.com/signup/?ref=lof">Powered by WordPress.com</a></div>
+		</div><!-- #bitsubscribe -->
+	</div><!-- #bit -->
+<script type="text/javascript" src="http://b.scorecardresearch.com/beacon.js"></script><script type="text/javascript">try{COMSCORE.beacon({c1:2,c2:7518284});}catch(e){}</script><noscript><p class="robots-nocontent"><img src="http://b.scorecardresearch.com/p?cj=1c1=2&#038;c2=7518284" alt="" style="display:none" width="1" height="1" /></p></noscript><script type="text/javascript">
+// <![CDATA[
+(function() {
+try{
+  if ( window.external &&'msIsSiteMode' in window.external) {
+    if (window.external.msIsSiteMode()) {
+      var jl = document.createElement('script');
+      jl.type='text/javascript';
+      jl.async=true;
+      jl.src='/wp-content/plugins/ie-sitemode/custom-jumplist.php';
+      var s = document.getElementsByTagName('script')[0];
+      s.parentNode.insertBefore(jl, s);
+    }
+  }
+}catch(e){}
+})();
+// ]]>
+</script><script src="http://s.stats.wordpress.com/w.js?21" type="text/javascript"></script>
+<script type="text/javascript">
+st_go({'blog':'10740073','v':'wpcom','user_id':'0','post':'695','subd':'perl6advent'});
+ex_go({'crypt':'UE5XaGUuOTlwaD85flAmcm1mcmZsaDhkV11YdWFnNncxc1tjZG9XVXhReTFqanhKV3x0UkQxQldDVUV4ZVR+cSt8Ny8tTm40WHJCJm0yem40UEhxUkw4QyxOai11PS9zMEdMUmc2cnc1LC1MRHJiTjFWeGpoNThTT3RXUkEuY0Z+WW9sfDhrQnZxNlpERT1aMnQlSXxFP3k4cnJYcHdzLDBlbklXLDFRP05qdExNa2hUNiZHVmJIQ1FXLHZwMWVrVnxvcnBSSS1hPy9XblEuZVVXcWhmLkpHdXRxeHNfOSx4R2ZhL19LSlgwZTg5'});
+addLoadEvent(function(){linktracker_init('10740073',695);});
+	</script>
+<noscript><img src="http://stats.wordpress.com/b.gif?v=noscript" style="height:0px;width:0px;overflow:hidden" alt="" /></noscript>
+</body>
+</html>
