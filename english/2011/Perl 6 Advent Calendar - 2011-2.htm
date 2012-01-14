@@ -1,0 +1,1106 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en">
+
+<head profile="http://gmpg.org/xfn/11">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+<title> Perl 6 Advent Calendar</title>
+
+<link rel="stylesheet" href="http://s0.wp.com/wp-content/themes/pub/kubrick/style.css?m=1321457827g&amp;3" type="text/css" media="screen" />
+<!--[if lte IE 8]><link rel="stylesheet" href="http://s0.wp.com/wp-content/themes/pub/kubrick/ie.css?m=1303860247g" type="text/css" media="screen" /><![endif]-->
+<link rel="pingback" href="http://perl6advent.wordpress.com/xmlrpc.php" />
+
+<meta name="google-site-verification" content="YPNxtMSK3Jj7JR2XCK-hDqmF9xDIeBEyvYm3aT1s71Y" />
+<link rel="alternate" type="application/rss+xml" title="Perl 6 Advent Calendar &raquo; Feed" href="http://perl6advent.wordpress.com/feed/" />
+<link rel="alternate" type="application/rss+xml" title="Perl 6 Advent Calendar &raquo; Comments Feed" href="http://perl6advent.wordpress.com/comments/feed/" />
+<script type="text/javascript">
+/* <![CDATA[ */
+function addLoadEvent(func){var oldonload=window.onload;if(typeof window.onload!='function'){window.onload=func;}else{window.onload=function(){oldonload();func();}}}
+/* ]]> */
+</script>
+<link rel="stylesheet" href="http://s0.wp.com/wp-content/themes/h4/global.css?m=1313010127g" type="text/css" />
+<link rel='stylesheet' id='loggedout-subscribe-css'  href='http://s2.wp.com/wp-content/blog-plugins/loggedout-follow/widget.css?m=1322602715g&#038;ver=20111128' type='text/css' media='all' />
+<link rel='stylesheet' id='post-reactions-css'  href='http://s1.wp.com/wp-content/mu-plugins/post-flair/style.css?m=1322086827g&#038;ver=3' type='text/css' media='all' />
+<script type='text/javascript' src='http://s0.wp.com/wp-includes/js/jquery/jquery.js?m=1322588685g&#038;ver=1.7.1'></script>
+<script type='text/javascript' src='http://s0.wp.com/wp-content/blog-plugins/loggedout-follow/widget.js?m=1320005311g&#038;ver=20111128'></script>
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="http://perl6advent.wordpress.com/xmlrpc.php?rsd" />
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="http://perl6advent.wordpress.com/wp-includes/wlwmanifest.xml" /> 
+<meta name="generator" content="WordPress.com" />
+<link rel='shortlink' href='http://wp.me/J3YZ' />
+<meta property="og:type" content="blog" />
+<meta property="og:title" content="Perl 6 Advent Calendar" />
+<meta property="og:url" content="http://perl6advent.wordpress.com" />
+<meta property="og:description" content="Something cool about Perl 6 every day" />
+<meta property="og:site_name" content="Perl 6 Advent Calendar" />
+<meta property="og:image" content="" />
+<link rel="shortcut icon" type="image/x-icon" href="http://s2.wp.com/i/favicon.ico?m=1311976022g" sizes="16x16 24x24 32x32 48x48" />
+<link rel="icon" type="image/x-icon" href="http://s2.wp.com/i/favicon.ico?m=1311976022g" sizes="16x16 24x24 32x32 48x48" />
+<link rel="apple-touch-icon-precomposed" href="http://s0.wp.com/i/webclip.png?m=1311618116g" />
+<link rel='openid.server' href='http://perl6advent.wordpress.com/?openidserver=1' />
+<link rel='openid.delegate' href='http://perl6advent.wordpress.com/' />
+<link rel="search" type="application/opensearchdescription+xml" href="http://perl6advent.wordpress.com/osd.xml" title="Perl 6 Advent Calendar" />
+<link rel="search" type="application/opensearchdescription+xml" href="http://wordpress.com/opensearch.xml" title="WordPress.com" />
+	<style type="text/css">
+	/* <![CDATA[ */
+			/* ]]> */
+	</style>
+	<style type="text/css">
+#header     { margin: 0 !important; margin: 0 0 0 1px; padding: 1px; height: 198px; width: 758px; }
+#headerimg  { margin: 7px 9px 0; height: 192px; width: 740px; }
+#headerimg { background: url(http://perl6advent.files.wordpress.com/2009/12/perl6advent2.png) no-repeat top;}
+#header h1 a, #header h1 a:hover, #header .description {
+	color: #ffffff;
+}
+</style>
+<style type='text/css'><!--
+body { background: url("http://s0.wp.com/wp-content/themes/pub/kubrick/images/kubrickbgcolor.gif?m=1303860247g"); }
+#page { background: url("http://s0.wp.com/wp-content/themes/pub/kubrick/images/kubrickbg.gif?m=1303860247g") repeat-y top; border: none; }
+#header { background: url("http://s0.wp.com/wp-content/themes/pub/kubrick/images/kubrickheader.gif?m=1303860247g") no-repeat bottom center; }
+#footer { background: url("http://s0.wp.com/wp-content/themes/pub/kubrick/images/kubrickfooter.gif?m=1303860247g") no-repeat bottom; border: none;}
+#header { margin: 0 !important; margin: 0 0 0 1px; padding: 1px; height: 198px; width: 758px; }
+#headerimg { margin: 7px 9px 0; height: 192px; width: 740px; }
+#headerimg h1 a, #headerimg h1 a:visited, #headerimg .description { color: #FFFFFF; }
+#headerimg h1 a, #headerimg .description { display:  }
+
+	--></style><meta name="application-name" content="Perl 6 Advent Calendar" /><meta name="msapplication-window" content="width=device-width;height=device-height" /><meta name="msapplication-tooltip" content="Something cool about Perl 6 every day" /><meta name="msapplication-task" content="name=Subscribe;action-uri=http://perl6advent.wordpress.com/feed/;icon-uri=http://s2.wp.com/i/favicon.ico" /><meta name="msapplication-task" content="name=Sign up for a free blog;action-uri=http://wordpress.com/signup/;icon-uri=http://s2.wp.com/i/favicon.ico" /><meta name="msapplication-task" content="name=WordPress.com Support;action-uri=http://support.wordpress.com/;icon-uri=http://s2.wp.com/i/favicon.ico" /><meta name="msapplication-task" content="name=WordPress.com Forums;action-uri=http://forums.wordpress.com/;icon-uri=http://s2.wp.com/i/favicon.ico" />
+<script type='text/javascript'>/*<![CDATA[*/if(typeof(addLoadEvent)!='undefined'){addLoadEvent(function(){if(top==self){i=document.createElement('img');i.src='http://botd2.wordpress.com/botd.gif?blog=10740073&post=0&lang=en&date=1323952771&ip=173.255.2.138&url=http://perl6advent.wordpress.com/';i.style.width='0px';i.style.height='0px';i.style.overflow='hidden';document.body.appendChild(i);}});}/*]]>*/</script>
+</head>
+<body class="highlander-enabled highlander-light">
+<div id="page">
+
+
+<div id="header">
+	<div id="headerimg" onclick=" location.href='http://perl6advent.wordpress.com';" style="cursor: pointer;">
+		<h1><a href="http://perl6advent.wordpress.com/">Perl 6 Advent Calendar</a></h1>
+		<div class="description">Something cool about Perl 6 every day</div>
+	</div>
+</div>
+<hr />
+
+	<div id="content" class="narrowcolumn">
+
+	
+		
+			<div class="post-956 post type-post status-publish format-standard hentry category-2011" id="post-956">
+								<h2><a href="http://perl6advent.wordpress.com/2011/12/15/day-15-something-exceptional/" rel="bookmark" title="Permanent Link to Day 15 &#8211; Something&nbsp;Exceptional">Day 15 &#8211; Something&nbsp;Exceptional</a></h2>
+				<small>December 15, 2011 <span class="by-author"><span class="sep">by</span> <span class="author vcard"><a class="url fn n" href="http://perl6advent.wordpress.com/author/foobar123/" title="View all posts by Moritz" rel="author">Moritz</a></span> </span></small>
+
+				<div class="entry">
+					<p>The Perl 6 exception system is currently in development; here is a small example demonstrating a part of the current state:</p>
+<pre>
+ use v6;
+
+ sub might_die(Real $x) {
+     die &quot;negative&quot; if $x &lt; 0;
+     $x.sqrt;
+ }
+
+ for 5, 0, -3, 1+2i -&gt; $n {
+     say &quot;The square root of $n is &quot;, might_die($n);
+
+     CATCH {
+         # CATCH sets $_ to the error object,
+         # and then checks the various cases:
+         when 'negative' {
+             # note that $n is still in scope,
+             # since the CATCH block is *inside* the
+             # to-be-handled block
+             say &quot;Cannot take square root of $n: negative&quot;
+         }
+         default {
+             say &quot;Other error: $_&quot;;
+         }
+     }
+ }</pre>
+<p>This produces the following output under rakudo:</p>
+<pre>
+ The square root of 5 is 2.23606797749979
+ The square root of 0 is 0
+ Cannot take square root of -3: negative
+ Other error: Nominal type check failed for parameter '$x'; expected Real but got Complex instead</pre>
+<p>A few interesting points: the presence of a <code>CATCH</code> block automatically makes the surrounding block catch exceptions. Inside the <code>CATCH</code> block, all lexical variables from the outside are normally accessible, so all the interesting information is available for error processing.</p>
+<p>Inside the <code>CATCH</code> block, the error object is available in the <code>$_</code> variable, on the outside it is available in <code>$!</code>. If an exception is thrown inside a <code>CATCH</code> block, it is not caught &#8212; unless there is a second, inner <code>CATCH</code> that handles it.</p>
+<p>The insides of a <code>CATCH</code> block typically consists of <code>when</code> clauses, and sometimes a <code>default</code> clause. If any of those matches the error object, the error is considered to be handled. If no clause matches (and no <code>default</code> block is present), the exception is rethrown.</p>
+<p>Comparing the output from rakudo to the one that niecza produces for the same code, one can see that the last line differs:</p>
+<pre>
+ Other error: Nominal type check failed in binding Real $x in might_die; got Complex, needed Real</pre>
+<p>This higlights a problem in the current state: The wording of error messages is not yet specified, and thus differs among implementations.</p>
+<p>I am working on rectifying that situation, and also throwing interesting types of error objects. In the past week, I have managed to start throwing specific error objects from within the Rakudo compiler. Here is an example:</p>
+<pre>
+ $ ./perl6 -e 'try eval q[ class A { $!x } ]; say &quot;error: $!&quot;; say $!.perl'
+ error: Attribute $!x not declared in class A
+ X::Attribute::Undeclared.new(
+         name =&gt; &quot;\$!x&quot;,
+         package-type =&gt; &quot;class&quot;,
+         package-name =&gt; &quot;A&quot;, filename =&gt; &quot;&quot;,
+         line =&gt; 1,
+         column =&gt; Any,
+         message =&gt; &quot;Attribute \$!x not declared in class A&quot;
+ )
+ # output reformatted for clarity</pre>
+<p>The string that is passed to <code>eval</code> is not a valid Perl 6 program, because it accesses an attribute that wasn&#8217;t declared in class <code>A</code>. The exception thrown is of type <code>X::Attribute::Undeclared</code>, and it contains several details: the name of the attribute, the type of package it was missing in (could be class, module, grammar and maybe others), the name of the package, the actual error message and information about the source of the error (line, cfile name (empty because <code>eval()</code> operates on a string, not on a file), and column, though column isn&#8217;t set to a useful value yet).</p>
+<p><code>X::Attribute::Undeclared</code> inherits from type <code>X::Comp</code>, which is the common superclass for all compile time errors. Once all compile time errors in Rakudo are switched to <code>X::Comp</code> objects, one will be able to check if errors were produced at run time or at compile with code like</p>
+<pre>
+ eval $some-string;
+ CATCH {
+     when X::Comp { say 'compile time' }
+     default      { say 'run time'     }
+ }</pre>
+<p>The <code>when</code> block smart-matches the error object against the <code>X::Comp</code> type object, which succeeds whenever the error object conforms to that type (so, is of that type or a subclas of <code>X::Comp</code>).</p>
+<p>Writing and using new error classes is quite easy:</p>
+<pre>
+ class X::PermissionDenied is X::Base {
+     has $.reason;
+     method message() { &quot;Permission denied: $.reason&quot; };
+ }</pre>
+<pre>
+ # and using it somewhere:
+ die X::PermissionDenied.new( reason =&gt; &quot;I don't like your nose&quot;);</pre>
+<p>So Perl 6 has a rather flexible error handling mechanism, and libraries and applications can choose to throw error objects with rich information.  The plan is to have the Perl 6 compilers throw such easily introspectable error objects too, and at the same time unify their error messages.</p>
+<p>Many thanks go to Ian Hague and The Perl Foundation for funding my work on exceptions.</p>
+<div class="sharedaddy"></div>				</div>
+
+				<p class="postmetadata"> Posted in <a href="http://perl6advent.wordpress.com/category/2011/" title="View all posts in 2011" rel="category tag">2011</a> |   <a href="http://perl6advent.wordpress.com/2011/12/15/day-15-something-exceptional/#comments" title="Comment on Day 15 &#8211; Something&nbsp;Exceptional">4 Comments &#187;</a></p>
+							</div>
+
+		
+			<div class="post-949 post type-post status-publish format-standard hentry category-2011" id="post-949">
+								<h2><a href="http://perl6advent.wordpress.com/2011/12/14/meta-programming-what-why-and-how/" rel="bookmark" title="Permanent Link to Meta-programming: what, why and&nbsp;how">Meta-programming: what, why and&nbsp;how</a></h2>
+				<small>December 14, 2011 <span class="by-author"><span class="sep">by</span> <span class="author vcard"><a class="url fn n" href="http://perl6advent.wordpress.com/author/jnthnwrthngtn/" title="View all posts by jnthnwrthngtn" rel="author">jnthnwrthngtn</a></span> </span></small>
+
+				<div class="entry">
+					<p>Sometimes, it&#8217;s good to take ones understanding of a topic, throw it away and try to build a new mental model of it from scratch. I did that in the last couple of years with object orientation. Some things feel ever so slightly strange to let go of and re-evaluate. For many people, an object really is &#8220;an instance of a class&#8221; and inheritance really is a core building block of OOP. I suspect many people who read this post will at this point be thinking, &#8220;huh, of course they really are&#8221; &#8211; and if so, that&#8217;s totally fair enough. Most people&#8217;s view of OOP will, naturally, be based around the languages they&#8217;ve applied object orientation in, and most of the mainstream languages really do have objects that are instances of classes and really do have inheritance as a core principle.</p>
+<p>Step back and look around, however, and things get a bit more blurry. JavaScript doesn&#8217;t have any notion of classes. CLOS (the Common Lisp Object System) does have classes, but they don&#8217;t have methods. And even if we do just stick with the languages that have classes with methods, there&#8217;s a dizzying array of &#8220;extras&#8221; playing their part in the language&#8217;s OO world view; amongst them are interfaces, mixins and roles.</p>
+<p>Roles &#8211; more often known as traits in the literature &#8211; are a relatively recent arrival on the OO scene, and they serve as an important reminder than object orientation is not finished yet. It&#8217;s a living, breathing paradigm, undergoing its own evolution just as our programming languages in general are.</p>
+<p>And that brings me nicely on to Perl 6 &#8211; a language that from the start has set out to be able to evolve. At a syntax level, that&#8217;s done by opening up the grammar to mutation &#8211; in a very carefully controlled way, such that you always know what language any given lexical scope is in. Meta-programming plays that same role, but in the object orientation and type system space.</p>
+<p>So what is a meta-object? A meta-object is simply an object that describes how a piece of our language works. What sorts of things in Perl 6 have meta-objects? Here&#8217;s a partial list.</p>
+<ul>
+<li>Classes</li>
+<li>Roles</li>
+<li>Subsets</li>
+<li>Enumerations</li>
+<li>Attributes</li>
+<li>Subroutines</li>
+<li>Methods</li>
+<li>Signatures</li>
+<li>Parameters</li>
+</ul>
+<p>So that&#8217;s meta-objects, but what about the protocol? You can read protocol as &#8220;API&#8221; or &#8220;interface&#8221;. It&#8217;s an agreed set of methods that a meta-object will provide if it wants to expose certain features. Let&#8217;s consider the API for anything that can have methods, such as classes and roles. At a minimum, it will provide:</p>
+<ul>
+<li>add_method &#8211; adds a method to the object</li>
+<li>methods &#8211; enables introspection of the methods that the object has</li>
+<li>method_table &#8211; provides a hash of the methods in this type, excluding any that may be inherited</li>
+</ul>
+<p>What about something that you can call a method on? It just has to provide one thing:</p>
+<ul>
+<li>find_method &#8211; takes an object and a name, and returns the method if one exists</li>
+</ul>
+<p>By now you may be thinking, &#8220;wait a moment, is there something that you can call a method on, but that does not have methods&#8221;? And the answer is &#8211; yes. For example, an enum has values that you can call a method on &#8211; the methods that the underlying type of the enumeration provides. You can&#8217;t actually add a method to an enum itself, however.</p>
+<p>What&#8217;s striking about this is that we are now doing object oriented programming&#8230;to implement our object oriented language features. And this in turn means that we can tweak and extend our language &#8211; perhaps by subclassing an existing meta-object, or even by writing a new one from scratch. To demonstrate this, we&#8217;ll do a simple example, then a trickier one.</p>
+<p>Suppose we wanted to forbid multiple inheritance. Here&#8217;s the code that we need to write.</p>
+<pre>my class SingleInheritanceClassHOW
+    is Mu is Metamodel::ClassHOW
+{
+    method add_parent(Mu $obj, Mu $parent) {
+        if +self.parents($obj, :local) &gt; 0 {
+            die "Multiple inheritance is forbidden!";
+        }
+        callsame;
+    }
+}
+my module EXPORTHOW { }
+EXPORTHOW.WHO.&lt;class&gt; = SingleInheritanceClassHOW;</pre>
+<p>What are we doing here? First, we inherit from the standard Perl 6 implementation of classes, which is defined by the class Metamodel::ClassHOW. (For now, we also inherit from Mu, since meta-objects currently consider themselves outside of the standard type hierarchy. This may change.) We then override the add_parent method, which is called whenever we want to add a parent to a class. We check the current number of (local) parents that a class has; if it already has one, then we die. Otherwise, we use callsame in order to just call the normal add_parent method, which actually adds the parent.</p>
+<p>You may wonder what the $obj parameter that we&#8217;re taking is, and why it is needed. It is there because if we were implementing a prototype model of OOP, then adding a method to an object would operate on the individual object, rather than stashing the method away in the meta-object.</p>
+<p>Finally, we need to export our new meta-object to anything that uses our module, so that it will be used in place of the &#8220;class&#8221; package declarator. Do do this, we stick it in the EXPORTHOW module, under the name &#8220;class&#8221;. The importer pays special attention to this module, if it exists. So, here it is in action, assuming we put our code in a module si.pm. This program works as usual:</p>
+<pre>use si;
+class A { }
+class B is A { }</pre>
+<p>While this one:</p>
+<pre>class A { }
+class B { }
+class C is A is B { }</pre>
+<p>Will die with:</p>
+<pre>===SORRY!===
+Multiple inheritance is forbidden!</pre>
+<p>At compile time.</p>
+<p>Now for the trickier one. Let&#8217;s do a really, really simple implementation of aspect oriented programming. We&#8217;ll write an aspects module. First, we declare a class that we&#8217;ll use to mark aspects.</p>
+<pre>my class MethodBoundaryAspect is export {
+}</pre>
+<p>Next, when a class is declared with &#8220;is SomeAspect&#8221;, where SomeAspect inherits from MethodBoundaryAspect, we don&#8217;t want to treat it as inheritance. Instead, we&#8217;d like to add it to a list of aspects. Here&#8217;s an extra trait modifier to do that.</p>
+<pre>multi trait_mod:(Mu:U $type, MethodBoundaryAspect:U $aspect) is export {
+    $aspect === MethodBoundaryAspect ??
+        $type.HOW.add_parent($type, $aspect) !!
+        $type.HOW.add_aspect($type, $aspect);
+}</pre>
+<p>We take care to make sure that the declaration of aspects themselves &#8211; which will directly derive from this class &#8211; still works out by continuing to call add_parent for those. Otherwise, we call a method add_aspect, which we&#8217;ll define in a moment.</p>
+<p>Supposing that our aspects work by optionally implementing entry and exit methods, which get passed the details of the call, here&#8217;s our custom meta-class, and the code to export it, just as before.</p>
+<pre>my class ClassWithAspectsHOW
+    is Mu is Metamodel::ClassHOW
+{
+    has @!aspects;
+    method add_aspect(Mu $obj, MethodBoundaryAspect:U $aspect) {
+        @!aspects.push($aspect);
+    }
+    method compose(Mu $obj) {
+        for @!aspects -&gt; $a {
+        for self.methods($obj, :local) -&gt; $m {
+            $m.wrap(-&gt; $obj, |$args {
+                $a.?entry($m.name, $obj, $args);
+                my $result := callsame;
+                $a.?exit($m.name, $obj, $args, $result);
+                $result
+            });
+        }
+        }
+        callsame;
+    }
+}
+my module EXPORTHOW { }
+EXPORTHOW.WHO.&lt;class&gt; = ClassWithAspectsHOW;</pre>
+<p>Here, we see how add_aspect is implemented &#8211; it just pushes the aspect onto a list. The magic all happens at class composition time. The compose method is called after we&#8217;ve parsed the closing curly of a class declaration, and is the point at which we finalize things relating to the class declaration. Ahead of that, we loop over any aspects we have, and the wrap each method declared in the class body up so that it will make the call to the entry and exit methods.</p>
+<p>Here&#8217;s an example of the module in use.</p>
+<pre>use aspects;
+class LoggingAspect is MethodBoundaryAspect {
+    method entry($method, $obj, $args) {
+        say "Called $method with $args";
+    }
+    method exit($method, $obj, $args, $result) {
+        say "$method returned with $result.perl()";
+    }
+}
+class Example is LoggingAspect {
+    method double($x) { $x * 2 }
+    method square($x) { $x ** 2 }
+}
+say Example.double(3);
+say Example.square(3);</pre>
+<p>And the output is:</p>
+<pre>Called double with 3
+double returned with 6
+6
+Called square with 3
+square returned with 9
+9</pre>
+<p>So, a module providing basic aspect orientation support in 30 or so lines. Not so bad.</p>
+<p>As you can imagine, we can go a long way with meta-programming, whether we want to create policies, development tools (like Grammar::Debugger) or try to add entirely new concepts to our language. Happy meta-hacking.</p>
+<div class="sharedaddy"></div>				</div>
+
+				<p class="postmetadata"> Posted in <a href="http://perl6advent.wordpress.com/category/2011/" title="View all posts in 2011" rel="category tag">2011</a> |   <a href="http://perl6advent.wordpress.com/2011/12/14/meta-programming-what-why-and-how/#comments" title="Comment on Meta-programming: what, why and&nbsp;how">2 Comments &#187;</a></p>
+							</div>
+
+		
+			<div class="post-940 post type-post status-publish format-standard hentry category-2011" id="post-940">
+								<h2><a href="http://perl6advent.wordpress.com/2011/12/13/bailador-a-small-dancer-clone/" rel="bookmark" title="Permanent Link to Bailador &#8212; A small Dancer&nbsp;clone">Bailador &#8212; A small Dancer&nbsp;clone</a></h2>
+				<small>December 13, 2011 <span class="by-author"><span class="sep">by</span> <span class="author vcard"><a class="url fn n" href="http://perl6advent.wordpress.com/author/ttjjss/" title="View all posts by ttjjss" rel="author">ttjjss</a></span> </span></small>
+
+				<div class="entry">
+					<p>Today we&#8217;ll write a simple Dancer clone in Perl 6. Simple also means Very Minimal &#8212; it will only recognize basic GET requests. Let&#8217;s look at how the simplest Dancer app possible looks like:</p>
+<pre>    get '/' =&gt; sub {
+        "Hello World!"
+    };
+    dance;</pre>
+<p>So we need something to add routes to our app, and something to run it. Let&#8217;s take care of adding routes first. We&#8217;ll create an array to store all those, and thus <code>get()</code> will just add them to it.</p>
+<pre>    my @routes;
+    sub get(Pair $x) is export {
+        @routes.push: $x;
+    }</pre>
+<p>In case you&#8217;re not familiar with the <code>Pair</code> thing, in Perl 6 a fat comma (<code>=&gt;</code>) creates an actual data structure containing a key and a value. In this case, the key is just a string &#8216;/&#8217;, and the value is a subroutine.</p>
+<p>Having <code>@routes</code> being a simple array of keys and values we can now write a simple dispatcher:</p>
+<pre>    sub dispatch($env) {
+        for @routes -&gt; $r {
+            if $env&lt;REQUEST_URI&gt; ~~ $r.key {
+                return $r.value.();
+            }
+        }
+        return "404";
+    }</pre>
+<p><code>dispatch()</code> takes a hash representing our environment, which contains the <code>REQUEST_URI</code> string, basing on which we&#8217;ll try to find an appropriate candidate to dispatch to.</p>
+<p>The above example is also cheating a bit: it just returns a &#8217;404&#8242; string instead of creating a proper HTTP response. Making it respond properly is left as an exercise for the reader (not the last one in this short article, I assure you :)).</p>
+<p>Since we got that far already, writing our own <code>dance()</code> is a piece of cake. We&#8217;re going to call it <code>baile()</code> though. Why do we write all this in Spanish? If you can guess on which classes I was bored and wrote this thing on a piece of paper, then on the next YAPC I&#8217;ll show you the fastest possible way to tie a shoe. No kidding! But let&#8217;s finish this thing first.</p>
+<p>Luckily we don&#8217;t need to write our own web server now. We have <code>HTTP::Server::Simple::PSGI</code> in Perl 6, which will do most of the hard work for us. The only thing we have to do is to create a PSGI app. In case you&#8217;ve never heard of it, a PSGI app is a mere subroutine, taking the environment as an argument, and returning an array of three things: an HTTP response code, an array of HTTP headers and a response body. Once we have our PSGI app ready, we just feed <code>HTTP::Server::Simple::PSGI</code> with it, and we&#8217;re good to go.</p>
+<pre>    sub baile is export {
+        my $app = sub($env) {
+            my $res = dispatch($env);
+            return ['200', [ 'Content-Type' =&gt; 'text/plain' ], $res];
+        }
+
+        given HTTP::Server::Simple.PSGI.new {
+            .host = 'localhost';
+            .app($app);
+            .run;
+        }
+    }</pre>
+<p>Yep, we&#8217;re cheating again and returning <code>200</code> no matter what. Remember the part about “an exercise for the reader?” You can think about it while celebrating a working Dancer clone.</p>
+<h2>But wait, there&#8217;s more!</h2>
+<p>Let&#8217;s look at our <code>dispatch()</code> once again:</p>
+<pre>    sub dispatch($env) {
+        for @routes -&gt; $r {
+            if $env&lt;REQUEST_URI&gt; ~~ $r.key {
+                return $r.value.();
+            }
+        }
+        return "404";
+    }</pre>
+<p>You probably noticed that we&#8217;ve used <code>~~</code> &#8212; a smartmatching operator. Thanks to that, we can match <code>REQUEST_URI</code> against strings, but not only. <code>Junctions</code> will work fine too:</p>
+<pre>    get any('/h', '/help', '/halp') =&gt; sub {
+        "A helpful help message"
+    }</pre>
+<p>And regexes:</p>
+<pre>    get /greet\/(.+)/ =&gt; sub ($x) {
+        "Welcome $x"
+    }</pre>
+<p>The last one will need a bit of tweaking in <code>dispatch()</code>. Yes, <code>~~</code> does the regex matching for us, but we have to take care of passing the match results to the callback function. Let&#8217;s modify the <code>if</code> body then:</p>
+<pre>    sub dispatch($env) {
+        for @routes -&gt; $r {
+            if $env&lt;REQUEST_URI&gt; ~~ $r.key {
+                if $/ {
+                    return $r.value.(|$/.list);
+                } else {
+                    return $r.value.();
+                }
+            }
+        }
+        return "404";
+    }</pre>
+<p>The <code>if $/</code> part checks whether the match resulted in setting the <code>Match</code> object in the <code>$/</code> variable. If it did, we flatten the <code>Match</code> to a list, and pass it to the callback function. We need a <code>|</code> prefix, so it becomes expanded to a parameter list instead of being passed as a mere array. From now on, the above example with <code>greet</code> will Just Work. Yay!</p>
+<p>The Bailador code presented here is available <a title="Bailador on github" href="https://github.com/tadzik/bailador">in the Github repository</a>. If you feel challenged by the “exercises for the reader”, or just want to make it a bit more proper Dancer port, you&#8217;re welcome to hack on it a bit and contribute. I hope I showed you how simple it is to write a simple, yet useful thing, and going with those simple steps we can hopefully get to something close to a full-blown Dancer port. Happy hacking, and have an appropriate amount of fun!</p>
+<div class="sharedaddy"></div>				</div>
+
+				<p class="postmetadata"> Posted in <a href="http://perl6advent.wordpress.com/category/2011/" title="View all posts in 2011" rel="category tag">2011</a> |   <a href="http://perl6advent.wordpress.com/2011/12/13/bailador-a-small-dancer-clone/#respond" title="Comment on Bailador &#8212; A small Dancer&nbsp;clone">Leave a Comment &#187;</a></p>
+							</div>
+
+		
+			<div class="post-890 post type-post status-publish format-standard hentry category-2011" id="post-890">
+								<h2><a href="http://perl6advent.wordpress.com/2011/12/12/exploratory-parsing-with-perl-6/" rel="bookmark" title="Permanent Link to Exploratory parsing with Perl&nbsp;6">Exploratory parsing with Perl&nbsp;6</a></h2>
+				<small>December 12, 2011 <span class="by-author"><span class="sep">by</span> <span class="author vcard"><a class="url fn n" href="http://perl6advent.wordpress.com/author/snarkyboojum/" title="View all posts by snarkyboojum" rel="author">snarkyboojum</a></span> </span></small>
+
+				<div class="entry">
+					<p>There have already been some delectable little grammar goodies this Advent Calendar. We hope to add to that today, with a discussion of the concept of &#8220;Exploratory Parsing&#8221; and Perl 6.</p>
+<p>There&#8217;s no question that many modern programming languages having embraced regular expressions as a central part of the language or via a standard library. Some languages have introduced full-blown-parsing facilities as core features of their design. For example, many functional languages give us powerful parser combinators. Perl 6, as the astute advent reader knows, gives us &#8220;Regexes and Rules&#8221;. It turns out that Perl 6 Regexes are an implementation of <a href="http://en.wikipedia.org/wiki/Parsing_expression_grammar">parsing expression grammars</a>, or PEGs for short, originally formulated by Bryan Ford.</p>
+<p>I was inspired by a recent <a href="http://c2.com/ward/">Ward Cunnigham</a> <a href="http://dev.aboutus.org/2011/07/03/getting-started-exploratory-parsing.html">post</a> where he uses PEGs to explore seemingly unstructured text. Ward used an implementation of a PEG parser generator written in C by <a href="http://piumarta.com/index.html">Ian Piumarta</a>.</p>
+<p>We however have a powerful PEG-like parser built right into the core of the Perl 6 language, so what better way to play with exploratory parsing than getting cozy with your favourite Perl 6 compiler, pouring yourself another glass of eggnog, and divining meaning from random text out on the interwebs!</p>
+<p>Our first example is taken directly from Ward&#8217;s &#8220;Exploratory Parsing&#8221; post. If you haven&#8217;t at least perused it yet, may I encourage you to do so.</p>
+<p>The first thing we do is retrieve some data to explore:</p>
+<pre>
+wget http://introcs.cs.princeton.edu/java/data/world192.txt
+</pre>
+<p>We then translate Ward&#8217;s first example into Perl 6:</p>
+<pre>
+use v6;
+
+# Inspired by
+# http://dev.aboutus.org/2011/07/03/getting-started-exploratory-parsing.html
+# but using Perl 6 regexes and tokens
+
+grammar ExploratoryParsing {
+    token TOP {
+        &lt;fact&gt;+
+    }
+
+    token fact { &lt;key&gt; &lt;value&gt; | &lt;other_char&gt; }
+
+    token key { &lt;whitespace&gt; &lt;word&gt;+ ':' }
+
+    token value { [&lt;!key&gt; .]+ }
+
+    token word { &lt;alpha&gt;+ ' '* }
+
+    token whitespace { '\n' ' '* }
+
+    token other_char { . }
+
+}
+</pre>
+<p>I don&#8217;t know about you, but I love how declarative this is. I encourage you to compare the two implementations. The translation is almost trivial, no?</p>
+<p>We introduce a MAIN method which slurps up a data file, uses our grammar definition to parse the text, and tells us how many &#8220;facts&#8221; we&#8217;ve found.</p>
+<pre>
+sub MAIN() {
+    my $text = slurp('world192.txt');
+    say "Read world factbook. Parsing...";
+
+    my $match = ExploratoryParsing.parse($text);
+    say "Found ", +$match, " facts.";
+}
+</pre>
+<p>Running this with the Rakudo Perl 6 compiler we get:</p>
+<pre>
+$ perl6 exp-parsing.pl
+Read world factbook. Parsing...
+Found 16814 facts.
+</pre>
+<p>If we use the awesomely awesome Grammar::Tracer or Grammar::Debugger already <a href="http://perl6advent.wordpress.com/2011/12/02/grammartracer-and-grammardebugger/">unwrapped for us earlier</a> this month, we can even step further into this and explore matches.</p>
+<p>The remaining embellishments from Ward&#8217;s original post are left as an exercise for the reader.</p>
+<p>You can see how powerful this idea is. We start with some semi-structured text and use the power of Perl 6 Regexes and Rules to start pulling things apart, stirring the precipitate meaning and exploring pattern and trends we see in the data. This kind of work is trivial in a language like Perl 6 with powerful parsing support. You can even imagine jumping into a Perl 6 REPL and doing this interactively.</p>
+<p>Hopefully this has whet your appetite for playing with Perl 6 regexes. Happy parsing.</p>
+<div class="sharedaddy"></div>				</div>
+
+				<p class="postmetadata"> Posted in <a href="http://perl6advent.wordpress.com/category/2011/" title="View all posts in 2011" rel="category tag">2011</a> |   <a href="http://perl6advent.wordpress.com/2011/12/12/exploratory-parsing-with-perl-6/#respond" title="Comment on Exploratory parsing with Perl&nbsp;6">Leave a Comment &#187;</a></p>
+							</div>
+
+		
+			<div class="post-880 post type-post status-publish format-standard hentry category-2011" id="post-880">
+								<h2><a href="http://perl6advent.wordpress.com/2011/12/11/privacy-and-oop/" rel="bookmark" title="Permanent Link to Privacy and&nbsp;OOP">Privacy and&nbsp;OOP</a></h2>
+				<small>December 11, 2011 <span class="by-author"><span class="sep">by</span> <span class="author vcard"><a class="url fn n" href="http://perl6advent.wordpress.com/author/jnthnwrthngtn/" title="View all posts by jnthnwrthngtn" rel="author">jnthnwrthngtn</a></span> </span></small>
+
+				<div class="entry">
+					<p>There are a number of ways in which Perl 6 encourages you to restrict the scope of elements of your program. By doing so, you can better understand how they are used and will be able to refactor them more easily later, potentially aiding agility. Lexical scoping is one such mechanism, and subroutines are by default lexically scoped.</p>
+<p>Let&#8217;s take a look at a class that demonstrates some of the object oriented related privacy mechanisms.</p>
+<pre>    class Order {
+        my class Item {
+            has $.name;
+            has $.price;
+        }
+
+        has Item @!items;
+
+        method add_item($name, $price) {
+            @!items.push(Item.new(:$name, :$price))
+        }
+
+        method discount() {
+            self!compute_discount()
+        }
+
+        method total() {
+            self!compute_subtotal() - self!compute_discount();
+        }
+
+        method !compute_subtotal() {
+            [+] @!items&gt;&gt;.price
+        }
+
+        method !compute_discount() {
+            my $sum = self!compute_subtotal();
+            if $sum &gt;= 1000 {
+                $sum * 0.15
+            }
+            elsif $sum &gt;= 100 {
+                $sum * 0.1
+            }
+            else {
+                0
+            }
+        }
+    }</pre>
+<p>Taking a look at this, the first thing we notice is that Item is a lexical class. A class declared with &#8220;my&#8221; scope can never be referenced outside of the scope it is declared within. In our case, we never leak instances of it outside of our Order class either. This makes our class an example of the aggregate pattern: it prevents outside code from holding direct references to the things inside of it. Should we ever decide to change the way that our class represents its items on the inside, we have complete freedom to do so.</p>
+<p>The other example of a privacy mechanism at work in this class is the use of private methods. A private method is declared just like an ordinary method, but with an exclamation mark appearing before its name. This gives it the same visibility as an attribute (which, you&#8217;ll note, are also declared with an exclamation mark &#8211; a nice bit of consistency). It also means you need to call it differently, using the exclamation mark instead of the dot.</p>
+<p>Private methods are non-virtual. This may seem a little odd at first, but is consistent: attributes are also not visible to subclasses. By being non-virtual, we also get some other benefits. The latest Rakudo, with its optimizer cranked up to its highest level, optimizes calls to private methods and complains about missing ones at compile time. Thus a typo:</p>
+<pre>    self!compite_subtotal() - self!compute_discount();</pre>
+<p>Will get us a compile time error:</p>
+<pre>    ===SORRY!===
+    CHECK FAILED:
+    Undefined private method 'compite_subtotal' called (line 18)</pre>
+<p>You may worry a little over the fact that we now can&#8217;t subclass the discount computation, but that&#8217;s likely not a good design anyway; for one, we&#8217;d need to also expose the list of items, breaking our aggregate boundary. If we do want pluggable discount mechanisms we&#8217;d probably be better implementing the strategy pattern.</p>
+<p>Private methods can, of course, not be called from outside of the class, which is also a compile time error. First, if you try:</p>
+<pre>    say $order!compute_discount;</pre>
+<p>You&#8217;ll be informed:</p>
+<pre>    ===SORRY!===
+    Private method call to 'compute_discount' must be fully qualified
+    with the package containing the method</pre>
+<p>Which isn&#8217;t so surprising, given they are non-virtual. But even if we do:</p>
+<pre>    say $o!Order::compute_discount;</pre>
+<p>Our encapsulation-busting efforts just get us:</p>
+<pre>    ===SORRY!===
+    Cannot call private method 'compute_discount' on package Order
+    because it does not trust GLOBAL</pre>
+<p>This does, however, hint at the get-out clause for private methods: a class may choose to trust another one (or, indeed, any other package) to be able to call its private methods. Critically, this is the decision of the class itself; if the class declaration didn&#8217;t decide to trust you, you&#8217;re out of luck. Generally, you won&#8217;t need &#8220;trusts&#8221;, but occasionally you may be in a situation where you have two very closely coupled classes. That&#8217;s usually undesirable in itself, though. Don&#8217;t trust too readily. :-)</p>
+<p>So, lexical classes, private methods and some nice compiler support to help catch mistakes. Have an agile advent. :-)</p>
+<div class="sharedaddy"></div>				</div>
+
+				<p class="postmetadata"> Posted in <a href="http://perl6advent.wordpress.com/category/2011/" title="View all posts in 2011" rel="category tag">2011</a> |   <a href="http://perl6advent.wordpress.com/2011/12/11/privacy-and-oop/#respond" title="Comment on Privacy and&nbsp;OOP">Leave a Comment &#187;</a></p>
+							</div>
+
+		
+			<div class="post-867 post type-post status-publish format-standard hentry category-2011" id="post-867">
+								<h2><a href="http://perl6advent.wordpress.com/2011/12/10/documenting-perl-6/" rel="bookmark" title="Permanent Link to Documenting Perl&nbsp;6">Documenting Perl&nbsp;6</a></h2>
+				<small>December 10, 2011 <span class="by-author"><span class="sep">by</span> <span class="author vcard"><a class="url fn n" href="http://perl6advent.wordpress.com/author/ttjjss/" title="View all posts by ttjjss" rel="author">ttjjss</a></span> </span></small>
+
+				<div class="entry">
+					<p>A wise man once said that programs must be written for people to read, and only incidentally for machines to execute. But aside from being read, your code is also going to be used by people, who don&#8217;t really want to dive into it to understand what it does. That&#8217;s where the documentation comes in.</p>
+<p>In Perl 5 we had POD, which stands for Plain Old Documentation. In Perl 6 we have Pod, which is not really an abbreviation of anything. As its specification says, “Perl 6&#8242;s Pod is much more uniform, somewhat more compact, and considerably more expressive”. It has changed slightly compared to Perl 5 Pod, but most of the stuff remains the same, or at least very similar.</p>
+<p>There are three main types of Pod blocks in Perl 6. <strong>Delimited blocks</strong> are probably the most obvious and simple ones:</p>
+<pre>
+    =begin pod</pre>
+<pre>
+    &lt;whatever Pod content we want&gt;</pre>
+<pre>
+    =end pod</pre>
+<p><strong>Paragraph blocks</strong> are a bit more magical. They begin with <code>=for</code>, and end on the nearest blank line (as the name, Paragraph, suggest):</p>
+<pre>
+    my $piece = 'of perl 6 code'</pre>
+<pre>
+    =for comment
+    Here we put whatever we want.
+    The compiler will not notice anyway.</pre>
+<pre>
+    our $perl6 = 'code continues';</pre>
+<p><strong>Abbreviated blocks</strong> are similar to <strong>Paragraph blocks</strong>. The leading <code>=</code> is followed immediately by a Pod block identifier and the content. Sounds familiar?</p>
+<pre>
+    =head1 Shoulders, Knees and Toes</pre>
+<p>That&#8217;s right, <code>=head</code> is nothing magical in Perl 6 Pod. That means you can write it also as a paragraph block</p>
+<pre>
+    =for head1
+    Longer header
+    than we usually write.</pre>
+<p>Or a full-blown delimited block</p>
+<pre>
+    =begin head1</pre>
+<pre>
+    This header is longer than it should be</pre>
+<pre>
+    =end head1</pre>
+<p>Any block can be written as a delimited block, paragraph block, or abbreviated block. No magic. Not all blocks are created equal, of course. <code>=head</code> will be treated differently than plain <code>=pod</code>. By whom? By the Pod renderer, of course, but also by the Perl 6 compiler itself. In Perl 6, Pod is not a second-class citizen, ignored during the program compilation. Pod in Perl 6 is a part of the code; along with parsing and constructing AST of the code to be executed, the compiler also parses and builds AST of all Pod blocks. They are then kept in the special <code>$=POD</code> variable, and can be inspected by the runtime:</p>
+<pre>
+    =begin pod</pre>
+<pre>
+    Some pod content</pre>
+<pre>
+    =end pod</pre>
+<pre>
+    say $=POD[0].content[0].content;</pre>
+<p>The <code>say</code> line may look a little complicated. Content, of a content, of a what? What really happens, is that &#8216;Some pod content&#8217; is parsed as an ordinary paragraph, and kept in the <code>Pod::Block::Para</code> object. The delimited block started with <code>=begin pod</code> becomes a <code>Pod::Block::Named</code>, and it can contain any number of child blocks. It&#8217;s also a first block in our example code, so it ends up in <code>$=POD[0]</code>.</p>
+<p>You now probably think “geez, how ugly is that. Who&#8217;s going to use it in this form”. Don&#8217;t worry. Frankly, I don&#8217;t expect anyone to use the AST directly. That&#8217;s what Pod renderers are useful for. Take for example <code>Pod::To::Text</code>:</p>
+<pre>
+    =begin pod</pre>
+<pre>
+    =head1 A Heading!</pre>
+<pre>
+    A paragraph! With many lines!</pre>
+<pre>
+        An implicit code block!
+        my $a = 5;</pre>
+<pre>
+    =item A list!
+    =item Of various things!</pre>
+<pre>
+    =end pod</pre>
+<pre>
+    DOC INIT {
+        use Pod::To::Text;
+        pod2text($=POD);
+    }</pre>
+<p>Ran as it is, the code doesn&#8217;t produce any output. Why is it so? The <code>DOC INIT</code> block looks a little special. It gets run with every other <code>INIT</code> block, but also only when the <code>--doc</code> flag is passed to the compiler. Let&#8217;s take a look:</p>
+<pre>
+    $ perl6 --doc foo.pl
+    A Heading!
+
+    A paragraph! With many lines!
+
+        An implicit code block!
+        my $a = 5;
+
+     * A list!
+
+     * Of various things!</pre>
+<p>Actually, when no <code>DOC INIT</code> block exists in the code, the compiler generates a default <code>DOC INIT</code>, identical to the one in the example above. So you could really omit it, leaving only the Pod in the file, and <code>perl6 --doc</code> will produce exactly the same result.</p>
+</p>
+<h2><a name="but_wait__there_s_more_">But wait, there&#8217;s more!</a></h2>
+<p>I wrote about 3 types of Pod blocks, but there&#8217;s another one I didn&#8217;t talk about before. They are <strong>Declarator blocks</strong>, and they single purpose is to document the actual Perl 6 objects. Take a look.</p>
+<pre>
+    #= it's a sheep! really!
+    class Sheep {
+
+        #= produces a funny sound
+        method bark {
+            say &quot;Actually, I don't think sheeps bark&quot;
+        }
+    }</pre>
+<p>Every declarator block gets attached to the object which comes after it. It&#8217;s available in the <code>.WHY</code> attribute, so we can use it like this:</p>
+<pre>
+    say Sheep.WHY.content;                      # it's a sheep! really!
+    say Sheep.^find_method('bark').WHY.content; # produces a funny sound</pre>
+<p>In this case we also don&#8217;t need to care about doing a <code>^find_method</code> and all this for every piece of documentation we want to read. The mighty <code>Pod::To::Text</code> takes care about it too. If we run the Sheep code with <code>--doc</code> flag, we get the following:</p>
+<pre>
+    class Sheep: it's a sheep! really!</pre>
+<pre>
+    method bark: produces a funny sound</pre>
+<p>The specification says it&#8217;s possible to document all the class attributes and all the arguments that methods or subroutines take. Unfortunately no Perl 6 implementation (that I know of) implements those yet.</p>
+<p>There are dozens of Pod features that are not covered by this post, for example the formatting codes (<code>&lt;, </code>&gt; and so), or tables. If you&#8217;re interested take a look at Synopsis 26 (<a href="http://perlcabal.org/syn/S26.html">http://perlcabal.org/syn/S26.html</a>). It&#8217;s actually written in  Pod 6, and rendered by <code>Pod::To::HTML</code>. Not all features it describes are implemented yet, but most of them are (see the test suite linked below), and some modules are actually documented with it (<code>Term::ANSIColor</code> for  example).</p>
+<p>Some useful links:</p>
+<dl>
+<dt><strong><a href="http://perlcabal.org/syn/S26.html" class="item"><em>Synopsis 26</em></a></strong></dt>
+<dt><strong><a href="https://github.com/rakudo/rakudo/blob/nom/lib/Pod/To/Text.pm" class="item"><em>Pod::To::Text source code</em></a></strong></dt>
+<dt><strong><a href="https://github.com/tadzik/perl6-Term-ANSIColor/blob/master/lib/Term/ANSIColor.pm#L83" class="item"><em>Term::ANSIColor documentation</em></a></strong></dt>
+<dt><strong><a href="https://github.com/rakudo/rakudo/tree/nom/t/pod" class="item"><em><br />
+Pod test suite (shows what Pod in Rakudo is capable of)</em></a></strong></dt>
+</dl>
+<p>Happy documenting!</p>
+<div class="sharedaddy"></div>				</div>
+
+				<p class="postmetadata"> Posted in <a href="http://perl6advent.wordpress.com/category/2011/" title="View all posts in 2011" rel="category tag">2011</a> |   <a href="http://perl6advent.wordpress.com/2011/12/10/documenting-perl-6/#respond" title="Comment on Documenting Perl&nbsp;6">Leave a Comment &#187;</a></p>
+							</div>
+
+		
+			<div class="post-846 post type-post status-publish format-standard hentry category-2011" id="post-846">
+								<h2><a href="http://perl6advent.wordpress.com/2011/12/09/day-9-contributing-to-perl-6/" rel="bookmark" title="Permanent Link to Day 9: Contributing to Perl&nbsp;6">Day 9: Contributing to Perl&nbsp;6</a></h2>
+				<small>December 9, 2011 <span class="by-author"><span class="sep">by</span> <span class="author vcard"><a class="url fn n" href="http://perl6advent.wordpress.com/author/colomon/" title="View all posts by colomon" rel="author">colomon</a></span> </span></small>
+
+				<div class="entry">
+					<p>This time, instead of sharing some cool feature of Perl 6, I&#8217;d like to talk about how easy it is to contribute usefully to the project.  So I&#8217;m going to walk you through the process of making a change to Niecza.  It does require a bit of domain knowledge (which the fine folks on <code>#perl6</code> will be happy to help you with) but it&#8217;s definitely not rocket science.  It&#8217;s not even particularly deep computer science, for the most part.</p>
+<p>A few days ago, Radvendii asked on <code>#perl6</code> if there was a <code>round</code> function in the core.  The correct answer is &#8220;There should be one&#8221;, and it lead to a couple of bug fixes in Rakudo.  But it got me to thinking &#8212; is Niecza supporting <code>round</code> (and its relatives <code>ceiling</code>, <code>floor</code>, and <code>truncate</code>) correctly?</p>
+<p>Perl 6 has a <a href="https://github.com/perl6/roast">huge suite of tests</a> to see if an  implementation is conforming to the spec, including a file for the <code>round</code> tests, <a href="https://github.com/perl6/roast/blob/master/S32-num/rounders.t"><code>S32-num/rounders.t</code></a>.  My first step then was to check the spectests currently being run by Niecza.  Just like in Rakudo, this is stored in a file named <a href="https://github.com/sorear/niecza/blob/master/t/spectest.data"><code>t/spectest.data</code></a>.  So</p>
+<p><pre class="brush: plain;">
+Wynne:niecza colomon$ grep round t/spectest.data 
+Wynne:niecza colomon$ 
+</pre></p>
+<p>Okay, clearly we&#8217;re not running the <code>S32-num/rounders.t</code> test file.  (Note, in case you&#8217;re getting confused &#8212; the links in this post are to the latest versions of the files, which include all the changes I made writing this post.)  That&#8217;s a sign that something is not properly supported yet.  So let&#8217;s go ahead and run it by hand to see what happens.  Both Niecza and Rakudo use a fudging process, allowing you to mark the bits of a test file that don&#8217;t work yet in a particular compiler.  So we need to use a special fudging tool to run the code:</p>
+<p><pre class="brush: plain;">
+Wynne:niecza colomon$ t/fudgeandrun t/spec/S32-num/rounders.t
+1..108
+not ok 1 - floor(NaN) is NaN
+# /Users/colomon/tools/niecza/t/spec/S32-num/rounders.t line 16
+#    Failed test
+#           got: -269653970229347386159395778618353710042696546841345985910145121736599013708251444699062715983611304031680170819807090036488184653221624933739271145959211186566651840137298227914453329401869141179179624428127508653257226023513694322210869665811240855745025766026879447359920868907719574457253034494436336205824
+</pre></p>
+<p>That&#8217;s followed by about 15 similar errors, then</p>
+<p><pre class="brush: plain;">
+Unhandled exception: Unable to resolve method truncate in class Num
+  at /Users/colomon/tools/niecza/t/spec/S32-num/rounders.t line 34 (mainline @ 32) 
+  at /Users/colomon/tools/niecza/lib/CORE.setting line 2224 (ANON @ 2) 
+  at /Users/colomon/tools/niecza/lib/CORE.setting line 2225 (module-CORE @ 58) 
+  at /Users/colomon/tools/niecza/lib/CORE.setting line 2225 (mainline @ 1) 
+  at &lt;unknown&gt; line 0 (ExitRunloop @ 0) 
+</pre></p>
+<p>Okay, so that&#8217;s at least two errors that need fixing.</p>
+<p>We&#8217;ll go in order here, even though it means tackling what is most likely the most complicated error first.  (If you do think this part of the problem is too hard to tackle, please skip ahead, because the last few improvements I made really were incredibly easy to do.)  Opening <a href="https://github.com/sorear/niecza/blob/master/lib/CORE.setting"><code>src/CORE.setting</code></a>, we find the following definition for <code>round</code>:<br />
+<pre class="brush: plain;">
+sub round($x, $scale=1) { floor($x / $scale + 0.5) * $scale }
+</pre></p>
+<p>Okay, so the real problem is in <code>floor</code>:<br />
+<pre class="brush: plain;">
+sub floor($x) { Q:CgOp { (floor {$x}) } }
+</pre></p>
+<p>What the heck does <code>Q:CgOp</code> mean?  It means <code>floor</code> is actually implemented in C#.  So we open up <a href="https://github.com/sorear/niecza/blob/master/lib/Builtins.cs"><code>lib/Builtins.cs</code></a> and search for <code>floor</code>, eventually finding <code>public static Variable floor(Variable a1)</code>.  I won&#8217;t print the full source code here, because it is on the long side, with a case for each of the different number types.  We&#8217;re only interested in the floating point case here:<br />
+<pre class="brush: plain;">
+        if (r1 == NR_FLOAT) {
+            double v1 = PromoteToFloat(r1, n1);
+            ulong bits = (ulong)BitConverter.DoubleToInt64Bits(v1);
+            BigInteger big = (bits &amp; ((1UL &lt;&lt; 52) - 1)) + (1UL &lt;&lt; 52);
+            int power = ((int)((bits &gt;&gt; 52) &amp; 0x7FF)) - 0x433;
+            // note: &gt;&gt;= has flooring semantics for signed values
+            if ((bits &amp; (1UL &lt;&lt; 63)) != 0) big = -big;
+            if (power &gt; 0) big &lt;&lt;= power;
+            else big &gt;&gt;= -power;
+            return MakeInt(big);
+        }
+</pre></p>
+<p>We don&#8217;t actually need to understand how all that works to fix this problem.  The important bit is the <code>PromoteToFloat</code> line, which sets <code>v1</code> to the floating point value which is the input to our floor.  If we add a trap right after that, it should fix this bug.  A quick C# websearch shows me that <code>Double</code> has member functions <code>IsNaN</code>, <code>IsNegativeInfinity</code>, and <code>IsPositiveInfinity</code>.  Looking a bit around the Niecza source shows there is a <code>MakeFloat</code> function for returning floating point values.  Let&#8217;s try:</p>
+<p><pre class="brush: plain;">
+if (Double.IsNaN(v1) || Double.IsNegativeInfinity(v1) || Double.IsPositiveInfinity(v1)) {
+    return MakeFloat(v1);
+}
+</pre></p>
+<p>One quick call to <code>make</code> later, I can try the test file again:<br />
+<pre class="brush: plain;">
+Wynne:niecza colomon$ t/fudgeandrun t/spec/S32-num/rounders.t
+1..108
+ok 1 - floor(NaN) is NaN
+ok 2 - round(NaN) is NaN
+ok 3 - ceiling(NaN) is NaN
+not ok 4 - truncate(NaN) is NaN
+# /Users/colomon/tools/niecza/t/spec/S32-num/rounders.t line 19
+#    Failed test
+#           got: -269653970229347386159395778618353710042696546841345985910145121736599013708251444699062715983611304031680170819807090036488184653221624933739271145959211186566651840137298227914453329401869141179179624428127508653257226023513694322210869665811240855745025766026879447359920868907719574457253034494436336205824
+</pre><br />
+Progress!  Apparently truncate uses a separate method, so we&#8217;ll have to fix it separately.<br />
+<pre class="brush: plain;">
+sub truncate($x) { $x.Int }
+method Int() { Q:CgOp { (coerce_to_int {self}) } }
+</pre><br />
+<pre class="brush: plain;">
+    public static Variable coerce_to_int(Variable a1) {
+        int small; BigInteger big;
+        return GetAsInteger(a1, out small, out big) ?
+            MakeInt(big) : MakeInt(small);
+    }
+</pre><br />
+Oooo, this is perhaps a little bit trickier.  Still a basic variant on the previous method, grabbing boilerplate code from a nearby function:<br />
+<pre class="brush: plain;">
+        int r1;
+        P6any o1 = a1.Fetch();
+        P6any n1 = GetNumber(a1, o1, out r1);
+
+        if (r1 == NR_FLOAT) {
+            double v1 = PromoteToFloat(r1, n1);
+            if (Double.IsNaN(v1) || Double.IsNegativeInfinity(v1) || Double.IsPositiveInfinity(v1)) {
+                return MakeFloat(v1);
+            }
+        }
+</pre><br />
+I skipped the <code>HandleSpecial2</code> bit in the boilerplate, because I&#8217;m never quite sure how that works.  Luckily, we have the spectests to check and see if I have broken something by doing this.</p>
+<p>Now the first 15 tests in <code>rounders.t</code> pass, leaving us with the<br />
+<pre class="brush: plain;">
+Unhandled exception: Unable to resolve method truncate in class Num
+</pre><br />
+error.  That should be easy to handle!  If we go back to <code>lib/CORE.setting</code> and search for <code>ceiling</code>, we see it appears two times: in the catch-all base class <code>Cool</code> and as a stand-alone sub.  If we look at the neighboring subs, we see <code>floor</code>, <code>ceiling</code>, <code>round</code>, and <code>truncate</code> are all defined.  If we look in <code>Cool</code>, however, only <code>floor</code>, <code>ceiling</code>, and <code>round</code> defined.  That&#8217;s the source of our trouble!</p>
+<p>The method definitions of the others in <code>Cool</code> are really simple; all they do is forward to the sub versions.  It&#8217;s very easy to add a <code>truncate</code> that does that:<br />
+<pre class="brush: plain;">
+    method truncate() { truncate self }
+</pre><br />
+And poof!  This time when we run <code>rounders.t</code>, we pass all 108 tests.</p>
+<p>At this point we&#8217;ve got three things left to do.  First, now that <code>rounders.t</code> passes, we need to add it to <code>t/spectest.data</code>.  The list of tests there is ordered, so I just find the <code>S32-num</code> section and add <code>S32-num/rounders.t</code> in alphabetical order.</p>
+<p>Next I will commit all the changes to my copy of the git repo.  (I won&#8217;t explain how to do that, there are lots of git tutorials on the web.)  Then I run <code>make spectest</code> to make sure I haven&#8217;t broken anything with these changes.  (Hmm&#8230; actually a few TODO passing, bugs elsewhere that this patch has fixed!  Oh, and one test broken, but it&#8217;s one which we were only passing by accident before, so I won&#8217;t feel bad about fudging it.)  </p>
+<p>Once that is done, you need to send the patch on to the Niecza developers; I believe the easiest way to do this is via github.</p>
+<p>I&#8217;ve got one more little change to make that popped into my head while I was working on this.  One naive way of implementing, say <code>floor</code> would be to convert the input into a floating point value (a Num in Perl 6) and then do <code>Num.floor</code>.  That doesn&#8217;t work for all numbers, however, as most of the other number types are capable of storing numbers larger than will fit in a standing floating point double.  So we probably need tests in the test suite to check for these cases.  Let&#8217;s add them.</p>
+<p>The tests in <code>rounders.t</code> are weirdly organized for my taste.  But hey, we can always add our tests at the bottom.<br />
+<pre class="brush: plain;">
+{
+    my $big-int = 1234567890123456789012345678903;
+    is $big-int.floor, $big-int, &quot;floor passes bigints unchanged&quot;;
+    is $big-int.ceiling, $big-int, &quot;ceiling passes bigints unchanged&quot;;
+    is $big-int.round, $big-int, &quot;round passes bigints unchanged&quot;;
+    is $big-int.truncate, $big-int, &quot;truncate passes bigints unchanged&quot;;
+}
+</pre><br />
+That passes okay in Niecza.  (Probably out of courtesy we should check it on Rakudo as well and fudge it appropriately to make sure we&#8217;re not breaking their spectest!)  We need to remember to add the count of new tests to the plan at the top of the test file.  And then we can push that fix to github as well.</p>
+<p>In conclusion, contributing to Perl 6 is easy.  Anyone who tries writing Perl 6 code and reports problems they have to <code>#perl6</code> is helping in a very real way.  If you can write even fairly simple Perl 6 code, then you can write useful spec tests.  It&#8217;s only marginally harder to write new methods for the setting in Perl 6.  And even when you have to get down and dirty and start dealing with the language the compiler is implemented in, it&#8217;s still quite possible to do useful work without any deep understanding of how the compiler works.</p>
+<div class="sharedaddy"></div>				</div>
+
+				<p class="postmetadata"> Posted in <a href="http://perl6advent.wordpress.com/category/2011/" title="View all posts in 2011" rel="category tag">2011</a> |   <a href="http://perl6advent.wordpress.com/2011/12/09/day-9-contributing-to-perl-6/#respond" title="Comment on Day 9: Contributing to Perl&nbsp;6">Leave a Comment &#187;</a></p>
+							</div>
+
+		
+			<div class="post-859 post type-post status-publish format-standard hentry category-2011" id="post-859">
+								<h2><a href="http://perl6advent.wordpress.com/2011/12/08/lexicality-and-optimizability/" rel="bookmark" title="Permanent Link to Lexicality and&nbsp;Optimizability">Lexicality and&nbsp;Optimizability</a></h2>
+				<small>December 8, 2011 <span class="by-author"><span class="sep">by</span> <span class="author vcard"><a class="url fn n" href="http://perl6advent.wordpress.com/author/foobar123/" title="View all posts by Moritz" rel="author">Moritz</a></span> </span></small>
+
+				<div class="entry">
+					<p>Traditional optimizations in compilers rely on compile-time knowledge about the program. Usually statically typed langauges like Java and C are rather good at that, and dynamic languages like Perl 5, ruby and python are not.</p>
+<p>Perl 6 offers the flexibility of dynamic languages, but tries to provide much optimizability nonetheless by <em>gradual typing</em>, that is offering optional static type annotations.</p>
+<p>But even in the presence of type annotations, another piece is needed for compile time dispatch decision and inlining: the knowledge about the available routines (and in the case of multi subs, the available candidates).</p>
+<p>To provide that knowledge, Perl 6 installs subroutine in lexical scopes (and not packages / symbol tables, as in Perl 5), and lexical scopes are immutable at run time. (Variables inside the lexical scopes are still mutable, you just cannot add or remove entries at run time).</p>
+<p>To provide the necessary flexibility, Perl 6 allows code to run at compile time. A typical way to run code at compile time is with the <code>use</code> directive:</p>
+<pre>
+ {
+    use Test;  # imports routines into the current
+               # lexical scope, at compile time
+    plan 1;
+    ok 1, 'success';
+ }
+ # plan() and ok() are not available here,
+ # outside the scope into which the routines has been imported to.</pre>
+<p>The upside is that a sufficiently smart compiler can complain before runtime about missing routines and dispatches that are bound to fail. Current Rakudo does that, though there are a certainly cases that rakudo does not detect yet, but which are possible to detect.</p>
+<pre>
+ sub f(Int $x) {
+          say $x * 2;
+           }
+ say &quot;got here&quot;;
+ f('some string');</pre>
+<p>produces this output with current Rakudo:</p>
+<pre>
+ ===SORRY!===
+ CHECK FAILED:
+ Calling 'f' will never work with argument types (str) (line 5)
+     Expected: :(Int $x)</pre>
+<p>Since built-in routines are provided in an outer scope to the user&#8217;s program, all built-in routines are automatically subjected to all the same rules and optimizations as user-provided routines.</p>
+<p>Note that this has other implications: <code>require</code>, which loads modules at run time, now needs a list of symbols to stub in at compile time, which are later wired up to the symbols loaded from the module.</p>
+<p>The days are past where &quot;a sufficiently smart compiler&quot; was a legend; these days we have a compiler that can provide measurable speed-ups. There is still room for improvements, but we are now seeing the benefits from static knowledge and lexical scoping.</p>
+<div class="sharedaddy"></div>				</div>
+
+				<p class="postmetadata"> Posted in <a href="http://perl6advent.wordpress.com/category/2011/" title="View all posts in 2011" rel="category tag">2011</a> |   <a href="http://perl6advent.wordpress.com/2011/12/08/lexicality-and-optimizability/#respond" title="Comment on Lexicality and&nbsp;Optimizability">Leave a Comment &#187;</a></p>
+							</div>
+
+		
+			<div class="post-783 post type-post status-publish format-standard hentry category-2011" id="post-783">
+								<h2><a href="http://perl6advent.wordpress.com/2011/12/07/grammarprofiler/" rel="bookmark" title="Permanent Link to Adventures in writing a simple grammar&nbsp;profiler">Adventures in writing a simple grammar&nbsp;profiler</a></h2>
+				<small>December 7, 2011 <span class="by-author"><span class="sep">by</span> <span class="author vcard"><a class="url fn n" href="http://perl6advent.wordpress.com/author/perlpilot/" title="View all posts by perlpilot" rel="author">perlpilot</a></span> </span></small>
+
+				<div class="entry">
+					<p>Inspired by jnthn&#8217;s earlier post on <a title="Grammar::Tracer and Grammar::Debugger" href="http://perl6advent.wordpress.com/2011/12/02/grammartracer-and-grammardebugger/">Grammar::Debugger</a>, I wondered how hard it would be to implement a simple Perl 6 grammar profiler.  Turns out it wasn&#8217;t that hard at all.</p>
+<p>As far as profiling goes, all I wanted was counts of how many times each rule was executed and the cumulative time each rule took to execute.    The interface I had in mind was something simple&#8211;a multi-level hash with names of grammars at the first level then, at the second level, names of the individual rules within the grammar, and finally the actual timing information.  The timing information would be accessed thusly:</p>
+<pre>
+say "MyGrammar::MyRule was called " ~ %timing&lt;MyGrammar&gt;&lt;MyRule&gt;&lt;calls&gt; ~ "times";
+say "and took " ~ %timing&lt;MyGrammar&gt;&lt;MyRule&gt;&lt;time&gt; ~ " seconds to execute";
+</pre>
+<p>But first I had to figure out what jnthn&#8217;s code was doing.</p>
+<p>From the outside looking in, the basic technique is to replace the normal grammar meta-object with a custom meta-object that inherits most of the behavior of the normal grammar meta-object but replaces the normal method lookup with a custom one that returns a routine that collects the timing information while calling the original method.</p>
+<p>Looking at <a href="https://github.com/jnthn/grammar-debugger/blob/master/lib/Grammar/Tracer.pm">jnthn&#8217;s code</a>, I see that if the method name starts with <code>!</code> or is any one of &#8220;parse&#8221;, &#8220;CREATE&#8221;, &#8220;Bool&#8221;, &#8220;defined&#8221; or &#8220;MATCH&#8221;, we just return the original method without modification.  This is so that we don&#8217;t trace private methods or accidentally trace methods that aren&#8217;t directly part of the grammar but are used by it.  In my simple profiler, I need to get the name of the grammar, which I do by calling <code>my $grammar = $obj.WHAT.perl</code>. So it looks like I need to add &#8220;perl&#8221; to that list of methods to pass through unscathed.  Otherwise, I get an infinite recursion.</p>
+<p>Anyway, for those method names that don&#8217;t match the aforementioned criteria, we return a custom built routine that accumulates the execution time and increments a counter for the number of calls.  Seems straight-forward enough &#8230; below is the code (somewhat untested):</p>
+<pre>my %timing;
+
+my class ProfiledGrammarHOW is Metamodel::GrammarHOW is Mu {
+
+    method find_method($obj, $name) {
+        my $meth := callsame;
+        substr($name, 0, 1) eq '!' || $name eq any(&lt;parse CREATE Bool defined MATCH perl&gt;) ??
+            $meth !!
+            -&gt; $c, |$args {
+                my $grammar = $obj.WHAT.perl;
+                %timing{$grammar} //= {};                   # Vivify grammar hash
+                %timing{$grammar}{$meth.name} //= {};       # Vivify method hash
+                my %t := %timing{$grammar}{$meth.name};
+                my $start = now;                            # get start time
+                my $result := $meth($obj, |$args);          # Call original method
+                %t&lt;time&gt; += now - $start;             # accumulate execution time
+                %t&lt;calls&gt;++;
+                $result
+            }
+    }
+
+    method publish_method_cache($obj) {
+        # no caching, so we always hit find_method
+    }
+}
+
+sub get-timing is export { %timing }
+sub reset-timing is export { %timing = {} }
+
+my module EXPORTHOW { }
+EXPORTHOW.WHO.&lt;grammar&gt; = ProfiledGrammarHOW;</pre>
+<p>Assuming the above code was saved in file called &#8220;GrammarProfiler.pm&#8221;, you&#8217;d use it by adding the line <code>use GrammarProfiler;</code> to the top of any program that makes grammar declarations.  Then after you parse your grammar, you can call <code>get-timing()</code> to obtain the hash that has the timing information for the individual rules that were executed during the parse or <code>reset-timing()</code> to clear the timing information.</p>
+<p>Of course, a more full-fledged profiler would do much more work and provide many more profiling options, but this isn&#8217;t bad for a quick hack and it just might be useful too.</p>
+<div class="sharedaddy"></div>				</div>
+
+				<p class="postmetadata"> Posted in <a href="http://perl6advent.wordpress.com/category/2011/" title="View all posts in 2011" rel="category tag">2011</a> |   <a href="http://perl6advent.wordpress.com/2011/12/07/grammarprofiler/#respond" title="Comment on Adventures in writing a simple grammar&nbsp;profiler">Leave a Comment &#187;</a></p>
+							</div>
+
+		
+			<div class="post-813 post type-post status-publish format-standard hentry category-2011 tag-niecza" id="post-813">
+								<h2><a href="http://perl6advent.wordpress.com/2011/12/05/tetris-on-niecza/" rel="bookmark" title="Permanent Link to Tetris on&nbsp;Niecza">Tetris on&nbsp;Niecza</a></h2>
+				<small>December 5, 2011 <span class="by-author"><span class="sep">by</span> <span class="author vcard"><a class="url fn n" href="http://perl6advent.wordpress.com/author/mberends/" title="View all posts by mberends" rel="author">mberends</a></span> </span></small>
+
+				<div class="entry">
+					<p><a title="Niecza on Github" href="https://github.com/sorear/niecza">Niecza</a>, the Other Perl 6 Implementation on Mono and .NET, recently gained the ability to call almost any Common Language Runtime library.  In Niecza&#8217;s examples directory, a simple 30 line script called gtk1.pl shows how to use gtk-sharp, and thus Gtk and Gdk, the graphical basis of Gnome. Here is gtk1&#8242;s central working part:</p>
+<p><pre class="brush: plain;">
+my $btn = Button.new(&quot;Hello World&quot;);
+$btn.add_Clicked: sub ($obj, $args) { #OK
+    # runs when the button is clicked.
+    say &quot;Hello World&quot;;
+    Application.Quit;
+};
+</pre></p>
+<p>The <strong>add_Clicked</strong> method defines a <span style="text-decoration:underline;">callback routine</span>, essential to process user input. Running gtk1.pl makes the following resizeable button in a window, and it closes when clicked:</p>
+<p><a href="http://perl6advent.files.wordpress.com/2011/12/helloworld.png"><img class="aligncenter size-full wp-image-818" title="gtk1.pl output" src="http://perl6advent.files.wordpress.com/2011/12/helloworld.png?w=450" alt="screen shot of gtk1.pl"   /></a></p>
+<p>From gtk1 to Tetris is not far, see the <a href="https://github.com/sorear/niecza/blob/master/examples/gtk-tetris.pl" title="Tetris on Niecza source code">source</a> also in niecza/examples. Two extra ingredients make it possible: a timer tick callback routine to animate the falling pieces, and non blocking keyboard input to give the user the illusion of control. Add some simple physics and Cairo graphics and you have a playable game (modulo scoring and similar low hanging fruit) in under 170 lines of Perl 6.</p>
+<p>Animation by timer tick works by causing the whole window to be redrawn by an <strong>ExposeEvent</strong> at regular intervals.  The redraw tries to move the falling piece downwards, and if the physics says no, it adds a new piece at the top instead.  (Bug: that should eventually fail with a full pile of pieces.)  <strong>GLibTimeout</strong> sets up the timer callback handler which invokes <strong>.QueueDraw</strong>.  The default interval is 300 milliseconds, and if the game engine wants to speed that up, it can adjust $newInterval which will replace the GLibTimeout on the next tick (sorry about the line wrap):</p>
+<p><pre class="brush: plain;">
+my $oldInterval = 300;
+my $newInterval = 300;
+...
+GLibTimeout.Add($newInterval, &amp;TimeoutEvent);
+...
+sub TimeoutEvent()
+{
+    $drawingarea.QueueDraw;
+    my $intervalSame = ($newInterval == $oldInterval);
+    unless $intervalSame { GLibTimeout.Add($newInterval, &amp;TimeoutEvent); }
+    return $intervalSame; # True means continue calling this timeout handler
+}
+</pre></p>
+<p>Thanks to the excellent way Gtk handles typing, the keystroke event handler is fairly self documenting.  The Piece subroutines do the physics ($colorindex 4 is the square block that does not rotate):</p>
+<p><pre class="brush: plain;">
+$drawingarea.add_KeyPressEvent(&amp;KeyPressEvent);
+...
+sub KeyPressEvent($sender, $eventargs) #OK not used
+{
+    given $eventargs.Event.Key {
+        when 'Up' { if $colorindex != 4 { TryRotatePiece() } }
+        when 'Down' { while CanMovePiece(0,1) {++$pieceY;} }
+        when 'Left' { if CanMovePiece(-1,0) {--$pieceX;} }
+        when 'Right' { if CanMovePiece( 1,0) {++$pieceX;} }
+    }
+    return True; # means this keypress is now handled
+}
+</pre></p>
+<p>With a bit more glue added, here is the result:</p>
+<p><a href="http://perl6advent.files.wordpress.com/2011/12/tetris.png"><img src="http://perl6advent.files.wordpress.com/2011/12/tetris.png?w=450" alt="screen shot of Tetris on Niecza" title="Niecza Perl 6 Gtk Tetris example"   class="aligncenter size-full wp-image-825" /></a></p>
+<p>This post has glossed over other details such as the drawing of the graphics, because a later Perl 6 Advent post will cover that, even showing off some beautiful fractals, so keep following this blog!  The above software was <a href="http://conferences.yapceurope.org/lpw2011/talk/3893" title="LPW2011 Tetris talk">presented</a> at the <a href="http://conferences.yapceurope.org/lpw2011/" title="LPW2011">London Perl Workshop 2011</a>.</p>
+<div class="sharedaddy"></div>				</div>
+
+				<p class="postmetadata">Tags: <a href="http://perl6advent.wordpress.com/tag/niecza/" rel="tag">Niecza</a><br /> Posted in <a href="http://perl6advent.wordpress.com/category/2011/" title="View all posts in 2011" rel="category tag">2011</a> |   <a href="http://perl6advent.wordpress.com/2011/12/05/tetris-on-niecza/#respond" title="Comment on Tetris on&nbsp;Niecza">Leave a Comment &#187;</a></p>
+							</div>
+
+		
+		<div class="navigation">
+			<div class="alignleft"><a href="http://perl6advent.wordpress.com/page/3/" >&laquo; Older Entries</a></div>
+			<div class="alignright"><a href="http://perl6advent.wordpress.com/" >Newer Entries &raquo;</a></div>
+		</div>
+
+	
+	</div>
+
+	<div id="sidebar">
+		<ul>
+						<li>
+				
+    <div>
+    <form id="searchform" name="searchform" method="get" action="http://perl6advent.wordpress.com/">
+		<label style="display: none;" for="livesearch">Search:</label>
+		<input type="text" id="livesearch" name="s" value="search this site" onblur="this.value=(this.value=='') ? 'search this site' : this.value;" onfocus="this.value=(this.value=='search this site') ? '' : this.value;" />
+		<input type="submit" id="searchsubmit" style="display: none;" value="Search" />
+    </form>
+    </div>
+			</li>
+
+			<!-- Author information is disabled per default. Uncomment and fill in your details if you want to use it.
+			<li><h2>Author</h2>
+			<p>A little something about you, the author. Nothing lengthy, just an overview.</p>
+			</li>
+			-->
+
+			 <li>
+
+			
+			</li> 
+			<li class="pagenav"><h2>Pages</h2><ul><li class="page_item page-item-2"><a href="http://perl6advent.wordpress.com/about/">About</a></li>
+</ul></li>
+			<li><h2>Archives</h2>
+				<ul>
+					<li><a href='http://perl6advent.wordpress.com/2011/12/' title='December 2011'>December 2011</a></li>
+	<li><a href='http://perl6advent.wordpress.com/2010/12/' title='December 2010'>December 2010</a></li>
+	<li><a href='http://perl6advent.wordpress.com/2009/12/' title='December 2009'>December 2009</a></li>
+				</ul>
+			</li>
+
+			<li class="categories"><h2>Categories</h2><ul>	<li class="cat-item cat-item-63415"><a href="http://perl6advent.wordpress.com/category/2009/" title="View all posts filed under 2009">2009</a> (26)
+</li>
+	<li class="cat-item cat-item-243274"><a href="http://perl6advent.wordpress.com/category/2010/" title="View all posts filed under 2010">2010</a> (25)
+</li>
+	<li class="cat-item cat-item-679366"><a href="http://perl6advent.wordpress.com/category/2011/" title="View all posts filed under 2011">2011</a> (26)
+</li>
+</ul></li>
+							<li id="linkcat-1356" class="linkcat"><h2>Blogroll</h2>
+	<ul class='xoxo blogroll'>
+<li><a href="https://github.com/sorear/niecza/" title="Perl 6 Compiler based on the CLR (mono/.NET)">Niecza</a></li>
+<li><a href="http://planetsix.perl.org/" title="Aggregation of Perl 6 blogs" target="_top">Planet Perl 6</a></li>
+
+	</ul>
+</li>
+<li id="linkcat-2200" class="linkcat"><h2>Links</h2>
+	<ul class='xoxo blogroll'>
+<li><a href="http://perl6.org/" title="Links to everything that is Perl 6" target="_top">Perl 6 &#8211; official site</a></li>
+<li><a href="http://rakudo.org/" title="The most complete Perl 6 compiler" target="_top">Rakudo</a></li>
+
+	</ul>
+</li>
+
+				<li><h2>Meta</h2>
+				<ul>
+					<li><a href="http://perl6advent.wordpress.com/wp-login.php?action=register">Register</a></li>					<li><a href="http://perl6advent.wordpress.com/wp-login.php">Log in</a></li>
+					<li><a href="http://gmpg.org/xfn/"><abbr title="XHTML Friends Network">XFN</abbr></a></li>
+					<li><a href="http://wordpress.com/" title="Powered by WordPress, state-of-the-art semantic personal publishing platform.">WordPress</a></li>
+									</ul>
+				</li>
+			
+					</ul>
+	</div>
+
+
+
+<hr />
+<div id="footer">
+	<p>
+		Theme: <a href="http://theme.wordpress.com/themes/kubrick/">Kubrick</a>. <a href="http://wordpress.com/?ref=footer" rel="generator">Blog at WordPress.com</a>.
+		<br /><a href="http://perl6advent.wordpress.com/feed/">Entries (RSS)</a> and <a href="http://perl6advent.wordpress.com/comments/feed/">Comments (RSS)</a>.	</p>
+</div>
+</div>
+
+<script type='text/javascript' src='http://s.gravatar.com/js/gprofiles.js?aa&#038;ver=3.4-alpha-19620'></script>
+<script type='text/javascript'>
+/* <![CDATA[ */
+var WPGroHo = {"my_hash":""};
+/* ]]> */
+</script>
+<script type='text/javascript' src='http://s1.wp.com/wp-content/mu-plugins/gravatar-hovercards/wpgroho.js?m=1318621574g&#038;ver=3.4-alpha-19620'></script>
+
+<script type="text/javascript">
+var _qevents = _qevents || [];
+(function() {var elem = document.createElement('script');elem.src = (document.location.protocol == "https:" ? "https://secure" : "http://edge") + ".quantserve.com/quant.js";elem.async = true;elem.type = "text/javascript";var scpt = document.getElementsByTagName('script')[0];scpt.parentNode.insertBefore(elem, scpt);  })();
+_qevents.push( { qacct:"p-18-mFEk4J448M", labels:",language.en,type.wpcom" } );
+</script>
+<noscript><div style="display: none;"><img src="//pixel.quantserve.com/pixel/p-18-mFEk4J448M.gif?labels=%2Clanguage.en%2Ctype.wpcom" height="1" width="1" alt="" /></div></noscript>
+
+<script>jQuery(document).ready(function($){ Gravatar.profile_cb = function( h, d ) { WPGroHo.syncProfileData( h, d );	}; Gravatar.my_hash = WPGroHo.my_hash; Gravatar.init( 'body', '#wpadminbar' ); });</script>	<div style="display:none">
+	</div>
+		<style type="text/css">
+			
+				.reblog-from img                   { margin: 0 10px 0 0; vertical-align: middle; padding: 0; border: 0; }
+				.reblogger-note img.avatar         { float: left; padding: 0; border: 0; }
+				.reblogger-note-content            { margin: 0 0 20px 35px; }
+				.reblog-post                       { border-left: 3px solid #eee; padding-left: 15px; }
+				.reblog-post ul.thumb-list         { display: block; list-style: none; margin: 2px 0; padding: 0; clear: both; }
+				.reblog-post ul.thumb-list li      { display: inline; margin: 0; padding: 0 1px; border: 0; }
+				.reblog-post ul.thumb-list li a    { margin: 0; padding: 0; border: 0; }
+				.reblog-post ul.thumb-list li img  { margin: 0; padding: 0; border: 0; }
+				.reblog-post                       { border-left: 3px solid #eee; padding-left: 15px; }
+					</style>	
+	<div id="bit" class="loggedout-follow-normal">
+		<a class="bsub" href="javascript:void(0)"><span id='bsub-text'>Follow</span></a>
+		<div id="bitsubscribe">
+			
+					<h3><label for="loggedout-follow-field">Follow Perl 6 Advent Calendar</label></h3>
+		
+			<form action="http://subscribe.wordpress.com" method="post" accept-charset="utf-8" id="loggedout-follow">
+			<p>Get every new post delivered to your Inbox.</p>
+
+					
+			
+			<p><input type="text" name="email" style="width: 95%; padding: 1px 2px" value="Enter email address" onfocus='this.value=(this.value=="Enter email address") ? "" : this.value;' onblur='this.value=(this.value=="") ? "Enter email address" : this.value;'  id="loggedout-follow-field"/></p>
+
+			<input type="hidden" name="action" value="subscribe"/>
+			<input type="hidden" name="blog_id" value="10740073"/>
+			<input type="hidden" name="source" value="http://perl6advent.wordpress.com/page/2/"/>
+			<input type="hidden" name="sub-type" value="loggedout-follow"/>
+
+			<input type="hidden" id="_wpnonce" name="_wpnonce" value="262d9d3082" /><input type="hidden" name="_wp_http_referer" value="/page/2/" />
+			<p id='bsub-subscribe-button'><input type="submit" value="Sign me up!" /></p>
+			</form>
+					<div id='bsub-credit'><a href="http://wordpress.com/signup/?ref=lof">Powered by WordPress.com</a></div>
+		</div><!-- #bitsubscribe -->
+	</div><!-- #bit -->
+<script type="text/javascript" src="http://b.scorecardresearch.com/beacon.js"></script><script type="text/javascript">try{COMSCORE.beacon({c1:2,c2:7518284});}catch(e){}</script><noscript><p class="robots-nocontent"><img src="http://b.scorecardresearch.com/p?cj=1c1=2&#038;c2=7518284" alt="" style="display:none" width="1" height="1" /></p></noscript><script type='text/javascript' src='http://s0.wp.com/wp-content/plugins/syntaxhighlighter/syntaxhighlighter/scripts/shCore.js?m=1303860237g&#038;ver=2.1.364b'></script>
+<script type='text/javascript' src='http://s1.wp.com/wp-content/plugins/syntaxhighlighter/syntaxhighlighter/scripts/shBrushPlain.js?m=1303860237g&#038;ver=2.1.364b'></script>
+<script type='text/javascript'>
+	(function(){
+		var corecss = document.createElement('link');
+		var themecss = document.createElement('link');
+		var themecssurl = "http://s0.wp.com/wp-content/plugins/syntaxhighlighter-wpcom/shThemeDefault.css?m=1303860236g&amp;ver=2.1.364b";
+		if ( themecss.setAttribute ) {
+				themecss.setAttribute( "rel", "stylesheet" );
+				themecss.setAttribute( "type", "text/css" );
+				themecss.setAttribute( "href", themecssurl );
+		} else {
+				themecss.rel = "stylesheet";
+				themecss.href = themecssurl;
+		}
+		document.getElementsByTagName("head")[0].appendChild(themecss);
+	})();
+	SyntaxHighlighter.config.clipboardSwf = 'http://s2.wp.com/wp-content/plugins/syntaxhighlighter/syntaxhighlighter/scripts/clipboard.swf?m=1303860237g';
+	SyntaxHighlighter.config.strings.expandSource = 'show source';
+	SyntaxHighlighter.config.strings.viewSource = 'view source';
+	SyntaxHighlighter.config.strings.copyToClipboard = 'copy to clipboard';
+	SyntaxHighlighter.config.strings.copyToClipboardConfirmation = 'The code is in your clipboard now';
+	SyntaxHighlighter.config.strings.print = 'print';
+	SyntaxHighlighter.config.strings.help = '?';
+	SyntaxHighlighter.config.strings.alert = 'SyntaxHighlighter\n\n';
+	SyntaxHighlighter.config.strings.noBrush = 'Can\'t find brush for: ';
+	SyntaxHighlighter.config.strings.brushNotHtmlScript = 'Brush wasn\'t configured for html-script option: ';
+	SyntaxHighlighter.all();
+</script>
+<script type="text/javascript">
+// <![CDATA[
+(function() {
+try{
+  if ( window.external &&'msIsSiteMode' in window.external) {
+    if (window.external.msIsSiteMode()) {
+      var jl = document.createElement('script');
+      jl.type='text/javascript';
+      jl.async=true;
+      jl.src='/wp-content/plugins/ie-sitemode/custom-jumplist.php';
+      var s = document.getElementsByTagName('script')[0];
+      s.parentNode.insertBefore(jl, s);
+    }
+  }
+}catch(e){}
+})();
+// ]]>
+</script><script src="http://s.stats.wordpress.com/w.js?21" type="text/javascript"></script>
+<script type="text/javascript">
+st_go({'blog':'10740073','v':'wpcom','user_id':'0','subd':'perl6advent'});
+ex_go({'crypt':'UE40eW5QN0p8M2Y/RE1LVmwrVi5vQS5fVFtfdHBbPyw1VXIrU3hWLHhzVndTdktBX0ddJnpXRjVaOTd6fj1YMX4ydzR6MmRCYnxkNmdUc28wUW0sVlQvZWEwc3NkZVc2MTRBVjdsNHc1LG1lUn5vVmMlL29ZZ1F3UW1wXWI9NGQ2SGE5MEFEW0s2LjRONG1vX11bZFdOdDUuVkVPYz09QUIyZUVVYUxkfDVHS19JUXRIKytKZ3NjaHxSeXBMOXZraCZofjY9V2NqW0U2flJjQTlqOG0='});
+addLoadEvent(function(){linktracker_init('10740073',0);});
+	</script>
+<noscript><img src="http://stats.wordpress.com/b.gif?v=noscript" style="height:0px;width:0px;overflow:hidden" alt="" /></noscript>
+</body>
+</html>

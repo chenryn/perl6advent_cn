@@ -1,0 +1,767 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en">
+
+<head profile="http://gmpg.org/xfn/11">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+<title> Perl 6 Advent Calendar</title>
+
+<link rel="stylesheet" href="http://s0.wp.com/wp-content/themes/pub/kubrick/style.css?m=1321457825g&amp;3" type="text/css" media="screen" />
+<!--[if lte IE 8]><link rel="stylesheet" href="http://s0.wp.com/wp-content/themes/pub/kubrick/ie.css?m=1305503537g" type="text/css" media="screen" /><![endif]-->
+<link rel="pingback" href="http://perl6advent.wordpress.com/xmlrpc.php" />
+
+<meta name="google-site-verification" content="YPNxtMSK3Jj7JR2XCK-hDqmF9xDIeBEyvYm3aT1s71Y" />
+<link rel="alternate" type="application/rss+xml" title="Perl 6 Advent Calendar &raquo; Feed" href="http://perl6advent.wordpress.com/feed/" />
+<link rel="alternate" type="application/rss+xml" title="Perl 6 Advent Calendar &raquo; Comments Feed" href="http://perl6advent.wordpress.com/comments/feed/" />
+<script type="text/javascript">
+/* <![CDATA[ */
+function addLoadEvent(func){var oldonload=window.onload;if(typeof window.onload!='function'){window.onload=func;}else{window.onload=function(){oldonload();func();}}}
+/* ]]> */
+</script>
+<link rel="stylesheet" href="http://s0.wp.com/wp-content/themes/h4/global.css?m=1313010127g" type="text/css" />
+<link rel='stylesheet' id='loggedout-subscribe-css'  href='http://s0.wp.com/wp-content/blog-plugins/loggedout-follow/widget.css?m=1322602716g&#038;ver=20111128' type='text/css' media='all' />
+<link rel='stylesheet' id='post-reactions-css'  href='http://s1.wp.com/wp-content/mu-plugins/post-flair/style.css?m=1322086827g&#038;ver=3' type='text/css' media='all' />
+<script type='text/javascript' src='http://s1.wp.com/wp-includes/js/jquery/jquery.js?m=1322588689g&#038;ver=1.7.1'></script>
+<script type='text/javascript' src='http://s0.wp.com/wp-content/blog-plugins/loggedout-follow/widget.js?m=1320005310g&#038;ver=20111128'></script>
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="http://perl6advent.wordpress.com/xmlrpc.php?rsd" />
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="http://perl6advent.wordpress.com/wp-includes/wlwmanifest.xml" /> 
+<meta name="generator" content="WordPress.com" />
+<link rel='shortlink' href='http://wp.me/J3YZ' />
+<meta property="og:type" content="blog" />
+<meta property="og:title" content="Perl 6 Advent Calendar" />
+<meta property="og:url" content="http://perl6advent.wordpress.com" />
+<meta property="og:description" content="Something cool about Perl 6 every day" />
+<meta property="og:site_name" content="Perl 6 Advent Calendar" />
+<meta property="og:image" content="" />
+<link rel="shortcut icon" type="image/x-icon" href="http://s2.wp.com/i/favicon.ico?m=1311976023g" sizes="16x16 24x24 32x32 48x48" />
+<link rel="icon" type="image/x-icon" href="http://s2.wp.com/i/favicon.ico?m=1311976023g" sizes="16x16 24x24 32x32 48x48" />
+<link rel="apple-touch-icon-precomposed" href="http://s0.wp.com/i/webclip.png?m=1311618116g" />
+<link rel='openid.server' href='http://perl6advent.wordpress.com/?openidserver=1' />
+<link rel='openid.delegate' href='http://perl6advent.wordpress.com/' />
+<link rel="search" type="application/opensearchdescription+xml" href="http://perl6advent.wordpress.com/osd.xml" title="Perl 6 Advent Calendar" />
+<link rel="search" type="application/opensearchdescription+xml" href="http://wordpress.com/opensearch.xml" title="WordPress.com" />
+	<style type="text/css">
+	/* <![CDATA[ */
+			/* ]]> */
+	</style>
+	<style type="text/css">
+#header     { margin: 0 !important; margin: 0 0 0 1px; padding: 1px; height: 198px; width: 758px; }
+#headerimg  { margin: 7px 9px 0; height: 192px; width: 740px; }
+#headerimg { background: url(http://perl6advent.files.wordpress.com/2009/12/perl6advent2.png) no-repeat top;}
+#header h1 a, #header h1 a:hover, #header .description {
+	color: #ffffff;
+}
+</style>
+<style type='text/css'><!--
+body { background: url("http://s0.wp.com/wp-content/themes/pub/kubrick/images/kubrickbgcolor.gif?m=1305503537g"); }
+#page { background: url("http://s0.wp.com/wp-content/themes/pub/kubrick/images/kubrickbg.gif?m=1305503537g") repeat-y top; border: none; }
+#header { background: url("http://s0.wp.com/wp-content/themes/pub/kubrick/images/kubrickheader.gif?m=1305503537g") no-repeat bottom center; }
+#footer { background: url("http://s0.wp.com/wp-content/themes/pub/kubrick/images/kubrickfooter.gif?m=1305503537g") no-repeat bottom; border: none;}
+#header { margin: 0 !important; margin: 0 0 0 1px; padding: 1px; height: 198px; width: 758px; }
+#headerimg { margin: 7px 9px 0; height: 192px; width: 740px; }
+#headerimg h1 a, #headerimg h1 a:visited, #headerimg .description { color: #FFFFFF; }
+#headerimg h1 a, #headerimg .description { display:  }
+
+	--></style><meta name="application-name" content="Perl 6 Advent Calendar" /><meta name="msapplication-window" content="width=device-width;height=device-height" /><meta name="msapplication-tooltip" content="Something cool about Perl 6 every day" /><meta name="msapplication-task" content="name=Subscribe;action-uri=http://perl6advent.wordpress.com/feed/;icon-uri=http://s2.wp.com/i/favicon.ico" /><meta name="msapplication-task" content="name=Sign up for a free blog;action-uri=http://wordpress.com/signup/;icon-uri=http://s2.wp.com/i/favicon.ico" /><meta name="msapplication-task" content="name=WordPress.com Support;action-uri=http://support.wordpress.com/;icon-uri=http://s2.wp.com/i/favicon.ico" /><meta name="msapplication-task" content="name=WordPress.com Forums;action-uri=http://forums.wordpress.com/;icon-uri=http://s2.wp.com/i/favicon.ico" /></head>
+<body class="highlander-enabled highlander-light">
+<div id="page">
+
+
+<div id="header">
+	<div id="headerimg" onclick=" location.href='http://perl6advent.wordpress.com';" style="cursor: pointer;">
+		<h1><a href="http://perl6advent.wordpress.com/">Perl 6 Advent Calendar</a></h1>
+		<div class="description">Something cool about Perl 6 every day</div>
+	</div>
+</div>
+<hr />
+
+	<div id="content" class="narrowcolumn">
+
+	
+		
+			<div class="post-753 post type-post status-publish format-standard hentry category-2011" id="post-753">
+								<h2><a href="http://perl6advent.wordpress.com/2011/12/05/the-flip-flop-operator/" rel="bookmark" title="Permanent Link to The Flip-Flop&nbsp;operator">The Flip-Flop&nbsp;operator</a></h2>
+				<small>December 5, 2011 <span class="by-author"><span class="sep">by</span> <span class="author vcard"><a class="url fn n" href="http://perl6advent.wordpress.com/author/perlpilot/" title="View all posts by perlpilot" rel="author">perlpilot</a></span> </span></small>
+
+				<div class="entry">
+					<p>Perl 5 has a binary operator called flip-flop that is false until its first argument evaluates to true and it stays true (flips) until the second argument evaluates to true at which point it becomes false again (flops).  This is such a useful operator that Perl 6 also has flip-flop, only it&#8217;s spelled <code>ff</code> and has a few variants:</p>
+<pre>    ff
+    ff^
+    ^ff
+    ^ff^</pre>
+<p>The circumflex means to skip the end point on that end.</p>
+<p>Perhaps some examples are in order &#8230;</p>
+<pre>    for 1..20 { .say if $_ == 9  ff  $_ == 13; }     # 9 10 11 12 13
+    for 1..20 { .say if $_ == 9  ff^ $_ == 13; }     # 9 10 11 12
+    for 1..20 { .say if $_ == 9 ^ff  $_ == 13; }     #   10 11 12 13
+    for 1..20 { .say if $_ == 9 ^ff^ $_ == 13; }     #   10 11 12</pre>
+<p>In each example we&#8217;re iterating over the range of numbers from 1 to 20 and output those numbers where the flip-flop returns true. Both the right hand side of the flip-flop (<code>$_ == 9</code>) and left hand side of the flip-flop (<code>$_ == 13</code>) are evaluated on each iteration of the loop. (I&#8217;ve used simple numeric comparison on both sides of the flip-flop operators here but, in general, any boolean expression could be used.)</p>
+<p>Each instance of the flip-flop operator maintains it&#8217;s own little bit of internal state to decide when to return <code>True</code> or <code>False</code>. All flip-flop operators are born with their internal state set to return <code>False</code> waiting for the moment they can be flipped and start returning <code>True</code>.</p>
+<p>In the first and second examples when <code>$_ == 9</code>, the flip-flop operators flips their internal state to <code>True</code> and immediately return <code>True</code>.  In the third and fourth examples when <code>$_ == 9</code> the flip-flop operators set their internal state to <code>True</code> but they return <code>False</code> on that iteration because of the leading circumflex.</p>
+<p>Similarly, in the first and third examples above, once the RHS evaluates to <code>True</code>, the flip-flop operators flop their internal state back to <code>False</code> on next evaluation and return <code>True</code>. In the third and fourth examples, the flip-flops operators flop sooner by returning <code>False</code> immediately upon evaluating the RHS <code>True</code>.</p>
+<p>To make the flip-flop operator flip, but never flop, use a <code>*</code> on the RHS:</p>
+<pre>    for 1..20 { .say if $_ == 15 ff *; }     # 15 16 17 18 19 20</pre>
+<p>Perl 6 has another set of flip-flop operators that function similar to the ones mentioned above, except the RHS isn&#8217;t evaluted when the LHS becomes true. This is particularly important when both the RHS and the LHS of the flip-flop could evaluate to <code>True</code> at the same time. These operators are spelled <code>fff</code>, <code>fff^</code>, <code>^fff</code>, and <code>^fff^</code>.</p>
+<div class="sharedaddy"></div>				</div>
+
+				<p class="postmetadata"> Posted in <a href="http://perl6advent.wordpress.com/category/2011/" title="View all posts in 2011" rel="category tag">2011</a> |   <a href="http://perl6advent.wordpress.com/2011/12/05/the-flip-flop-operator/#comments" title="Comment on The Flip-Flop&nbsp;operator">6 Comments &#187;</a></p>
+							</div>
+
+		
+			<div class="post-778 post type-post status-publish format-standard hentry category-2011" id="post-778">
+								<h2><a href="http://perl6advent.wordpress.com/2011/12/04/traits-meta-data-with-character/" rel="bookmark" title="Permanent Link to Traits &#8212; Meta Data With&nbsp;Character">Traits &#8212; Meta Data With&nbsp;Character</a></h2>
+				<small>December 4, 2011 <span class="by-author"><span class="sep">by</span> <span class="author vcard"><a class="url fn n" href="http://perl6advent.wordpress.com/author/foobar123/" title="View all posts by Moritz" rel="author">Moritz</a></span> </span></small>
+
+				<div class="entry">
+					<p>Traits are a nice, extensible way to attach meta data to all sorts of objects in Perl 6.</p>
+<p>An example is the <code>is cached</code> trait that automatically caches the functions return value, based on the argument(s) passed to it.</p>
+<p>Here is a simple implementation of that trait:</p>
+<pre>
+ # this gets called when 'is cached' is added
+ # to a routine
+ multi sub trait_mod:&lt;is&gt;(Routine $r, :$cached!) {
+     my %cache;
+     #wrap the routine in a block that..
+     $r.wrap(-&gt; $arg {
+         # looks up the argument in the cache
+         %cache.exists($arg)
+             ?? %cache{$arg}
+             # ... and calls the original, if it
+             # is not found in the cache
+             !! (%cache{$arg} = callwith($arg))
+         }
+     );
+ }
+
+ # example aplication:
+ sub fib($x) is cached {
+     say(&quot;fib($x)&quot;);
+     $x &lt;= 1 ?? 1 !! fib($x - 1) + fib($x - 2);
+ }</pre>
+<pre>
+ # only one call for each value from 0 to 10
+ say fib(10);</pre>
+<p>A trait is applied with a verb, here <code>is</code>. That verb appears in the routine name that handles the trait, here <code>trait_mod:&lt;is&gt;</code>. The arguments to that handler are the object on which the trait is applied, and the name of the trait (here <code>cached</code>) as a named argument.</p>
+<p>Note that a production grade <code>is cached</code> would need to handle multiple arguments, and maybe things like limiting the cache size.</p>
+<p>In this example, the <code>.wrap</code> method is called on the routine, but of course you can do whatever you want. Common applications are mixing roles into the routine or adding them to a dispatch table.</p>
+<p>Traits can not only be applied to routines, but also to parameters, attributes and variables. For example writable accessors are realized with the <code>is rw</code> trait:</p>
+<pre>
+ class Book {
+     has @.pages is rw;
+     ...
+ }</pre>
+<p>Traits are also used to attach documentation to classes and attributes (stay tuned for an addvent calendar post on Pod6), marking routine parameters as writable and declaring class inheritance and role application.</p>
+<p>This flexibility makes them ideal for writing libraries that make the user code look like a domain-specific language, and supplying meta data in a safe way.</p>
+<div class="sharedaddy"></div>				</div>
+
+				<p class="postmetadata"> Posted in <a href="http://perl6advent.wordpress.com/category/2011/" title="View all posts in 2011" rel="category tag">2011</a> |   <a href="http://perl6advent.wordpress.com/2011/12/04/traits-meta-data-with-character/#comments" title="Comment on Traits &#8212; Meta Data With&nbsp;Character">6 Comments &#187;</a></p>
+							</div>
+
+		
+			<div class="post-771 post type-post status-publish format-standard hentry category-2011" id="post-771">
+								<h2><a href="http://perl6advent.wordpress.com/2011/12/03/buffers-and-binary-io/" rel="bookmark" title="Permanent Link to Buffers and Binary&nbsp;IO">Buffers and Binary&nbsp;IO</a></h2>
+				<small>December 3, 2011 <span class="by-author"><span class="sep">by</span> <span class="author vcard"><a class="url fn n" href="http://perl6advent.wordpress.com/author/foobar123/" title="View all posts by Moritz" rel="author">Moritz</a></span> </span></small>
+
+				<div class="entry">
+					<p>Perl 5 is known to have very good Unicode support (starting from version 5.8, the later the better), but people still complain that it is hard to use. The most important reason for that is that the programmer needs to keep track of which strings have been decoded, and which are meant to be treated as binary strings. And there is no way to reliably introspect variables to find out if they are binary or text strings.</p>
+<p>In Perl 6, this problem has been addressed by introducing separate types. <code>Str</code> holds text strings. String literals in Perl 6 are of type <code>Str</code>. Binary data is stored in <code>Buf</code> objects. There is no way to confuse the two. Converting back and forth is done with the <code>encode</code> and <code>decode</code> methods.</p>
+<pre>
+    my $buf = Buf.new(0x6d, 0xc3, 0xb8, 0xc3, 0xbe, 0x0a);
+    $*OUT.write($buf);
+
+    my $str = $buf.decode('UTF-8');
+    print $str;</pre>
+<p>Both of those output operations have the same effect, and print <code>møþ</code> to the standard output stream, followed by a newline. <code>Buf.new(...)</code> takes a list of integers between 0 and 255, which are the byte values from which the new byte buffer is constructed. <code>$*OUT.write($buf)</code> writes the <code>$buf</code> buffer to standard output.</p>
+<p><code>$buf.decode('UTF-8')</code> decodes the buffer, and returns a <code>Str</code> object (or dies if the buffer doesn&#8217;t consistute valid UTF-8). The reverse operation is <code>$Buf.encode($encoding)</code>. A <code>Str</code> can simply be printed with <code>print</code>.</p>
+<p>Of course <code>print</code> also needs to convert the string to a binary representation somewhere in the process. There is a default encoding for this and other operations, and it is <code>UTF-8</code>. The Perl 6 specification allows the user to change the default, but no compiler implements that yet.</p>
+<p>For reading, you can use the <code>.read($no-of-bytes)</code> methods to read a <code>Buf</code>, and <code>.get</code> for reading a line as a <code>Str</code>.</p>
+<p>The <code>read</code> and <code>write</code> methods are also present on sockets, not just on the ordinary file and stream handles.</p>
+<p>One of the particularly nasty things you can accidentally do in Perl 5 is<br />
+concatenating text and binary strings, or combine them in another way (like with <code>join</code> or string interpolation). The result of such an operation is a string that happens to be broken, but only if the binary string contains any bytes above 127 &#8212; which can be a nightmare to debug.</p>
+<p>In Perl 6, you get <code>Cannot use a Buf as a string</code> when you try that, avoiding that trap.</p>
+<p>The existing Perl 6 compilers do not yet provide the same level of Unicode support as Perl 5 does, but the bits that are there are much harder to misuse.</p>
+<div class="sharedaddy"></div>				</div>
+
+				<p class="postmetadata"> Posted in <a href="http://perl6advent.wordpress.com/category/2011/" title="View all posts in 2011" rel="category tag">2011</a> |   <a href="http://perl6advent.wordpress.com/2011/12/03/buffers-and-binary-io/#comments" title="Comment on Buffers and Binary&nbsp;IO">2 Comments &#187;</a></p>
+							</div>
+
+		
+			<div class="post-758 post type-post status-publish format-standard hentry category-2011" id="post-758">
+								<h2><a href="http://perl6advent.wordpress.com/2011/12/02/grammartracer-and-grammardebugger/" rel="bookmark" title="Permanent Link to Grammar::Tracer and&nbsp;Grammar::Debugger">Grammar::Tracer and&nbsp;Grammar::Debugger</a></h2>
+				<small>December 2, 2011 <span class="by-author"><span class="sep">by</span> <span class="author vcard"><a class="url fn n" href="http://perl6advent.wordpress.com/author/jnthnwrthngtn/" title="View all posts by jnthnwrthngtn" rel="author">jnthnwrthngtn</a></span> </span></small>
+
+				<div class="entry">
+					<p>Grammars are, for many people, one of the most exciting features of Perl 6. They unify parsing with object orientation, with each production rule in your grammar being represented by a method. These methods are a little special: they are declared using the keywords &#8220;regex&#8221;, &#8220;rule&#8221; or &#8220;token&#8221;, each of which gives you different defaults on backtracking and whitespace handling. In common is that they lead to the body of the method being parsed using the Perl 6 rule syntax. Under the hood, however, they really are just methods, and production rules that refer to others are really just method calls.</p>
+<p>Perl 6 grammars also give you a seamless way to combine declarative and imperative parsing. This means efficient mechanisms, such as NFAs and DFAs, may be used to handle the declarative parts &#8211; the things that your tokens tend to be made up of &#8211; while a more imperative mechanism drives the parsing of larger structures. This in turn means that you don&#8217;t need to write a tokenizer; it can be derived from the rules that you write in the grammar.</p>
+<p>So what is the result of parsing some text with a grammar? Well, provided it&#8217;s able to match your input, you get back a parse tree. This data structure &#8211; made up of Match objects &#8211; captures the structure of the input. You can treat each Match node a little bit like a hash, indexing in to it to look at the values that its production rules matched. While you can build up your own tree or other data structure while parsing, sometimes the Match tree you get back by default will be convenient enough to extract the information you need.</p>
+<p>That&#8217;s wonderful, but there was a key clause in all of this: &#8220;provided it&#8217;s able to match&#8221;. In the case that the grammar fails to match your input, then it tells you so &#8211; by giving back an empty Match object that, in boolean context, is false. It&#8217;s at this point that many people stop feeling the wonder of grammars and start feeling the pain of trying to figure out why on earth their seemingly fine grammar did not accept the input they gave it. Often, it&#8217;s something silly &#8211; but in a grammar of dozens of production rules &#8211; or sometimes even just ten &#8211; the place where things go wrong can be elusive.</p>
+<p>Thankfully, help is now at hand, in the form of two modules: Grammar::Tracer, which gives you a tree-like trace output of your grammar, and Grammar::Debugger, which gives the same trace output but also enables you to set breakpoints and single step through the grammar.</p>
+<p>A picture is worth a thousand words, so here&#8217;s how Grammar::Tracer looks in action!</p>
+<p><a href="http://perl6advent.files.wordpress.com/2011/12/gd-1.png"><img class="alignnone size-full wp-image-759" title="gd-1" src="http://perl6advent.files.wordpress.com/2011/12/gd-1.png?w=450&#038;h=329" alt="" width="450" height="329" /></a></p>
+<p>What we&#8217;re seeing here is a tree representation of the production rules that were called, starting at &#8220;TOP&#8221;, next trying to parse a production rule called &#8220;country&#8221;, which in turn wants to parse a name, two &#8220;num&#8221;s and an &#8220;integer&#8221;. The green indicates a successful match, and next to it we see the snippet of text that was captured.</p>
+<p>So what happens when things go wrong? In that case, we see something like this:</p>
+<p><a href="http://perl6advent.files.wordpress.com/2011/12/gd-2.png"><img class="alignnone size-full wp-image-760" title="gd-2" src="http://perl6advent.files.wordpress.com/2011/12/gd-2.png?w=450" alt=""   /></a></p>
+<p>Here, we see that something happened during the parse that caused a cascade of failures all the way back up to the &#8220;TOP&#8221; production rule, which meant that the parse failed overall. Happily, though, we now have a really good clue where to look. Here is the text my grammar was trying to match at the time:</p>
+<pre>Russia
+	Ulan Ude : 51.833333,107.600000 : 1
+	Moscow : 55.75000,37.616667 : 4</pre>
+<p>Looking at this, we see that the &#8220;name&#8221; rule appears to have picked up &#8220;Ulan&#8221;, but actually the place in question is &#8220;Ulan Ude&#8221;. This leads us directly to the name production in our grammar:</p>
+<p><code>token name { \w+ }</code></p>
+<p>Just a smattering of regex fu is enough to spot the problem here: we don&#8217;t parse names that happen to have spaces in them. Happily, that&#8217;s an easy fix.</p>
+<p><code>token name { \w+ [\h+ \w+]* }</code></p>
+<p>So how do we turn on the tracing? Actually, that&#8217;s easy: just take the file containing the grammar you wish to trace, and add at the top:</p>
+<p><code>use Grammar::Tracer;</code></p>
+<p>And that&#8217;s it; now whenever you use the grammar, it will be traced. Note that this statement has lexical effect, so if you&#8217;re using modules that also happen to have grammars &#8211; which you likely don&#8217;t care about &#8211; they will not end up getting the tracing behavior.</p>
+<p>You can also do this:</p>
+<p><code>use Grammar::Debugger;</code></p>
+<p>The debugger is the tracer&#8217;s big sister, and knows a few more tricks. Here&#8217;s an example of it in action.</p>
+<p><a href="http://perl6advent.files.wordpress.com/2011/12/gd-3.png"><img class="alignnone size-full wp-image-761" title="gd-3" src="http://perl6advent.files.wordpress.com/2011/12/gd-3.png?w=450&#038;h=297" alt="" width="450" height="297" /></a></p>
+<p>Instead of getting the full trace, now as soon as we hit the TOP production rule the program execution breaks and we get a prompt. Pressing enter allows you to step rule by rule through the parse. For some people, this may be preferable; others prefer to get the full trace output and analyze it. However, there are a few more tricks. In the example above, I added a breakpoint on the &#8220;name&#8221; rule. Using &#8220;r&#8221; informs the debugger to keep running through the production rules until it hits one called &#8220;name&#8221;, at which point it breaks. It is also possible to add breakpoints in code, for more extended debugging sessions with many runs. There&#8217;s one additional feature in code, which is to set a conditional breakpoint.</p>
+<p>Sound interesting? You can get modules <a href="https://github.com/jnthn/grammar-debugger">from GitHub</a>, and if you want to see a live demo of a grammar being debugged using it, then there is a <a href="http://yapc.tv/2011/ye/jonathan-perl6grammars/">video of my Debugging Perl 6 Grammars talk</a> from YAPC::Europe 2011; <a href="http://jnthn.net/papers/2011-yapceu-grammars.pdf">slides</a> are also available to make the sample code more clear than it is on the video. Note that the modules need one of the compiler releases from the Rakudo &#8220;nom&#8221; development branch; we&#8217;ll be making a distribution release later this month based on that, though, and these modules will come with it.</p>
+<p>You may also be thinking: I bet these are complex modules doing lots of guts stuff! In fact, they are 44 lines (Grammar::Tracer) and 171 lines (Grammar::Debugger), and written in Perl 6. They are built using the meta-programming support we&#8217;ve been working on in the Rakudo Perl 6 compiler during the course of the last year &#8211; and if you want to know more about that, be sure to check out my meta-programming post coming up later on in this year&#8217;s advent calendar.</p>
+<div class="sharedaddy"></div>				</div>
+
+				<p class="postmetadata"> Posted in <a href="http://perl6advent.wordpress.com/category/2011/" title="View all posts in 2011" rel="category tag">2011</a> |   <a href="http://perl6advent.wordpress.com/2011/12/02/grammartracer-and-grammardebugger/#comments" title="Comment on Grammar::Tracer and&nbsp;Grammar::Debugger">3 Comments &#187;</a></p>
+							</div>
+
+		
+			<div class="post-735 post type-post status-publish format-standard hentry category-2011" id="post-735">
+								<h2><a href="http://perl6advent.wordpress.com/2011/12/01/day-1-catching-up-with-perl-6/" rel="bookmark" title="Permanent Link to Day 1: Catching Up With Perl&nbsp;6">Day 1: Catching Up With Perl&nbsp;6</a></h2>
+				<small>December 1, 2011 <span class="by-author"><span class="sep">by</span> <span class="author vcard"><a class="url fn n" href="http://perl6advent.wordpress.com/author/colomon/" title="View all posts by colomon" rel="author">colomon</a></span> </span></small>
+
+				<div class="entry">
+					<p>When we started the Perl 6 Advent Calendar back in 2009, Rakudo was really the only game in town if you wanted to play with Perl 6. But Perl 6 was intended from the start to be a language with multiple implementations, and at the moment there are four different Perl 6 implementations of interest. Because there are so many implementations, I&#8217;m not going to give instructions for getting each; instead I&#8217;m linking to those instructions.</p>
+<p>The most stable and complete implementation is <a href="https://github.com/rakudo/star/downloads">Rakudo Star</a>. This is currently based on the <strong>last</strong> major revision of Rakudo. It&#8217;s been frozen since July, and so lags a bit behind the current Perl 6 spec. It&#8217;s slow. But it&#8217;s also pretty reliable.</p>
+<p>The current Rakudo development version is called <a href="https://github.com/rakudo/rakudo">&#8220;Nom&#8221;</a>. It&#8217;s full of great improvements over the last Rakudo Star release, notably native types, improved performance, and a much better metamodel. (For example, check out the <a href="https://github.com/jnthn/grammar-debugger/blob/master/lib/Grammar/Tracer.pm">Grammar::Tracer</a> module, which takes advantage of the new metamodel to add regex tracing in just 44 lines of code.) It&#8217;s not quite ready for prime time yet, as it still misses some features that work in Rakudo Star, but progress has been incredible, and it&#8217;s quite possible a new Rakudo Star based on Nom will be released during this month.</p>
+<p>Stefan O&#8217;Rear&#8217;s <a href="https://github.com/sorear/niecza">Niecza</a> was just a fledging compiler during last year&#8217;s Advent calendar, but it&#8217;s a serious contender these days. Built to run on the CLR (.NET and Mono), it is relatively zippy, implements a significant portion of Perl 6, and works easily with existing CLR libraries.</p>
+<p>Lastly, ingy and Mäsak have plans afoot to revive <a href="https://github.com/perl6/Pugs.hs">Pugs</a>, the original Perl 6 implementation in Haskell. So far they&#8217;ve just got it building again on current Haskell compilers, but the long-term goal is to get it running on the spec tests again and bring it closer to the current spec.</p>
+<p>Which implementation should you use? If you&#8217;re looking for a stable, fairly complete Perl 6, Rakudo Star is it. If you just want to explore the language, try Rakudo Nom &#8212; you will probably run into bugs, but it&#8217;s significantly more advanced than Rakudo Star, and exposing the bugs is a big help to Rakudo&#8217;s development. If you have an idea which would benefit from being able to use CLR libraries, Niecza is fantastic. There&#8217;s a handy <a href="http://perl6.org/compilers/features">comparison chart</a> of the different features available.</p>
+<p>Personally, I have all three of these installed on my machine, and have different projects underway on each of them.</p>
+<p>Finally, please don&#8217;t hesitate to ask for help, either in the comments here or on the <code>#perl6</code> IRC channel on Freenode. The Perl 6 community is very friendly.</p>
+<div class="sharedaddy"></div>				</div>
+
+				<p class="postmetadata"> Posted in <a href="http://perl6advent.wordpress.com/category/2011/" title="View all posts in 2011" rel="category tag">2011</a> |   <a href="http://perl6advent.wordpress.com/2011/12/01/day-1-catching-up-with-perl-6/#comments" title="Comment on Day 1: Catching Up With Perl&nbsp;6">1 Comment &#187;</a></p>
+							</div>
+
+		
+			<div class="post-733 post type-post status-publish format-standard hentry category-2011" id="post-733">
+								<h2><a href="http://perl6advent.wordpress.com/2011/12/01/perl-6-advent-calendar-2011/" rel="bookmark" title="Permanent Link to Perl 6 Advent Calendar&nbsp;2011">Perl 6 Advent Calendar&nbsp;2011</a></h2>
+				<small>December 1, 2011 <span class="by-author"><span class="sep">by</span> <span class="author vcard"><a class="url fn n" href="http://perl6advent.wordpress.com/author/colomon/" title="View all posts by colomon" rel="author">colomon</a></span> </span></small>
+
+				<div class="entry">
+					<p>For the third year in a row, we are going to post something about Perl 6 every day until Christmas. This post will serve as a table of contents for the entire month.</p>
+<p><a title="Catching Up With Perl 6" href="/2011/12/01/day-1-catching-up-with-perl-6/">Day 1: Catching Up With Perl 6</a><br />
+<a title="Grammar::Tracer and Grammar::Debugger" href="/2011/12/02/grammartracer-and-grammardebugger/">Day 2: Grammar::Tracer and Grammar::Debugger</a><br />
+<a title="Buffers and Binary IO" href="/2011/12/03/buffers-and-binary-io/">Day 3: Buffers and Binary IO</a><br />
+<a title="Traits — Meta Data With Character" href="/2011/12/04/traits-meta-data-with-character/">Day 4: Traits &#8212; Meta Data with Character</a><br />
+<a title="The Flip-Flop operator" href="/2011/12/05/the-flip-flop-operator/">Day 5: The Flip-Flop operator</a><br />
+<a title="Tetris on Niecza" href="/2011/12/05/tetris-on-niecza/">Day 6: Tetris on Niecza</a><br />
+<a title="Adventures in writing a simple grammar profiler" href="/2011/12/07/grammarprofiler/">Day 7: Adventures in writing a simple grammar profiler</a><br />
+<a title="Lexicality and Optimizability" href="/2011/12/08/lexicality-and-optimizability/">Day 8: Lexicality and Optimizability</a><br />
+<a title="Contributing to Perl 6" href="/2011/12/09/day-9-contributing-to-perl-6/">Day 9: Contributing to Perl 6</a><br />
+<a title="Documenting Perl 6" href="/2011/12/10/documenting-perl-6/">Day 10: Documenting Perl 6</a><br />
+<a title="Privacy and OOP" href="/2011/12/11/privacy-and-oop/">Day 11: Privacy and OOP</a><br />
+<a title="Exploratory parsing with Perl 6" href="/2011/12/12/exploratory-parsing-with-perl-6/">Day 12: Exploratory Parsing with Perl 6</a><br />
+<a title="Bailador — A small Dancer clone" href="/2011/12/13/bailador-a-small-dancer-clone/">Day 13: Bailador — A small Dancer clone</a><br />
+<a title="Meta-programming: what, why and how" href="/2011/12/14/meta-programming-what-why-and-how/">Day 14: Meta-programming: what, why and how</a><br />
+<a title="Something Exceptional" href="/2011/12/15/day-15-something-exceptional/">Day 15: Something Exceptional</a><br />
+<a title="Where Have All The References Gone?" href="/2011/12/16/where-have-all-the-references-gone/">Day 16: Where Have All The References Gone?</a><br />
+<a title="Gtk Mandelbrot" href="/2011/12/17/day-17-gtk-mandelbrot/">Day 17: Gtk Mandelbrot</a><br />
+<a title="The view from the inside: using meta-programming to implement Rakudo" href="/2011/12/18/the-view-from-the-inside-using-meta-programming-to-implement-rakudo/">Day 18: The view from the inside: using meta-programming to implement Rakudo</a><br />
+<a title="Abstraction and why it’s good" href="/2011/12/19/day-19-abstraction-and-why-its-good/">Day 19: Abstraction and why it&#8217;s good</a><br />
+<a title="Paired up Hashes" href="/2011/12/20/paired-up-hashes/">Day 20: Paired up Hashes</a><br />
+<a title="Native libraries, native objects" href="/2011/12/21/native-libraries-native-objects/">Day 21: Native libraries, native objects</a><br />
+<a title="Operator overloading, revisited" href="/2011/12/22/day-22-operator-overloading-revisited/">Day 22: Operator overloading, revisited</a><br />
+<a title="Idiomatic Perl 6" href="/2011/12/23/day-23-idiomatic-perl-6/">Day 23: Idiomatic Perl 6</a><br />
+<a title="Subs are Always Better in multi-ples" href="/2011/12/24/day-24-subs-are-always-better-in-multi-ples/">Day 24: Subs are Always Better in multi-ples</a></p>
+<div class="sharedaddy"></div>				</div>
+
+				<p class="postmetadata"> Posted in <a href="http://perl6advent.wordpress.com/category/2011/" title="View all posts in 2011" rel="category tag">2011</a> |   <a href="http://perl6advent.wordpress.com/2011/12/01/perl-6-advent-calendar-2011/#comments" title="Comment on Perl 6 Advent Calendar&nbsp;2011">2 Comments &#187;</a></p>
+							</div>
+
+		
+			<div class="post-718 post type-post status-publish format-standard hentry category-2010" id="post-718">
+								<h2><a href="http://perl6advent.wordpress.com/2010/12/25/merry-christmas-2/" rel="bookmark" title="Permanent Link to Merry&nbsp;Christmas!">Merry&nbsp;Christmas!</a></h2>
+				<small>December 25, 2010 <span class="by-author"><span class="sep">by</span> <span class="author vcard"><a class="url fn n" href="http://perl6advent.wordpress.com/author/brushingupmyknuth/" title="View all posts by carl" rel="author">carl</a></span> </span></small>
+
+				<div class="entry">
+					<p>The people who brought you this year&#8217;s Advent Calendar had a blast doing so — it&#8217;s exciting to get to present new and old Perl 6 features to new and old readers. Thanks everyone! And <strong>Merry Christmas</strong>!</p>
+<p><a href="http://perl6advent.wordpress.com/2010/12/01/reaching-the-stars/">Day 1 – Reaching the Stars</a><br />
+<a href="http://perl6advent.wordpress.com/2010/12/02/day-2-interacting-with-the-command-line-with-main-subs/">Day 2 – Interacting with the command line with MAIN subs</a><br />
+<a href="http://perl6advent.wordpress.com/2010/12/03/day-3-file-operations/">Day 3 – File operations</a><br />
+<a href="http://perl6advent.wordpress.com/2010/12/04/the-sequence-operator/">Day 4 – The Sequence Operators</a><br />
+<a href="http://perl6advent.wordpress.com/2010/12/05/why-perl-syntax-dwyw/">Day 5 – Why Perl syntax does what you want</a><br />
+<a href="http://perl6advent.wordpress.com/2010/12/06/the-x-and-z-metaoperators/">Day 6 – The X and Z metaoperators</a><br />
+<a href="http://perl6advent.wordpress.com/2010/12/07/day-7-lexical-variables/">Day 7 – Lexical variables</a><br />
+<a href="http://perl6advent.wordpress.com/2010/12/08/different-names-of-different-things/">Day 8 – Different Names of Different Things</a><br />
+<a href="http://perl6advent.wordpress.com/2010/12/09/day-9-%E2%80%93-the-module-ecosystem/">Day 9 – The module ecosystem</a><br />
+<a href="http://perl6advent.wordpress.com/2010/12/10/day-10-feed-operators/">Day 10 – Feed operators</a><br />
+<a href="http://perl6advent.wordpress.com/2010/12/11/day-11-markov-sequence/">Day 11 – Markov Sequence</a><br />
+<a href="http://perl6advent.wordpress.com/2010/12/12/day-12-%E2%80%93-smart-matching/">Day 12 – Smart matching</a><br />
+<a href="http://perl6advent.wordpress.com/2010/12/13/the-perl6-community/">Day 13 – The Perl6 Community</a><br />
+<a href="http://perl6advent.wordpress.com/2010/12/14/day-14-nextsame-and-its-cousins/">Day 14 – nextsame and its cousins</a><br />
+<a href="http://perl6advent.wordpress.com/2010/12/15/day-15-calling-native-libraries-from-perl-6/">Day 15 – Calling native libraries from Perl 6</a><br />
+<a href="http://perl6advent.wordpress.com/2010/12/16/day-16-time-in-perl6/">Day 16: Time in Perl6</a><br />
+<a href="http://perl6advent.wordpress.com/2010/12/17/day-17-rosetta-code/">Day 17 – Rosetta Code</a><br />
+<a href="http://perl6advent.wordpress.com/2010/12/18/day-18-abc-module/">Day 18 – ABC Module</a><br />
+<a href="http://perl6advent.wordpress.com/2010/12/19/day-19-false-truth/">Day 19 – False truth</a><br />
+<a href="http://perl6advent.wordpress.com/2010/12/20/day-20-the-perl-6-synopses/">Day 20 – The Perl 6 Synopses</a><br />
+<a href="http://perl6advent.wordpress.com/2010/12/21/day-21-transliteration-and-beyond/">Day 21 – transliteration and beyond</a><br />
+<a href="http://perl6advent.wordpress.com/2010/12/22/day-22-the-meta-object-protocol/">Day 22 – The Meta-Object Protocol</a><br />
+<a href="http://perl6advent.wordpress.com/2010/12/23/day-23-its-some-sort-of-wonderful/">Day 23 – It’s some .sort of wonderful.</a><br />
+<a href="http://perl6advent.wordpress.com/2010/12/24/day-24-yule-the-ancient-troll-tide-carol/">Day 24 – Yule the Ancient Troll-tide Carol</a><br />
+<a href="http://perl6advent.wordpress.com/2009/12/25/merry-christmas/">Day 25 – Merry Christmas!</a></p>
+<div class="sharedaddy"></div>				</div>
+
+				<p class="postmetadata"> Posted in <a href="http://perl6advent.wordpress.com/category/2010/" title="View all posts in 2010" rel="category tag">2010</a> |   <a href="http://perl6advent.wordpress.com/2010/12/25/merry-christmas-2/#comments" title="Comment on Merry&nbsp;Christmas!">2 Comments &#187;</a></p>
+							</div>
+
+		
+			<div class="post-708 post type-post status-publish format-standard hentry category-2010" id="post-708">
+								<h2><a href="http://perl6advent.wordpress.com/2010/12/24/day-24-yule-the-ancient-troll-tide-carol/" rel="bookmark" title="Permanent Link to Day 24 &#8211; Yule the Ancient Troll-tide&nbsp;Carol">Day 24 &#8211; Yule the Ancient Troll-tide&nbsp;Carol</a></h2>
+				<small>December 24, 2010 <span class="by-author"><span class="sep">by</span> <span class="author vcard"><a class="url fn n" href="http://perl6advent.wordpress.com/author/timtoady/" title="View all posts by timtoady" rel="author">timtoady</a></span> </span></small>
+
+				<div class="entry">
+					<p>When you open your gift on Christmas Eve, you discover a mirror in which you can see yourself.  On the mirror is etched the statement:</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;SUBJECTS IN MIRROR ARE CLOSER THAN THEY APPEAR</p>
+<p>It doesn’t look at all like a car mirror though.  It seems quite flimsy, in fact, though it’s made of some rather tough material that seems to defy breakage despite your best efforts as a two-year old&#8230;</p>
+<p>“WTF?  How did the mirror show me a picture of my younger self?”</p>
+<p>You bend the mirror this way and that, and it shows you not just embarrassing views of yourself in the past, but also pictures of yourself as you might be someday in the future, both good and bad.</p>
+<p>“Whoa!”</p>
+<p>Suddenly you feel a strong tug on your innards, and your vision shifts; instead of looking at the mirror from the outside, you’re looking at it from the inside.  You can still see all the same reflections of yourself, but you also see other people, still outside the mirror, looking in at you as a picture of their own younger or older self.</p>
+<p>Apparently, you’ve been sucked into a hyper-mirror, in an accidental sort of way.</p>
+<p>You are now a member of the Perl 6 community.  We (including you) will now give you (including us) the gift of ourselves as we would like to be someday.</p>
+<p>In other words, you have been hacked!  Borged, even!  But you might learn to like it.</p>
+<p>Perl is not just a technology; it’s a culture.  Just as Perl is a technology of technological hacking, so too Perl is a culture of cultural hacking.  Giving away a free language implementation with community support was the first cultural hack in Perl’s history, but there have been many others since, both great and small. You can see some of those hacks in that mirror you are holding.  Er&#8230;that is holding you.</p>
+<p>The second big cultural hack was demonstrating to Unix culture that its reductionistic ideas could be subverted and put to use in a non-reductionistic setting.  Dual licensing was a third cultural hack to make Perl acceptable both to businesses and the FSF.  Yet another well-known hack was writing a computer book that was not just informative but also, <em>gasp</em>, entertaining!  But these are all shallow hacks.  The deep hack was to bootstrap an entire community that is continually hacking on itself recursively in a constructive way (well, usually).</p>
+<p>Perl 6 continues this fine tradition of “positive trolling”.  You know, in the olden days you could say “troll” to mean something happy and boisterous, as in “troll the ancient yuletide carol”.  That’s the kind of trolling we do, especially here in the Advent Calendar (one of the finest examples of the community recursively constructing itself).  There are many other examples as well.</p>
+<p>If you look at <a href="http://perl6.org">perl6.org</a>, you will see several cultural hacks right there on the front page.  The most obvious one is the butterfly, Camelia, but she represents a number of other hacks through image and words.  As an image, she says:</p>
+<ul>
+<li>Perl 6 is fun.</li>
+<li>Perl 6 is organic.</li>
+<li>Perl 6 is attractive.</li>
+<li>Perl 6 is about clarity.</li>
+<li>Perl 6 is personal and relational.</li>
+<li>Perl 6 is a result of metamorphosis.</li>
+<li>Perl 6 is both primitive and elaborate.</li>
+<li>Perl 6 is friendly to women and children.</li>
+</ul>
+<p>On the flip side, the image also says:</p>
+<ul>
+<li>Perl 6 is not about sterile corporate image.</li>
+<li>Perl 6 is not achingly beautiful, just pretty.</li>
+<li>Perl 6 is not ill-behaved like a camel.</li>
+<li>Perl 6 is not friendly to grinches.</li>
+</ul>
+<p>It is on this visceral level that Camelia has turned out to be a most useful cultural hack, that tells us with a fair degree of certainty who the grinches are who want to steal Christmas.  Every community has to deal with an influx of potentially poisonous people, and having an obvious target like Camelia to complain about induces such people to wave a flag reading: “Hey, I’m a troll.  Hug me.”</p>
+<p>And that’s another cultural hack in the Perl 6 community.  We believe in hugging trolls.  Up to a point.</p>
+<p>You can see this in Camelia’s words, when she says you can participate only if “you know how to be nice to all kinds of people”.  Trolls are people too, and we know how to be nice to them.  (When we are not nice to trolls, it’s because we decided not to be, not because we don’t know how.)</p>
+<p>You see, some of us were trolls once too.  As in our mirror metaphor above, we are all looking at each other as we travel together in our journey through life.  Many of us hope to end up better people than we are today; we also realize we were worse people in the past.  But there are many people who have not made that commitment yet to get better.  Some of these uncommitted folks are currently trolls.  Some trolls are evil, but many are simply ignorant of a better way.</p>
+<p>So when we say we hug trolls, what we really mean in technical terms is that we don’t pay much attention to your position when you join us, however odious that position might be.  Instead, we look at the first and second derivatives of your position.  To give us time to differentiate, we typically perform a bit of verbal aikido to let you express some of your deeper yearnings while you think you are merely tormenting us.</p>
+<p>If your position is bad but your velocity seems to be good, we will certainly try to keep you around until your position is good as well.  You want to be good.  We can help with that.</p>
+<p>If your position is bad, and your velocity is bad, then we’ll look for signs that your velocity might be getting less bad, which is to say you have a positive acceleration.  You don’t yet want to be good, but perhaps you <em>want</em> to want to.  We may be able to help with that too.  If the acceleration stays positive, eventually the velocity and position will come around too.</p>
+<p>In short, there are grinches, but some grinches will repent.  We want to give them the chance.  Sometimes this involves singing when the grinch steals all the presents.</p>
+<p>But some of you grinches will never repent.  Did we mention that Camelia has a 3-meter wingspan?  And that she likes to suck the brains from unrepentant grinches?  Not only that, but Camelia’s larval form was a camel, so she can spit too.  You really, really don’t want to have Camelia sucking your brain and then spitting.</p>
+<p>But most people don’t need to have their brains either sucked or spat.  Often they just need them washed.  Once people catch on to the meta-philosophy of Perl, they usually find the search for technical and cultural convergence to be a Great Adventure, and much more fun than simply making people unhappy, which is too easy.</p>
+<p>We hope you like your new hyper-mirror, and we hope you’ve enjoyed (or will enjoy) reflecting on some of these posts.  Please have a Great Advent to a Great Adventure.</p>
+<p>Fa la la!</p>
+<div class="sharedaddy"></div>				</div>
+
+				<p class="postmetadata"> Posted in <a href="http://perl6advent.wordpress.com/category/2010/" title="View all posts in 2010" rel="category tag">2010</a> |   <a href="http://perl6advent.wordpress.com/2010/12/24/day-24-yule-the-ancient-troll-tide-carol/#comments" title="Comment on Day 24 &#8211; Yule the Ancient Troll-tide&nbsp;Carol">12 Comments &#187;</a></p>
+							</div>
+
+		
+			<div class="post-702 post type-post status-publish format-standard hentry category-2010" id="post-702">
+								<h2><a href="http://perl6advent.wordpress.com/2010/12/23/day-23-its-some-sort-of-wonderful/" rel="bookmark" title="Permanent Link to Day 23 &#8211; It&#8217;s some .sort of&nbsp;wonderful.">Day 23 &#8211; It&#8217;s some .sort of&nbsp;wonderful.</a></h2>
+				<small>December 23, 2010 <span class="by-author"><span class="sep">by</span> <span class="author vcard"><a class="url fn n" href="http://perl6advent.wordpress.com/author/thundergnat/" title="View all posts by thundergnat" rel="author">thundergnat</a></span> </span></small>
+
+				<div class="entry">
+					<p>Continuing on our Perl 6 adventure.</p>
+<p>Sorting various lists of things is an extremely common programming task, and Perl 6 beefs up its sort function to help you get it done.</p>
+<p>It has your everyday, garden variety sort:</p>
+<pre>    # default type sensitive sort
+    my @sorted = @unsorted.sort; # or sort @unsorted;</pre>
+<p>And, like Perl 5, allows you to use custom comparator functions:</p>
+<pre>    # numeric comparison
+    my @sorted = @unsorted.sort: { $^a &lt;=&gt; $^b };
+
+    # or if you prefer to use function calling semantics
+    my @sorted = sort { $^a &lt;=&gt; $^b }, @unsorted;
+
+    # string comparison ( similar to Perl 5 cmp )
+    my @sorted = @unsorted.sort: { $^a leg $^b };
+
+    # type dependent comparison
+    my @sorted = @unsorted.sort: { $^a cmp $^b };</pre>
+<p>These can also be written with parenthesis around the comparator, in which case you don&#8217;t need the colon. Handy for when you want to chain other methods after the sort:</p>
+<pre>    my @topten = @scores.sort( { $^b &lt;=&gt; $^a } ).list.munch(10);</pre>
+<div style="border:1px dashed #000000;background:#eee;font-size:smaller;padding:1em;"><em><strong>A Small Aside&#8230; </strong>In Perl 6 the variables $a and $b don&#8217;t have any special global significance like they do in Perl 5. Use normal named variables ($var), positional variables ($^var) or whatever variables (*) in the sort comparison block just like any other code block.</em></div>
+<p>You can directly apply a transform function as you sort:</p>
+<pre>    my @sorted = @unsorted.sort: { foo($^a) cmp foo($^b) };</pre>
+<p>but the foo() transform is being calculated anew for each iteration of the sort comparison. Probably not too bad for small lists, but can be a real drag as the lists get larger, especially if foo() is computation intensive.</p>
+<p>A common idiom in Perl 5 is to use a <a href="http://en.wikipedia.org/wiki/Schwartzian_transform">Schwartzian Transform</a> when you want to sort on some transformation of terms rather than the terms themselves.</p>
+<p>When you use a Schwartzian Transform, each transform is calculated once, the items are sorted by the transformed terms, then the original terms mapped back and returned in the new order.</p>
+<pre>    # Perl 5 code
+    @sorted =
+        map  { $_-&gt;[0] }
+        sort { $a-&gt;[1] cmp $b-&gt;[1] }
+        map  { [$_, foo($_)] }
+        @unsorted;</pre>
+<p>In Perl 6 you can still do a Schwartzian Transform, but there is some special intelligence built in to sort. If you have a transform function with arity 0 or 1, ( <strong>arity</strong> is the number of arguments that the function takes ), Perl 6 notices and will <em>automatically</em> apply a Schwartzian Transform for you.</p>
+<p>Lets take a look at a few examples.</p>
+<h4>Sort Case Insensitively</h4>
+<p>Lowercase each term, sort on the lowercased terms then return the original terms in the lowercased sort order.</p>
+<pre>   my @sorted = @unsorted.sort: { .lc };</pre>
+<p>Pretty easy.</p>
+<h4>Sort By Word Length</h4>
+<p>Sort a list of strings by the number of characters in each string shortest to longest:</p>
+<pre>    my @sorted = @unsorted.sort: { .chars };</pre>
+<p>Or longest to shortest:</p>
+<pre>    my @sorted = @unsorted.sort: { -.chars };</pre>
+<h4>Multiple Sort Comparators</h4>
+<p>You can pass a list of comparator functions in the sort block and it will perform as many comparator transforms in the list as necessary until it reaches a tie breaker:</p>
+<p>Sort by word length with a secondary ASCII sort so that each group of words with the same length are then sorted in ASCII order:</p>
+<pre>     .say for @a.sort: { $^a.chars, $^a } ;</pre>
+<p>Except&#8230; that doesn&#8217;t quite work yet in Rakudo. It compares the word lengths string-wise rather than numerically, so 10 and 11 are sorted before 2. :-( BUT!! As the saying goes: TIMTOWDI! ( There Is More Than One Way to Do It!)</p>
+<p>Sort is stable in Perl 6, so you can sort the list to get it into ASCII order, then re-sort it with the length comparator:</p>
+<pre>     .say for @a.sort.sort: { $^a.chars };</pre>
+<p>That works, but now it is sorting twice. Not too efficient. Or you could rewrite it like:</p>
+<pre>     .say for @a.sort: { $^a.chars &lt;=&gt; $^b.chars || $^a leg $^b };</pre>
+<p>That also works, but now you&#8217;ve lost the automatic Schwartzian Transform. ( arity 2 comparator )</p>
+<p>Or, you could apply a natural sorting transform to the numeric terms to get the correct answer.</p>
+<pre>     .say for @a.sort: { $^a.chars.&amp;naturally, $^a };</pre>
+<p>&#8220;Natural Sorting!?&#8221;, I hear you cry, &#8220;Where&#8217;d that come from?&#8221;.</p>
+<p>I&#8217;m glad you asked.</p>
+<p>Let&#8217;s take a ride on that segue.</p>
+<hr />
+<h4>Natural Sorting</h4>
+<p>Standard lexical sorting returns items in &#8220;ASCIIbetical&#8221; order. Digits sort before upper case characters and both sort before lower case characters. People are often surprised / dismayed when they sort a list of strings and get something like:</p>
+<pre>    0
+    1
+    100
+    11
+    144th
+    2
+    21
+    210
+    3rd
+    33rd
+    AND
+    ARE
+    An
+    Bit
+    Can
+    and
+    by
+    car
+    d1
+    d10
+    d2</pre>
+<p>Which is perfectly correct, but not very intuitive for humans, especially for non-programmers.</p>
+<p>&#8220;Natural&#8221; sorting would order numbers (strings of digits) sorted by order of magnitude then by magnitude before alphabetical position (upper or lower case).</p>
+<p>Here is the same group of strings shown above sorted naturally:</p>
+<pre>    0
+    1
+    2
+    3rd
+    11
+    21
+    33rd
+    100
+    144th
+    210
+    An
+    AND
+    and
+    ARE
+    Bit
+    by
+    Can
+    car
+    d1
+    d2
+    d10</pre>
+<p>To do that, we want a simple transform we can apply to each term.</p>
+<p>I&#8217;ll use a subst method. It an analogue of the familiar s/// operator in method form.</p>
+<pre>    .subst(/(\d+)/, -&gt; $/ { 0 ~ $0.chars.chr ~ $0 }, :g)</pre>
+<p>In the first part we are capturing a group of one or more consecutive digits to operate on. That &#8216; -&gt; $/ { &#8230; } &#8216; construct is a &#8220;pointy block&#8221;. It means: &#8220;Expose the contents of the match array ( $/ ) to the inner scope of the following block of code ( {&#8230;} )&#8221;. The block builds the replacement string: &#8217;0&#8242; concatenated with the order of magnitude of (number of digits in) the group, expressed as an ASCII character, concatenated with the original string of digits. The :g adverb means &#8220;do it globally&#8221;.</p>
+<p>We also want to sort case insensitively so we&#8217;ll chain a .lc method in and get:</p>
+<pre>    .lc.subst(/(\d+)/, -&gt; $/ { 0 ~ $0.chars.chr ~ $0 }, :g)</pre>
+<p>Turn it into a subroutine:</p>
+<pre>    sub naturally ($a) {
+        $a.lc.subst(/(\d+)/, -&gt; $/ { 0 ~ $0.chars.chr ~ $0 }, :g)
+    }</pre>
+<p>This works fairly well but has a subtle bug. Terms that map to the same transform will be returned in the order they were seen. So, for instance, the words; &#8216;THE&#8217;, &#8216;The&#8217; and &#8216;the&#8217; will return in the order seen in the list rather than some predictable sorted order. A simple solution is to just concatenate the original term to the end of the transformed term to act as a tie breaker.</p>
+<p>So the final naturally() transform routine looks like:</p>
+<pre>    sub naturally ($a) {
+        $a.lc.subst(/(\d+)/, -&gt; $/ { 0 ~ $0.chars.chr ~ $0 }, :g) ~ "\x0" ~ $a
+    }</pre>
+<p>Since it operates on a single term at a time, we get the Schwartzian Transform for free. Now we can use it as a sort modifier to naturally sort a list of words:</p>
+<pre>    .say for &lt;0 1 100 11 144th 2 21 210 3rd 33rd AND ARE An Bit Can and by car d1 d10 d2&gt;.sort: { .&amp;naturally };</pre>
+<p>Or to sort a list of dotted quad notation IP addresses:</p>
+<pre>     # generate a list of random IPs
+     my @ips = ((0..255).roll(4).join('.')for 0..99);
+
+    .say for @ips.sort: { .&amp;naturally };
+
+    4.108.172.65
+    5.149.121.70
+    10.24.201.53
+    11.10.90.219
+    12.83.84.206
+    12.124.106.41
+    12.162.149.98
+    14.203.88.93
+    16.18.0.178
+    17.68.226.104
+    21.201.181.225
+    23.61.166.202
+    23.205.73.104
+    24.250.90.75
+    35.56.124.120
+    36.158.70.141
+    40.149.118.209
+    40.238.169.146
+    52.107.62.129
+    55.119.95.120
+    56.39.105.245
+    ... and so on</pre>
+<p>Or to sort directory listings, or anything else that contains a mixture of alphanumeric characters&#8230; or even to work around bugs. ;-)</p>
+<p>Merry Christmas, Happy sorting, and</p>
+<h3>May the Schwartz be with you!</h3>
+<div class="sharedaddy"></div>				</div>
+
+				<p class="postmetadata"> Posted in <a href="http://perl6advent.wordpress.com/category/2010/" title="View all posts in 2010" rel="category tag">2010</a> |   <a href="http://perl6advent.wordpress.com/2010/12/23/day-23-its-some-sort-of-wonderful/#comments" title="Comment on Day 23 &#8211; It&#8217;s some .sort of&nbsp;wonderful.">1 Comment &#187;</a></p>
+							</div>
+
+		
+			<div class="post-698 post type-post status-publish format-standard hentry category-2010" id="post-698">
+								<h2><a href="http://perl6advent.wordpress.com/2010/12/22/day-22-the-meta-object-protocol/" rel="bookmark" title="Permanent Link to Day 22 &#8211; The Meta-Object&nbsp;Protocol">Day 22 &#8211; The Meta-Object&nbsp;Protocol</a></h2>
+				<small>December 22, 2010 <span class="by-author"><span class="sep">by</span> <span class="author vcard"><a class="url fn n" href="http://perl6advent.wordpress.com/author/foobar123/" title="View all posts by Moritz" rel="author">Moritz</a></span> </span></small>
+
+				<div class="entry">
+					<p>Have you ever wondered how to create a class in your favorite programming language, not by writing a class definition, but by running some code? Some languages allow that by simple API calls. The API behind it is called the Meta-Object Protocol, short MOP.</p>
+<p>Perl 6 has a MOP, and it allows you to create classes, roles and grammars, add methods and attributes, and to introspect classes. For example we can use calls to the MOP in Rakudo to find out how the <code>Rat</code> type (rational numbers) is implemented. Calls to methods of the MOP generally start with <code>.^</code> instead of just <code>.</code>:</p>
+<pre>
+ $ perl6
+ &gt; say join ', ', Rat.^attributes
+ $!numerator, $!denominator
+ &gt; # the list of all methods is a bit long,
+ &gt; # so here is a random selection
+ &gt; say join ', ', Rat.^methods(:local).pick(5)
+ unpolar, ceiling, reals, Str, round
+ &gt; say Rat.^methods(:local).grep('log').[0].signature.perl
+ :(Numeric $x: Numeric $base = { ... };; *%_)</pre>
+<p>Most of these lines should be fairly self-explanatory: objects of class Rat has two attributes, <code>$!numerator</code> and <code>$!denominator</code>, as well as many methods. The <code>log</code> method takes a <code>Numeric</code> value as invocant (marked by the colon after the parameter name), and an optional second parameter called <code>$base</code>, which has a default value (but which Rakudo can&#8217;t show you.  It&#8217;s Euler&#8217;s number).</p>
+<p>A nice use case comes from the Perl 6 database interface. It has the option to log calls on an object, and to restrict this to only log methods from a certain role (for example only a role related to connection management, or related to data retrieval). Here is the example, and a possible way to call it:</p>
+<pre>
+ sub log-calls($obj, Role $r) {
+     my $wrapper = RoleHOW.new;
+     for $r.^methods -&gt; $m {
+         $wrapper.^add_method($m.name, method (|$c) {
+             # print logging information
+             # note() writes to standard error
+             note &quot;&gt;&gt; $m&quot;;
+             # call the next method of the same name,
+             # with the same arguments
+             nextsame;
+         });
+     }
+     $wrapper.^compose();
+     # the 'does' operator works just like 'but', but
+     # only modifies a copy of the object
+     $obj does $wrapper;
+ }</pre>
+<pre>
+ role Greet {
+     method greet($x) {
+         say &quot;hello, $x&quot;;
+     }
+ }</pre>
+<pre>
+ class SomeGreeter does Greet {
+     method LOLGREET($x) {
+         say &quot;OH HAI &quot;~ uc $x;
+     }
+ }</pre>
+<pre>
+ my $o = log-calls(SomeGreeter.new, Greet);
+ # logged, since provided by role Greet
+ $o.greet('you');
+ # not logged, because not provided by the role
+ $o.LOLGREET('u');</pre>
+<p>Output:</p>
+<pre>
+ &gt;&gt; greet
+ hello, you
+ OH HAI U</pre>
+<p>So with a Meta-Object Protocol, classes, roles and grammars are not just accessible by special syntax, but can be accessed as a normal API. This gives new flexibility to object oriented code, and allows easy introspection and modification of objects.</p>
+<div class="sharedaddy"></div>				</div>
+
+				<p class="postmetadata"> Posted in <a href="http://perl6advent.wordpress.com/category/2010/" title="View all posts in 2010" rel="category tag">2010</a> |   <a href="http://perl6advent.wordpress.com/2010/12/22/day-22-the-meta-object-protocol/#respond" title="Comment on Day 22 &#8211; The Meta-Object&nbsp;Protocol">Leave a Comment &#187;</a></p>
+							</div>
+
+		
+		<div class="navigation">
+			<div class="alignleft"><a href="http://perl6advent.wordpress.com/page/4/" >&laquo; Older Entries</a></div>
+			<div class="alignright"><a href="http://perl6advent.wordpress.com/page/2/" >Newer Entries &raquo;</a></div>
+		</div>
+
+	
+	</div>
+
+	<div id="sidebar">
+		<ul>
+						<li>
+				
+    <div>
+    <form id="searchform" name="searchform" method="get" action="http://perl6advent.wordpress.com/">
+		<label style="display: none;" for="livesearch">Search:</label>
+		<input type="text" id="livesearch" name="s" value="search this site" onblur="this.value=(this.value=='') ? 'search this site' : this.value;" onfocus="this.value=(this.value=='search this site') ? '' : this.value;" />
+		<input type="submit" id="searchsubmit" style="display: none;" value="Search" />
+    </form>
+    </div>
+			</li>
+
+			<!-- Author information is disabled per default. Uncomment and fill in your details if you want to use it.
+			<li><h2>Author</h2>
+			<p>A little something about you, the author. Nothing lengthy, just an overview.</p>
+			</li>
+			-->
+
+			 <li>
+
+			
+			</li> 
+			<li class="pagenav"><h2>Pages</h2><ul><li class="page_item page-item-2"><a href="http://perl6advent.wordpress.com/about/">About</a></li>
+</ul></li>
+			<li><h2>Archives</h2>
+				<ul>
+					<li><a href='http://perl6advent.wordpress.com/2011/12/' title='December 2011'>December 2011</a></li>
+	<li><a href='http://perl6advent.wordpress.com/2010/12/' title='December 2010'>December 2010</a></li>
+	<li><a href='http://perl6advent.wordpress.com/2009/12/' title='December 2009'>December 2009</a></li>
+				</ul>
+			</li>
+
+			<li class="categories"><h2>Categories</h2><ul>	<li class="cat-item cat-item-63415"><a href="http://perl6advent.wordpress.com/category/2009/" title="View all posts filed under 2009">2009</a> (26)
+</li>
+	<li class="cat-item cat-item-243274"><a href="http://perl6advent.wordpress.com/category/2010/" title="View all posts filed under 2010">2010</a> (25)
+</li>
+	<li class="cat-item cat-item-679366"><a href="http://perl6advent.wordpress.com/category/2011/" title="View all posts filed under 2011">2011</a> (26)
+</li>
+</ul></li>
+							<li id="linkcat-1356" class="linkcat"><h2>Blogroll</h2>
+	<ul class='xoxo blogroll'>
+<li><a href="https://github.com/sorear/niecza/" title="Perl 6 Compiler based on the CLR (mono/.NET)">Niecza</a></li>
+<li><a href="http://planetsix.perl.org/" title="Aggregation of Perl 6 blogs" target="_top">Planet Perl 6</a></li>
+
+	</ul>
+</li>
+<li id="linkcat-2200" class="linkcat"><h2>Links</h2>
+	<ul class='xoxo blogroll'>
+<li><a href="http://perl6.org/" title="Links to everything that is Perl 6" target="_top">Perl 6 &#8211; official site</a></li>
+<li><a href="http://rakudo.org/" title="The most complete Perl 6 compiler" target="_top">Rakudo</a></li>
+
+	</ul>
+</li>
+
+				<li><h2>Meta</h2>
+				<ul>
+					<li><a href="http://perl6advent.wordpress.com/wp-login.php?action=register">Register</a></li>					<li><a href="http://perl6advent.wordpress.com/wp-login.php">Log in</a></li>
+					<li><a href="http://gmpg.org/xfn/"><abbr title="XHTML Friends Network">XFN</abbr></a></li>
+					<li><a href="http://wordpress.com/" title="Powered by WordPress, state-of-the-art semantic personal publishing platform.">WordPress</a></li>
+									</ul>
+				</li>
+			
+					</ul>
+	</div>
+
+
+
+<hr />
+<div id="footer">
+	<p>
+		Theme: <a href="http://theme.wordpress.com/themes/kubrick/">Kubrick</a>. <a href="http://wordpress.com/?ref=footer" rel="generator">Blog at WordPress.com</a>.
+		<br /><a href="http://perl6advent.wordpress.com/feed/">Entries (RSS)</a> and <a href="http://perl6advent.wordpress.com/comments/feed/">Comments (RSS)</a>.	</p>
+</div>
+</div>
+
+<script type='text/javascript' src='http://s.gravatar.com/js/gprofiles.js?aa&#038;ver=3.4-alpha-19620'></script>
+<script type='text/javascript'>
+/* <![CDATA[ */
+var WPGroHo = {"my_hash":""};
+/* ]]> */
+</script>
+<script type='text/javascript' src='http://s1.wp.com/wp-content/mu-plugins/gravatar-hovercards/wpgroho.js?m=1318621575g&#038;ver=3.4-alpha-19620'></script>
+
+<script type="text/javascript">
+var _qevents = _qevents || [];
+(function() {var elem = document.createElement('script');elem.src = (document.location.protocol == "https:" ? "https://secure" : "http://edge") + ".quantserve.com/quant.js";elem.async = true;elem.type = "text/javascript";var scpt = document.getElementsByTagName('script')[0];scpt.parentNode.insertBefore(elem, scpt);  })();
+_qevents.push( { qacct:"p-18-mFEk4J448M", labels:",language.en,type.wpcom" } );
+</script>
+<noscript><div style="display: none;"><img src="//pixel.quantserve.com/pixel/p-18-mFEk4J448M.gif?labels=%2Clanguage.en%2Ctype.wpcom" height="1" width="1" alt="" /></div></noscript>
+
+<script>jQuery(document).ready(function($){ Gravatar.profile_cb = function( h, d ) { WPGroHo.syncProfileData( h, d );	}; Gravatar.my_hash = WPGroHo.my_hash; Gravatar.init( 'body', '#wpadminbar' ); });</script>	<div style="display:none">
+	</div>
+		<style type="text/css">
+			
+				.reblog-from img                   { margin: 0 10px 0 0; vertical-align: middle; padding: 0; border: 0; }
+				.reblogger-note img.avatar         { float: left; padding: 0; border: 0; }
+				.reblogger-note-content            { margin: 0 0 20px 35px; }
+				.reblog-post                       { border-left: 3px solid #eee; padding-left: 15px; }
+				.reblog-post ul.thumb-list         { display: block; list-style: none; margin: 2px 0; padding: 0; clear: both; }
+				.reblog-post ul.thumb-list li      { display: inline; margin: 0; padding: 0 1px; border: 0; }
+				.reblog-post ul.thumb-list li a    { margin: 0; padding: 0; border: 0; }
+				.reblog-post ul.thumb-list li img  { margin: 0; padding: 0; border: 0; }
+				.reblog-post                       { border-left: 3px solid #eee; padding-left: 15px; }
+					</style>	
+	<div id="bit" class="loggedout-follow-normal">
+		<a class="bsub" href="javascript:void(0)"><span id='bsub-text'>Follow</span></a>
+		<div id="bitsubscribe">
+			
+					<h3><label for="loggedout-follow-field">Follow Perl 6 Advent Calendar</label></h3>
+		
+			<form action="http://subscribe.wordpress.com" method="post" accept-charset="utf-8" id="loggedout-follow">
+			<p>Get every new post delivered to your Inbox.</p>
+
+					
+			
+			<p><input type="text" name="email" style="width: 95%; padding: 1px 2px" value="Enter email address" onfocus='this.value=(this.value=="Enter email address") ? "" : this.value;' onblur='this.value=(this.value=="") ? "Enter email address" : this.value;'  id="loggedout-follow-field"/></p>
+
+			<input type="hidden" name="action" value="subscribe"/>
+			<input type="hidden" name="blog_id" value="10740073"/>
+			<input type="hidden" name="source" value="http://perl6advent.wordpress.com/page/3/"/>
+			<input type="hidden" name="sub-type" value="loggedout-follow"/>
+
+			<input type="hidden" id="_wpnonce" name="_wpnonce" value="262d9d3082" /><input type="hidden" name="_wp_http_referer" value="/page/3/" />
+			<p id='bsub-subscribe-button'><input type="submit" value="Sign me up!" /></p>
+			</form>
+					<div id='bsub-credit'><a href="http://wordpress.com/signup/?ref=lof">Powered by WordPress.com</a></div>
+		</div><!-- #bitsubscribe -->
+	</div><!-- #bit -->
+<script type="text/javascript" src="http://b.scorecardresearch.com/beacon.js"></script><script type="text/javascript">try{COMSCORE.beacon({c1:2,c2:7518284});}catch(e){}</script><noscript><p class="robots-nocontent"><img src="http://b.scorecardresearch.com/p?cj=1c1=2&#038;c2=7518284" alt="" style="display:none" width="1" height="1" /></p></noscript><script type="text/javascript">
+// <![CDATA[
+(function() {
+try{
+  if ( window.external &&'msIsSiteMode' in window.external) {
+    if (window.external.msIsSiteMode()) {
+      var jl = document.createElement('script');
+      jl.type='text/javascript';
+      jl.async=true;
+      jl.src='/wp-content/plugins/ie-sitemode/custom-jumplist.php';
+      var s = document.getElementsByTagName('script')[0];
+      s.parentNode.insertBefore(jl, s);
+    }
+  }
+}catch(e){}
+})();
+// ]]>
+</script><script src="http://s.stats.wordpress.com/w.js?21" type="text/javascript"></script>
+<script type="text/javascript">
+st_go({'blog':'10740073','v':'wpcom','user_id':'0','subd':'perl6advent'});
+ex_go({'crypt':'UE40eW5QN0p8M2Y/RE1LVmwrVi5vQS5fVFtfdHBbPyw1VXIrU3hWLHhzVndTdktBX0ddJnpXRjVaOTd6fj1YMX4ydzR6MmRCYnxkNmdUc28wUW0sVlQvZWEwc3NkZVc2MTRBVjdsNHc1LG1lUn5vVmMlL29ZZ1F3UW1wXWI9NGQ2SGE5MEFEW0s2LjRONG1vX11bZFdOdDUuVkVPYz09QUIyZUVVYUxkfDVHS19JUXRIKytKZ3NjaHxSeXBMOXZraCZofjY9V2NqW0V8Ulk0VVMlLz8='});
+addLoadEvent(function(){linktracker_init('10740073',0);});
+	</script>
+<noscript><img src="http://stats.wordpress.com/b.gif?v=noscript" style="height:0px;width:0px;overflow:hidden" alt="" /></noscript>
+</body>
+</html>
