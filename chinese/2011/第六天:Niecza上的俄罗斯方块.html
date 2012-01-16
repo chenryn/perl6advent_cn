@@ -8,6 +8,7 @@ $btn.add_Clicked: sub ($obj, $args) {
 };</pre>
 这个add_Clicked方法定义了一个回调例程，用来处理用户的输入。运行gtk1.pl会在窗口中得到一个大小改变了的按钮，然后关闭掉。
 <br />
+<img src="http://perl6advent.files.wordpress.com/2011/12/helloworld.png" /><br />
 从这个gtk1到俄罗斯方块已经不远了。<a href="https://github.com/sorear/niecza/blob/master/examples/gtk-tetris.pl">源代码</a>也在示例目录里。只需要加上两个额外的部分就可以做到：一个定时器来回调例程控制下落的方块，一个非阻塞的键盘输入给用户提供控制感。加上一些简单的物理或者Cairo的图像你就可以搞定这个颇具可玩性的游戏啦，这一切，只需要170行Perl6代码！
 <br />
 定时器的动画控制，是通过ExposeEvent定时重绘整个窗口来完成的。重绘操作试图将方块向下移动，如果物学告诉我们说不能再移了，那就在顶上重新加上一个方块。（这里有个Bug：当方块已经满屏的时候会失败）GlibTimeout用来设置调用了.QueueDraw方法的定时器回调处理。默认间隔是300毫秒，如果游戏引擎想要加速，只需要调整$newInterval，在下一次调用GlibTimeout的时候就改过来了。
@@ -40,5 +41,6 @@ sub KeyPressEvent($sender, $eventargs) #OK not used
 </pre>
 再补充一点胶水粘合，最终结果就出来了：
 <br />
+<img src="http://perl6advent.files.wordpress.com/2011/12/tetris.png" /><br />
 本文没有涉及比如图形绘制等其他细节，因为这些内容会在圣临月历里慢慢讲述，甚至包括有更漂亮的不规则图案！所以好好期待吧。另：以上内容在<a href="http://conferences.yapceurope.org/lpw2011/">2011年伦敦Perl研讨会</a>上<a href="http://conferences.yapceurope.org/lpw2011/talk/3893">介绍</a>过了。
 </div>
