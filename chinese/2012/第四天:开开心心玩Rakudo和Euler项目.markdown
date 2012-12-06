@@ -73,31 +73,35 @@ We’ll start with something simple:
 # 问题9
 
     There exists exactly one Pythagorean triplet for which a + b + c = 1000. Find the product abc.
+    存在一个毕达哥拉斯三元数组让 `a +b + c = 1000` 。求a、b、c的值。
 
-Using brute force [will work](https://github.com/perl6/perl6-examples/blob/master/euler/prob009-polettix.pl) (solution courtesy of Polettix), but it won’t be fast (~11s on my machine). Therefore, we’ll use a bit of algebra to make the problem more managable:
+暴力破解[可以完成](https://github.com/perl6/perl6-examples/blob/master/euler/prob009-polettix.pl) (Polettix 的解决办法)，但是这个办法不够快（在我机器上花了11秒左右）。让我们用点代数知识把问题更简单的解决。
 
-Let (a, b, c) be a Pythagorean triplet
+先创建一个 (a, b, c) 组成的毕达哥拉斯三元数组
 
     a < b < c
     a² + b² = c²
-For N = a + b + c it follows
+
+要求 N = a + b +c 就要符合：
 
     b = N·(N - 2a) / 2·(N - a)
     c = N·(N - 2a) / 2·(N - a) + a²/(N - a)
-which automatically meets b < c.
 
-The condition a < b gives the constraint
+这就自动符合了 b < c 的条件。
+
+而 a < b 的条件则产生下面这个约束：
 
     a < (1 - 1/√2)·N
-We arrive at
+
+我们就得到以下代码了：
 
     sub triplets(\N) {
         for 1..Int((1 - sqrt(0.5)) * N) -> \a {
             my \u = N * (N - 2 * a);
             my \v = 2 * (N - a);
 
-            # check if b = u/v is an integer
-            # if so, we've found a triplet
+            # 检查 b = u/v 是否是整数
+            # 如果是，我们就找到了一个三元数组
             if u %% v {
                 my \b = u div v;
                 my \c = N - a - b;
@@ -110,11 +114,11 @@ We arrive at
 
 ## 运行时间：0.5s
 
-Note the declaration of sigilless variables \N, \a, …, how $(…) is used to return the triplet as a single item and .list – a shorthand for `$_.list` – to restore listy-ness.
+注意 sigilless (译者注：实在不知道这个怎么翻译)变量`\N`，`\a`……的声明，`$(...)`是怎么用来把三元数组作为单独元素返回的，用`$_.list`的缩写`.list`来恢复其列表性。
 
-The sub &triplets acts as a generator and uses &take to yield the results. The corresponding &gather is used to delimit the (dynamic) scope of the generator, and it could as well be put into &triplets, which would end up returning a lazy list.
+`&triplets` 子例程作为生成器，并且使用 `&take` 切换到结果。相应的 `&gather` 用来划定生成器的(动态)作用域，而且它也可以放进 `&triplets`，这个可能返回一个懒惰列表。
 
-We can also rewrite the algorithm into dataflow-driven style using feed operators:
+我们同样可以使用流操作符改写成数据流驱动的风格：
 
     constant N = 1000;
 
@@ -130,19 +134,19 @@ We can also rewrite the algorithm into dataflow-driven style using feed operator
 
 ## 运行时间：0.5s
 
-Note how we use destructuring signature binding -> […] to unpack the arrays that get passed around.
+注意我们是怎样用解压签名绑定 `-> [...]` 来解压传递过来的数组的。
 
-There’s no practical benefit to use this particular style right now: In fact, it can easily hurt performance, and we’ll see an example for that later.
+使用这种特殊的风格没有什么实质的好处：事实上还很容易影响到性能，我们随后会看到一个这方面的例子。
 
-It is a great way to write down purely functional algorithms, though, which in principle would allow a sufficiently advanced optimizer to go wild (think of auto-vectorization and -threading). However, Rakudo has not yet reached that level of sophistication.
+写纯函数式算法是个超级好的路子。不过原则上这就意味着让那些足够先进的优化器乱来（想想自动向量化和线程）。不过Rakudo还没到这个复杂地步。
 
-But what to do if we’re not smart enough to find a clever solution?
+但是如果我们没有聪明到可以找到这么牛叉的解决办法，该怎么办呢？
 
-# Problem 47
+# 问题47
 
-    Find the first four consecutive integers to have four distinct prime factors. What is the first of these numbers?
+    求第一个连续四个整数，他们有四个不同的素因数。
 
-This is a problem where I failed to come up with anything better than brute force:
+除了暴力破解，我没找到任何更好的办法：
 
     constant $N = 4;
 
@@ -155,7 +159,7 @@ This is a problem where I failed to come up with anything better than brute forc
         }
     }
 
-Here, &factors returns the number of prime factors. A naive implementations looks like this:
+这里，`&fators` 返回素因数的个数，原始的实现差不多是这样的：
 
     sub factors($n is copy) {
         my $i = 0;
@@ -172,9 +176,9 @@ Here, &factors returns the number of prime factors. A naive implementations look
 
 ## 运行时间：unknown (33s for N=3)
 
-Note the use of repeat while … {…}, the new way to spell do {…} while(…);.
+注意 `repeat while ...{...}` 的用法, 这是`do {...} while(...);`的新写法。
 
-We can improve this by adding a bit of caching:
+我们可以加上点缓存来加速程序：
 
     BEGIN my %cache = 1 => 0;
 
@@ -192,11 +196,11 @@ We can improve this by adding a bit of caching:
 
 ## 运行时间：unknown (3.5s for N=3)
 
-Note the use of BEGIN to initialize the cache first, regardless of the placement of the statement within the source file, and multi to enable multiple dispatch for &factors. The where clause allows dynamic dispatch based on argument value.
+注意用 `BEGIN` 来初始化缓存，不管出现在源代码里哪个位置。还有用 `multi` 来启用对 `&factors` 的多样调度。`where` 子句可以根据参数的值进行动态调度。
 
-Even with caching, we’re still unable to answer the original question in a reasonable amount of time. So what do we do now? We cheat and use [Zavolaj](https://github.com/jnthn/zavolaj) – Rakudo’s version of NativeCall – to [implement the factorization in C](https://github.com/perl6/perl6-examples/blob/master/euler/prob047-gerdr.c).
+哪怕有缓存，我们依然无法在一个合理的时间内回答上来原来的问题。现在我们怎么办？只能用点骗子手段了[Zavolaj](https://github.com/jnthn/zavolaj) – Rakudo版本的NativeCall – 来[在C语言里实现因式分解](https://github.com/perl6/perl6-examples/blob/master/euler/prob047-gerdr.c).
 
-It turns out that’s still not good enough, so we refactor the remaining Perl code and add some native type annotations:
+事实证明这还不够好，所以我们继续重构剩下的代码，添加一些原型声明：
 
     use NativeCall;
 
@@ -216,55 +220,55 @@ It turns out that’s still not good enough, so we refactor the remaining Perl c
 
 ## 运行时间：1m2s (0.8s for N=3)
 
-For comparison, when implementing the algorithm completely in C, the runtime drops to under 0.1s, so Rakudo won’t win any speed contests just yet.
+相比之下，完全使用C语言实现这个算法，运行时间在0.1秒之内。所以目前Rakudo还没法赢得任何一种速度测试。
 
-As an encore, three ways to do one thing:
+重复一下，用三种办法做一件事：
 
-# Problem 29
+# 问题29
 
-    How many distinct terms are in the sequence generated by ab for 2 ≤ a ≤ 100 and 2 ≤ b ≤ 100?
+    在 2 ≤ a ≤ 100 和 2 ≤ b ≤ 100 的情况下由a<sup>b</sup>生成的序列里有多少不一样的元素？
 
-A beautiful but slow solution to the problem can be used to verify that the other solutions work correctly:
+下面是一个很漂亮但很慢的解决办法，可以用来验证其他办法是否正确：
 
     say +(2..100 X=> 2..100).classify({ .key ** .value });
 
 ## 运行时间：11s
 
-Note the use of X=> to construct the cartesian product with the pair constructor => to prevent flattening.
+注意使用 `X=>` 来构造笛卡尔乘积。用对构造器 `=>` 防止序列被压扁而已。
 
-Because Rakudo supports big integer semantics, there’s no loss of precision when computing large numbers like 100100.
+因为Rakudo支持大整数语义，所以在计算像100100这种大数的时候没有精密度上的损失。
 
-However, we do not actually care about the power’s value, but can use base and exponent to uniquely identify the power. We need to take care as bases can themselves be powers of already seen values:
+不过我们并不真的在意幂的值，不过用基数和指数来唯一标示幂。我们需要注意基数可能自己本身就是前面某次的幂值：
 
     constant A = 100;
     constant B = 100;
 
     my (%powers, %count);
 
-    # find bases which are powers of a preceeding root base
-    # store decomposition into base and exponent relative to root
+    # 找出那些是之前基数的幂的基数
+    # 分别存储基数和指数
     for 2..Int(sqrt A) -> \a {
         next if a ~~ %powers;
         %powers{a, a**2, a**3 ...^ * > A} = a X=> 1..*;
     }
 
-    # count duplicates
+    # 计算重复的个数
     for %powers.values -> \p {
         for 2..B -> \e {
-            # raise to power \e
-            # classify by root and relative exponent
+            # 上升到 \e 的幂
+            # 根据之前的基数和对应指数分类
             ++%count{p.key => p.value * e}
         }
     }
 
-    # add +%count as one of the duplicates needs to be kept
+    # 添加 +%count 作为一个需要保存的副本
     say (A - 1) * (B - 1) + %count - [+] %count.values;
 
 ## 运行时间：0.9s
 
-Note that the sequence operator ...^ infers geometric sequences if at least three elements are provided and that list assignment %powers{…} = … works with an infinite right-hand side.
+注意用序列操作符 `...^` 推断集合序列，只要提供至少三个元素，列表赋值 `%powers{...} = ...` 就会无休止的进行下去。
 
-Again, we can do the same thing in a dataflow-driven, purely-functional fashion:
+我们再次用数据驱动的函数式的风格重写一遍：
 
     sub cross(@a, @b) { @a X @b }
     sub dups(@a) { @a - @a.uniq }
@@ -285,18 +289,19 @@ Again, we can do the same thing in a dataflow-driven, purely-functional fashion:
 
 ## 运行时间：1.5s
 
-Note how we use &tree to prevent flattening. We could have gone with X=> instead of X as before, but it would make destructuring via -> \n, [\r, \e] more complicated.
+注意我们怎么用 `&tree` 来防止压扁的。我们可以像之前那样用 `X=>` 替代 `X` ，不过这会让通过 `->  \n, [\r, \e]` 解构变得很复杂。
 
-As expected, this solution doesn’t perform as well as the imperative one. I’ll leave it as an exercise to the reader to figure out how it works exactly ;)
+和预想的一样，这个写法没像命令式的那样执行出来。怎么才能正常运行呢？这算是我留给读者的作业吧。
 
-# That’s it
+# 最后
 
-Feel free to add your own solutions to the [Perl6 examples repository](https://github.com/perl6/perl6-examples) under [euler/](https://github.com/perl6/perl6-examples/tree/master/euler).
+欢迎添加你自己的解决办法到[euler/](https://github.com/perl6/perl6-examples/tree/master/euler)下的[Perl6 examples repository](https://github.com/perl6/perl6-examples)。
 
-If you’re interested in bioinformatics, you should take a look at [Rosalind](http://rosalind.info/) as well, which also has its own (currently only sparsely populated) examples directory [rosalind/](https://github.com/perl6/perl6-examples/tree/master/rosalind).
+如果你对生物信息学感兴趣，你也可以看看[Rosalind](http://rosalind.info/)，Perl6 也有自己的示例库（只不过目前代码不多）[rosalind/](https://github.com/perl6/perl6-examples/tree/master/rosalind)。
 
-Last but not least, some solutions for the [Computer Language Benchmarks Game](http://shootout.alioth.debian.org/) – also known as the Debian language shootout – can be found under [shootout/](https://github.com/perl6/perl6-examples/tree/master/shootout/).
+最后但不是最新的，[计算机语言测试游戏](http://shootout.alioth.debian.org/) - 又叫 Debian 语言枪战 - 的解决办法可以在[shootout/](https://github.com/perl6/perl6-examples/tree/master/shootout/)下找到。
 
 You can contribute by sending pull requests, or better yet, join #perl6 on the Freenode IRC network and ask for a commit bit.
+你可以通过发送pull请求做贡献，或者更好的办法是加入 Freenode IRC 网络的 #perl6 频道要 commit 权限。
 
-_Have the appropriate amount of fun!_
+_好好享受吧！_
