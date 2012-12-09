@@ -1,0 +1,64 @@
+## 2010 年 Perl6 圣诞月历(十二)智能匹配
+
+还记得第四天里怎么终止序列的无限循环么？
+
+    1, 2, 4 ... 32;         # 1 2 4 8 16 32
+        1, 2, 4 ... * > 10;     # 1 2 4 8 16
+
+第一个例子直接使用数字，第二个则更有趣一点，你可以把 `*>10` 改写成闭包的形式 `->$x{$x>10}` 。
+
+就像上面这样，序列操作符会根据匹配的类型，做出像魔法一样神奇的比较。这种比较的名字就叫“智能匹配”。在 Perl6 中，很多地方都会体现出这个概念来。比如：
+
+        # 在关键字when后出现
+        given $age {
+            when 100    { say "congratulations!"      }
+            when * < 18 { say "You're not of age yet" }
+        }
+        # 在关键字where后出现
+        subset Even of Int where * %% 2;
+        # 使用明确的智能匹配操作符
+        if $input ~~ m/^\d+$/ {
+            say "$input is an integer";
+        }
+        # 作为grep()/first()的参数等等
+        my @even = @numbers.grep: Even;
+
+当出现在 `~~` 和 `when/where` 右边的时候，默认要被匹配的值就是 `$_` 变量。我们可以想使用 `m//` 和 `.match_call` 一样构建和操作 `$_` 的内容。具体的使用方法见下面的例子：
+
+        # 变量是字符串类型么？
+        $foo ~~ Str
+        # 值等于6么？
+        $foo ~~ 6
+        # 或者内容是bar？
+        $foo ~~ "bar"
+        # 是不是匹配这个正则？
+        $foo ~~ / \w+ '-' \d+ /
+        # 是不是大于15小于25？
+        $foo ~~ (15..25)
+        # 调用闭包
+        $foo ~~ -> $x { say 'ok' if 5 < $x < 25 }
+        # 是不是一个有6个元素的数组，而且奇数位上的元素值都是1？
+        $foo ~~ [1, *, 1, *, 1, *]
+
+更完整的内容，见：[http://perlcabal.org/syn/S03.html#Smart_matching.](http://perlcabal.org/syn/S03.html#Smart_matching.)。
+
+值得注意的是：跟 Perl5 不一样，Perl6 里智能匹配是唯一一种正则匹配的语法，再没有什么特殊的操作符了。而且，在大多数智能匹配返回布尔值的时候，对正则表达式的智能匹配返回的是一个 Match 对象 —— 在布尔上下文也也是如此。
+
+你可能在疑惑了：这都是给内置的类型的，那我怎么用在我自己的类里呢？答案是：你要在自己的 class 里定义一个特殊的 ACCEPTS 方法。好吧，请出我们的老朋友，Point 类：
+
+        class Point {
+            has $.x;
+            has $.y;
+            method ACCEPTS(Positional $p2) {
+                return $.x == $p2[0] and $.y == $p2[1]
+            }
+        }
+
+都看明白了没？再看看运行效果好了：
+
+        my $a = Point.new(x => 7, y => 9);
+        say [3, 5] ~~ $a; # Bool::False
+        say (7, 9) ~~ $a; # Bool::True
+
+这样，Perl6 可以做到你想要的效果了，哪怕是你自己的类里~~
+

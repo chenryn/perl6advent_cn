@@ -1,0 +1,38 @@
+## 2010 年 Perl6 圣诞月历(十)流操作符
+
+每一个写过一阵子 perl5 的程序员应该都跑过或者写过下面这样的代码：
+
+    my @new = sort { ... } map { ... } grep { ... } @original;
+
+在这个结构中，数据从 `@original` 数组中流出到 `grep`，然后流到 `map`，然后流到 `sort`，最后赋值到 `@new` 数组。因为每步操作的最后一个参数都是列表，所以简单的通过位置（译者注：原文为 simple by juxtposition，我觉得是个 typo，所以按照 just position 翻译了）就完成了数据流从一个到下一个的过程。
+
+Perl6 中通过另一个方法实现这个数据从一端流向另一端的过程，这就是引入“流操作符”。上面的 perl5 代码在 perl6 中可以写成这个样子：
+
+    my @new <== sort { ... } <== map { ... } <== grep { ... } <== @original;
+
+注意：TMTOWTDI在perl6中依然成立。所以你还是可以把代码写的跟perl5极其类似：
+
+    my @new = sort { ... }, map { ... }, grep { ... }, @original;
+
+唯一的不同就是加了逗号。
+
+额，这样的话，我们用这些流操作符有啥好处呢？首先，我们读代码的习惯，一般都是从左到右的。那么在读 perl5 的写法的时候，你会从左到右一直读到你认识到这行代码的数据流方向是从右到左的。然后你再跳到最右边，重新从右往左读起。而现在 perl6 明确的用语法标识告诉你数据流的方向了。
+
+当然，你可能还是觉得写这么多流操作符挺麻烦的。也是，如果是上面举例的这种单行情况，感觉确实累赘。但如果这些 grep、map、sort 变得稍微复杂一些，那可以想象的到，你要直接找到最后结尾的地方也不是那么容易了。
+
+现在我很高兴的告诉你们，perl6里完全可以倒过来，按照从左到右的习惯写：
+
+    @original ==> grep { ... } ==> map { ... } ==> sort { ... }  ==> my @new;
+
+流向好像变化了，但效果跟之前一模一样！
+
+最后举两个真实的例子，用 perl6 的流操作符写的：
+
+    my @random-nums = (1..100).pick(*);
+    my @odds-squared <== sort <== map { $_ ** 2 } <== grep { $_ % 2 } <== @random-nums;
+    say ~@odds-squared;
+    
+    my @rakudo-people = <scott patrick carl moritz jonathan jerry stephen>;
+    @rakudo-people ==> grep { /at/ } ==> map { .ucfirst } ==> my @who-it's-at;
+    say ~@who-it's-at;
+

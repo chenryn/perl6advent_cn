@@ -1,0 +1,73 @@
+## 2010年Perl6圣诞月历(廿二)元对象协议
+
+2011年12月15日 [admin](http://chenlinux.com/author/admin) 发表评论 阅读评论
+
+你有没有想过用你最爱的编程语言写一个类——但是不是按部就班的写类定义，而是通过几行代码？有些语言提供了API来完成这个功能。这些API的后面，就是元对象协议
+(Meta-Object Protocol)，简称MOP。
+
+Perl6就有MOP，你可以自己创建类、角色、语法，添加方法和属性，并且内省类。比如我们可以调用MOP查看Rakudo是如何实现Rat类型（有理数）的。调用
+MOP，只要把一般的.换成.^就可以了。
+
+    
+    $ perl6
+     > say join ', ', Rat.^attributes
+     $!numerator, $!denominator
+     > # 列出全部方法比较多，所以随机选几个
+     > say join ', ', Rat.^methods(:local).pick(5)
+     unpolar, ceiling, reals, Str, round
+     > say Rat.^methods(:local).grep('log').[0].signature.perl
+     :(Numeric $x: Numeric $base = { ... };; *%_)
+
+显示出来的这几行信息相信都是不言自明了。Rat有两个属性，$!numerator和$!denominator；有很多方法，其中log方法可接受的第一个变量是
+数值型invocant(译者注：不知道怎么翻译，反正就是对象本身的引用$_[0])，用冒号标记过；第二个变量参数是可选的，名字是$base，它设有一个默认值
+，不过Rakudo不打算告诉你……
+
+Perl6的数据库接口代码里有一个很不错的使用实例。它有一个选项用来记录对象的调用，但是只是记录一部分特定角色（比如和连接管理或者数据检索有关的）。下面是d
+bi里的代码：
+
+    
+     sub log-calls($obj, Role $r) {
+         my $wrapper = RoleHOW.new;
+         for $r.^methods -> $m {
+             $wrapper.^add_method($m.name, method (|$c) {
+                 # 打印日志信息，note()函数输出到标准错误
+                 note ">> $m";
+                 nextsame;
+             });
+         }
+         $wrapper.^compose();
+         # does操作符和but类似，不过只修改一个对象的拷贝
+         $obj does $wrapper;
+     }
+     role Greet {
+         method greet($x) {
+             say "hello, $x";
+         }
+     }
+     class SomeGreeter does Greet {
+         method LOLGREET($x) {
+             say "OH HAI "~ uc $x;
+         }
+     }
+     my $o = log-calls(SomeGreeter.new, Greet);
+     # logged, since provided by role Greet
+     $o.greet('you');
+     # not logged, because not provided by the role
+     $o.LOLGREET('u');
+
+运行结果如下：
+
+    
+     >> greet
+     hello, you
+     OH HAI U
+
+所以说，有了MOP，除了指定的语法，你还可以像普通接口一样访问类、角色、语法和属性。这给了面向对象更大的灵活性，可以轻松的内省和修改对象了。
+
+[ Download as PDF ](http://chenlinux.com/wp-content/plugins/down-as-
+pdf/generate.php?id=2802)
+
+分类: [脚本](http://chenlinux.com/category/ops/script) 标签:
+[perl](http://chenlinux.com/tag/perl),
+[perl6advent](http://chenlinux.com/tag/perl6advent)
+

@@ -1,0 +1,52 @@
+## 2010年Perl6圣诞月历(十九)假作真时真亦假
+
+2011年12月14日 [admin](http://chenlinux.com/author/admin) 发表评论 阅读评论
+
+今天的圣临礼物是教大家怎么用混淆完成一个小邪恶滴目的，吼吼~看起来这个功能挺疯狂的，其实有时候蛮有用的。先看下面这个用but的例子：
+
+    
+    my $value = 42 but role { method Bool  { False } };
+    say $value;    # 42
+    say ?$value;   # False
+
+你看，我们改变了$value的.Bool方法。他不影响程序里其他所有的整数，哪怕别的变量也是42。一般情况下，对于Int型，.Bool方法（通过?操作符）返
+回值依据是是否等于0。但这次它永远都返回false了。
+
+事实上，我们还可以写的更简单，因为False是一个枚举值：
+
+    
+    my $value = 42 but False;
+
+因为False是Bool值，所有它会自动重载.Bool方法。这是Perl6的一种转换方法。其他的值，也会对应的重载。
+
+这样在有的时候，这个东西就比较有用了：在Perl5里，你用system调用shell的时候，得牢牢记住在shell里，返回0才是正常的：
+
+    
+    if ( system($cmd) == 0 ) {  # 或者!system($cmd)
+        # ...
+    }
+
+而在Perl6中，对应的run命令返回的是上面说的这种重载过的Int，当且仅当返回值是0的时候，它的bool变成了True，这正是我们想要的额！
+
+    
+    if run($cmd) {  #不需要否定了
+        # ...
+    }
+
+好了，现在进入最疯狂的部分——我们可以重载布尔值的布尔方法：
+
+    
+    my $value = True but False;
+    say $value;    # True
+    say ?$value;   # False
+
+没错，Perl6允许你这样自己踢自己屁股~~虽然我也不知道除了捣乱外怎么会有人愿意这么做，但是我还是很高兴看到Perl6保持这种微妙的跟踪和重载类型的心态。
+我可没有……
+
+[ Download as PDF ](http://chenlinux.com/wp-content/plugins/down-as-
+pdf/generate.php?id=2792)
+
+分类: [脚本](http://chenlinux.com/category/ops/script) 标签:
+[perl](http://chenlinux.com/tag/perl),
+[perl6advent](http://chenlinux.com/tag/perl6advent)
+
