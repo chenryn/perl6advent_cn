@@ -1,0 +1,947 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+
+<head profile="http://gmpg.org/xfn/11">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>Day 1: Getting Rakudo | Perl 6 Advent Calendar</title>
+<link rel="pingback" href="https://perl6advent.wordpress.com/xmlrpc.php" />
+<meta name="google-site-verification" content="YPNxtMSK3Jj7JR2XCK-hDqmF9xDIeBEyvYm3aT1s71Y" />
+<link rel="alternate" type="application/rss+xml" title="Perl 6 Advent Calendar &raquo; Feed" href="https://perl6advent.wordpress.com/feed/" />
+<link rel="alternate" type="application/rss+xml" title="Perl 6 Advent Calendar &raquo; Comments Feed" href="https://perl6advent.wordpress.com/comments/feed/" />
+<link rel="alternate" type="application/rss+xml" title="Perl 6 Advent Calendar &raquo; Day 1: Getting&nbsp;Rakudo Comments Feed" href="https://perl6advent.wordpress.com/2009/12/01/day-1-getting-rakudo/feed/" />
+<script type="text/javascript">
+/* <![CDATA[ */
+function addLoadEvent(func){var oldonload=window.onload;if(typeof window.onload!='function'){window.onload=func;}else{window.onload=function(){oldonload();func();}}}
+/* ]]> */
+</script>
+<link rel='stylesheet' id='all-css-0' href='https://s0.wp.com/_static/??-eJx9j90OgjAMRl/I2Yjiz4XxWcZWx6CjC+tCfHuHiZFIwl2/5px+KUxRGR4EB4GQVaTs/JCAfI8JOpSoTa8+aW9S2sECb4jdT2Dn0HIW9WQinmDy1qGspEXHiKQFrYqc5C9taYZHLPsQtcxEQOs1EoaCbWkhnr/WPLblr3WNtOVOgpgb6HMzetNDkhfhDD7C/XC8XarqdK3r7g1dsHQ6' type='text/css' media='all' />
+<!--[if lte IE 8]>
+<link rel='stylesheet' id='kubrick-ie-css'  href='https://s0.wp.com/wp-content/themes/pub/kubrick/ie.css?m=1273203575g&#038;ver=3.9-RC1' type='text/css' media='all' />
+<![endif]-->
+<link rel='stylesheet' id='all-css-2' href='https://s0.wp.com/_static/??-eJxljEsKgDAMBS9kjX9wIZ5F2xArbSOm4vWtrgru3sCbgftQmkPEEMFf6nAX2SBw4uqY0iTQkmOZsIBMiht6FNg6IMfr4n6HrHpbQxjlSxKzOXEx8gqzn+p2rPqh6ep2fwA3cTYI' type='text/css' media='all' />
+<link rel='stylesheet' id='print-css-2' href='https://s0.wp.com/wp-content/mu-plugins/global-print/global-print.css?m=1387483371g' type='text/css' media='print' />
+<script type='text/javascript'>
+/* <![CDATA[ */
+var LoggedOutFollow = {"invalid_email":"Your subscription did not succeed, please try again with a valid email address."};
+/* ]]> */
+</script>
+<script type='text/javascript' src='https://s0.wp.com/_static/??-eJyFj0kOwjAMRS+ESVEX0AXiLG3jRg6ZiBMiOD2pBAgKUlee3ve3RQkwepfQJaFZWD+QQciMsVe1B+Qmv9W8EZUjN5oskWdQXzLG2zOsAmBJxT7h1pJ7wR+uwXOyyFwt/0y/rchdCcsqpjGFfjxDRKb7z9bBeAXBZEWORc0VSp8TTN4YX0QhqTAtNTa/FRFNfUbCfPeiqqqTPe7abt8cuqbt9ANnG4Rf'></script>
+<link rel='stylesheet' id='all-css-0' href='https://s2.wp.com/wp-content/mu-plugins/highlander-comments/style.css?m=1377793621g' type='text/css' media='all' />
+<!--[if lt IE 8]>
+<link rel='stylesheet' id='highlander-comments-ie7-css'  href='https://s2.wp.com/wp-content/mu-plugins/highlander-comments/style-ie7.css?m=1351637563g&#038;ver=20110606' type='text/css' media='all' />
+<![endif]-->
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="https://perl6advent.wordpress.com/xmlrpc.php?rsd" />
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="https://perl6advent.wordpress.com/wp-includes/wlwmanifest.xml" /> 
+<link rel='prev' title='Perl 6 Advent&nbsp;Calendar' href='https://perl6advent.wordpress.com/2009/12/01/perl-6-advent-calendar/' />
+<link rel='next' title='Day 2: The beauty of&nbsp;formatting' href='https://perl6advent.wordpress.com/2009/12/02/day-2-the-beauty-of-formatting/' />
+<meta name="generator" content="WordPress.com" />
+<link rel='canonical' href='https://perl6advent.wordpress.com/2009/12/01/day-1-getting-rakudo/' />
+<link rel='shortlink' href='http://wp.me/pJ3YZ-a' />
+<link rel="alternate" type="application/json+oembed" href="https://public-api.wordpress.com/oembed/1.0/?format=json&amp;url=https%3A%2F%2Fperl6advent.wordpress.com%2F2009%2F12%2F01%2Fday-1-getting-rakudo%2F&amp;for=wpcom-auto-discovery" /><link rel="alternate" type="application/xml+oembed" href="https://public-api.wordpress.com/oembed/1.0/?format=xml&amp;url=https%3A%2F%2Fperl6advent.wordpress.com%2F2009%2F12%2F01%2Fday-1-getting-rakudo%2F&amp;for=wpcom-auto-discovery" />
+<!-- Jetpack Open Graph Tags -->
+<meta property="og:type" content="article" />
+<meta property="og:title" content="Day 1: Getting Rakudo" />
+<meta property="og:url" content="https://perl6advent.wordpress.com/2009/12/01/day-1-getting-rakudo/" />
+<meta property="og:description" content="There are many different partial implementations of Perl 6; at the moment, the most complete is Rakudo. There are a number of different ways to get it up and running, but if you have any interest i..." />
+<meta property="article:published_time" content="2009-12-01T03:18:36+00:00" />
+<meta property="article:modified_time" content="2010-12-07T15:57:45+00:00" />
+<meta property="article:author" content="https://perl6advent.wordpress.com/author/colomon/" />
+<meta property="og:site_name" content="Perl 6 Advent Calendar" />
+<meta property="og:image" content="http://wordpress.com/i/blank.jpg?m=1383295312g" />
+<meta name="twitter:site" content="@wordpressdotcom" />
+<meta name="twitter:card" content="summary" />
+<meta property="fb:app_id" content="249643311490" />
+<meta property="article:publisher" content="https://www.facebook.com/WordPresscom" />
+<link rel="shortcut icon" type="image/x-icon" href="https://s2.wp.com/i/favicon.ico" sizes="16x16 24x24 32x32 48x48" />
+<link rel="icon" type="image/x-icon" href="https://s2.wp.com/i/favicon.ico" sizes="16x16 24x24 32x32 48x48" />
+<link rel="apple-touch-icon-precomposed" href="https://s0.wp.com/i/webclip.png" />
+<link rel='openid.server' href='https://perl6advent.wordpress.com/?openidserver=1' />
+<link rel='openid.delegate' href='https://perl6advent.wordpress.com/' />
+<link rel="search" type="application/opensearchdescription+xml" href="https://perl6advent.wordpress.com/osd.xml" title="Perl 6 Advent Calendar" />
+<link rel="search" type="application/opensearchdescription+xml" href="http://wordpress.com/opensearch.xml" title="WordPress.com" />
+<style type='text/css'><!--
+body { background: url("https://s0.wp.com/wp-content/themes/pub/kubrick/images/kubrickbgcolor.gif"); }
+#page { background: url("https://s0.wp.com/wp-content/themes/pub/kubrick/images/kubrickbgwide.gif") repeat-y top !important; border: none; }
+#header { background: url("https://s0.wp.com/wp-content/themes/pub/kubrick/images/kubrickheader.gif") no-repeat bottom center; }
+#footer { background: url("https://s0.wp.com/wp-content/themes/pub/kubrick/images/kubrickfooter.gif") no-repeat bottom; border: none;}
+#header { margin: 0 !important; margin: 0 0 0 1px; padding: 1px; height: 198px; width: 758px; }
+#headerimg { margin: 7px 9px 0; height: 192px; width: 740px; }
+#headerimg h1 a, #headerimg h1 a:visited, #headerimg .description { color: #FFFFFF; }
+#headerimg h1 a, #headerimg .description { display:  }
+
+	--></style><meta name="application-name" content="Perl 6 Advent Calendar" /><meta name="msapplication-window" content="width=device-width;height=device-height" /><meta name="msapplication-tooltip" content="Something cool about Perl 6 every day" /><meta name="msapplication-task" content="name=Subscribe;action-uri=https://perl6advent.wordpress.com/feed/;icon-uri=https://s2.wp.com/i/favicon.ico" /><meta name="msapplication-task" content="name=Sign up for a free blog;action-uri=http://wordpress.com/signup/;icon-uri=https://s2.wp.com/i/favicon.ico" /><meta name="msapplication-task" content="name=WordPress.com Support;action-uri=http://support.wordpress.com/;icon-uri=https://s2.wp.com/i/favicon.ico" /><meta name="msapplication-task" content="name=WordPress.com Forums;action-uri=http://forums.wordpress.com/;icon-uri=https://s2.wp.com/i/favicon.ico" /><meta name="title" content="Day 1: Getting&nbsp;Rakudo | Perl 6 Advent Calendar on WordPress.com" />
+<meta name="description" content="There are many different partial implementations of Perl 6; at the moment, the most complete is Rakudo. There are a number of different ways to get it up and running, but if you have any interest in tracking or helping with the development, the best approach is to download directly from the source repositories and&hellip;" />
+<style type="text/css">
+#header     { margin: 0 !important; margin: 0 0 0 1px; padding: 1px; height: 198px; width: 758px; }
+#headerimg  { margin: 7px 9px 0; height: 192px; width: 740px; }
+#headerimg { background: url(https://perl6advent.files.wordpress.com/2009/12/perl6advent2.png) no-repeat top;}
+#header h1 a, #header h1 a:hover, #header .description {
+	color: #fff;
+}
+</style>
+
+<script type='text/javascript' src='http://partner.googleadservices.com/gampad/google_service.js'>
+</script>
+<script type='text/javascript'>
+if ( typeof GS_googleAddAdSenseService == 'function' ) { GS_googleAddAdSenseService("ca-pub-3443918307802676"); }
+if ( typeof GS_googleEnableAllServices == 'function' ) { GS_googleEnableAllServices() };
+</script>
+<script type="text/javascript" src="http://c.amazon-adsystem.com/aax2/amzn_ads.js"></script>
+<script type="text/javascript">
+try { amznads.getAds("3033","300x250"); } catch(e) { /* ignore */ }
+</script>
+<script type="text/javascript">
+var amznKeys = amznads.getKeys();
+if (typeof amznKeys != "undefined" && amznKeys != "") { for (var i =0; i < amznKeys.length; i++) { var key = amznKeys[i]; GA_googleAddAttr("amzn", key);} }
+document.close();
+</script>
+<script type='text/javascript'>
+if ( typeof GA_googleAddSlot == 'function' ) { GA_googleAddSlot("ca-pub-3443918307802676", "wpcom_below_post"); }
+</script>
+<script type='text/javascript'>
+if ( typeof GA_googleFetchAds == 'function' ) { GA_googleFetchAds(); }
+</script>
+
+<script type="text/javascript">
+var wpcom_ads = { bid: 10740073, pt: 'permalink', wa: 0, as: 0, domain: 'perl6advent.wordpress.com', url: 'https://perl6advent.wordpress.com/2009/12/01/day-1-getting-rakudo/', gid: '', };
+</script>
+<style type="text/css" id="syntaxhighlighteranchor"></style>
+<script type="text/javascript">
+	window.google_analytics_uacct = "UA-52447-2";
+</script>
+
+<script type="text/javascript">
+	var _gaq = _gaq || [];
+	_gaq.push(['_setAccount', 'UA-52447-2']);
+	_gaq.push(['_setDomainName', 'wordpress.com']);
+	_gaq.push(['_initData']);
+	_gaq.push(['_trackPageview']);
+
+	(function() {
+		var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+		ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+		(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(ga);
+	})();
+</script>
+</head>
+<body class="single single-post postid-10 single-format-standard mp6 highlander-enabled highlander-light">
+<div id="page">
+
+<div id="header">
+	<div id="headerimg" onclick=" location.href='https://perl6advent.wordpress.com';" style="cursor: pointer;">
+		<h1><a href="https://perl6advent.wordpress.com/">Perl 6 Advent Calendar</a></h1>
+		<div class="description">Something cool about Perl 6 every day</div>
+	</div>
+</div>
+<hr />
+
+	<div id="content" class="widecolumn">
+
+	
+		<div class="navigation">
+			<div class="alignleft">&laquo; <a href="https://perl6advent.wordpress.com/2009/12/01/perl-6-advent-calendar/" rel="prev">Perl 6 Advent&nbsp;Calendar</a></div>
+			<div class="alignright"><a href="https://perl6advent.wordpress.com/2009/12/02/day-2-the-beauty-of-formatting/" rel="next">Day 2: The beauty of&nbsp;formatting</a> &raquo;</div>
+		</div>
+
+		<div class="post-10 post type-post status-publish format-standard hentry category-2009 clear" id="post-10">
+			<h2>Day 1: Getting&nbsp;Rakudo</h2>
+			<small class="single-by"><span class="by-author"><span class="sep">by</span> <span class="author vcard"><a class="url fn n" href="https://perl6advent.wordpress.com/author/colomon/" title="View all posts by colomon" rel="author">colomon</a></span> </span></small>
+
+			<div class="entry">
+				<p>There are many different partial implementations of Perl 6; at the moment, the most complete is <a href="http://rakudo.org">Rakudo</a>.  There are a number of different ways to get it up and running, but if you have any interest in tracking or helping with the development, the best approach is to download directly from the source repositories and and build your own copy.</p>
+<p>To do so, you will need <a href="http://subversion.tigris.org/">Subversion (svn)</a>, <a href="http://git-scm.com/">git</a>, Perl 5.8 or newer, a C compiler, and a make utility.  On standard Linux-like systems (including OS X), you can build it like this:</p>
+<pre>$ git clone git://github.com/rakudo/rakudo.git
+$ cd rakudo
+$ perl Configure.pl --gen-parrot
+$ make
+$ make test
+$ make install</pre>
+<p>Subversion is needed to run &#8211;gen-parrot &#8212; it actually uses svn to get the appropriate version of parrot and then compile it.  You will need to use the appropriate make command for your system.  (It&#8217;s generally <code>nmake</code> with MS Visual C++, I believe.)</p>
+<p>For current Rakudo, <code>make install</code> doesn&#8217;t install into your path, it merely preps the system so that you can run the perl6 executable (created in the rakudo directory) from any other directory on your system.  Once you have it going, you can easily play around with Perl 6 by executing <code>perl6</code> with no arguments, putting you into a <a href="http://en.wikipedia.org/wiki/Read-eval-print_loop">REPL</a> environment where you can type commands and see what they do.  This can be incredibly handy for trying to figure out how Perl 6 works. For instance,</p>
+<pre>$ ./perl6
+&gt; say "Hello world!";
+Hello world!
+&gt; say (10/7).WHAT
+Rat()
+&gt; say [+] (1..999).grep( { $_ % 3 == 0 || $_ % 5 == 0 } );
+233168
+</pre>
+<p>The lines starting with $ and &gt; are what you type; the other lines are Rakudo&#8217;s response.  The first example is a simple <code>say</code> statement.  The second creates a rational number and asks <code>WHAT</code> its type is (<code>Rat</code>).  The third takes the list of numbers from 1 to 999, filters out the ones not divisible by 3 or 5, sums them, and then says the result.  (This is <a href="http://projecteuler.net/">Project Euler</a> Problem #1, thanks to <a href="http://transfixedbutnotdead.com/2009/11/30/eulergy/">draegtun</a> for reminding me of it.)  We&#8217;ll try to explain how these things work in a future post.</p>
+<p>One last thing.  If you have any difficulties getting Rakudo working, the #perl6 channel on irc.freenode.net is usually very helpful.</p>
+
+<div class="wpa" style="position: relative; width:300px; text-align: center; padding: 0; margin: 10px auto; overflow: hidden; clear: both;">
+<a style="position: absolute; text-align: left; display: block; font: 9px/1 sans-serif; text-decoration: underline;" href="http://en.wordpress.com/about-these-ads/" rel="nofollow">About these ads</a>
+<script type="text/javascript">
+		var wpcom_adclk_hovering = false;
+		var wpcom_adclk_recorded = false;
+		var wpcom_adclk_theme = "Kubrick";
+		var wpcom_adclk_slot = "wpcom_below_post";
+		var wpcom_adclk_network = ( typeof wpcom_adclk_network === "undefined" ) ? "" : wpcom_adclk_network ;
+
+		jQuery(document).ready( function() {
+			function wpcom_adclk_hover_yes() { wpcom_adclk_hovering = true; }
+			function wpcom_adclk_hover_no() { wpcom_adclk_hovering = false; }
+			jQuery(".wpa").click(wpcom_adclk_click);
+			jQuery(".wpa iframe").hover( wpcom_adclk_hover_yes, wpcom_adclk_hover_no );
+			jQuery(".wpa object").hover( wpcom_adclk_hover_yes, wpcom_adclk_hover_no );
+
+			jQuery(window).blur( function() {
+				if ( wpcom_adclk_hovering ) { wpcom_adclk_click(); }
+			});
+		});
+
+		function wpcom_adclk_impression() {
+			var stat_gif = document.location.protocol + "//stats.wordpress.com/g.gif?v=wpcom-no-pv";
+			stat_gif += "&x_ads_imp_theme=" + wpcom_adclk_theme;
+			stat_gif += "&x_ads_imp_placement="+wpcom_adclk_slot;
+			stat_gif += "&x_ads_imp_network=" + wpcom_adclk_network;
+			stat_gif += "&x_ads_imp_theme_network="+wpcom_adclk_theme+"_"+wpcom_adclk_network;
+			new Image().src = stat_gif + "&baba=" + Math.random();
+			return true;
+		}
+
+		function wpcom_adclk_click() {
+			if (wpcom_adclk_recorded) { return true; } // no double counting
+			var stat_gif = document.location.protocol + "//stats.wordpress.com/g.gif?v=wpcom-no-pv";
+			stat_gif += "&x_ads_click_theme=" + wpcom_adclk_theme;
+			stat_gif += "&x_ads_click_placement="+wpcom_adclk_slot;
+			stat_gif += "&x_ads_click_network=" + wpcom_adclk_network;
+			stat_gif += "&x_ads_click_theme_network="+wpcom_adclk_theme+"_"+wpcom_adclk_network;
+
+			new Image().src = stat_gif + "&baba=" + Math.random();
+			wpcom_adclk_recorded = true;
+			var now=new Date(); var end=now.getTime()+250;
+			while(true){now=new Date();if(now.getTime()>end){break;}}
+			return true;
+		}
+	
+if ( typeof GA_googleAddAttr == 'function' ) {
+GA_googleAddAttr("AdOpt", "1");
+GA_googleAddAttr("Origin", "other");
+GA_googleAddAttr("LangId", "1");
+GA_googleAddAttr("Domain", "perl6advent.wordpress.com");
+GA_googleAddAttr("BlogId", "10740073");
+GA_googleAddAttr("PageURL", "https://perl6advent.wordpress.com/2009/12/01/day-1-getting-rakudo/");
+GA_googleAddAttr("Autotag", "technology");
+GA_googleAddAttr("Tag", "2009");
+GA_googleAddAttr("theme_bg", "ffffff");
+GA_googleAddAttr("theme_text", "333333");
+GA_googleAddAttr("theme_link", "0066cc");
+GA_googleAddAttr("theme_border", "f9f9f9");
+GA_googleAddAttr("theme_url", "114477");
+GA_googleAddAdSensePageAttr("google_page_url", "https://perl6advent.wordpress.com/2009/12/01/day-1-getting-rakudo/");
+GA_googleFillSlot("wpcom_below_post");
+}
+</script>
+</div>
+<style type="text/css">
+div.wpa>div { margin-top: 1em; } #google_ads_div_wpcom_below_post_adsafe_ad_container { display: block !important; }
+</style>
+<script type="text/javascript">
+jQuery( window ).load( function() {
+    if ( jQuery(".wpa script[src*='virool.com']").length > 0 || jQuery(".wpa script[src*='shareth.ru']").length > 0 || jQuery(".wpa iframe[src*='boomvideo.tv']").length > 0 || jQuery(".wpa iframe[src*='viewablemedia.net']").length > 0 || jQuery(".wpa .sharethrough-placement").length > 0 ) {
+        jQuery( '.wpa' ).css( 'width', '400px' );
+    }
+setTimeout(function(){if(typeof GS_googleAddAdSenseService !== 'function'){new Image().src=document.location.protocol+"//stats.wordpress.com/g.gif?v=wpcom-no-pv&x_noads=adblock&baba="+Math.random()}},100);
+} );
+</script>
+<div id="jp-post-flair" class="sharedaddy sd-like-enabled"><div class='sharedaddy sd-block sd-like jetpack-likes-widget-wrapper jetpack-likes-widget-unloaded' id='like-post-wrapper-10740073-10-534cd12233eb3' data-src='//widgets.wp.com/likes/#blog_id=10740073&amp;post_id=10&amp;origin=perl6advent.wordpress.com&amp;obj_id=10740073-10-534cd12233eb3' data-name='like-post-frame-10740073-10-534cd12233eb3'><h3 class='sd-title'>Like this:</h3><div class='likes-widget-placeholder post-likes-widget-placeholder' style='height:55px'><span class='button'><span>Like</span></span> <span class="loading">Loading...</span></div><span class='sd-text-color'></span><a class='sd-link-color'></a></div>
+<div id='jp-relatedposts' class='jp-relatedposts' >
+	<h3 class="jp-relatedposts-headline"><em>Related</em></h3>
+</div></div>
+								
+				<p class="postmetadata alt">
+					<small>
+												This entry was posted on December 1, 2009 at 3:18 am and is filed under <a href="https://perl6advent.wordpress.com/category/2009/" title="View all posts in 2009" rel="category tag">2009</a>.						You can follow any responses to this entry through the <a href='https://perl6advent.wordpress.com/2009/12/01/day-1-getting-rakudo/feed/'>RSS 2.0</a> feed.
+													You can <a href="#respond">leave a response</a>, or <a href="https://perl6advent.wordpress.com/2009/12/01/day-1-getting-rakudo/trackback/" rel="trackback">trackback</a> from your own site.
+						
+					</small>
+				</p>
+
+			</div>
+		</div>
+
+	
+<!-- You can start editing here. -->
+	<h3 id="comments">13 Responses to &#8220;Day 1: Getting&nbsp;Rakudo&#8221;</h3>
+
+	<ol class="commentlist">
+					<li class="comment even thread-even depth-1 highlander-comment" id="comment-3">
+			<img alt='' src='https://1.gravatar.com/avatar/7dddb30df0a6de8196d625d846b60e28?s=32&#038;d=identicon&#038;r=G' class='avatar avatar-32' height='32' width='32' />			<cite><a href='http://www.flowsites.de' rel='external nofollow' class='url'>bened</a></cite> Says:						<br />
+
+			<small class="commentmetadata"><a href="#comment-3" title="">December 1, 2009 at 10:06 pm</a> | <a class='comment-reply-link' href='/2009/12/01/day-1-getting-rakudo/?replytocom=3#respond' onclick='return addComment.moveForm("comment-3", "3", "respond", "10")'>Reply</a> </small>
+
+			<p>Hi guys! Thanks for this first entry. Finally I got Rakudo installed and it was so simple! Looking forward to the following entrys.</p>
+</li><!-- #comment-## -->
+			<li class="comment odd alt thread-odd thread-alt depth-1 highlander-comment" id="comment-4">
+			<img alt='' src='https://1.gravatar.com/avatar/799a3a05ea0038fc8cfef8b58f13f6bb?s=32&#038;d=identicon&#038;r=G' class='avatar avatar-32' height='32' width='32' />			<cite>Eddward</cite> Says:						<br />
+
+			<small class="commentmetadata"><a href="#comment-4" title="">December 1, 2009 at 10:41 pm</a> | <a class='comment-reply-link' href='/2009/12/01/day-1-getting-rakudo/?replytocom=4#respond' onclick='return addComment.moveForm("comment-4", "4", "respond", "10")'>Reply</a> </small>
+
+			<p>Hi.  Sorry to be a buzz-kill, but what gets installed where?  Am I putting unmanaged files on my system?  Do I need admin/root authority?  Does it just go into my home directory somewhere?  I&#8217;m just an organizational fascist.  I really like package management and like to keep unmanaged files contained or otherwise organized.  If there&#8217;s a readme I can look at after the clone to figure out how to tweak that process, that&#8217;s good enough.</p>
+<p>Thanks<br />
+Edd</p>
+</li><!-- #comment-## -->
+			<li class="comment byuser comment-author-foobar123 even thread-even depth-1 highlander-comment" id="comment-5">
+			<img alt='' src='https://2.gravatar.com/avatar/eb69242357e150e580be56604b208a83?s=32&#038;d=identicon&#038;r=G' class='avatar avatar-32' height='32' width='32' />			<cite><a href='http://perlgeek.de/' rel='external nofollow' class='url'>Moritz</a></cite> Says:						<br />
+
+			<small class="commentmetadata"><a href="#comment-5" title="">December 1, 2009 at 10:45 pm</a> | <a class='comment-reply-link' href='/2009/12/01/day-1-getting-rakudo/?replytocom=5#respond' onclick='return addComment.moveForm("comment-5", "5", "respond", "10")'>Reply</a> </small>
+
+			<p>Hi Edward,</p>
+<p>when you run &#8216;perl Configure &#8211;gen-parrot&#8217;, parrot is installed into the parrot_install directory below your rakudo directory. Running &#8216;make install&#8217; installs into the same dir, so the binary ends up in parrot_install/bin/perl6. No root privs required.</p>
+<p>See also: <a href="http://rakudo.org/how-to-get-rakudo" rel="nofollow">http://rakudo.org/how-to-get-rakudo</a> and <a href="http://github.com/rakudo/rakudo/blob/master/README" rel="nofollow">http://github.com/rakudo/rakudo/blob/master/README</a></p>
+</li><!-- #comment-## -->
+			<li class="comment odd alt thread-odd thread-alt depth-1 highlander-comment" id="comment-6">
+			<img alt='' src='https://1.gravatar.com/avatar/70b0265140eaff6e312eb3efcff3c195?s=32&#038;d=identicon&#038;r=G' class='avatar avatar-32' height='32' width='32' />			<cite><a href='http://benatkin.com/' rel='external nofollow' class='url'>Ben Atkin</a></cite> Says:						<br />
+
+			<small class="commentmetadata"><a href="#comment-6" title="">December 2, 2009 at 1:02 am</a> | <a class='comment-reply-link' href='/2009/12/01/day-1-getting-rakudo/?replytocom=6#respond' onclick='return addComment.moveForm("comment-6", "6", "respond", "10")'>Reply</a> </small>
+
+			<p>How do you make the REPL print the evaluated expression by default, so you don&#8217;t need to type &#8220;say&#8221;?</p>
+</li><!-- #comment-## -->
+			<li class="comment byuser comment-author-foobar123 even thread-even depth-1 highlander-comment" id="comment-10">
+			<img alt='' src='https://2.gravatar.com/avatar/eb69242357e150e580be56604b208a83?s=32&#038;d=identicon&#038;r=G' class='avatar avatar-32' height='32' width='32' />			<cite><a href='http://perlgeek.de/' rel='external nofollow' class='url'>Moritz</a></cite> Says:						<br />
+
+			<small class="commentmetadata"><a href="#comment-10" title="">December 2, 2009 at 9:20 am</a> | <a class='comment-reply-link' href='/2009/12/01/day-1-getting-rakudo/?replytocom=10#respond' onclick='return addComment.moveForm("comment-10", "10", "respond", "10")'>Reply</a> </small>
+
+			<p>Ben: The P part of the REPL isn&#8217;t implemented yet :(</p>
+<p>Rakudo is having a major refactor in a branch right now, and hopes are that we can implement it in that branch rather soon, so I&#8217;ll expect it either for December or January release.</p>
+</li><!-- #comment-## -->
+			<li class="comment odd alt thread-odd thread-alt depth-1 highlander-comment" id="comment-14">
+			<img alt='' src='https://1.gravatar.com/avatar/799a3a05ea0038fc8cfef8b58f13f6bb?s=32&#038;d=identicon&#038;r=G' class='avatar avatar-32' height='32' width='32' />			<cite>Eddward</cite> Says:						<br />
+
+			<small class="commentmetadata"><a href="#comment-14" title="">December 3, 2009 at 2:47 am</a> | <a class='comment-reply-link' href='/2009/12/01/day-1-getting-rakudo/?replytocom=14#respond' onclick='return addComment.moveForm("comment-14", "14", "respond", "10")'>Reply</a> </small>
+
+			<p>During &#8216;make test&#8217; I hit an error.  Where should I go to follow up?  I&#8217;m guessing irc?  I&#8217;ll post the error below.  Everything else came up ok.</p>
+<p>Thanks,<br />
+Edd</p>
+<p>.<br />
+.<br />
+.<br />
+t/01-sanity/07-simple-multisubs&#8230;.ok<br />
+t/01-sanity/07-split&#8230;&#8230;&#8230;&#8230;&#8230;Null PMC access in i_bitwise_shl_int()<br />
+in Main (file , line )<br />
+t/01-sanity/07-split&#8230;&#8230;&#8230;&#8230;&#8230;dubious<br />
+	Test returned status 1 (wstat 256, 0&#215;100)<br />
+t/01-sanity/07-substr&#8230;&#8230;&#8230;&#8230;..ok<br />
+.<br />
+.<br />
+.<br />
+Failed Test            Stat Wstat Total Fail  List of Failed<br />
+&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;-<br />
+t/01-sanity/07-split.t    1   256    ??   ??  ??<br />
+2 subtests skipped.<br />
+Failed 1/29 test scripts. 0/232 subtests failed.<br />
+Files=29, Tests=232, 51 wallclock secs (42.32 cusr +  3.79 csys = 46.11 CPU)<br />
+Failed 1/29 test programs. 0/232 subtests failed.<br />
+make: *** [coretest] Error 255</p>
+</li><!-- #comment-## -->
+			<li class="comment byuser comment-author-colomon bypostauthor even thread-even depth-1 highlander-comment" id="comment-15">
+			<img alt='' src='https://0.gravatar.com/avatar/3bfeb633907f64a75fb2db415eb13370?s=32&#038;d=identicon&#038;r=G' class='avatar avatar-32' height='32' width='32' />			<cite><a href='https://perl6advent.wordpress.com' rel='external nofollow' class='url'>colomon</a></cite> Says:						<br />
+
+			<small class="commentmetadata"><a href="#comment-15" title="">December 3, 2009 at 2:57 am</a> | <a class='comment-reply-link' href='/2009/12/01/day-1-getting-rakudo/?replytocom=15#respond' onclick='return addComment.moveForm("comment-15", "15", "respond", "10")'>Reply</a> </small>
+
+			<p>Eddward: Yes, IRC is the best place to discuss this.  In the meantime, what platform?  You can also run </p>
+<p>    make t/01-sanity/07-split.t</p>
+<p>which should run it again and detail the individual successes and failures.</p>
+</li><!-- #comment-## -->
+			<li class="pingback odd alt thread-odd thread-alt depth-1 highlander-comment" id="comment-31">
+						<cite><a href='http://jetlib.com/news/2009/12/06/the-perl-6-advent-calendar/' rel='external nofollow' class='url'>The Perl 6 Advent Calendar | JetLib News</a></cite> Says:						<br />
+
+			<small class="commentmetadata"><a href="#comment-31" title="">December 6, 2009 at 8:25 pm</a> | <a class='comment-reply-link' href='/2009/12/01/day-1-getting-rakudo/?replytocom=31#respond' onclick='return addComment.moveForm("comment-31", "31", "respond", "10")'>Reply</a> </small>
+
+			<p>[...] featuring one cool Perl 6 feature every day until Christmas. Topics currently covered include how to get and build Rakudo (the most actively developed and progressed implementation of Perl 6) and the new Metaoperators. [...]</p>
+</li><!-- #comment-## -->
+			<li class="pingback even thread-even depth-1 highlander-comment" id="comment-58">
+						<cite><a href='http://ky6uk.ugatu.net/perl-6-advent-calendar-na-russkom' rel='external nofollow' class='url'>Perl 6 Advent Calendar на русском | Ky6uk's Blog</a></cite> Says:						<br />
+
+			<small class="commentmetadata"><a href="#comment-58" title="">December 7, 2009 at 10:31 pm</a> | <a class='comment-reply-link' href='/2009/12/01/day-1-getting-rakudo/?replytocom=58#respond' onclick='return addComment.moveForm("comment-58", "58", "respond", "10")'>Reply</a> </small>
+
+			<p>[...] декабря в рамках цикла статей было рассказано обустановке Rakudo, использованию циклов, операторах [...]</p>
+</li><!-- #comment-## -->
+			<li class="pingback odd alt thread-odd thread-alt depth-1 highlander-comment" id="comment-68">
+						<cite><a href='http://ky6uk.ugatu.net/den-1-poluchaem-rakudo' rel='external nofollow' class='url'>День 1: Получаем Rakudo | Ky6uk's Blog</a></cite> Says:						<br />
+
+			<small class="commentmetadata"><a href="#comment-68" title="">December 8, 2009 at 5:25 pm</a> | <a class='comment-reply-link' href='/2009/12/01/day-1-getting-rakudo/?replytocom=68#respond' onclick='return addComment.moveForm("comment-68", "68", "respond", "10")'>Reply</a> </small>
+
+			<p>[...] я и планировал, выкладываю перевод первой статьи цикла Perl 6 Advent Calendar. Напоминаю, что перевод [...]</p>
+</li><!-- #comment-## -->
+			<li class="comment even thread-even depth-1 highlander-comment" id="comment-243">
+			<img alt='' src='https://2.gravatar.com/avatar/86f4dece6ac9d68a2f0cdfd77c332c61?s=32&#038;d=identicon&#038;r=G' class='avatar avatar-32' height='32' width='32' />			<cite><a href='http://v3.sk/~lkundrak/' rel='external nofollow' class='url'>Lubomir Rintel</a></cite> Says:						<br />
+
+			<small class="commentmetadata"><a href="#comment-243" title="">January 3, 2010 at 11:33 am</a> | <a class='comment-reply-link' href='/2009/12/01/day-1-getting-rakudo/?replytocom=243#respond' onclick='return addComment.moveForm("comment-243", "243", "respond", "10")'>Reply</a> </small>
+
+			<p>Maybe a little bit late &#8212; for those of you who run Fedora; thanks to Gerd, rakudo is in repository, just run &#8220;yum -y install rakudo&#8221; as root to install it!</p>
+</li><!-- #comment-## -->
+			<li class="comment odd alt thread-odd thread-alt depth-1 highlander-comment" id="comment-308">
+			<img alt='' src='https://0.gravatar.com/avatar/c583fb640330a4bae13d266e2e89fb73?s=32&#038;d=identicon&#038;r=G' class='avatar avatar-32' height='32' width='32' />			<cite><a href='http://www.consoletoolkit.com' rel='external nofollow' class='url'>Fabian Wesson</a></cite> Says:						<br />
+
+			<small class="commentmetadata"><a href="#comment-308" title="">April 24, 2010 at 3:14 pm</a> | <a class='comment-reply-link' href='/2009/12/01/day-1-getting-rakudo/?replytocom=308#respond' onclick='return addComment.moveForm("comment-308", "308", "respond", "10")'>Reply</a> </small>
+
+			<p>I just wanted you to know this is now my favorite web site. You guys rock!</p>
+</li><!-- #comment-## -->
+			<li class="pingback even thread-even depth-1 highlander-comment" id="comment-903">
+						<cite><a href='http://www.php-oa.com/2011/09/27/perl6-getting-rakudo.html' rel='external nofollow' class='url'>扶凯 &raquo; [Perl6]取得 Rakudo 开始 Perl6</a></cite> Says:						<br />
+
+			<small class="commentmetadata"><a href="#comment-903" title="">September 27, 2011 at 3:09 pm</a> | <a class='comment-reply-link' href='/2009/12/01/day-1-getting-rakudo/?replytocom=903#respond' onclick='return addComment.moveForm("comment-903", "903", "respond", "10")'>Reply</a> </small>
+
+			<p>[...] By colomon: <a href="https://perl6advent.wordpress.com/2009/12/01/day-1-getting-rakudo/" rel="nofollow">https://perl6advent.wordpress.com/2009/12/01/day-1-getting-rakudo/</a> [...]</p>
+</li><!-- #comment-## -->
+	</ol>
+
+	<div class="navigation">
+		<div class="alignleft"></div>
+		<div class="alignright"></div>
+	</div>
+
+
+
+								<div id="respond" class="comment-respond">
+				<h3 id="reply-title" class="comment-reply-title">Leave a Reply <small><a rel="nofollow" id="cancel-comment-reply-link" href="/2009/12/01/day-1-getting-rakudo/#respond" style="display:none;">Cancel reply</a></small></h3>
+									<form action="https://perl6advent.wordpress.com/wp-comments-post.php" method="post" id="commentform" class="comment-form">
+																										
+
+
+												<input type="hidden" id="highlander_comment_nonce" name="highlander_comment_nonce" value="69292a17f8" /><input type="hidden" name="_wp_http_referer" value="/2009/12/01/day-1-getting-rakudo/" />
+<input type="hidden" name="hc_post_as" id="hc_post_as" value="guest" />
+
+<div class="comment-form-field comment-textarea">
+	<label for="comment">Enter your comment here...</label>
+	<div id="comment-form-comment"><textarea id="comment" name="comment" title="Enter your comment here..."></textarea></div>
+</div>
+
+<div id="comment-form-identity">
+
+	<div id="comment-form-nascar">
+		<p>Fill in your details below or click an icon to log in:</p>
+		<ul>
+			<li class="selected" style="display:none;">
+				<a href="#comment-form-guest" id="postas-guest" title="Guest">
+					<span></span>
+				</a>
+			</li>
+			<li>
+				<a href="#comment-form-load-service:WordPress.com" id="postas-wordpress" title="WordPress.com">
+					<span></span>
+				</a>
+			</li>
+			<li>
+				<a href="#comment-form-load-service:Twitter" id="postas-twitter" title="Twitter">
+					<span></span>
+				</a>
+			</li>
+			<li>
+				<a href="#comment-form-load-service:Facebook" id="postas-facebook" title="Facebook">
+					<span></span>
+				</a>
+			</li>
+			<li>
+			<iframe id="googleplus-sign-in" name="googleplus-sign-in" src="https://public-api.wordpress.com/connect/?googleplus-sign-in=https%3A%2F%2Fperl6advent.wordpress.com" width="24" height="24" scrolling="no" allowtransparency="true" seamless="seamless" frameborder="0"></iframe>
+			</li>
+		</ul>
+	</div>
+
+	<div id="comment-form-guest" class="comment-form-service selected">
+		<div class="comment-form-padder">
+			<div class="comment-form-avatar">
+<a href="https://gravatar.com/site/signup/" target="_blank">				<img src="https://1.gravatar.com/avatar/ad516503a11cd5ca435acc9bb6523536?s=25&amp;d=identicon&amp;forcedefault=y&amp;r=G" alt="Gravatar" width="25" class="no-grav" />
+</a>			</div>
+
+				<div class="comment-form-fields">
+				<div class="comment-form-field comment-form-email">
+					<label for="email">Email <span class="required">(required)</span> <span class="nopublish">(Address never made public)</span></label>
+					<div class="comment-form-input"><input id="email" name="email" type="email" value="" /></div>
+				</div>
+				<div class="comment-form-field comment-form-author">
+					<label for="author">Name <span class="required">(required)</span></label>
+					<div class="comment-form-input"><input id="author" name="author" type="text" value="" /></div>
+				</div>
+				<div class="comment-form-field comment-form-url">
+					<label for="url">Website</label>
+					<div class="comment-form-input"><input id="url" name="url" type="text" value="" /></div>
+				</div>
+			</div>
+	
+		</div>
+	</div>
+
+	<div id="comment-form-wordpress" class="comment-form-service">
+		<div class="comment-form-padder">
+			<div class="comment-form-avatar">
+				<img src="https://s2.wp.com/wp-content/mu-plugins/highlander-comments/images/wplogo.png" alt="WordPress.com Logo" width="25" class="no-grav" />
+			</div>
+
+				<div class="comment-form-fields">
+				<input type="hidden" name="wp_avatar" id="wordpress-avatar" class="comment-meta-wordpress" value="" />
+				<input type="hidden" name="wp_user_id" id="wordpress-user_id" class="comment-meta-wordpress" value="" />
+				<input type="hidden" name="wp_access_token" id="wordpress-access_token" class="comment-meta-wordpress" value="" />
+				<p class="comment-form-posting-as pa-wordpress"><strong></strong> You are commenting using your WordPress.com account. <span class="comment-form-log-out">(&nbsp;<a href="javascript:HighlanderComments.doExternalLogout( 'wordpress' );">Log&nbsp;Out</a>&nbsp;/&nbsp;<a href="#" onclick="javascript:HighlanderComments.switchAccount();return false;">Change</a>&nbsp;)</span></p>
+			</div>
+	
+		</div>
+	</div>
+
+	<div id="comment-form-twitter" class="comment-form-service">
+		<div class="comment-form-padder">
+			<div class="comment-form-avatar">
+				<img src="https://1.gravatar.com/avatar/ad516503a11cd5ca435acc9bb6523536?s=25&amp;d=identicon&amp;forcedefault=y&amp;r=G" alt="Twitter picture" width="25" class="no-grav" />
+			</div>
+
+				<div class="comment-form-fields">
+				<input type="hidden" name="twitter_avatar" id="twitter-avatar" class="comment-meta-twitter" value="" />
+				<input type="hidden" name="twitter_user_id" id="twitter-user_id" class="comment-meta-twitter" value="" />
+				<input type="hidden" name="twitter_access_token" id="twitter-access_token" class="comment-meta-twitter" value="" />
+				<p class="comment-form-posting-as pa-twitter"><strong></strong> You are commenting using your Twitter account. <span class="comment-form-log-out">(&nbsp;<a href="javascript:HighlanderComments.doExternalLogout( 'twitter' );">Log&nbsp;Out</a>&nbsp;/&nbsp;<a href="#" onclick="javascript:HighlanderComments.switchAccount();return false;">Change</a>&nbsp;)</span></p>
+			</div>
+	
+		</div>
+	</div>
+
+	<div id="comment-form-facebook" class="comment-form-service">
+		<div class="comment-form-padder">
+			<div class="comment-form-avatar">
+				<img src="https://1.gravatar.com/avatar/ad516503a11cd5ca435acc9bb6523536?s=25&amp;d=identicon&amp;forcedefault=y&amp;r=G" alt="Facebook photo" width="25" class="no-grav" />
+			</div>
+
+				<div class="comment-form-fields">
+				<input type="hidden" name="fb_avatar" id="facebook-avatar" class="comment-meta-facebook" value="" />
+				<input type="hidden" name="fb_user_id" id="facebook-user_id" class="comment-meta-facebook" value="" />
+				<input type="hidden" name="fb_access_token" id="facebook-access_token" class="comment-meta-facebook" value="" />
+				<p class="comment-form-posting-as pa-facebook"><strong></strong> You are commenting using your Facebook account. <span class="comment-form-log-out">(&nbsp;<a href="javascript:HighlanderComments.doExternalLogout( 'facebook' );">Log&nbsp;Out</a>&nbsp;/&nbsp;<a href="#" onclick="javascript:HighlanderComments.switchAccount();return false;">Change</a>&nbsp;)</span></p>
+			</div>
+	
+		</div>
+	</div>
+
+	<div id="comment-form-googleplus" class="comment-form-service">
+		<div class="comment-form-padder">
+			<div class="comment-form-avatar">
+				<img src="https://1.gravatar.com/avatar/ad516503a11cd5ca435acc9bb6523536?s=25&amp;d=identicon&amp;forcedefault=y&amp;r=G" alt="Google+ photo" width="25" class="no-grav" />
+			</div>
+
+				<div class="comment-form-fields">
+				<input type="hidden" name="googleplus_avatar" id="googleplus-avatar" class="comment-meta-googleplus" value="" />
+				<input type="hidden" name="googleplus_user_id" id="googleplus-user_id" class="comment-meta-googleplus" value="" />
+				<input type="hidden" name="googleplus_access_token" id="googleplus-access_token" class="comment-meta-googleplus" value="" />
+				<p class="comment-form-posting-as pa-googleplus"><strong></strong> You are commenting using your Google+ account. <span class="comment-form-log-out">(&nbsp;<a href="javascript:HighlanderComments.doExternalLogout( 'googleplus' );">Log&nbsp;Out</a>&nbsp;/&nbsp;<a href="#" onclick="javascript:HighlanderComments.switchAccount();return false;">Change</a>&nbsp;)</span></p>
+			</div>
+	
+		</div>
+	</div>
+
+
+	<div id="comment-form-load-service" class="comment-form-service">
+		<div class="comment-form-posting-as-cancel"><a href="javascript:HighlanderComments.cancelExternalWindow();">Cancel</a></div>
+		<p>Connecting to %s</p>
+	</div>
+
+	
+</div>
+
+<script type="text/javascript">
+var highlander_expando_javascript = function(){
+	var input = document.createElement( 'input' ),
+	    comment = jQuery( '#comment' );
+
+	if ( 'placeholder' in input ) {
+		comment.attr( 'placeholder', jQuery( '.comment-textarea label' ).remove().text() );
+	}
+
+	// Expando Mode: start small, then auto-resize on first click + text length
+	jQuery( '#comment-form-identity' ).hide();
+	jQuery( '#comment-form-subscribe' ).hide();
+	jQuery( '#commentform .form-submit' ).hide();
+
+	comment.css( { 'height':'10px' } ).one( 'focus', function() {
+		var timer = setInterval( HighlanderComments.resizeCallback, 10 )
+		jQuery( this ).animate( { 'height': HighlanderComments.initialHeight } ).delay( 100 ).queue( function(n) { clearInterval( timer ); HighlanderComments.resizeCallback(); n(); } );
+		jQuery( '#comment-form-identity' ).slideDown();
+		jQuery( '#comment-form-subscribe' ).slideDown();
+		jQuery( '#commentform .form-submit' ).slideDown();
+	});
+}
+jQuery(document).ready( highlander_expando_javascript );
+</script>
+
+<div id="comment-form-subscribe">
+	<p class="comment-subscription-form"><input type="checkbox" name="subscribe" id="subscribe" value="subscribe" style="width: auto;" tabindex="6"/> <label class="subscribe-label" id="subscribe-label" for="subscribe" style="display: inline;">Notify me of follow-up comments via email.</label></p></div>
+
+												<p class="form-submit">
+							<input name="submit" type="submit" id="comment-submit" value="Post Comment" />
+							<input type='hidden' name='comment_post_ID' value='10' id='comment_post_ID' />
+<input type='hidden' name='comment_parent' id='comment_parent' value='0' />
+						</p>
+						
+<input type="hidden" name="genseq" value="1397543202" />
+<p style="display: none;"><input type="hidden" id="akismet_comment_nonce" name="akismet_comment_nonce" value="cf7c9fc82a" /></p><script type='text/javascript' src='https://s2.wp.com/wp-content/mu-plugins/akismet-2.5/form.js?m=1308783962g'></script>
+<p style="display: none;"><input type="hidden" id="ak_js" name="ak_js" value="110"/></p>					</form>
+							</div><!-- #respond -->
+			<div style="clear: both"></div>
+
+	
+	</div>
+
+
+<hr />
+<div id="footer">
+	<p>
+		<a href="http://theme.wordpress.com/themes/kubrick/" title="Learn more about this theme">The Kubrick Theme</a> <a href="http://wordpress.com/?ref=footer">Blog at WordPress.com</a>.
+		<br /><a href="https://perl6advent.wordpress.com/feed/">Entries (RSS)</a> and <a href="https://perl6advent.wordpress.com/comments/feed/">Comments (RSS)</a>.	</p>
+</div>
+</div>
+
+<script type='text/javascript' src='//0.gravatar.com/js/gprofiles.js?ver=201416x'></script>
+<script type='text/javascript'>
+/* <![CDATA[ */
+var WPGroHo = {"my_hash":""};
+/* ]]> */
+</script>
+<script type='text/javascript' src='https://s2.wp.com/wp-content/mu-plugins/gravatar-hovercards/wpgroho.js?m=1380573781g'></script>
+
+	<script>
+		//initialize and attach hovercards to all gravatars
+		jQuery( document ).ready( function( $ ) {
+			Gravatar.profile_cb = function( hash, id ) {
+				WPGroHo.syncProfileData( hash, id );
+			};
+			Gravatar.my_hash = WPGroHo.my_hash;
+			Gravatar.init( 'body', '#wp-admin-bar-my-account' );
+		});
+	</script>
+
+		<div style="display:none">
+	<div class="grofile-hash-map-7dddb30df0a6de8196d625d846b60e28">
+	</div>
+	<div class="grofile-hash-map-799a3a05ea0038fc8cfef8b58f13f6bb">
+	</div>
+	<div class="grofile-hash-map-eb69242357e150e580be56604b208a83">
+	</div>
+	<div class="grofile-hash-map-70b0265140eaff6e312eb3efcff3c195">
+	</div>
+	<div class="grofile-hash-map-3bfeb633907f64a75fb2db415eb13370">
+	</div>
+	<div class="grofile-hash-map-86f4dece6ac9d68a2f0cdfd77c332c61">
+	</div>
+	<div class="grofile-hash-map-c583fb640330a4bae13d266e2e89fb73">
+	</div>
+	</div>
+<script type='text/javascript'>
+/* <![CDATA[ */
+var HighlanderComments = {"loggingInText":"Logging In\u2026","submittingText":"Posting Comment\u2026","postCommentText":"Post Comment","connectingToText":"Connecting to %s","commentingAsText":"%1$s: You are commenting using your %2$s account.","logoutText":"Log Out","loginText":"Log In","connectURL":"https:\/\/perl6advent.wordpress.com\/public.api\/connect\/?action=request","logoutURL":"https:\/\/perl6advent.wordpress.com\/wp-login.php?action=logout&_wpnonce=f3284f6283","homeURL":"https:\/\/perl6advent.wordpress.com\/","postID":"10","gravDefault":"identicon","enterACommentError":"Please enter a comment","enterEmailError":"Please enter your email address here","invalidEmailError":"Invalid email address","enterAuthorError":"Please enter your name here","gravatarFromEmail":"This picture will show whenever you leave a comment. Click to customize it.","logInToExternalAccount":"Log in to use details from one of these accounts.","change":"Change","changeAccount":"Change Account","comment_registration":"","userIsLoggedIn":"","isJetpack":"0"};
+/* ]]> */
+</script>
+<script type='text/javascript' src='https://s0.wp.com/_static/??/wp-content/js/jquery/jquery.autoresize.js,/wp-content/mu-plugins/highlander-comments/script.js?m=1395185286j'></script>
+
+	<div id="bit" class="loggedout-follow-normal">
+		<a class="bsub" href="javascript:void(0)"><span id='bsub-text'>Follow</span></a>
+		<div id="bitsubscribe">
+
+					<h3><label for="loggedout-follow-field">Follow &ldquo;Perl 6 Advent Calendar&rdquo;</label></h3>
+
+			<form action="https://subscribe.wordpress.com" method="post" accept-charset="utf-8" id="loggedout-follow">
+			<p>Get every new post delivered to your Inbox.</p>
+
+			<p id="loggedout-follow-error" style="display: none;"></p>
+
+						<p class="bit-follow-count">Join 36 other followers</p>
+			<p><input type="email" name="email" value="Enter your email address" onfocus='this.value=(this.value=="Enter your email address") ? "" : this.value;' onblur='this.value=(this.value=="") ? "Enter email address" : this.value;'  id="loggedout-follow-field"/></p>
+
+			<input type="hidden" name="action" value="subscribe"/>
+			<input type="hidden" name="blog_id" value="10740073"/>
+			<input type="hidden" name="source" value="https://perl6advent.wordpress.com/2009/12/01/day-1-getting-rakudo/"/>
+			<input type="hidden" name="sub-type" value="loggedout-follow"/>
+
+			<input type="hidden" id="_wpnonce" name="_wpnonce" value="012dea5bde" /><input type="hidden" name="_wp_http_referer" value="/2009/12/01/day-1-getting-rakudo/" />
+			<p id='bsub-subscribe-button'><input type="submit" value="Sign me up" /></p>
+			</form>
+					<div id='bsub-credit'><a href="http://wordpress.com/signup/?ref=lof">Powered by WordPress.com</a></div>
+		</div><!-- #bitsubscribe -->
+	</div><!-- #bit -->
+	<script type="text/javascript">
+	var skimlinks_pub_id = "725X584219"
+	var skimlinks_sitename = "perl6advent.wordpress.com";
+	</script>
+	<script type="text/javascript" src="https://s.skimresources.com/js/725X1342.skimlinks.js"></script>		<iframe src='https://widgets.wp.com/likes/master.html?ver=20140227#ver=20140227&amp;mp6=1' scrolling='no' id='likes-master' name='likes-master' style='display:none;'></iframe>
+		<div id='likes-other-gravatars'><div class="likes-text"><span>%d</span> bloggers like this:</div><ul class="wpl-avatars sd-like-gravatars"></ul></div>
+		<script type="text/javascript">
+		//<![CDATA[
+			var jetpackLikesWidgetQueue = [];
+			var jetpackLikesWidgetBatch = [];
+			var jetpackLikesMasterReady = false;
+
+			function JetpackLikespostMessage( message, target ) {
+				if ( "string" === typeof message ){
+					try{
+						message = JSON.parse( message );
+					}
+					catch(e) {
+						return;
+					}
+				}
+
+				pm( {
+					target: target,
+					type: 'likesMessage',
+					data: message,
+					origin: '*'
+				} );
+			}
+
+			function JetpackLikesBatchHandler() {
+				var requests = [];
+				jQuery( 'div.jetpack-likes-widget-unloaded' ).each( function( i ) {
+					if ( jetpackLikesWidgetBatch.indexOf( this.id ) > -1 )
+						return;
+					jetpackLikesWidgetBatch.push( this.id );
+					var regex = /like-(post|comment)-wrapper-(\d+)-(\d+)-(\w+)/;
+					var match = regex.exec( this.id );
+					if ( ! match || match.length != 5 )
+						return;
+
+					var info = {
+						blog_id: match[2],
+						width:   this.width
+					};
+
+					if ( 'post' == match[1] ) {
+						info.post_id = match[3];
+					} else if ( 'comment' == match[1] ) {
+						info.comment_id = match[3];
+					}
+
+					info.obj_id = match[4];
+
+					requests.push( info );
+				});
+
+				if ( requests.length > 0 ) {
+					JetpackLikespostMessage( { event: 'initialBatch', requests: requests }, window.frames['likes-master'] );
+				}
+			}
+
+			function JetpackLikesMessageListener( event ) {
+				if ( "undefined" == typeof event.event )
+					return;
+
+				if ( 'masterReady' == event.event ) {
+					jQuery( document ).ready( function() {
+						jetpackLikesMasterReady = true;
+
+						var stylesData = {
+								event: 'injectStyles'
+						};
+
+						if ( jQuery( 'iframe.admin-bar-likes-widget' ).length > 0 ) {
+							JetpackLikespostMessage( { event: 'adminBarEnabled' }, window.frames[ 'likes-master' ] );
+
+							stylesData.adminBarStyles = {
+								background: jQuery( '#wpadminbar .quicklinks li#wp-admin-bar-wpl-like > a' ).css( 'background' ),
+								isRtl: ( 'rtl' == jQuery( '#wpadminbar' ).css( 'direction' ) )
+							};
+						}
+
+						if ( !window.addEventListener )
+							jQuery( '#wp-admin-bar-admin-bar-likes-widget' ).hide();
+
+						stylesData.textStyles = {
+							color: jQuery( '.sd-text-color').css( 'color' ),
+							fontFamily: jQuery( '.sd-text-color' ).css( 'font-family' ),
+							fontSize: jQuery( '.sd-text-color' ).css( 'font-size' ),
+							direction: jQuery( '.sd-text-color' ).css( 'direction' ),
+							fontWeight: jQuery( '.sd-text-color' ).css( 'font-weight' ),
+							fontStyle: jQuery( '.sd-text-color' ).css( 'font-style' ),
+							textDecoration: jQuery( '.sd-text-color' ).css('text-decoration')
+						};
+
+						stylesData.linkStyles = {
+							color: jQuery( '.sd-link-color' ).css('color'),
+							fontFamily: jQuery( '.sd-link-color' ).css('font-family'),
+							fontSize: jQuery( '.sd-link-color' ).css('font-size'),
+							textDecoration: jQuery( '.sd-link-color' ).css('text-decoration'),
+							fontWeight: jQuery( '.sd-link-color' ).css( 'font-weight' ),
+							fontStyle: jQuery( '.sd-link-color' ).css( 'font-style' )
+						};
+
+						JetpackLikespostMessage( stylesData, window.frames[ 'likes-master' ] );
+
+						JetpackLikesBatchHandler();
+
+						jQuery( document ).on( 'inview', 'div.jetpack-likes-widget-unloaded', function() {
+							jetpackLikesWidgetQueue.push( this.id );
+						});
+					});
+				}
+
+				if ( 'showLikeWidget' == event.event ) {
+					jQuery( '#' + event.id + ' .post-likes-widget-placeholder'  ).fadeOut( 'fast', function() {
+						jQuery( '#' + event.id + ' .post-likes-widget' ).fadeIn( 'fast', function() {
+							JetpackLikespostMessage( { event: 'likeWidgetDisplayed', blog_id: event.blog_id, post_id: event.post_id, obj_id: event.obj_id }, window.frames['likes-master'] );
+						});
+					});
+				}
+
+				if ( 'clickReblogFlair' == event.event ) {
+					wpcom_reblog.toggle_reblog_box_flair( event.obj_id );
+				}
+
+				if ( 'showOtherGravatars' == event.event ) {
+					var $container = jQuery( '#likes-other-gravatars' );
+					var $list = $container.find( 'ul' );
+
+					$container.hide();
+					$list.html( '' );
+
+					$container.find( '.likes-text span' ).text( event.total );
+
+					jQuery.each( event.likers, function( i, liker ) {
+						$list.append( '<li class="' + liker.css_class + '"><a href="' + liker.profile_URL + '" class="wpl-liker" rel="nofollow" target="_parent"><img src="' + liker.avatar_URL + '" alt="' + liker.name + '" width="30" height="30" style="padding-right: 3px;" /></a></li>');
+					} );
+
+					var offset = jQuery( "[name='" + event.parent + "']" ).offset();
+
+					$container.css( 'left', offset.left + event.position.left - 10 + 'px' );
+					$container.css( 'top', offset.top + event.position.top - 33 + 'px' );
+
+					var rowLength = Math.floor( event.width / 37 );
+					var height = ( Math.ceil( event.likers.length / rowLength ) * 37 ) + 13;
+					if ( height > 204 ) {
+						height = 204;
+					}
+
+					$container.css( 'height', height + 'px' );
+					$container.css( 'width', rowLength * 37 - 7 + 'px' );
+
+					$list.css( 'width', rowLength * 37 + 'px' );
+
+					$container.fadeIn( 'slow' );
+
+					var scrollbarWidth = $list[0].offsetWidth - $list[0].clientWidth;
+					if ( scrollbarWidth > 0 ) {
+						$container.width( $container.width() + scrollbarWidth );
+						$list.width( $list.width() + scrollbarWidth );
+					}
+				}
+			}
+
+			pm.bind( 'likesMessage', function(e) { JetpackLikesMessageListener(e); } );
+
+			jQuery( document ).click( function( e ) {
+				var $container = jQuery( '#likes-other-gravatars' );
+
+				if ( $container.has( e.target ).length === 0 ) {
+					$container.fadeOut( 'slow' );
+				}
+			});
+
+			function JetpackLikesWidgetQueueHandler() {
+				var wrapperID;
+				if ( ! jetpackLikesMasterReady ) {
+					setTimeout( JetpackLikesWidgetQueueHandler, 500 );
+					return;
+				}
+
+				if ( jetpackLikesWidgetQueue.length > 0 ) {
+					// We may have a widget that needs creating now
+					var found = false;
+					while( jetpackLikesWidgetQueue.length > 0 ) {
+						// Grab the first member of the queue that isn't already loading.
+						wrapperID = jetpackLikesWidgetQueue.splice( 0, 1 )[0];
+						if ( jQuery( '#' + wrapperID ).hasClass( 'jetpack-likes-widget-unloaded' ) ) {
+							found = true;
+							break;
+						}
+					}
+					if ( ! found ) {
+						setTimeout( JetpackLikesWidgetQueueHandler, 500 );
+						return;
+					}
+				} else if ( jQuery( 'div.jetpack-likes-widget-unloaded' ).length > 0 ) {
+					// Grab any unloaded widgets for a batch request
+					JetpackLikesBatchHandler();
+
+					// Get the next unloaded widget
+					wrapperID = jQuery( 'div.jetpack-likes-widget-unloaded' ).first()[0].id;
+					if ( ! wrapperID ) {
+						// Everything is currently loaded
+						setTimeout( JetpackLikesWidgetQueueHandler, 500 );
+						return;
+					}
+				}
+
+				if ( 'undefined' === typeof wrapperID ) {
+					setTimeout( JetpackLikesWidgetQueueHandler, 500 );
+					return;
+				}
+
+				var $wrapper = jQuery( '#' + wrapperID );
+				$wrapper.find( 'iframe' ).remove();
+
+				if ( $wrapper.hasClass( 'slim-likes-widget' ) ) {
+					$wrapper.find( '.post-likes-widget-placeholder' ).after( "<iframe class='post-likes-widget jetpack-likes-widget' name='" + $wrapper.data( 'name' ) + "' height='22px' width='68px' frameBorder='0' scrolling='no' src='" + $wrapper.data( 'src' ) + "'></iframe>" );
+				} else {
+					$wrapper.find( '.post-likes-widget-placeholder' ).after( "<iframe class='post-likes-widget jetpack-likes-widget' name='" + $wrapper.data( 'name' ) + "' height='55px' width='100%' frameBorder='0' src='" + $wrapper.data( 'src' ) + "'></iframe>" );
+				}
+
+				$wrapper.removeClass( 'jetpack-likes-widget-unloaded' ).addClass( 'jetpack-likes-widget-loading' );
+
+				$wrapper.find( 'iframe' ).load( function( e ) {
+					var $iframe = jQuery( e.target );
+					$wrapper.removeClass( 'jetpack-likes-widget-loading' ).addClass( 'jetpack-likes-widget-loaded' );
+
+					JetpackLikespostMessage( { event: 'loadLikeWidget', name: $iframe.attr( 'name' ), width: $iframe.width() }, window.frames[ 'likes-master' ] );
+
+					if ( $wrapper.hasClass( 'slim-likes-widget' ) ) {
+						$wrapper.find( 'iframe' ).Jetpack( 'resizeable' );
+					}
+				});
+				setTimeout( JetpackLikesWidgetQueueHandler, 250 );
+			}
+			JetpackLikesWidgetQueueHandler();
+		//]]>
+		</script>
+<script type='text/javascript' src='https://s0.wp.com/_static/??/wp-content/js/devicepx.js,/wp-includes/js/comment-reply.min.js?m=1389017300j'></script>
+<script type="text/javascript">
+// <![CDATA[
+(function() {
+try{
+  if ( window.external &&'msIsSiteMode' in window.external) {
+    if (window.external.msIsSiteMode()) {
+      var jl = document.createElement('script');
+      jl.type='text/javascript';
+      jl.async=true;
+      jl.src='/wp-content/plugins/ie-sitemode/custom-jumplist.php';
+      var s = document.getElementsByTagName('script')[0];
+      s.parentNode.insertBefore(jl, s);
+    }
+  }
+}catch(e){}
+})();
+// ]]>
+</script><script src="https://ssl-stats.wordpress.com/w.js?21" type="text/javascript"></script>
+<script type="text/javascript">
+st_go({'blog':'10740073','v':'wpcom','tz':'0','user_id':'0','post':'10','subd':'perl6advent'});
+ex_go({'crypt':'UE5XaGUuOTlwaD85flAmcm1mcmZsaDhkV11YdWFnNncxc1tjZG9XVXhReTFqanhKV3x0UkQxQldDVUV4ZVR+cSt8Ny8tTm40WDY2NUd1SH5CMko/Rmx6TmhYLjZfbC5sPyt8ckZTYU9yaVpETFN3LT1aenExYiwydWdFK0lmcmcseEJrLU9KMW42LmlYJloyOWhbZ3VPQ0wyc18tLH4wLlQta3lWQzdaLE8xZVVpUkhWdUF+NGg2dG1xMEhJSHxJb0VKSFFYM2l6Vn5sSW9yN2U2d1cuQyZnWzZiPTQtRC56cz0yVUVKYVZKS2tjd0lPfGNFLlRqSSVrQzE/b1R1LU9xOEdFMjFtNEF1TTRja0k4WXhnVGNzNG9EbmZSP0E='});
+addLoadEvent(function(){linktracker_init('10740073',10);});
+	</script>
+<noscript><img src="https://stats.wordpress.com/b.gif?v=noscript" style="height:0px;width:0px;overflow:hidden" alt="" /></noscript>
+<script>
+if ( 'object' === typeof wpcom_mobile_user_agent_info ) {
+
+	wpcom_mobile_user_agent_info.init();
+	var mobileStatsQueryString = "";
+	
+	if( false !== wpcom_mobile_user_agent_info.matchedPlatformName )
+		mobileStatsQueryString += "&x_" + 'mobile_platforms' + '=' + wpcom_mobile_user_agent_info.matchedPlatformName;
+	
+	if( false !== wpcom_mobile_user_agent_info.matchedUserAgentName )
+		mobileStatsQueryString += "&x_" + 'mobile_devices' + '=' + wpcom_mobile_user_agent_info.matchedUserAgentName;
+	
+	if( wpcom_mobile_user_agent_info.isIPad() )
+		mobileStatsQueryString += "&x_" + 'ipad_views' + '=' + 'views';
+
+	if( "" != mobileStatsQueryString ) {
+		new Image().src = document.location.protocol + '//stats.wordpress.com/g.gif?v=wpcom-no-pv' + mobileStatsQueryString + '&baba=' + Math.random();
+	}
+	
+}
+</script></body>
+</html>

@@ -1,0 +1,1197 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+
+<head profile="http://gmpg.org/xfn/11">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>Day 16: We call it &#8216;the old switcheroo&#8217; | Perl 6 Advent Calendar</title>
+<link rel="pingback" href="https://perl6advent.wordpress.com/xmlrpc.php" />
+<meta name="google-site-verification" content="YPNxtMSK3Jj7JR2XCK-hDqmF9xDIeBEyvYm3aT1s71Y" />
+<link rel="alternate" type="application/rss+xml" title="Perl 6 Advent Calendar &raquo; Feed" href="https://perl6advent.wordpress.com/feed/" />
+<link rel="alternate" type="application/rss+xml" title="Perl 6 Advent Calendar &raquo; Comments Feed" href="https://perl6advent.wordpress.com/comments/feed/" />
+<link rel="alternate" type="application/rss+xml" title="Perl 6 Advent Calendar &raquo; Day 16: We call it &#8216;the old switcheroo&#8217; Comments Feed" href="https://perl6advent.wordpress.com/2009/12/16/day-16-we-call-it-the-old-switcheroo/feed/" />
+<script type="text/javascript">
+/* <![CDATA[ */
+function addLoadEvent(func){var oldonload=window.onload;if(typeof window.onload!='function'){window.onload=func;}else{window.onload=function(){oldonload();func();}}}
+/* ]]> */
+</script>
+<link rel='stylesheet' id='all-css-0' href='https://s0.wp.com/_static/??-eJx9j90OgjAMRl/I2Yjiz4XxWcZWx6CjC+tCfHuHiZFIwl2/5px+KUxRGR4EB4GQVaTs/JCAfI8JOpSoTa8+aW9S2sECb4jdT2Dn0HIW9WQinmDy1qGspEXHiKQFrYqc5C9taYZHLPsQtcxEQOs1EoaCbWkhnr/WPLblr3WNtOVOgpgb6HMzetNDkhfhDD7C/XC8XarqdK3r7g1dsHQ6' type='text/css' media='all' />
+<!--[if lte IE 8]>
+<link rel='stylesheet' id='kubrick-ie-css'  href='https://s0.wp.com/wp-content/themes/pub/kubrick/ie.css?m=1273203575g&#038;ver=3.9-RC1' type='text/css' media='all' />
+<![endif]-->
+<link rel='stylesheet' id='all-css-2' href='https://s0.wp.com/_static/??-eJxljEsKgDAMBS9kjX9wIZ5F2xArbSOm4vWtrgru3sCbgftQmkPEEMFf6nAX2SBw4uqY0iTQkmOZsIBMiht6FNg6IMfr4n6HrHpbQxjlSxKzOXEx8gqzn+p2rPqh6ep2fwA3cTYI' type='text/css' media='all' />
+<link rel='stylesheet' id='print-css-2' href='https://s0.wp.com/wp-content/mu-plugins/global-print/global-print.css?m=1387483371g' type='text/css' media='print' />
+<script type='text/javascript'>
+/* <![CDATA[ */
+var LoggedOutFollow = {"invalid_email":"Your subscription did not succeed, please try again with a valid email address."};
+/* ]]> */
+</script>
+<script type='text/javascript' src='https://s0.wp.com/_static/??-eJyFj0kOwjAMRS+ESVEX0AXiLG3jRg6ZiBMiOD2pBAgKUlee3ve3RQkwepfQJaFZWD+QQciMsVe1B+Qmv9W8EZUjN5oskWdQXzLG2zOsAmBJxT7h1pJ7wR+uwXOyyFwt/0y/rchdCcsqpjGFfjxDRKb7z9bBeAXBZEWORc0VSp8TTN4YX0QhqTAtNTa/FRFNfUbCfPeiqqqTPe7abt8cuqbt9ANnG4Rf'></script>
+<link rel='stylesheet' id='all-css-0' href='https://s2.wp.com/wp-content/mu-plugins/highlander-comments/style.css?m=1377793621g' type='text/css' media='all' />
+<!--[if lt IE 8]>
+<link rel='stylesheet' id='highlander-comments-ie7-css'  href='https://s2.wp.com/wp-content/mu-plugins/highlander-comments/style-ie7.css?m=1351637563g&#038;ver=20110606' type='text/css' media='all' />
+<![endif]-->
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="https://perl6advent.wordpress.com/xmlrpc.php?rsd" />
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="https://perl6advent.wordpress.com/wp-includes/wlwmanifest.xml" /> 
+<link rel='prev' title='Day 15: .pick your&nbsp;game' href='https://perl6advent.wordpress.com/2009/12/15/day-15-pick-your-game/' />
+<link rel='next' title='Day 17: Making&nbsp;Snowmen' href='https://perl6advent.wordpress.com/2009/12/17/day-17-making-snowmen/' />
+<meta name="generator" content="WordPress.com" />
+<link rel='canonical' href='https://perl6advent.wordpress.com/2009/12/16/day-16-we-call-it-the-old-switcheroo/' />
+<link rel='shortlink' href='http://wp.me/pJ3YZ-4o' />
+<link rel="alternate" type="application/json+oembed" href="https://public-api.wordpress.com/oembed/1.0/?format=json&amp;url=https%3A%2F%2Fperl6advent.wordpress.com%2F2009%2F12%2F16%2Fday-16-we-call-it-the-old-switcheroo%2F&amp;for=wpcom-auto-discovery" /><link rel="alternate" type="application/xml+oembed" href="https://public-api.wordpress.com/oembed/1.0/?format=xml&amp;url=https%3A%2F%2Fperl6advent.wordpress.com%2F2009%2F12%2F16%2Fday-16-we-call-it-the-old-switcheroo%2F&amp;for=wpcom-auto-discovery" />
+<!-- Jetpack Open Graph Tags -->
+<meta property="og:type" content="article" />
+<meta property="og:title" content="Day 16: We call it &#039;the old switcheroo&#039;" />
+<meta property="og:url" content="https://perl6advent.wordpress.com/2009/12/16/day-16-we-call-it-the-old-switcheroo/" />
+<meta property="og:description" content="Another glorious day in Advent; another gift awaits us. It&#039;s switch statements! Well, the term for them is still &quot;switch statement&quot; in Perl 6, but the keyword has changed for linguistic reasons. It..." />
+<meta property="article:published_time" content="2009-12-16T00:01:41+00:00" />
+<meta property="article:modified_time" content="2010-12-14T16:04:31+00:00" />
+<meta property="article:author" content="https://perl6advent.wordpress.com/author/brushingupmyknuth/" />
+<meta property="og:site_name" content="Perl 6 Advent Calendar" />
+<meta property="og:image" content="http://wordpress.com/i/blank.jpg?m=1383295312g" />
+<meta name="twitter:site" content="@wordpressdotcom" />
+<meta name="twitter:card" content="summary" />
+<meta property="fb:app_id" content="249643311490" />
+<meta property="article:publisher" content="https://www.facebook.com/WordPresscom" />
+<link rel="shortcut icon" type="image/x-icon" href="https://s2.wp.com/i/favicon.ico" sizes="16x16 24x24 32x32 48x48" />
+<link rel="icon" type="image/x-icon" href="https://s2.wp.com/i/favicon.ico" sizes="16x16 24x24 32x32 48x48" />
+<link rel="apple-touch-icon-precomposed" href="https://s0.wp.com/i/webclip.png" />
+<link rel='openid.server' href='https://perl6advent.wordpress.com/?openidserver=1' />
+<link rel='openid.delegate' href='https://perl6advent.wordpress.com/' />
+<link rel="search" type="application/opensearchdescription+xml" href="https://perl6advent.wordpress.com/osd.xml" title="Perl 6 Advent Calendar" />
+<link rel="search" type="application/opensearchdescription+xml" href="http://wordpress.com/opensearch.xml" title="WordPress.com" />
+<style type='text/css'><!--
+body { background: url("https://s0.wp.com/wp-content/themes/pub/kubrick/images/kubrickbgcolor.gif"); }
+#page { background: url("https://s0.wp.com/wp-content/themes/pub/kubrick/images/kubrickbgwide.gif") repeat-y top !important; border: none; }
+#header { background: url("https://s0.wp.com/wp-content/themes/pub/kubrick/images/kubrickheader.gif") no-repeat bottom center; }
+#footer { background: url("https://s0.wp.com/wp-content/themes/pub/kubrick/images/kubrickfooter.gif") no-repeat bottom; border: none;}
+#header { margin: 0 !important; margin: 0 0 0 1px; padding: 1px; height: 198px; width: 758px; }
+#headerimg { margin: 7px 9px 0; height: 192px; width: 740px; }
+#headerimg h1 a, #headerimg h1 a:visited, #headerimg .description { color: #FFFFFF; }
+#headerimg h1 a, #headerimg .description { display:  }
+
+	--></style><meta name="application-name" content="Perl 6 Advent Calendar" /><meta name="msapplication-window" content="width=device-width;height=device-height" /><meta name="msapplication-tooltip" content="Something cool about Perl 6 every day" /><meta name="msapplication-task" content="name=Subscribe;action-uri=https://perl6advent.wordpress.com/feed/;icon-uri=https://s2.wp.com/i/favicon.ico" /><meta name="msapplication-task" content="name=Sign up for a free blog;action-uri=http://wordpress.com/signup/;icon-uri=https://s2.wp.com/i/favicon.ico" /><meta name="msapplication-task" content="name=WordPress.com Support;action-uri=http://support.wordpress.com/;icon-uri=https://s2.wp.com/i/favicon.ico" /><meta name="msapplication-task" content="name=WordPress.com Forums;action-uri=http://forums.wordpress.com/;icon-uri=https://s2.wp.com/i/favicon.ico" /><meta name="title" content="Day 16: We call it &#8216;the old switcheroo&#8217; | Perl 6 Advent Calendar on WordPress.com" />
+<meta name="description" content="Another glorious day in Advent; another gift awaits us. It&#039;s switch statements! Well, the term for them is still &quot;switch statement&quot; in Perl 6, but the keyword has changed for linguistic reasons. It&#039;s now given, as in &quot;given today&#039;s weather&quot;: given $weather { when &#039;sunny&#039; { say &#039;Aah! ☀&#039; } when &#039;cloudy&#039; { say &#039;Meh.&hellip;" />
+<style type="text/css">
+#header     { margin: 0 !important; margin: 0 0 0 1px; padding: 1px; height: 198px; width: 758px; }
+#headerimg  { margin: 7px 9px 0; height: 192px; width: 740px; }
+#headerimg { background: url(https://perl6advent.files.wordpress.com/2009/12/perl6advent2.png) no-repeat top;}
+#header h1 a, #header h1 a:hover, #header .description {
+	color: #fff;
+}
+</style>
+
+<script type='text/javascript' src='http://partner.googleadservices.com/gampad/google_service.js'>
+</script>
+<script type='text/javascript'>
+if ( typeof GS_googleAddAdSenseService == 'function' ) { GS_googleAddAdSenseService("ca-pub-3443918307802676"); }
+if ( typeof GS_googleEnableAllServices == 'function' ) { GS_googleEnableAllServices() };
+</script>
+<script type="text/javascript" src="http://c.amazon-adsystem.com/aax2/amzn_ads.js"></script>
+<script type="text/javascript">
+try { amznads.getAds("3033","300x250"); } catch(e) { /* ignore */ }
+</script>
+<script type="text/javascript">
+var amznKeys = amznads.getKeys();
+if (typeof amznKeys != "undefined" && amznKeys != "") { for (var i =0; i < amznKeys.length; i++) { var key = amznKeys[i]; GA_googleAddAttr("amzn", key);} }
+document.close();
+</script>
+<script type='text/javascript'>
+if ( typeof GA_googleAddSlot == 'function' ) { GA_googleAddSlot("ca-pub-3443918307802676", "wpcom_below_post"); }
+</script>
+<script type='text/javascript'>
+if ( typeof GA_googleFetchAds == 'function' ) { GA_googleFetchAds(); }
+</script>
+
+<script type="text/javascript">
+var wpcom_ads = { bid: 10740073, pt: 'permalink', wa: 0, as: 0, domain: 'perl6advent.wordpress.com', url: 'https://perl6advent.wordpress.com/2009/12/16/day-16-we-call-it-the-old-switcheroo/', gid: '', };
+</script>
+<style type="text/css" id="syntaxhighlighteranchor"></style>
+<script type="text/javascript">
+	window.google_analytics_uacct = "UA-52447-2";
+</script>
+
+<script type="text/javascript">
+	var _gaq = _gaq || [];
+	_gaq.push(['_setAccount', 'UA-52447-2']);
+	_gaq.push(['_setDomainName', 'wordpress.com']);
+	_gaq.push(['_initData']);
+	_gaq.push(['_trackPageview']);
+
+	(function() {
+		var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+		ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+		(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(ga);
+	})();
+</script>
+</head>
+<body class="single single-post postid-272 single-format-standard mp6 highlander-enabled highlander-light">
+<div id="page">
+
+<div id="header">
+	<div id="headerimg" onclick=" location.href='https://perl6advent.wordpress.com';" style="cursor: pointer;">
+		<h1><a href="https://perl6advent.wordpress.com/">Perl 6 Advent Calendar</a></h1>
+		<div class="description">Something cool about Perl 6 every day</div>
+	</div>
+</div>
+<hr />
+
+	<div id="content" class="widecolumn">
+
+	
+		<div class="navigation">
+			<div class="alignleft">&laquo; <a href="https://perl6advent.wordpress.com/2009/12/15/day-15-pick-your-game/" rel="prev">Day 15: .pick your&nbsp;game</a></div>
+			<div class="alignright"><a href="https://perl6advent.wordpress.com/2009/12/17/day-17-making-snowmen/" rel="next">Day 17: Making&nbsp;Snowmen</a> &raquo;</div>
+		</div>
+
+		<div class="post-272 post type-post status-publish format-standard hentry category-2009 clear" id="post-272">
+			<h2>Day 16: We call it &#8216;the old switcheroo&#8217;</h2>
+			<small class="single-by"><span class="by-author"><span class="sep">by</span> <span class="author vcard"><a class="url fn n" href="https://perl6advent.wordpress.com/author/brushingupmyknuth/" title="View all posts by carl" rel="author">carl</a></span> </span></small>
+
+			<div class="entry">
+				<p>Another glorious day in Advent; another gift awaits us. It&#8217;s switch statements!</p>
+<p>Well, the term for them is still &#8220;switch statement&#8221; in Perl 6, but the keyword has changed for linguistic reasons. It&#8217;s now <code>given</code>, as in &#8220;given today&#8217;s weather&#8221;:</p>
+<pre>
+given $weather {
+  when 'sunny'  { say 'Aah! ☀'                    }
+  when 'cloudy' { say 'Meh. ☁'                    }
+  when 'rainy'  { say 'Where is my umbrella? ☂'   }
+  when 'snowy'  { say 'Yippie! ☃'                 }
+  default       { say 'Looks like any other day.' }
+}
+</pre>
+<p>Here&#8217;s a minimal explanation of the semantics, just to get us started: in the above example, the contents of the variable <code>$weather</code> is tested against the strings <code>'sunny'</code>, <code>'cloudy'</code>, <code>'rainy'</code>, and <code>'snowy'</code>, one after the other. If either of them matches, the corresponding block runs. If none matches, the <code>default</code> block triggers instead.</p>
+<p>Not so different from switch statements in other languages, in other words. (But wait!) We&#8217;ll note in passing that the <code>when</code> blocks don&#8217;t automatically fall through, so if you have several conditions which would match, only the first one will run:</p>
+<pre>
+given $probability {
+  when     1.00 { say 'A certainty'   }
+  when * &gt; 0.75 { say 'Quite likely'  }
+  when * &gt; 0.50 { say 'Likely'        }
+  when * &gt; 0.25 { say 'Unlikely'      }
+  when * &gt; 0.00 { say 'Very unlikely' }
+  when     0.00 { say 'Fat chance'  }
+}
+</pre>
+<p>So if you have a <code>$probability</code> of <code>0.80</code>, the above code will print <code>Quite likely</code>, but not <code>Likely</code>, <code>Unlikely</code> etc. (In the cases when you want to &#8220;fall through&#8221; from a <code>when</code> block, you can end it with the keyword <code>continue</code>.) (<b>Update:</b> after spec discussions that originated in the comments of this post, <code>break</code>/<code>continue</code> <a href="https://github.com/perl6/specs/commit/f8bc519c44d476d8bef23cbcc65bcaa816b40365">were renamed</a> to <code>succeed</code>/<code>proceed</code>.)</p>
+<p>Note that in the above code, strings and decimal numbers and comparisons are used as the <code>when</code> expression. How does Perl 6 know how to match the <code>given</code> value against the <code>when</code> value, when both can be of wildly varying types?</p>
+<p>The answer is that the two values enter a negotiation process called <em>smartmatching</em>, mentioned briefly in <a href='https://perl6advent.wordpress.com/2009/12/13/day-13-junctions/'>Day 13</a>. To summarize, smartmatching (written as <code>$a ~~ $b</code>) is a kind of &#8220;regex matching on steroids&#8221;, where the <code>$b</code> doesn&#8217;t have to be a regex, but can be of any type. For ranges, the smartmatch will check if the value we want to match is within the range. If <code>$b</code> is a class or a role or a subtype, the smartmatch will perform a type check. And so on. For values like <code>Num</code> and <code>Str</code> which represent themselves, some appropriate equivalence check is made.</p>
+<p>The &#8220;whatever star&#8221; (<code>*</code>) has the peculiar property that it smartmatches on anything. Oh, and <code>default</code> is just sugar for <code>when *</code>.</p>
+<p>To summarize the summary, smartmatching is DWIM in operator form. And the <code>given</code>/<code>when</code> construct runs on top of it.</p>
+<p>Now for something slightly head-spinning: the <code>given</code> and <code>when</code> features are actually independant! While you complete the syllable &#8220;WHAT?&#8221;, let me explain how.</p>
+<p>Given is actually a sort of once-only <code>for</code> loop.</p>
+<pre>
+given $punch-card {
+  .bend;
+  .fold;
+  .mutilate;
+}
+</pre>
+<p>See what happened there? All <code>given</code> does is set the topic, also known to Perl people as <code>$_</code>. The cute <code>.method</code> is actually short for <code>$_.method</code>.</p>
+<p>Now it&#8217;s easier to see how <code>when</code> can be used without a <code>given</code>, too. <code>when</code> can be used inside any block which sets <code>$_</code>, implicitly or explicitly:</p>
+<pre>
+my $scanning;
+for $*IN.lines {
+  when /start/ { $scanning = True }
+  when /stop/  { $scanning = False }
+
+  if $scanning {
+    # Do something which only happens between the
+    # lines containing 'start' and 'stop'
+  }
+}
+</pre>
+<p>Note that those <code>when</code> blocks exhibit the same behaviour as the in a <code>given</code> block: they skip the rest of the surrounding block after executing, which in the above code means they go directly to the next line in the input.</p>
+<p>Here&#8217;s another example, this time with <code>$_</code> explicitly set:</p>
+<pre>
+sub fib(Int $_) {
+  when * &lt; 2 { 1 }
+  default { fib($_ - 1) + fib($_ - 2) }
+}
+</pre>
+<p>(This independence between <code>given</code> and <code>when</code> plays out in other ways too. For example, the way to handle exceptions is with a <code>CATCH</code> block, a variant of <code>given</code> which topicalizes on <code>$!</code>, the variable holding the most recent exception.)</p>
+<p>To top it all off, both <code>given</code> and <code>when</code> come in statement-ending varieties, just as <code>for</code>, <code>if</code> and the others:</p>
+<pre>
+  say .[0] + .[1] + .[2] given @list;
+</pre>
+<pre>
+  say 'My God, it's full of vowels!' when /^ &lt;[aeiou]&gt;+ $/;
+</pre>
+<p>You can even nest a <code>when</code> inside a <code>given</code>:</p>
+<pre>
+  say 'Boo!' when /phantom/ given $castle;
+</pre>
+<p>As <code>given</code> and <code>when</code> represent another striking blow against the Perl obfuscation track record, I hereby present you with the parting gift of an obfu DNA helix, knowing full well that it doesn&#8217;t quite make up for the damage caused. :)</p>
+<pre>
+$ perl6 -e 'for ^20 {my ($a,$b)=&lt;AT CG&gt;.pick.comb.pick(*);\
+  my ($c,$d)=sort map {6+4*sin($_/2)},$_,$_+4;\
+  printf "%{$c}s%{$d-$c}s\n",$a,$b}'
+     G  C
+      TA
+     C G
+   G    C
+ C     G
+ G     C
+ T   A
+  CG
+ CG
+ C   G
+ T     A
+  T     A
+   T    A
+     C G
+      TA
+    T   A
+  T     A
+ A     T
+ C    G
+ G  C
+</pre>
+
+<div class="wpa" style="position: relative; width:300px; text-align: center; padding: 0; margin: 10px auto; overflow: hidden; clear: both;">
+<a style="position: absolute; text-align: left; display: block; font: 9px/1 sans-serif; text-decoration: underline;" href="http://en.wordpress.com/about-these-ads/" rel="nofollow">About these ads</a>
+<script type="text/javascript">
+		var wpcom_adclk_hovering = false;
+		var wpcom_adclk_recorded = false;
+		var wpcom_adclk_theme = "Kubrick";
+		var wpcom_adclk_slot = "wpcom_below_post";
+		var wpcom_adclk_network = ( typeof wpcom_adclk_network === "undefined" ) ? "" : wpcom_adclk_network ;
+
+		jQuery(document).ready( function() {
+			function wpcom_adclk_hover_yes() { wpcom_adclk_hovering = true; }
+			function wpcom_adclk_hover_no() { wpcom_adclk_hovering = false; }
+			jQuery(".wpa").click(wpcom_adclk_click);
+			jQuery(".wpa iframe").hover( wpcom_adclk_hover_yes, wpcom_adclk_hover_no );
+			jQuery(".wpa object").hover( wpcom_adclk_hover_yes, wpcom_adclk_hover_no );
+
+			jQuery(window).blur( function() {
+				if ( wpcom_adclk_hovering ) { wpcom_adclk_click(); }
+			});
+		});
+
+		function wpcom_adclk_impression() {
+			var stat_gif = document.location.protocol + "//stats.wordpress.com/g.gif?v=wpcom-no-pv";
+			stat_gif += "&x_ads_imp_theme=" + wpcom_adclk_theme;
+			stat_gif += "&x_ads_imp_placement="+wpcom_adclk_slot;
+			stat_gif += "&x_ads_imp_network=" + wpcom_adclk_network;
+			stat_gif += "&x_ads_imp_theme_network="+wpcom_adclk_theme+"_"+wpcom_adclk_network;
+			new Image().src = stat_gif + "&baba=" + Math.random();
+			return true;
+		}
+
+		function wpcom_adclk_click() {
+			if (wpcom_adclk_recorded) { return true; } // no double counting
+			var stat_gif = document.location.protocol + "//stats.wordpress.com/g.gif?v=wpcom-no-pv";
+			stat_gif += "&x_ads_click_theme=" + wpcom_adclk_theme;
+			stat_gif += "&x_ads_click_placement="+wpcom_adclk_slot;
+			stat_gif += "&x_ads_click_network=" + wpcom_adclk_network;
+			stat_gif += "&x_ads_click_theme_network="+wpcom_adclk_theme+"_"+wpcom_adclk_network;
+
+			new Image().src = stat_gif + "&baba=" + Math.random();
+			wpcom_adclk_recorded = true;
+			var now=new Date(); var end=now.getTime()+250;
+			while(true){now=new Date();if(now.getTime()>end){break;}}
+			return true;
+		}
+	
+if ( typeof GA_googleAddAttr == 'function' ) {
+GA_googleAddAttr("AdOpt", "1");
+GA_googleAddAttr("Origin", "other");
+GA_googleAddAttr("LangId", "1");
+GA_googleAddAttr("Domain", "perl6advent.wordpress.com");
+GA_googleAddAttr("BlogId", "10740073");
+GA_googleAddAttr("PageURL", "https://perl6advent.wordpress.com/2009/12/16/day-16-we-call-it-the-old-switcheroo/");
+GA_googleAddAttr("Autotag", "technology");
+GA_googleAddAttr("Autotag", "science");
+GA_googleAddAttr("Autotag", "entertainment");
+GA_googleAddAttr("Tag", "2009");
+GA_googleAddAttr("theme_bg", "ffffff");
+GA_googleAddAttr("theme_text", "333333");
+GA_googleAddAttr("theme_link", "0066cc");
+GA_googleAddAttr("theme_border", "f9f9f9");
+GA_googleAddAttr("theme_url", "114477");
+GA_googleAddAdSensePageAttr("google_page_url", "https://perl6advent.wordpress.com/2009/12/16/day-16-we-call-it-the-old-switcheroo/");
+GA_googleFillSlot("wpcom_below_post");
+}
+</script>
+</div>
+<style type="text/css">
+div.wpa>div { margin-top: 1em; } #google_ads_div_wpcom_below_post_adsafe_ad_container { display: block !important; }
+</style>
+<script type="text/javascript">
+jQuery( window ).load( function() {
+    if ( jQuery(".wpa script[src*='virool.com']").length > 0 || jQuery(".wpa script[src*='shareth.ru']").length > 0 || jQuery(".wpa iframe[src*='boomvideo.tv']").length > 0 || jQuery(".wpa iframe[src*='viewablemedia.net']").length > 0 || jQuery(".wpa .sharethrough-placement").length > 0 ) {
+        jQuery( '.wpa' ).css( 'width', '400px' );
+    }
+setTimeout(function(){if(typeof GS_googleAddAdSenseService !== 'function'){new Image().src=document.location.protocol+"//stats.wordpress.com/g.gif?v=wpcom-no-pv&x_noads=adblock&baba="+Math.random()}},100);
+} );
+</script>
+<div id="jp-post-flair" class="sharedaddy sd-like-enabled"><div class='sharedaddy sd-block sd-like jetpack-likes-widget-wrapper jetpack-likes-widget-unloaded' id='like-post-wrapper-10740073-272-534cd1b981fcd' data-src='//widgets.wp.com/likes/#blog_id=10740073&amp;post_id=272&amp;origin=perl6advent.wordpress.com&amp;obj_id=10740073-272-534cd1b981fcd' data-name='like-post-frame-10740073-272-534cd1b981fcd'><h3 class='sd-title'>Like this:</h3><div class='likes-widget-placeholder post-likes-widget-placeholder' style='height:55px'><span class='button'><span>Like</span></span> <span class="loading">Loading...</span></div><span class='sd-text-color'></span><a class='sd-link-color'></a></div>
+<div id='jp-relatedposts' class='jp-relatedposts' >
+	<h3 class="jp-relatedposts-headline"><em>Related</em></h3>
+</div></div>
+								
+				<p class="postmetadata alt">
+					<small>
+												This entry was posted on December 16, 2009 at 12:01 am and is filed under <a href="https://perl6advent.wordpress.com/category/2009/" title="View all posts in 2009" rel="category tag">2009</a>.						You can follow any responses to this entry through the <a href='https://perl6advent.wordpress.com/2009/12/16/day-16-we-call-it-the-old-switcheroo/feed/'>RSS 2.0</a> feed.
+													You can <a href="#respond">leave a response</a>, or <a href="https://perl6advent.wordpress.com/2009/12/16/day-16-we-call-it-the-old-switcheroo/trackback/" rel="trackback">trackback</a> from your own site.
+						
+					</small>
+				</p>
+
+			</div>
+		</div>
+
+	
+<!-- You can start editing here. -->
+	<h3 id="comments">24 Responses to &#8220;Day 16: We call it &#8216;the old switcheroo&#8217;&#8221;</h3>
+
+	<ol class="commentlist">
+					<li class="comment even thread-even depth-1 highlander-comment" id="comment-131">
+			<img alt='' src='https://1.gravatar.com/avatar/7232dd2192f11786172a4aaf43bfc0db?s=32&#038;d=identicon&#038;r=G' class='avatar avatar-32' height='32' width='32' />			<cite>VZ</cite> Says:						<br />
+
+			<small class="commentmetadata"><a href="#comment-131" title="">December 16, 2009 at 9:09 am</a> | <a class='comment-reply-link' href='/2009/12/16/day-16-we-call-it-the-old-switcheroo/?replytocom=131#respond' onclick='return addComment.moveForm("comment-131", "131", "respond", "272")'>Reply</a> </small>
+
+			<p>Thanks for the nice article with the examples! I can&#8217;t help wondering about something though: if &#8220;continue&#8221; inside &#8220;when&#8221; makes it fall through to the next when clause but &#8220;when&#8221; inside a for loop already implicitly continues (because it skips the rest of the block by default), doesn&#8217;t it mean that using &#8220;continue&#8221; inside &#8220;when&#8221; inside &#8220;for&#8221; has the effect exactly opposite to that of using &#8220;continue&#8221; inside &#8220;for&#8221; itself directly? If so, this would be extremely confusing IMHO so I really hope I&#8217;m missing something here&#8230;</p>
+<ul class="children">
+			<li class="comment byuser comment-author-brushingupmyknuth bypostauthor odd alt depth-2 highlander-comment" id="comment-132">
+			<img alt='' src='https://2.gravatar.com/avatar/2d9d4815e8e5927a4e04cdea13ca1e36?s=32&#038;d=identicon&#038;r=G' class='avatar avatar-32' height='32' width='32' />			<cite>carl</cite> Says:						<br />
+
+			<small class="commentmetadata"><a href="#comment-132" title="">December 16, 2009 at 10:18 am</a> | <a class='comment-reply-link' href='/2009/12/16/day-16-we-call-it-the-old-switcheroo/?replytocom=132#respond' onclick='return addComment.moveForm("comment-132", "132", "respond", "272")'>Reply</a> </small>
+
+			<p>Let me guess; you&#8217;re a Java programmer? :)</p>
+<p>What you&#8217;re used to as &#8216;continue&#8217; (with the semantics &#8216;go to next iteration in loop&#8217;) is called &#8216;next&#8217; in Perl. In fact, all three keywords which control the flow in loops are &#8220;four-letter words&#8221; (next, last, redo), and line up nicely if you write them in a bunch at the start of the loop block.</p>
+<p>The function of &#8216;continue&#8217; in Perl 6 is only to counteract the default behaviour of &#8216;when&#8217; blocks, so they fall through instead of terminating the innermost surrounding topicalizer (<code>$_</code>-setting) block.</p>
+<ul class="children">
+			<li class="comment even depth-3 highlander-comment" id="comment-148">
+			<img alt='' src='https://1.gravatar.com/avatar/7232dd2192f11786172a4aaf43bfc0db?s=32&#038;d=identicon&#038;r=G' class='avatar avatar-32' height='32' width='32' />			<cite>VZ</cite> Says:						<br />
+
+			<small class="commentmetadata"><a href="#comment-148" title="">December 16, 2009 at 7:19 pm</a> </small>
+
+			<p>&gt; Let me guess; you’re a Java programmer?</p>
+<p>No, a C/C++ one (is this less or more embarrassing?). But normally I still know better than to use &#8220;continue&#8221; in my Perl code :-/ Sorry, next time I&#8217;ll avoid reading Perl6 blogs so early in the morning.</p>
+<p>But even though it might look like I&#8217;m clutching at straws, I still find &#8220;continue&#8221; in this context somewhat counter-intuitive. Probably it&#8217;s just my C-ish DNA which colours my perception of it&#8230;</p>
+</li><!-- #comment-## -->
+			<li class="comment byuser comment-author-brushingupmyknuth bypostauthor odd alt depth-3 highlander-comment" id="comment-149">
+			<img alt='' src='https://2.gravatar.com/avatar/2d9d4815e8e5927a4e04cdea13ca1e36?s=32&#038;d=identicon&#038;r=G' class='avatar avatar-32' height='32' width='32' />			<cite>carl</cite> Says:						<br />
+
+			<small class="commentmetadata"><a href="#comment-149" title="">December 16, 2009 at 7:24 pm</a> </small>
+
+			<p>I wasn&#8217;t aiming to embarrass either way. ;) Just useful to know someone&#8217;s background when explaining semantics.</p>
+<p>I&#8217;m sure if you have a better suggestion than &#8216;continue&#8217;, people with commit bits to the spec will listen attentively. I&#8217;ve also looked at the term occasionally and found it unfortunate that it collides with its C-family homonym.</p>
+</li><!-- #comment-## -->
+			<li class="comment even depth-3 highlander-comment" id="comment-209">
+			<img alt='' src='https://1.gravatar.com/avatar/7232dd2192f11786172a4aaf43bfc0db?s=32&#038;d=identicon&#038;r=G' class='avatar avatar-32' height='32' width='32' />			<cite>VZ</cite> Says:						<br />
+
+			<small class="commentmetadata"><a href="#comment-209" title="">December 23, 2009 at 12:14 pm</a> </small>
+
+			<p>I don&#8217;t know if this is by some chance related to this discussion but according to <a href="http://lith-ology.blogspot.com/2009/12/seven-days-between-parrot-and-camel_22.html" rel="nofollow">http://lith-ology.blogspot.com/2009/12/seven-days-between-parrot-and-camel_22.html</a> &#8220;proceed&#8221; is the new keyword replacing &#8220;continue&#8221; inside a when clause. This seems to be much nicer to me, thanks to whoever came up with it!</p>
+</li><!-- #comment-## -->
+			<li class="comment byuser comment-author-brushingupmyknuth bypostauthor odd alt depth-3 highlander-comment" id="comment-210">
+			<img alt='' src='https://2.gravatar.com/avatar/2d9d4815e8e5927a4e04cdea13ca1e36?s=32&#038;d=identicon&#038;r=G' class='avatar avatar-32' height='32' width='32' />			<cite>carl</cite> Says:						<br />
+
+			<small class="commentmetadata"><a href="#comment-210" title="">December 23, 2009 at 4:22 pm</a> </small>
+
+			<p>VZ, I don&#8217;t have the whole story of the change, but it was definitely triggered by this discussion.</p>
+<p>Consider yourself having had a direct influence on a Perl 6 keyword!</p>
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+			<li class="comment even thread-odd thread-alt depth-1 highlander-comment" id="comment-133">
+			<img alt='' src='https://1.gravatar.com/avatar/4f1a44133b6d68f9cd191c39aa7c986b?s=32&#038;d=identicon&#038;r=G' class='avatar avatar-32' height='32' width='32' />			<cite>anders!</cite> Says:						<br />
+
+			<small class="commentmetadata"><a href="#comment-133" title="">December 16, 2009 at 10:42 am</a> | <a class='comment-reply-link' href='/2009/12/16/day-16-we-call-it-the-old-switcheroo/?replytocom=133#respond' onclick='return addComment.moveForm("comment-133", "133", "respond", "272")'>Reply</a> </small>
+
+			<p>For overloading smart matching, am I right in assuming is just a plain ol&#8217; `multi sub infix:&lt;~~&gt;`?</p>
+<ul class="children">
+			<li class="comment byuser comment-author-brushingupmyknuth bypostauthor odd alt depth-2 highlander-comment" id="comment-135">
+			<img alt='' src='https://2.gravatar.com/avatar/2d9d4815e8e5927a4e04cdea13ca1e36?s=32&#038;d=identicon&#038;r=G' class='avatar avatar-32' height='32' width='32' />			<cite>carl</cite> Says:						<br />
+
+			<small class="commentmetadata"><a href="#comment-135" title="">December 16, 2009 at 12:43 pm</a> | <a class='comment-reply-link' href='/2009/12/16/day-16-we-call-it-the-old-switcheroo/?replytocom=135#respond' onclick='return addComment.moveForm("comment-135", "135", "respond", "272")'>Reply</a> </small>
+
+			<p>That might work in a limited number of cases, but you&#8217;re much better off providing your class (or subtype, or whatever) with an <code>.ACCEPTS</code> method. That&#8217;s how smartmatching actually works under the hood.</p>
+<p>Here&#8217;s an example, to get you started:</p>
+<pre>
+$ perl6 -e 'role DivisibleBy[Int $n] { method ACCEPTS($obj) { $obj !% $n } };\
+  class DivisibleByThree does DivisibleBy[3] {}; \
+  say $_ ~~ DivisibleByThree.new for 15, 20'
+1
+0
+</pre>
+<ul class="children">
+			<li class="comment byuser comment-author-colomon even depth-3 highlander-comment" id="comment-142">
+			<img alt='' src='https://0.gravatar.com/avatar/3bfeb633907f64a75fb2db415eb13370?s=32&#038;d=identicon&#038;r=G' class='avatar avatar-32' height='32' width='32' />			<cite><a href='https://perl6advent.wordpress.com' rel='external nofollow' class='url'>colomon</a></cite> Says:						<br />
+
+			<small class="commentmetadata"><a href="#comment-142" title="">December 16, 2009 at 4:04 pm</a> </small>
+
+			<p>Carl, is there a good explanation in the spec of how ACCEPTS is supposed to work?</p>
+</li><!-- #comment-## -->
+			<li class="comment byuser comment-author-brushingupmyknuth bypostauthor odd alt depth-3 highlander-comment" id="comment-145">
+			<img alt='' src='https://2.gravatar.com/avatar/2d9d4815e8e5927a4e04cdea13ca1e36?s=32&#038;d=identicon&#038;r=G' class='avatar avatar-32' height='32' width='32' />			<cite>carl</cite> Says:						<br />
+
+			<small class="commentmetadata"><a href="#comment-145" title="">December 16, 2009 at 4:10 pm</a> </small>
+
+			<p>colomon: yes, there is, in S03.</p>
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+			<li class="comment even thread-even depth-1 highlander-comment" id="comment-137">
+			<img alt='' src='https://1.gravatar.com/avatar/df3002cae3d83547a83e794178f26877?s=32&#038;d=identicon&#038;r=G' class='avatar avatar-32' height='32' width='32' />			<cite>Doug</cite> Says:						<br />
+
+			<small class="commentmetadata"><a href="#comment-137" title="">December 16, 2009 at 3:56 pm</a> | <a class='comment-reply-link' href='/2009/12/16/day-16-we-call-it-the-old-switcheroo/?replytocom=137#respond' onclick='return addComment.moveForm("comment-137", "137", "respond", "272")'>Reply</a> </small>
+
+			<p>Wait &#8230; so does this mean that &#8216;when&#8217; is mostly just syntactic sugar for &#8216;if &#8230; elseif &#8230; else&#8217; + &#8216;last&#8217; and smart matching?  Doesn&#8217;t seem to add much in terms of new features, but there&#8217;s something to be said for code cleanliness.</p>
+<ul class="children">
+			<li class="comment byuser comment-author-colomon odd alt depth-2 highlander-comment" id="comment-141">
+			<img alt='' src='https://0.gravatar.com/avatar/3bfeb633907f64a75fb2db415eb13370?s=32&#038;d=identicon&#038;r=G' class='avatar avatar-32' height='32' width='32' />			<cite><a href='https://perl6advent.wordpress.com' rel='external nofollow' class='url'>colomon</a></cite> Says:						<br />
+
+			<small class="commentmetadata"><a href="#comment-141" title="">December 16, 2009 at 4:04 pm</a> | <a class='comment-reply-link' href='/2009/12/16/day-16-we-call-it-the-old-switcheroo/?replytocom=141#respond' onclick='return addComment.moveForm("comment-141", "141", "respond", "272")'>Reply</a> </small>
+
+			<p>Yes, mostly.  The syntax for the conditional part is a touch different between <code>if</code> and <code>when</code>, but &#8220;mostly&#8221; just syntactic sugar is correct.</p>
+<p>But it is &#8220;just right&#8221; syntactic sugar, IMO.  Much like <code>say</code> (which is 99% just <code>print</code> with <code>"\n"</code> tacked on), once you&#8217;ve incorporated it into your programming, it feels absolutely essential.</p>
+</li><!-- #comment-## -->
+			<li class="comment even depth-2 highlander-comment" id="comment-143">
+			<img alt='' src='https://0.gravatar.com/avatar/c53d81245d85989dd6aa2018a2278fd5?s=32&#038;d=identicon&#038;r=G' class='avatar avatar-32' height='32' width='32' />			<cite>Joe Z</cite> Says:						<br />
+
+			<small class="commentmetadata"><a href="#comment-143" title="">December 16, 2009 at 4:05 pm</a> | <a class='comment-reply-link' href='/2009/12/16/day-16-we-call-it-the-old-switcheroo/?replytocom=143#respond' onclick='return addComment.moveForm("comment-143", "143", "respond", "272")'>Reply</a> </small>
+
+			<p>*chuckle*</p>
+<p>We posted the same question in parallel.  I guess an answer to any(Doug, Joe Z) would work.  ;-)</p>
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+			<li class="comment odd alt thread-odd thread-alt depth-1 highlander-comment" id="comment-140">
+			<img alt='' src='https://0.gravatar.com/avatar/c53d81245d85989dd6aa2018a2278fd5?s=32&#038;d=identicon&#038;r=G' class='avatar avatar-32' height='32' width='32' />			<cite>Joe Z</cite> Says:						<br />
+
+			<small class="commentmetadata"><a href="#comment-140" title="">December 16, 2009 at 4:03 pm</a> | <a class='comment-reply-link' href='/2009/12/16/day-16-we-call-it-the-old-switcheroo/?replytocom=140#respond' onclick='return addComment.moveForm("comment-140", "140", "respond", "272")'>Reply</a> </small>
+
+			<p>First, I&#8217;d like to say &#8220;HURRAY!&#8221; for this use of &#8220;given&#8221;:</p>
+<pre>
+given $punch-card {
+  .bend;
+  .fold;
+  .mutilate;
+}
+</pre>
+<p>I was just telling someone the other day that the only feature that I really miss from my Pascal days almost two decades ago was its &#8220;with <i>record</i> do&#8221; construct, and that&#8217;s almost exactly what &#8220;given&#8221; accomplishes in that example.</p>
+<p>Second, I have a question:  If I understood correctly, the &#8220;when&#8221; clause implicitly terminates the block it&#8217;s in whenever it fires.  Am I correct in thinking that a series of &#8220;when&#8221; clauses look more like a bunch of nested &#8220;if-else&#8221; blocks?  ie:</p>
+<pre>
+{
+  when /start/ { $scanning = True }
+  when /stop/  { $scanning = False }
+
+  if $scanning {
+    # Do something which only happens between the
+    # lines containing 'start' and 'stop'
+  }
+}
+</pre>
+<p>Is that then equivalent to:</p>
+<pre>
+{
+  if /start/ { $scanning = True }
+  else {
+    if /stop/  { $scanning = False }
+    else {
+      if $scanning {
+        # Do something which only happens between the
+        # lines containing 'start' and 'stop'
+      }
+    }
+  }
+}
+</pre>
+<p>(I&#8217;ve purposefully ignored &#8220;continue&#8221; for the moment.)</p>
+<p>Does that mean a stray &#8220;when&#8221; could accidentally short circuit a ton of program code?  For example, if I put a &#8220;when&#8221; at the top level of my program and it fires, would it effectively terminate my program at that point?</p>
+<ul class="children">
+			<li class="comment byuser comment-author-brushingupmyknuth bypostauthor even depth-2 highlander-comment" id="comment-144">
+			<img alt='' src='https://2.gravatar.com/avatar/2d9d4815e8e5927a4e04cdea13ca1e36?s=32&#038;d=identicon&#038;r=G' class='avatar avatar-32' height='32' width='32' />			<cite>carl</cite> Says:						<br />
+
+			<small class="commentmetadata"><a href="#comment-144" title="">December 16, 2009 at 4:09 pm</a> | <a class='comment-reply-link' href='/2009/12/16/day-16-we-call-it-the-old-switcheroo/?replytocom=144#respond' onclick='return addComment.moveForm("comment-144", "144", "respond", "272")'>Reply</a> </small>
+
+			<p>As for the last question: no. The Perl 6 specification states that a <code>when</code> block not found within a topicalizer block (one which sets <code>$_</code>) constitutes a compile-time error.</p>
+</li><!-- #comment-## -->
+			<li class="comment odd alt depth-2 highlander-comment" id="comment-157">
+			<img alt='' src='https://0.gravatar.com/avatar/3bb7646471eac17d4e97fd9810983fba?s=32&#038;d=identicon&#038;r=G' class='avatar avatar-32' height='32' width='32' />			<cite>patch</cite> Says:						<br />
+
+			<small class="commentmetadata"><a href="#comment-157" title="">December 18, 2009 at 12:10 am</a> | <a class='comment-reply-link' href='/2009/12/16/day-16-we-call-it-the-old-switcheroo/?replytocom=157#respond' onclick='return addComment.moveForm("comment-157", "157", "respond", "272")'>Reply</a> </small>
+
+			<p>As carl mentioned, this can also be accomplished by passing a scalar (really a single element list) to a <code>for</code> loop.  Here&#8217;s an example in Perl 5.</p>
+<pre>
+for ($punch_card) {
+  $_-&gt;bend;
+  $_-&gt;fold;
+  $_-&gt;mutilate;
+}
+</pre>
+<p>I must admit that <code>given</code> is much clearer though, especially for those who don&#8217;t know the once-only loop idiom.  I commonly use it when I need to perform several substitutions or transliterations on one string.</p>
+<pre>
+for ($phone) {
+  tr{ABC} {2};
+  tr{DEF} {3};
+  tr{GHI} {4};
+  tr{JKL} {5};
+  tr{MNO} {6};
+  tr{PQRS}{7};
+  tr{TUV} {8};
+  tr{WXYZ}{9};
+}
+</pre>
+<p>However, for this example we won&#8217;t even need <code>given</code> in Perl 6.</p>
+<pre>
+$phone.=trans(
+  ABC  =&gt; 2,
+  DEF  =&gt; 3,
+  GHI  =&gt; 4,
+  JKL  =&gt; 5,
+  MNO  =&gt; 6,
+  PQRS =&gt; 7,
+  TUV  =&gt; 8,
+  WXYZ =&gt; 9,
+);
+</pre>
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+			<li class="comment even thread-even depth-1 highlander-comment" id="comment-150">
+			<img alt='' src='https://1.gravatar.com/avatar/df3273f8561aaa2a29c24c4921e530b2?s=32&#038;d=identicon&#038;r=G' class='avatar avatar-32' height='32' width='32' />			<cite>Roie</cite> Says:						<br />
+
+			<small class="commentmetadata"><a href="#comment-150" title="">December 16, 2009 at 7:33 pm</a> | <a class='comment-reply-link' href='/2009/12/16/day-16-we-call-it-the-old-switcheroo/?replytocom=150#respond' onclick='return addComment.moveForm("comment-150", "150", "respond", "272")'>Reply</a> </small>
+
+			<p>Am I correct in understanding that the word &#8220;default&#8221; is for all intents and purposes optional? If all the &#8220;when&#8221;s fail then the code underneath will be executed whether or not it is in a &#8220;default&#8221; block. (Also, any code after the &#8220;default&#8221; block is dead and will never be executed, right?)</p>
+<ul class="children">
+			<li class="comment byuser comment-author-brushingupmyknuth bypostauthor odd alt depth-2 highlander-comment" id="comment-151">
+			<img alt='' src='https://2.gravatar.com/avatar/2d9d4815e8e5927a4e04cdea13ca1e36?s=32&#038;d=identicon&#038;r=G' class='avatar avatar-32' height='32' width='32' />			<cite>carl</cite> Says:						<br />
+
+			<small class="commentmetadata"><a href="#comment-151" title="">December 16, 2009 at 7:44 pm</a> | <a class='comment-reply-link' href='/2009/12/16/day-16-we-call-it-the-old-switcheroo/?replytocom=151#respond' onclick='return addComment.moveForm("comment-151", "151", "respond", "272")'>Reply</a> </small>
+
+			<p>Yes. Yes. (Yes, unless there was a &#8216;continue&#8217; in the &#8216;default&#8217; block.)</p>
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+			<li class="comment even thread-odd thread-alt depth-1 highlander-comment" id="comment-152">
+			<img alt='' src='https://2.gravatar.com/avatar/2cd22b56387330c6247f805266eb45ab?s=32&#038;d=identicon&#038;r=G' class='avatar avatar-32' height='32' width='32' />			<cite>sam</cite> Says:						<br />
+
+			<small class="commentmetadata"><a href="#comment-152" title="">December 17, 2009 at 7:32 am</a> | <a class='comment-reply-link' href='/2009/12/16/day-16-we-call-it-the-old-switcheroo/?replytocom=152#respond' onclick='return addComment.moveForm("comment-152", "152", "respond", "272")'>Reply</a> </small>
+
+			<p>why isn&#8217;t it &#8216;as&#8217; instead of &#8216;when&#8217;? that&#8217;d save you from typing 2 extra characters each time.</p>
+<ul class="children">
+			<li class="comment byuser comment-author-foobar123 odd alt depth-2 highlander-comment" id="comment-153">
+			<img alt='' src='https://2.gravatar.com/avatar/eb69242357e150e580be56604b208a83?s=32&#038;d=identicon&#038;r=G' class='avatar avatar-32' height='32' width='32' />			<cite><a href='http://perlgeek.de/' rel='external nofollow' class='url'>Moritz</a></cite> Says:						<br />
+
+			<small class="commentmetadata"><a href="#comment-153" title="">December 17, 2009 at 9:16 am</a> | <a class='comment-reply-link' href='/2009/12/16/day-16-we-call-it-the-old-switcheroo/?replytocom=153#respond' onclick='return addComment.moveForm("comment-153", "153", "respond", "272")'>Reply</a> </small>
+
+			<p>I think <code>as</code> would be pretty ambiguous, whereas <code>when</code> clearly marks branches.</p>
+<p>I know that <code>when</code> is four characters, but it&#8217;s very easy to type on most keyboards because first and third characters are typed with the left hand, and second and fourth with the right hand :-)</p>
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+			<li class="comment even thread-even depth-1 highlander-comment" id="comment-168">
+			<img alt='' src='https://1.gravatar.com/avatar/42ea7dfc0105bc420242e2ee16d911ca?s=32&#038;d=identicon&#038;r=G' class='avatar avatar-32' height='32' width='32' />			<cite><a href='http://ptman.name/' rel='external nofollow' class='url'>Paul Tötterman</a></cite> Says:						<br />
+
+			<small class="commentmetadata"><a href="#comment-168" title="">December 19, 2009 at 11:13 am</a> | <a class='comment-reply-link' href='/2009/12/16/day-16-we-call-it-the-old-switcheroo/?replytocom=168#respond' onclick='return addComment.moveForm("comment-168", "168", "respond", "272")'>Reply</a> </small>
+
+			<p>I think there&#8217;s a typo in the fib-function. If fib(0) and fib(1) return 0, the series will never grow. They should return 1.</p>
+<ul class="children">
+			<li class="comment byuser comment-author-brushingupmyknuth bypostauthor odd alt depth-2 highlander-comment" id="comment-169">
+			<img alt='' src='https://2.gravatar.com/avatar/2d9d4815e8e5927a4e04cdea13ca1e36?s=32&#038;d=identicon&#038;r=G' class='avatar avatar-32' height='32' width='32' />			<cite>carl</cite> Says:						<br />
+
+			<small class="commentmetadata"><a href="#comment-169" title="">December 19, 2009 at 12:40 pm</a> | <a class='comment-reply-link' href='/2009/12/16/day-16-we-call-it-the-old-switcheroo/?replytocom=169#respond' onclick='return addComment.moveForm("comment-169", "169", "respond", "272")'>Reply</a> </small>
+
+			<p>Now fixed. Thanks for noticing!</p>
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+			<li class="comment even thread-odd thread-alt depth-1 highlander-comment" id="comment-236">
+			<img alt='' src='https://0.gravatar.com/avatar/f731ab5313beb6fd680c8a9a51612925?s=32&#038;d=identicon&#038;r=G' class='avatar avatar-32' height='32' width='32' />			<cite><a href='http://none' rel='external nofollow' class='url'>Sitaram</a></cite> Says:						<br />
+
+			<small class="commentmetadata"><a href="#comment-236" title="">December 31, 2009 at 8:38 am</a> | <a class='comment-reply-link' href='/2009/12/16/day-16-we-call-it-the-old-switcheroo/?replytocom=236#respond' onclick='return addComment.moveForm("comment-236", "236", "respond", "272")'>Reply</a> </small>
+
+			<p>Could you elaborate on the &#8220;*&#8221;.  For example, I notice that the fib() example works even if I replace the lone &#8220;*&#8221; with &#8220;$_&#8221;.</p>
+<p>Is &#8220;*&#8221; just a 50% shorter version of $_ under special cases?  I can&#8217;t believe that&#8217;s all it is :)</p>
+<ul class="children">
+			<li class="comment byuser comment-author-brushingupmyknuth bypostauthor odd alt depth-2 highlander-comment" id="comment-237">
+			<img alt='' src='https://2.gravatar.com/avatar/2d9d4815e8e5927a4e04cdea13ca1e36?s=32&#038;d=identicon&#038;r=G' class='avatar avatar-32' height='32' width='32' />			<cite>carl</cite> Says:						<br />
+
+			<small class="commentmetadata"><a href="#comment-237" title="">December 31, 2009 at 1:12 pm</a> | <a class='comment-reply-link' href='/2009/12/16/day-16-we-call-it-the-old-switcheroo/?replytocom=237#respond' onclick='return addComment.moveForm("comment-237", "237", "respond", "272")'>Reply</a> </small>
+
+			<p>You&#8217;re right, that isn&#8217;t all it is. But the <code>fib()</code> example is not optimal to show the difference, so allow me to choose two other, clearer ones.</p>
+<p>You want to add forty-two to every number in @numbers. So you use a <code>map</code>, naturally. With <code>$_</code>, it looks like this: <code>map { $_ + 42 }, @numbers</code>; with <code>*</code>, it looks like this: <code>map * + 42, @numbers</code>.</p>
+<p>From the first example, we see that <code>*</code> is short not only for <code>$_</code>, but also for the surrounding <code>{}</code> block.</p>
+<p>Now, think about what <code>@numbers[$_ - 5]</code> means. It means &#8220;the element in <code>@numbers</code> five places before what&#8217;s in <code>$_</code>&#8220;. (For the example, it doesn&#8217;t much matter what <code>$_</code> itself contains.)</p>
+<p>Conversely, what does <code>@numbers[* - 5]</code> mean? It means &#8220;the elemens in <code>@numbers</code> five places before *mumble-mumble*&#8221;. Or, in code, <code>@numbers[ { $_ - 5 } ]</code>. The mumbling comes from the fact that the <code>$_</code> won&#8217;t be evaluated until the block is run, and a <code>$_</code> value is sent in as a parameter. Now, it so happens that array indexings evaluate blocks by sending in their number of elements (their &#8220;length&#8221;) as a parameter to the block, so the code actually comes to mean <code>@numbers[ @numbers - 5 ]</code>, or &#8220;the fifth last element in <code>@numbers</code>&#8220;.</p>
+<p>Summing up, <code>*</code> means not just <code>$_</code>, but <code>$_</code> in a code block which is possibly run at a later time, when it&#8217;s more convenient, with a value of <code>$_</code> very much decided by the surrounding context.</p>
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+	</ol>
+
+	<div class="navigation">
+		<div class="alignleft"></div>
+		<div class="alignright"></div>
+	</div>
+
+
+
+								<div id="respond" class="comment-respond">
+				<h3 id="reply-title" class="comment-reply-title">Leave a Reply <small><a rel="nofollow" id="cancel-comment-reply-link" href="/2009/12/16/day-16-we-call-it-the-old-switcheroo/#respond" style="display:none;">Cancel reply</a></small></h3>
+									<form action="https://perl6advent.wordpress.com/wp-comments-post.php" method="post" id="commentform" class="comment-form">
+																										
+
+
+												<input type="hidden" id="highlander_comment_nonce" name="highlander_comment_nonce" value="69292a17f8" /><input type="hidden" name="_wp_http_referer" value="/2009/12/16/day-16-we-call-it-the-old-switcheroo/" />
+<input type="hidden" name="hc_post_as" id="hc_post_as" value="guest" />
+
+<div class="comment-form-field comment-textarea">
+	<label for="comment">Enter your comment here...</label>
+	<div id="comment-form-comment"><textarea id="comment" name="comment" title="Enter your comment here..."></textarea></div>
+</div>
+
+<div id="comment-form-identity">
+
+	<div id="comment-form-nascar">
+		<p>Fill in your details below or click an icon to log in:</p>
+		<ul>
+			<li class="selected" style="display:none;">
+				<a href="#comment-form-guest" id="postas-guest" title="Guest">
+					<span></span>
+				</a>
+			</li>
+			<li>
+				<a href="#comment-form-load-service:WordPress.com" id="postas-wordpress" title="WordPress.com">
+					<span></span>
+				</a>
+			</li>
+			<li>
+				<a href="#comment-form-load-service:Twitter" id="postas-twitter" title="Twitter">
+					<span></span>
+				</a>
+			</li>
+			<li>
+				<a href="#comment-form-load-service:Facebook" id="postas-facebook" title="Facebook">
+					<span></span>
+				</a>
+			</li>
+			<li>
+			<iframe id="googleplus-sign-in" name="googleplus-sign-in" src="https://public-api.wordpress.com/connect/?googleplus-sign-in=https%3A%2F%2Fperl6advent.wordpress.com" width="24" height="24" scrolling="no" allowtransparency="true" seamless="seamless" frameborder="0"></iframe>
+			</li>
+		</ul>
+	</div>
+
+	<div id="comment-form-guest" class="comment-form-service selected">
+		<div class="comment-form-padder">
+			<div class="comment-form-avatar">
+<a href="https://gravatar.com/site/signup/" target="_blank">				<img src="https://1.gravatar.com/avatar/ad516503a11cd5ca435acc9bb6523536?s=25&amp;d=identicon&amp;forcedefault=y&amp;r=G" alt="Gravatar" width="25" class="no-grav" />
+</a>			</div>
+
+				<div class="comment-form-fields">
+				<div class="comment-form-field comment-form-email">
+					<label for="email">Email <span class="required">(required)</span> <span class="nopublish">(Address never made public)</span></label>
+					<div class="comment-form-input"><input id="email" name="email" type="email" value="" /></div>
+				</div>
+				<div class="comment-form-field comment-form-author">
+					<label for="author">Name <span class="required">(required)</span></label>
+					<div class="comment-form-input"><input id="author" name="author" type="text" value="" /></div>
+				</div>
+				<div class="comment-form-field comment-form-url">
+					<label for="url">Website</label>
+					<div class="comment-form-input"><input id="url" name="url" type="text" value="" /></div>
+				</div>
+			</div>
+	
+		</div>
+	</div>
+
+	<div id="comment-form-wordpress" class="comment-form-service">
+		<div class="comment-form-padder">
+			<div class="comment-form-avatar">
+				<img src="https://s2.wp.com/wp-content/mu-plugins/highlander-comments/images/wplogo.png" alt="WordPress.com Logo" width="25" class="no-grav" />
+			</div>
+
+				<div class="comment-form-fields">
+				<input type="hidden" name="wp_avatar" id="wordpress-avatar" class="comment-meta-wordpress" value="" />
+				<input type="hidden" name="wp_user_id" id="wordpress-user_id" class="comment-meta-wordpress" value="" />
+				<input type="hidden" name="wp_access_token" id="wordpress-access_token" class="comment-meta-wordpress" value="" />
+				<p class="comment-form-posting-as pa-wordpress"><strong></strong> You are commenting using your WordPress.com account. <span class="comment-form-log-out">(&nbsp;<a href="javascript:HighlanderComments.doExternalLogout( 'wordpress' );">Log&nbsp;Out</a>&nbsp;/&nbsp;<a href="#" onclick="javascript:HighlanderComments.switchAccount();return false;">Change</a>&nbsp;)</span></p>
+			</div>
+	
+		</div>
+	</div>
+
+	<div id="comment-form-twitter" class="comment-form-service">
+		<div class="comment-form-padder">
+			<div class="comment-form-avatar">
+				<img src="https://1.gravatar.com/avatar/ad516503a11cd5ca435acc9bb6523536?s=25&amp;d=identicon&amp;forcedefault=y&amp;r=G" alt="Twitter picture" width="25" class="no-grav" />
+			</div>
+
+				<div class="comment-form-fields">
+				<input type="hidden" name="twitter_avatar" id="twitter-avatar" class="comment-meta-twitter" value="" />
+				<input type="hidden" name="twitter_user_id" id="twitter-user_id" class="comment-meta-twitter" value="" />
+				<input type="hidden" name="twitter_access_token" id="twitter-access_token" class="comment-meta-twitter" value="" />
+				<p class="comment-form-posting-as pa-twitter"><strong></strong> You are commenting using your Twitter account. <span class="comment-form-log-out">(&nbsp;<a href="javascript:HighlanderComments.doExternalLogout( 'twitter' );">Log&nbsp;Out</a>&nbsp;/&nbsp;<a href="#" onclick="javascript:HighlanderComments.switchAccount();return false;">Change</a>&nbsp;)</span></p>
+			</div>
+	
+		</div>
+	</div>
+
+	<div id="comment-form-facebook" class="comment-form-service">
+		<div class="comment-form-padder">
+			<div class="comment-form-avatar">
+				<img src="https://1.gravatar.com/avatar/ad516503a11cd5ca435acc9bb6523536?s=25&amp;d=identicon&amp;forcedefault=y&amp;r=G" alt="Facebook photo" width="25" class="no-grav" />
+			</div>
+
+				<div class="comment-form-fields">
+				<input type="hidden" name="fb_avatar" id="facebook-avatar" class="comment-meta-facebook" value="" />
+				<input type="hidden" name="fb_user_id" id="facebook-user_id" class="comment-meta-facebook" value="" />
+				<input type="hidden" name="fb_access_token" id="facebook-access_token" class="comment-meta-facebook" value="" />
+				<p class="comment-form-posting-as pa-facebook"><strong></strong> You are commenting using your Facebook account. <span class="comment-form-log-out">(&nbsp;<a href="javascript:HighlanderComments.doExternalLogout( 'facebook' );">Log&nbsp;Out</a>&nbsp;/&nbsp;<a href="#" onclick="javascript:HighlanderComments.switchAccount();return false;">Change</a>&nbsp;)</span></p>
+			</div>
+	
+		</div>
+	</div>
+
+	<div id="comment-form-googleplus" class="comment-form-service">
+		<div class="comment-form-padder">
+			<div class="comment-form-avatar">
+				<img src="https://1.gravatar.com/avatar/ad516503a11cd5ca435acc9bb6523536?s=25&amp;d=identicon&amp;forcedefault=y&amp;r=G" alt="Google+ photo" width="25" class="no-grav" />
+			</div>
+
+				<div class="comment-form-fields">
+				<input type="hidden" name="googleplus_avatar" id="googleplus-avatar" class="comment-meta-googleplus" value="" />
+				<input type="hidden" name="googleplus_user_id" id="googleplus-user_id" class="comment-meta-googleplus" value="" />
+				<input type="hidden" name="googleplus_access_token" id="googleplus-access_token" class="comment-meta-googleplus" value="" />
+				<p class="comment-form-posting-as pa-googleplus"><strong></strong> You are commenting using your Google+ account. <span class="comment-form-log-out">(&nbsp;<a href="javascript:HighlanderComments.doExternalLogout( 'googleplus' );">Log&nbsp;Out</a>&nbsp;/&nbsp;<a href="#" onclick="javascript:HighlanderComments.switchAccount();return false;">Change</a>&nbsp;)</span></p>
+			</div>
+	
+		</div>
+	</div>
+
+
+	<div id="comment-form-load-service" class="comment-form-service">
+		<div class="comment-form-posting-as-cancel"><a href="javascript:HighlanderComments.cancelExternalWindow();">Cancel</a></div>
+		<p>Connecting to %s</p>
+	</div>
+
+	
+</div>
+
+<script type="text/javascript">
+var highlander_expando_javascript = function(){
+	var input = document.createElement( 'input' ),
+	    comment = jQuery( '#comment' );
+
+	if ( 'placeholder' in input ) {
+		comment.attr( 'placeholder', jQuery( '.comment-textarea label' ).remove().text() );
+	}
+
+	// Expando Mode: start small, then auto-resize on first click + text length
+	jQuery( '#comment-form-identity' ).hide();
+	jQuery( '#comment-form-subscribe' ).hide();
+	jQuery( '#commentform .form-submit' ).hide();
+
+	comment.css( { 'height':'10px' } ).one( 'focus', function() {
+		var timer = setInterval( HighlanderComments.resizeCallback, 10 )
+		jQuery( this ).animate( { 'height': HighlanderComments.initialHeight } ).delay( 100 ).queue( function(n) { clearInterval( timer ); HighlanderComments.resizeCallback(); n(); } );
+		jQuery( '#comment-form-identity' ).slideDown();
+		jQuery( '#comment-form-subscribe' ).slideDown();
+		jQuery( '#commentform .form-submit' ).slideDown();
+	});
+}
+jQuery(document).ready( highlander_expando_javascript );
+</script>
+
+<div id="comment-form-subscribe">
+	<p class="comment-subscription-form"><input type="checkbox" name="subscribe" id="subscribe" value="subscribe" style="width: auto;" tabindex="6"/> <label class="subscribe-label" id="subscribe-label" for="subscribe" style="display: inline;">Notify me of follow-up comments via email.</label></p></div>
+
+												<p class="form-submit">
+							<input name="submit" type="submit" id="comment-submit" value="Post Comment" />
+							<input type='hidden' name='comment_post_ID' value='272' id='comment_post_ID' />
+<input type='hidden' name='comment_parent' id='comment_parent' value='0' />
+						</p>
+						
+<input type="hidden" name="genseq" value="1397543353" />
+<p style="display: none;"><input type="hidden" id="akismet_comment_nonce" name="akismet_comment_nonce" value="8bb9aff394" /></p><script type='text/javascript' src='https://s2.wp.com/wp-content/mu-plugins/akismet-2.5/form.js?m=1308783962g'></script>
+<p style="display: none;"><input type="hidden" id="ak_js" name="ak_js" value="232"/></p>					</form>
+							</div><!-- #respond -->
+			<div style="clear: both"></div>
+
+	
+	</div>
+
+
+<hr />
+<div id="footer">
+	<p>
+		<a href="http://theme.wordpress.com/themes/kubrick/" title="Learn more about this theme">The Kubrick Theme</a> <a href="http://wordpress.com/?ref=footer">Blog at WordPress.com</a>.
+		<br /><a href="https://perl6advent.wordpress.com/feed/">Entries (RSS)</a> and <a href="https://perl6advent.wordpress.com/comments/feed/">Comments (RSS)</a>.	</p>
+</div>
+</div>
+
+<script type='text/javascript' src='//0.gravatar.com/js/gprofiles.js?ver=201416x'></script>
+<script type='text/javascript'>
+/* <![CDATA[ */
+var WPGroHo = {"my_hash":""};
+/* ]]> */
+</script>
+<script type='text/javascript' src='https://s2.wp.com/wp-content/mu-plugins/gravatar-hovercards/wpgroho.js?m=1380573781g'></script>
+
+	<script>
+		//initialize and attach hovercards to all gravatars
+		jQuery( document ).ready( function( $ ) {
+			Gravatar.profile_cb = function( hash, id ) {
+				WPGroHo.syncProfileData( hash, id );
+			};
+			Gravatar.my_hash = WPGroHo.my_hash;
+			Gravatar.init( 'body', '#wp-admin-bar-my-account' );
+		});
+	</script>
+
+		<div style="display:none">
+	<div class="grofile-hash-map-7232dd2192f11786172a4aaf43bfc0db">
+	</div>
+	<div class="grofile-hash-map-2d9d4815e8e5927a4e04cdea13ca1e36">
+	</div>
+	<div class="grofile-hash-map-4f1a44133b6d68f9cd191c39aa7c986b">
+	</div>
+	<div class="grofile-hash-map-3bfeb633907f64a75fb2db415eb13370">
+	</div>
+	<div class="grofile-hash-map-df3002cae3d83547a83e794178f26877">
+	</div>
+	<div class="grofile-hash-map-c53d81245d85989dd6aa2018a2278fd5">
+	</div>
+	<div class="grofile-hash-map-3bb7646471eac17d4e97fd9810983fba">
+	</div>
+	<div class="grofile-hash-map-df3273f8561aaa2a29c24c4921e530b2">
+	</div>
+	<div class="grofile-hash-map-2cd22b56387330c6247f805266eb45ab">
+	</div>
+	<div class="grofile-hash-map-eb69242357e150e580be56604b208a83">
+	</div>
+	<div class="grofile-hash-map-42ea7dfc0105bc420242e2ee16d911ca">
+	</div>
+	<div class="grofile-hash-map-f731ab5313beb6fd680c8a9a51612925">
+	</div>
+	</div>
+<script type='text/javascript'>
+/* <![CDATA[ */
+var HighlanderComments = {"loggingInText":"Logging In\u2026","submittingText":"Posting Comment\u2026","postCommentText":"Post Comment","connectingToText":"Connecting to %s","commentingAsText":"%1$s: You are commenting using your %2$s account.","logoutText":"Log Out","loginText":"Log In","connectURL":"https:\/\/perl6advent.wordpress.com\/public.api\/connect\/?action=request","logoutURL":"https:\/\/perl6advent.wordpress.com\/wp-login.php?action=logout&_wpnonce=f3284f6283","homeURL":"https:\/\/perl6advent.wordpress.com\/","postID":"272","gravDefault":"identicon","enterACommentError":"Please enter a comment","enterEmailError":"Please enter your email address here","invalidEmailError":"Invalid email address","enterAuthorError":"Please enter your name here","gravatarFromEmail":"This picture will show whenever you leave a comment. Click to customize it.","logInToExternalAccount":"Log in to use details from one of these accounts.","change":"Change","changeAccount":"Change Account","comment_registration":"","userIsLoggedIn":"","isJetpack":"0"};
+/* ]]> */
+</script>
+<script type='text/javascript' src='https://s0.wp.com/_static/??/wp-content/js/jquery/jquery.autoresize.js,/wp-content/mu-plugins/highlander-comments/script.js?m=1395185286j'></script>
+
+	<div id="bit" class="loggedout-follow-normal">
+		<a class="bsub" href="javascript:void(0)"><span id='bsub-text'>Follow</span></a>
+		<div id="bitsubscribe">
+
+					<h3><label for="loggedout-follow-field">Follow &ldquo;Perl 6 Advent Calendar&rdquo;</label></h3>
+
+			<form action="https://subscribe.wordpress.com" method="post" accept-charset="utf-8" id="loggedout-follow">
+			<p>Get every new post delivered to your Inbox.</p>
+
+			<p id="loggedout-follow-error" style="display: none;"></p>
+
+						<p class="bit-follow-count">Join 36 other followers</p>
+			<p><input type="email" name="email" value="Enter your email address" onfocus='this.value=(this.value=="Enter your email address") ? "" : this.value;' onblur='this.value=(this.value=="") ? "Enter email address" : this.value;'  id="loggedout-follow-field"/></p>
+
+			<input type="hidden" name="action" value="subscribe"/>
+			<input type="hidden" name="blog_id" value="10740073"/>
+			<input type="hidden" name="source" value="https://perl6advent.wordpress.com/2009/12/16/day-16-we-call-it-the-old-switcheroo/"/>
+			<input type="hidden" name="sub-type" value="loggedout-follow"/>
+
+			<input type="hidden" id="_wpnonce" name="_wpnonce" value="012dea5bde" /><input type="hidden" name="_wp_http_referer" value="/2009/12/16/day-16-we-call-it-the-old-switcheroo/" />
+			<p id='bsub-subscribe-button'><input type="submit" value="Sign me up" /></p>
+			</form>
+					<div id='bsub-credit'><a href="http://wordpress.com/signup/?ref=lof">Powered by WordPress.com</a></div>
+		</div><!-- #bitsubscribe -->
+	</div><!-- #bit -->
+	<script type="text/javascript">
+	var skimlinks_pub_id = "725X584219"
+	var skimlinks_sitename = "perl6advent.wordpress.com";
+	</script>
+	<script type="text/javascript" src="https://s.skimresources.com/js/725X1342.skimlinks.js"></script>		<iframe src='https://widgets.wp.com/likes/master.html?ver=20140227#ver=20140227&amp;mp6=1' scrolling='no' id='likes-master' name='likes-master' style='display:none;'></iframe>
+		<div id='likes-other-gravatars'><div class="likes-text"><span>%d</span> bloggers like this:</div><ul class="wpl-avatars sd-like-gravatars"></ul></div>
+		<script type="text/javascript">
+		//<![CDATA[
+			var jetpackLikesWidgetQueue = [];
+			var jetpackLikesWidgetBatch = [];
+			var jetpackLikesMasterReady = false;
+
+			function JetpackLikespostMessage( message, target ) {
+				if ( "string" === typeof message ){
+					try{
+						message = JSON.parse( message );
+					}
+					catch(e) {
+						return;
+					}
+				}
+
+				pm( {
+					target: target,
+					type: 'likesMessage',
+					data: message,
+					origin: '*'
+				} );
+			}
+
+			function JetpackLikesBatchHandler() {
+				var requests = [];
+				jQuery( 'div.jetpack-likes-widget-unloaded' ).each( function( i ) {
+					if ( jetpackLikesWidgetBatch.indexOf( this.id ) > -1 )
+						return;
+					jetpackLikesWidgetBatch.push( this.id );
+					var regex = /like-(post|comment)-wrapper-(\d+)-(\d+)-(\w+)/;
+					var match = regex.exec( this.id );
+					if ( ! match || match.length != 5 )
+						return;
+
+					var info = {
+						blog_id: match[2],
+						width:   this.width
+					};
+
+					if ( 'post' == match[1] ) {
+						info.post_id = match[3];
+					} else if ( 'comment' == match[1] ) {
+						info.comment_id = match[3];
+					}
+
+					info.obj_id = match[4];
+
+					requests.push( info );
+				});
+
+				if ( requests.length > 0 ) {
+					JetpackLikespostMessage( { event: 'initialBatch', requests: requests }, window.frames['likes-master'] );
+				}
+			}
+
+			function JetpackLikesMessageListener( event ) {
+				if ( "undefined" == typeof event.event )
+					return;
+
+				if ( 'masterReady' == event.event ) {
+					jQuery( document ).ready( function() {
+						jetpackLikesMasterReady = true;
+
+						var stylesData = {
+								event: 'injectStyles'
+						};
+
+						if ( jQuery( 'iframe.admin-bar-likes-widget' ).length > 0 ) {
+							JetpackLikespostMessage( { event: 'adminBarEnabled' }, window.frames[ 'likes-master' ] );
+
+							stylesData.adminBarStyles = {
+								background: jQuery( '#wpadminbar .quicklinks li#wp-admin-bar-wpl-like > a' ).css( 'background' ),
+								isRtl: ( 'rtl' == jQuery( '#wpadminbar' ).css( 'direction' ) )
+							};
+						}
+
+						if ( !window.addEventListener )
+							jQuery( '#wp-admin-bar-admin-bar-likes-widget' ).hide();
+
+						stylesData.textStyles = {
+							color: jQuery( '.sd-text-color').css( 'color' ),
+							fontFamily: jQuery( '.sd-text-color' ).css( 'font-family' ),
+							fontSize: jQuery( '.sd-text-color' ).css( 'font-size' ),
+							direction: jQuery( '.sd-text-color' ).css( 'direction' ),
+							fontWeight: jQuery( '.sd-text-color' ).css( 'font-weight' ),
+							fontStyle: jQuery( '.sd-text-color' ).css( 'font-style' ),
+							textDecoration: jQuery( '.sd-text-color' ).css('text-decoration')
+						};
+
+						stylesData.linkStyles = {
+							color: jQuery( '.sd-link-color' ).css('color'),
+							fontFamily: jQuery( '.sd-link-color' ).css('font-family'),
+							fontSize: jQuery( '.sd-link-color' ).css('font-size'),
+							textDecoration: jQuery( '.sd-link-color' ).css('text-decoration'),
+							fontWeight: jQuery( '.sd-link-color' ).css( 'font-weight' ),
+							fontStyle: jQuery( '.sd-link-color' ).css( 'font-style' )
+						};
+
+						JetpackLikespostMessage( stylesData, window.frames[ 'likes-master' ] );
+
+						JetpackLikesBatchHandler();
+
+						jQuery( document ).on( 'inview', 'div.jetpack-likes-widget-unloaded', function() {
+							jetpackLikesWidgetQueue.push( this.id );
+						});
+					});
+				}
+
+				if ( 'showLikeWidget' == event.event ) {
+					jQuery( '#' + event.id + ' .post-likes-widget-placeholder'  ).fadeOut( 'fast', function() {
+						jQuery( '#' + event.id + ' .post-likes-widget' ).fadeIn( 'fast', function() {
+							JetpackLikespostMessage( { event: 'likeWidgetDisplayed', blog_id: event.blog_id, post_id: event.post_id, obj_id: event.obj_id }, window.frames['likes-master'] );
+						});
+					});
+				}
+
+				if ( 'clickReblogFlair' == event.event ) {
+					wpcom_reblog.toggle_reblog_box_flair( event.obj_id );
+				}
+
+				if ( 'showOtherGravatars' == event.event ) {
+					var $container = jQuery( '#likes-other-gravatars' );
+					var $list = $container.find( 'ul' );
+
+					$container.hide();
+					$list.html( '' );
+
+					$container.find( '.likes-text span' ).text( event.total );
+
+					jQuery.each( event.likers, function( i, liker ) {
+						$list.append( '<li class="' + liker.css_class + '"><a href="' + liker.profile_URL + '" class="wpl-liker" rel="nofollow" target="_parent"><img src="' + liker.avatar_URL + '" alt="' + liker.name + '" width="30" height="30" style="padding-right: 3px;" /></a></li>');
+					} );
+
+					var offset = jQuery( "[name='" + event.parent + "']" ).offset();
+
+					$container.css( 'left', offset.left + event.position.left - 10 + 'px' );
+					$container.css( 'top', offset.top + event.position.top - 33 + 'px' );
+
+					var rowLength = Math.floor( event.width / 37 );
+					var height = ( Math.ceil( event.likers.length / rowLength ) * 37 ) + 13;
+					if ( height > 204 ) {
+						height = 204;
+					}
+
+					$container.css( 'height', height + 'px' );
+					$container.css( 'width', rowLength * 37 - 7 + 'px' );
+
+					$list.css( 'width', rowLength * 37 + 'px' );
+
+					$container.fadeIn( 'slow' );
+
+					var scrollbarWidth = $list[0].offsetWidth - $list[0].clientWidth;
+					if ( scrollbarWidth > 0 ) {
+						$container.width( $container.width() + scrollbarWidth );
+						$list.width( $list.width() + scrollbarWidth );
+					}
+				}
+			}
+
+			pm.bind( 'likesMessage', function(e) { JetpackLikesMessageListener(e); } );
+
+			jQuery( document ).click( function( e ) {
+				var $container = jQuery( '#likes-other-gravatars' );
+
+				if ( $container.has( e.target ).length === 0 ) {
+					$container.fadeOut( 'slow' );
+				}
+			});
+
+			function JetpackLikesWidgetQueueHandler() {
+				var wrapperID;
+				if ( ! jetpackLikesMasterReady ) {
+					setTimeout( JetpackLikesWidgetQueueHandler, 500 );
+					return;
+				}
+
+				if ( jetpackLikesWidgetQueue.length > 0 ) {
+					// We may have a widget that needs creating now
+					var found = false;
+					while( jetpackLikesWidgetQueue.length > 0 ) {
+						// Grab the first member of the queue that isn't already loading.
+						wrapperID = jetpackLikesWidgetQueue.splice( 0, 1 )[0];
+						if ( jQuery( '#' + wrapperID ).hasClass( 'jetpack-likes-widget-unloaded' ) ) {
+							found = true;
+							break;
+						}
+					}
+					if ( ! found ) {
+						setTimeout( JetpackLikesWidgetQueueHandler, 500 );
+						return;
+					}
+				} else if ( jQuery( 'div.jetpack-likes-widget-unloaded' ).length > 0 ) {
+					// Grab any unloaded widgets for a batch request
+					JetpackLikesBatchHandler();
+
+					// Get the next unloaded widget
+					wrapperID = jQuery( 'div.jetpack-likes-widget-unloaded' ).first()[0].id;
+					if ( ! wrapperID ) {
+						// Everything is currently loaded
+						setTimeout( JetpackLikesWidgetQueueHandler, 500 );
+						return;
+					}
+				}
+
+				if ( 'undefined' === typeof wrapperID ) {
+					setTimeout( JetpackLikesWidgetQueueHandler, 500 );
+					return;
+				}
+
+				var $wrapper = jQuery( '#' + wrapperID );
+				$wrapper.find( 'iframe' ).remove();
+
+				if ( $wrapper.hasClass( 'slim-likes-widget' ) ) {
+					$wrapper.find( '.post-likes-widget-placeholder' ).after( "<iframe class='post-likes-widget jetpack-likes-widget' name='" + $wrapper.data( 'name' ) + "' height='22px' width='68px' frameBorder='0' scrolling='no' src='" + $wrapper.data( 'src' ) + "'></iframe>" );
+				} else {
+					$wrapper.find( '.post-likes-widget-placeholder' ).after( "<iframe class='post-likes-widget jetpack-likes-widget' name='" + $wrapper.data( 'name' ) + "' height='55px' width='100%' frameBorder='0' src='" + $wrapper.data( 'src' ) + "'></iframe>" );
+				}
+
+				$wrapper.removeClass( 'jetpack-likes-widget-unloaded' ).addClass( 'jetpack-likes-widget-loading' );
+
+				$wrapper.find( 'iframe' ).load( function( e ) {
+					var $iframe = jQuery( e.target );
+					$wrapper.removeClass( 'jetpack-likes-widget-loading' ).addClass( 'jetpack-likes-widget-loaded' );
+
+					JetpackLikespostMessage( { event: 'loadLikeWidget', name: $iframe.attr( 'name' ), width: $iframe.width() }, window.frames[ 'likes-master' ] );
+
+					if ( $wrapper.hasClass( 'slim-likes-widget' ) ) {
+						$wrapper.find( 'iframe' ).Jetpack( 'resizeable' );
+					}
+				});
+				setTimeout( JetpackLikesWidgetQueueHandler, 250 );
+			}
+			JetpackLikesWidgetQueueHandler();
+		//]]>
+		</script>
+<script type='text/javascript' src='https://s0.wp.com/_static/??/wp-content/js/devicepx.js,/wp-includes/js/comment-reply.min.js?m=1389017300j'></script>
+<script type="text/javascript">
+// <![CDATA[
+(function() {
+try{
+  if ( window.external &&'msIsSiteMode' in window.external) {
+    if (window.external.msIsSiteMode()) {
+      var jl = document.createElement('script');
+      jl.type='text/javascript';
+      jl.async=true;
+      jl.src='/wp-content/plugins/ie-sitemode/custom-jumplist.php';
+      var s = document.getElementsByTagName('script')[0];
+      s.parentNode.insertBefore(jl, s);
+    }
+  }
+}catch(e){}
+})();
+// ]]>
+</script><script src="https://ssl-stats.wordpress.com/w.js?21" type="text/javascript"></script>
+<script type="text/javascript">
+st_go({'blog':'10740073','v':'wpcom','tz':'0','user_id':'0','post':'272','subd':'perl6advent'});
+ex_go({'crypt':'UE5XaGUuOTlwaD85flAmcm1mcmZsaDhkV11YdWFnNncxc1tjZG9XVXhReTFqanhKV3x0UkQxQldDVUV4ZVR+cSt8Ny8tTm40WDY2NUd1SH5CMko/Rmx6TmhYLjZfbC5sPyt8ckZTYU9yaVpETHVwSXRIdk1aaT82TndyczRrSFdjRm9YRDhlfEh4UmldYS5sP25zYndud34/MmNKYmRlc1pYUVUtZS1VUFVKMmRWZkYrNS14bG5EOEJIdko3MHBFanhPdW1ZYysmTldmWWcrS1hKYTNJUzh2Q2YxczBELm9zeVUsSDBZMlBCdDJ+UC8zaE1EP0FXMnRpdC81UiY1dmFfdEJNWDZuLng4dXJXTjltQVV1U3VNT05CUSZufA=='});
+addLoadEvent(function(){linktracker_init('10740073',272);});
+	</script>
+<noscript><img src="https://stats.wordpress.com/b.gif?v=noscript" style="height:0px;width:0px;overflow:hidden" alt="" /></noscript>
+<script>
+if ( 'object' === typeof wpcom_mobile_user_agent_info ) {
+
+	wpcom_mobile_user_agent_info.init();
+	var mobileStatsQueryString = "";
+	
+	if( false !== wpcom_mobile_user_agent_info.matchedPlatformName )
+		mobileStatsQueryString += "&x_" + 'mobile_platforms' + '=' + wpcom_mobile_user_agent_info.matchedPlatformName;
+	
+	if( false !== wpcom_mobile_user_agent_info.matchedUserAgentName )
+		mobileStatsQueryString += "&x_" + 'mobile_devices' + '=' + wpcom_mobile_user_agent_info.matchedUserAgentName;
+	
+	if( wpcom_mobile_user_agent_info.isIPad() )
+		mobileStatsQueryString += "&x_" + 'ipad_views' + '=' + 'views';
+
+	if( "" != mobileStatsQueryString ) {
+		new Image().src = document.location.protocol + '//stats.wordpress.com/g.gif?v=wpcom-no-pv' + mobileStatsQueryString + '&baba=' + Math.random();
+	}
+	
+}
+</script></body>
+</html>

@@ -1,0 +1,957 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+
+<head profile="http://gmpg.org/xfn/11">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>Day 10: A Regex Story | Perl 6 Advent Calendar</title>
+<link rel="pingback" href="https://perl6advent.wordpress.com/xmlrpc.php" />
+<meta name="google-site-verification" content="YPNxtMSK3Jj7JR2XCK-hDqmF9xDIeBEyvYm3aT1s71Y" />
+<link rel="alternate" type="application/rss+xml" title="Perl 6 Advent Calendar &raquo; Feed" href="https://perl6advent.wordpress.com/feed/" />
+<link rel="alternate" type="application/rss+xml" title="Perl 6 Advent Calendar &raquo; Comments Feed" href="https://perl6advent.wordpress.com/comments/feed/" />
+<link rel="alternate" type="application/rss+xml" title="Perl 6 Advent Calendar &raquo; Day 10: A Regex&nbsp;Story Comments Feed" href="https://perl6advent.wordpress.com/2009/12/10/day-10-a-regex-story/feed/" />
+<script type="text/javascript">
+/* <![CDATA[ */
+function addLoadEvent(func){var oldonload=window.onload;if(typeof window.onload!='function'){window.onload=func;}else{window.onload=function(){oldonload();func();}}}
+/* ]]> */
+</script>
+<link rel='stylesheet' id='all-css-0' href='https://s0.wp.com/_static/??-eJx9j90OgjAMRl/I2Yjiz4XxWcZWx6CjC+tCfHuHiZFIwl2/5px+KUxRGR4EB4GQVaTs/JCAfI8JOpSoTa8+aW9S2sECb4jdT2Dn0HIW9WQinmDy1qGspEXHiKQFrYqc5C9taYZHLPsQtcxEQOs1EoaCbWkhnr/WPLblr3WNtOVOgpgb6HMzetNDkhfhDD7C/XC8XarqdK3r7g1dsHQ6' type='text/css' media='all' />
+<!--[if lte IE 8]>
+<link rel='stylesheet' id='kubrick-ie-css'  href='https://s0.wp.com/wp-content/themes/pub/kubrick/ie.css?m=1273203575g&#038;ver=3.9-RC1' type='text/css' media='all' />
+<![endif]-->
+<link rel='stylesheet' id='all-css-2' href='https://s0.wp.com/_static/??-eJxljEsKgDAMBS9kjX9wIZ5F2xArbSOm4vWtrgru3sCbgftQmkPEEMFf6nAX2SBw4uqY0iTQkmOZsIBMiht6FNg6IMfr4n6HrHpbQxjlSxKzOXEx8gqzn+p2rPqh6ep2fwA3cTYI' type='text/css' media='all' />
+<link rel='stylesheet' id='print-css-2' href='https://s0.wp.com/wp-content/mu-plugins/global-print/global-print.css?m=1387483371g' type='text/css' media='print' />
+<script type='text/javascript'>
+/* <![CDATA[ */
+var LoggedOutFollow = {"invalid_email":"Your subscription did not succeed, please try again with a valid email address."};
+/* ]]> */
+</script>
+<script type='text/javascript' src='https://s0.wp.com/_static/??-eJyFj0kOwjAMRS+ESVEX0AXiLG3jRg6ZiBMiOD2pBAgKUlee3ve3RQkwepfQJaFZWD+QQciMsVe1B+Qmv9W8EZUjN5oskWdQXzLG2zOsAmBJxT7h1pJ7wR+uwXOyyFwt/0y/rchdCcsqpjGFfjxDRKb7z9bBeAXBZEWORc0VSp8TTN4YX0QhqTAtNTa/FRFNfUbCfPeiqqqTPe7abt8cuqbt9ANnG4Rf'></script>
+<link rel='stylesheet' id='all-css-0' href='https://s2.wp.com/wp-content/mu-plugins/highlander-comments/style.css?m=1377793621g' type='text/css' media='all' />
+<!--[if lt IE 8]>
+<link rel='stylesheet' id='highlander-comments-ie7-css'  href='https://s2.wp.com/wp-content/mu-plugins/highlander-comments/style-ie7.css?m=1351637563g&#038;ver=20110606' type='text/css' media='all' />
+<![endif]-->
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="https://perl6advent.wordpress.com/xmlrpc.php?rsd" />
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="https://perl6advent.wordpress.com/wp-includes/wlwmanifest.xml" /> 
+<link rel='prev' title='Day 9: Having beautiful arguments (and&nbsp;parameters)' href='https://perl6advent.wordpress.com/2009/12/09/day-9-having-beautiful-arguments-and-parameters/' />
+<link rel='next' title='Day 11: Classes, attributes, methods and&nbsp;more' href='https://perl6advent.wordpress.com/2009/12/11/day-11-classes-attributes-methods-and-more/' />
+<meta name="generator" content="WordPress.com" />
+<link rel='canonical' href='https://perl6advent.wordpress.com/2009/12/10/day-10-a-regex-story/' />
+<link rel='shortlink' href='http://wp.me/pJ3YZ-m' />
+<link rel="alternate" type="application/json+oembed" href="https://public-api.wordpress.com/oembed/1.0/?format=json&amp;url=https%3A%2F%2Fperl6advent.wordpress.com%2F2009%2F12%2F10%2Fday-10-a-regex-story%2F&amp;for=wpcom-auto-discovery" /><link rel="alternate" type="application/xml+oembed" href="https://public-api.wordpress.com/oembed/1.0/?format=xml&amp;url=https%3A%2F%2Fperl6advent.wordpress.com%2F2009%2F12%2F10%2Fday-10-a-regex-story%2F&amp;for=wpcom-auto-discovery" />
+<!-- Jetpack Open Graph Tags -->
+<meta property="og:type" content="article" />
+<meta property="og:title" content="Day 10: A Regex Story" />
+<meta property="og:url" content="https://perl6advent.wordpress.com/2009/12/10/day-10-a-regex-story/" />
+<meta property="og:description" content="On this tenth day of advent, we have the gift of a story ... Once upon a time in a land closer than you might think, an apprentice Perl 6 programmer named Tim was working on a simple parsing proble..." />
+<meta property="article:published_time" content="2009-12-10T00:00:47+00:00" />
+<meta property="article:modified_time" content="2010-12-07T15:58:52+00:00" />
+<meta property="article:author" content="https://perl6advent.wordpress.com/author/perlpilot/" />
+<meta property="og:site_name" content="Perl 6 Advent Calendar" />
+<meta property="og:image" content="http://wordpress.com/i/blank.jpg?m=1383295312g" />
+<meta name="twitter:site" content="@wordpressdotcom" />
+<meta name="twitter:card" content="summary" />
+<meta property="fb:app_id" content="249643311490" />
+<meta property="article:publisher" content="https://www.facebook.com/WordPresscom" />
+<link rel="shortcut icon" type="image/x-icon" href="https://s2.wp.com/i/favicon.ico" sizes="16x16 24x24 32x32 48x48" />
+<link rel="icon" type="image/x-icon" href="https://s2.wp.com/i/favicon.ico" sizes="16x16 24x24 32x32 48x48" />
+<link rel="apple-touch-icon-precomposed" href="https://s0.wp.com/i/webclip.png" />
+<link rel='openid.server' href='https://perl6advent.wordpress.com/?openidserver=1' />
+<link rel='openid.delegate' href='https://perl6advent.wordpress.com/' />
+<link rel="search" type="application/opensearchdescription+xml" href="https://perl6advent.wordpress.com/osd.xml" title="Perl 6 Advent Calendar" />
+<link rel="search" type="application/opensearchdescription+xml" href="http://wordpress.com/opensearch.xml" title="WordPress.com" />
+<style type='text/css'><!--
+body { background: url("https://s0.wp.com/wp-content/themes/pub/kubrick/images/kubrickbgcolor.gif"); }
+#page { background: url("https://s0.wp.com/wp-content/themes/pub/kubrick/images/kubrickbgwide.gif") repeat-y top !important; border: none; }
+#header { background: url("https://s0.wp.com/wp-content/themes/pub/kubrick/images/kubrickheader.gif") no-repeat bottom center; }
+#footer { background: url("https://s0.wp.com/wp-content/themes/pub/kubrick/images/kubrickfooter.gif") no-repeat bottom; border: none;}
+#header { margin: 0 !important; margin: 0 0 0 1px; padding: 1px; height: 198px; width: 758px; }
+#headerimg { margin: 7px 9px 0; height: 192px; width: 740px; }
+#headerimg h1 a, #headerimg h1 a:visited, #headerimg .description { color: #FFFFFF; }
+#headerimg h1 a, #headerimg .description { display:  }
+
+	--></style><meta name="application-name" content="Perl 6 Advent Calendar" /><meta name="msapplication-window" content="width=device-width;height=device-height" /><meta name="msapplication-tooltip" content="Something cool about Perl 6 every day" /><meta name="msapplication-task" content="name=Subscribe;action-uri=https://perl6advent.wordpress.com/feed/;icon-uri=https://s2.wp.com/i/favicon.ico" /><meta name="msapplication-task" content="name=Sign up for a free blog;action-uri=http://wordpress.com/signup/;icon-uri=https://s2.wp.com/i/favicon.ico" /><meta name="msapplication-task" content="name=WordPress.com Support;action-uri=http://support.wordpress.com/;icon-uri=https://s2.wp.com/i/favicon.ico" /><meta name="msapplication-task" content="name=WordPress.com Forums;action-uri=http://forums.wordpress.com/;icon-uri=https://s2.wp.com/i/favicon.ico" /><meta name="title" content="Day 10: A Regex&nbsp;Story | Perl 6 Advent Calendar on WordPress.com" />
+<meta name="description" content="On this tenth day of advent, we have the gift of a story ... Once upon a time in a land closer than you might think, an apprentice Perl 6 programmer named Tim was working on a simple parsing problem. His boss (let&#039;s just call him Mr. C) had asked him to parse log files&hellip;" />
+<style type="text/css">
+#header     { margin: 0 !important; margin: 0 0 0 1px; padding: 1px; height: 198px; width: 758px; }
+#headerimg  { margin: 7px 9px 0; height: 192px; width: 740px; }
+#headerimg { background: url(https://perl6advent.files.wordpress.com/2009/12/perl6advent2.png) no-repeat top;}
+#header h1 a, #header h1 a:hover, #header .description {
+	color: #fff;
+}
+</style>
+
+<script type='text/javascript' src='http://partner.googleadservices.com/gampad/google_service.js'>
+</script>
+<script type='text/javascript'>
+if ( typeof GS_googleAddAdSenseService == 'function' ) { GS_googleAddAdSenseService("ca-pub-3443918307802676"); }
+if ( typeof GS_googleEnableAllServices == 'function' ) { GS_googleEnableAllServices() };
+</script>
+<script type="text/javascript" src="http://c.amazon-adsystem.com/aax2/amzn_ads.js"></script>
+<script type="text/javascript">
+try { amznads.getAds("3033","300x250"); } catch(e) { /* ignore */ }
+</script>
+<script type="text/javascript">
+var amznKeys = amznads.getKeys();
+if (typeof amznKeys != "undefined" && amznKeys != "") { for (var i =0; i < amznKeys.length; i++) { var key = amznKeys[i]; GA_googleAddAttr("amzn", key);} }
+document.close();
+</script>
+<script type='text/javascript'>
+if ( typeof GA_googleAddSlot == 'function' ) { GA_googleAddSlot("ca-pub-3443918307802676", "wpcom_below_post"); }
+</script>
+<script type='text/javascript'>
+if ( typeof GA_googleFetchAds == 'function' ) { GA_googleFetchAds(); }
+</script>
+
+<script type="text/javascript">
+var wpcom_ads = { bid: 10740073, pt: 'permalink', wa: 0, as: 0, domain: 'perl6advent.wordpress.com', url: 'https://perl6advent.wordpress.com/2009/12/10/day-10-a-regex-story/', gid: '', };
+</script>
+<style type="text/css" id="syntaxhighlighteranchor"></style>
+<script type="text/javascript">
+	window.google_analytics_uacct = "UA-52447-2";
+</script>
+
+<script type="text/javascript">
+	var _gaq = _gaq || [];
+	_gaq.push(['_setAccount', 'UA-52447-2']);
+	_gaq.push(['_setDomainName', 'wordpress.com']);
+	_gaq.push(['_initData']);
+	_gaq.push(['_trackPageview']);
+
+	(function() {
+		var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+		ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+		(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(ga);
+	})();
+</script>
+</head>
+<body class="single single-post postid-22 single-format-standard mp6 highlander-enabled highlander-light">
+<div id="page">
+
+<div id="header">
+	<div id="headerimg" onclick=" location.href='https://perl6advent.wordpress.com';" style="cursor: pointer;">
+		<h1><a href="https://perl6advent.wordpress.com/">Perl 6 Advent Calendar</a></h1>
+		<div class="description">Something cool about Perl 6 every day</div>
+	</div>
+</div>
+<hr />
+
+	<div id="content" class="widecolumn">
+
+	
+		<div class="navigation">
+			<div class="alignleft">&laquo; <a href="https://perl6advent.wordpress.com/2009/12/09/day-9-having-beautiful-arguments-and-parameters/" rel="prev">Day 9: Having beautiful arguments (and&nbsp;parameters)</a></div>
+			<div class="alignright"><a href="https://perl6advent.wordpress.com/2009/12/11/day-11-classes-attributes-methods-and-more/" rel="next">Day 11: Classes, attributes, methods and&nbsp;more</a> &raquo;</div>
+		</div>
+
+		<div class="post-22 post type-post status-publish format-standard hentry category-2009 tag-perl6 tag-regex tag-grammar tag-pattern-matching clear" id="post-22">
+			<h2>Day 10: A Regex&nbsp;Story</h2>
+			<small class="single-by"><span class="by-author"><span class="sep">by</span> <span class="author vcard"><a class="url fn n" href="https://perl6advent.wordpress.com/author/perlpilot/" title="View all posts by perlpilot" rel="author">perlpilot</a></span> </span></small>
+
+			<div class="entry">
+				<p>On this tenth day of advent, we have the gift of a story &#8230;</p>
+<p>Once upon a time in a land closer than you might think, an apprentice Perl 6 programmer named <strong><strong>Tim</strong></strong> was working on a simple parsing problem. His boss (let&#8217;s just call him <strong><strong>Mr. C</strong></strong>) had asked him to parse log files containing inventory information to make sure that there were only valid lines within the file. Each valid line within the file looked like this:</p>
+<pre>    &lt;part number&gt; &lt;quantity&gt; &lt;color&gt; &lt;description&gt;</pre>
+<p>So the Perl 6 apprentice, having some familiarity with regular expressions wrote a nice little regex that could be used to identify valid lines. The code that validated each line looked like this:</p>
+<pre>    next unless $line ~~ / ^^ \d+ \s+ \d+ \s+ \S+ \s+ \N* $$ /</pre>
+<p>The <code>~~</code> operator causes the regex on the right hand side to be matched against the scalar on the left hand side.  In the regex itself, <code>^^</code> matches the beginning of a line, <code>\d+</code> matches one or more digits (as the part number and quantity were so composed), <code>\S+</code> matches one or more non- whitespace characters, <code>\N*</code> matches zero or more non-newline characters, <code>\s+</code> matches whitespace in between each of these and <code>$$</code> matches the end of a line.  This being Perl 6, these individual components of the regex could be spread out a bit with spaces in between so that it could be more readable. All was good.</p>
+<p>But then <strong>Mr. C</strong> decided that it would be nicer if the individual pieces of information could also be extracted from each in addition to validating it.  <strong>Tim</strong> thought, &#8220;No problem, I&#8217;ll just use capturing parentheses&#8221;.  And that&#8217;s just what he did:</p>
+<pre>    next unless $line ~~ / ^^ (\d+) \s+ (\d+) \s+ (\S+) \s+ (\N*) $$ /</pre>
+<p>After a successful pattern match, each parenthesized portion is available either as part of the match object itself (<code>$/</code>) via <code>$/[0]</code>, <code>$/[1]</code>, <code>$/[2]</code>, or <code>$/[3]</code>. Or it could be accessed via the special variables <code>$0</code>, <code>$1</code>, <code>$2</code>, or <code>$3</code>.  <strong>Tim</strong> was happy.  <strong>Mr. C</strong> was happy.</p>
+<p>But then it was discovered that some of the lines didn&#8217;t separate the color from the description and that these lines should be considered valid too. Lines where the color was integrated into the description were written a special way.  They were always of the form:</p>
+<pre>    &lt;part number&gt; &lt;quantity&gt; &lt;description&gt; (&lt;color&gt;)</pre>
+<p>Where <code>description</code>, as before, could be any number of characters including spaces.  &#8220;Blah!&#8221; thought <strong>Tim</strong>, &#8220;now this simple parser suddenly seems more complicated.&#8221;  Luckily, <strong>Tim</strong> knew of a place to ask for help.  He quickly logged on to irc.freenode.org, joined the <em>#perl6</em> channel, and asked for help.  Someone suggested that he should name the individual parts of his regex to make things easier and then use an alternation to match one or the other alternatives for the last part of the regex.</p>
+<p>First, <strong>Tim</strong> tried naming the parts of his regex. Looking at the <a href="http://perlcabal.org/syn/S05.html">synopsis for Perl 6 regex</a>, <strong>Tim</strong> found he could assign into the match object, so that&#8217;s what he did:</p>
+<pre>    next unless $line ~~ / ^^ $&lt;product&gt;=(\d+) \s+ $&lt;quantity&gt;=(\d+) \s+ $&lt;color&gt;=(\S+) \s+ $&lt;description&gt;=(\N*) $$ /</pre>
+<p>Now, after a successful match, the individual pieces are available via the match object or via special variables <code>$&lt;product&gt;</code>, <code>$&lt;quantity&gt;</code>, <code>$&lt;color&gt;</code>, and <code>$&lt;description&gt;</code>. This was turning out easier than expected and <strong>Tim</strong> was feeling quite confident.  Next he added the alternation to distinguish between the two different valid lines:</p>
+<pre>    next unless $line ~~ / ^^
+        $&lt;product&gt;=(\d+) \s+ $&lt;quantity&gt;=(\d+) \s+
+        [
+        | $&lt;description&gt;=(\N*) \s+ '(' $&lt;color&gt;=(\S+) ')'
+        | $&lt;color&gt;=(\S+) \s+ $&lt;description&gt;=(\N*)
+        ]
+      $$
+    /</pre>
+<p>In order to isolate the alternation from the rest of the regex, <strong>Tim</strong> surrounded it with grouping brackets (<code>[</code> and <code>]</code>). These group a portion of a regex much like parentheses only without capturing into <code>$0</code> and friends.  Since he needed to match literal parentheses, <strong>Tim</strong> took advantage of another useful Perl 6 regex feature: quoted strings are matched literally.  And because of the assignments within the regex, <code>$&lt;color&gt;</code> and <code>$&lt;description&gt;</code> always contain the appropriate part of the string.</p>
+<p><strong>Tim</strong> was elated!  He showed his code to <strong>Mr. C</strong> and <strong>Mr. C</strong> was elated too!  &#8220;Well done Tim!&#8221; said <strong>Mr. C</strong>.</p>
+<p>Everybody was happy.  <strong>Tim</strong> beamed with pride.</p>
+<p>However, after the initial glow of success faded, <strong>Tim</strong> started looking at his work with a more critical eye.  For some of the lines where the color was at the end of the description, it was described as &#8220;( color)&#8221;  or &#8220;( color )&#8221; or &#8220;( color )&#8221;.  His current regex worked, but it would include the color as part of the description and wouldn&#8217;t set <code>$&lt;color&gt;</code> at all. That hardly seemed appropriate.  <strong>Tim</strong> initially fixed this by adding more <code>\s*</code>:</p>
+<pre>    next unless $line ~~ / ^^
+        $&lt;product&gt;=(\d+) \s+ $&lt;quantity&gt;=(\d+) \s+
+        [
+        | $&lt;description&gt;=(\N*) \s+ '(' \s* $&lt;color&gt;=(\S+) \s* ')'
+        | $&lt;color&gt;=(\S+) \s+ $&lt;description&gt;=(\N*)
+        ]
+      $$
+    /</pre>
+<p>This worked well, but the regex was starting to look a little cluttered.  Again, <strong>Tim</strong> turned to <em>#perl6</em> for help.</p>
+<p>This time someone named <strong>PerlJam</strong> piped up, &#8220;Why don&#8217;t you put your regex in a grammar?  That&#8217;s what you&#8217;re effectively doing by assigning each piece to a variable within the match object.&#8221;   Wha???  <strong>Tim</strong> had no idea what <strong>PerlJam</strong> was talking about.  After a brief exchange, <strong>Tim</strong> thought he understood and knew where to look if he needed more information. After thanking <strong>PerlJam</strong>, he went back to coding.  This time the regex virtually disappeared as it turned into a grammar.  Here&#8217;s what that grammar and matching code looked like:</p>
+<pre>grammar Inventory {
+    regex product { \d+ }
+    regex quantity { \d+ }
+    regex color { \S+ }
+    regex description { \N* }
+    regex TOP { ^^ &lt;product&gt; \s+ &lt;quantity&gt;  \s+
+                [
+                | &lt;description&gt; \s+ '(' \s* &lt;color&gt; \s*  ')'
+                | &lt;color&gt; \s+ &lt;description&gt;
+                ]
+                $$
+    }
+}
+
+# ... and then later where the match happens
+next unless Inventory.parse($line);</pre>
+<p>&#8220;Well,&#8221; thought <strong>Tim</strong>, &#8220;it is certainly more organized.&#8221;</p>
+<p>Each of his variables in the previous incarnation of the regex simply became named regex within the grammar.   Within Perl 6 regex, named regex are matched by simply enclosing the name within angle brackets (<code>&lt;</code> and <code>&gt;</code>). The specially named regex <code>TOP</code> is used when <code>Grammar.parse</code> is called with the scalar to match against.  And the behavior is exactly the same as before because when a named regex matches as part of another regex, the text that was matched is saved in the match object and referenced by that name.</p>
+<p>And though there was still room for improvement, both <strong>Tim</strong> and <strong>Mr. C</strong> were very happy with the result.</p>
+<p>The End</p>
+<div style="font-size:smaller;">* At the time of posting, Rakudo cannot correctly use this grammar to parse lines in the format</p>
+<pre>    &lt;part number&gt; &lt;quantity&gt; &lt;description&gt; (&lt;color&gt;)</pre>
+</div>
+
+<div class="wpa" style="position: relative; width:300px; text-align: center; padding: 0; margin: 10px auto; overflow: hidden; clear: both;">
+<a style="position: absolute; text-align: left; display: block; font: 9px/1 sans-serif; text-decoration: underline;" href="http://en.wordpress.com/about-these-ads/" rel="nofollow">About these ads</a>
+<script type="text/javascript">
+		var wpcom_adclk_hovering = false;
+		var wpcom_adclk_recorded = false;
+		var wpcom_adclk_theme = "Kubrick";
+		var wpcom_adclk_slot = "wpcom_below_post";
+		var wpcom_adclk_network = ( typeof wpcom_adclk_network === "undefined" ) ? "" : wpcom_adclk_network ;
+
+		jQuery(document).ready( function() {
+			function wpcom_adclk_hover_yes() { wpcom_adclk_hovering = true; }
+			function wpcom_adclk_hover_no() { wpcom_adclk_hovering = false; }
+			jQuery(".wpa").click(wpcom_adclk_click);
+			jQuery(".wpa iframe").hover( wpcom_adclk_hover_yes, wpcom_adclk_hover_no );
+			jQuery(".wpa object").hover( wpcom_adclk_hover_yes, wpcom_adclk_hover_no );
+
+			jQuery(window).blur( function() {
+				if ( wpcom_adclk_hovering ) { wpcom_adclk_click(); }
+			});
+		});
+
+		function wpcom_adclk_impression() {
+			var stat_gif = document.location.protocol + "//stats.wordpress.com/g.gif?v=wpcom-no-pv";
+			stat_gif += "&x_ads_imp_theme=" + wpcom_adclk_theme;
+			stat_gif += "&x_ads_imp_placement="+wpcom_adclk_slot;
+			stat_gif += "&x_ads_imp_network=" + wpcom_adclk_network;
+			stat_gif += "&x_ads_imp_theme_network="+wpcom_adclk_theme+"_"+wpcom_adclk_network;
+			new Image().src = stat_gif + "&baba=" + Math.random();
+			return true;
+		}
+
+		function wpcom_adclk_click() {
+			if (wpcom_adclk_recorded) { return true; } // no double counting
+			var stat_gif = document.location.protocol + "//stats.wordpress.com/g.gif?v=wpcom-no-pv";
+			stat_gif += "&x_ads_click_theme=" + wpcom_adclk_theme;
+			stat_gif += "&x_ads_click_placement="+wpcom_adclk_slot;
+			stat_gif += "&x_ads_click_network=" + wpcom_adclk_network;
+			stat_gif += "&x_ads_click_theme_network="+wpcom_adclk_theme+"_"+wpcom_adclk_network;
+
+			new Image().src = stat_gif + "&baba=" + Math.random();
+			wpcom_adclk_recorded = true;
+			var now=new Date(); var end=now.getTime()+250;
+			while(true){now=new Date();if(now.getTime()>end){break;}}
+			return true;
+		}
+	
+if ( typeof GA_googleAddAttr == 'function' ) {
+GA_googleAddAttr("AdOpt", "1");
+GA_googleAddAttr("Origin", "other");
+GA_googleAddAttr("LangId", "1");
+GA_googleAddAttr("Domain", "perl6advent.wordpress.com");
+GA_googleAddAttr("BlogId", "10740073");
+GA_googleAddAttr("PageURL", "https://perl6advent.wordpress.com/2009/12/10/day-10-a-regex-story/");
+GA_googleAddAttr("Autotag", "books");
+GA_googleAddAttr("Autotag", "technology");
+GA_googleAddAttr("Autotag", "science");
+GA_googleAddAttr("Tag", "2009");
+GA_googleAddAttr("Tag", "perl6");
+GA_googleAddAttr("Tag", "regex");
+GA_googleAddAttr("Tag", "grammar");
+GA_googleAddAttr("Tag", "pattern-matching");
+GA_googleAddAttr("theme_bg", "ffffff");
+GA_googleAddAttr("theme_text", "333333");
+GA_googleAddAttr("theme_link", "0066cc");
+GA_googleAddAttr("theme_border", "f9f9f9");
+GA_googleAddAttr("theme_url", "114477");
+GA_googleAddAdSensePageAttr("google_page_url", "https://perl6advent.wordpress.com/2009/12/10/day-10-a-regex-story/");
+GA_googleFillSlot("wpcom_below_post");
+}
+</script>
+</div>
+<style type="text/css">
+div.wpa>div { margin-top: 1em; } #google_ads_div_wpcom_below_post_adsafe_ad_container { display: block !important; }
+</style>
+<script type="text/javascript">
+jQuery( window ).load( function() {
+    if ( jQuery(".wpa script[src*='virool.com']").length > 0 || jQuery(".wpa script[src*='shareth.ru']").length > 0 || jQuery(".wpa iframe[src*='boomvideo.tv']").length > 0 || jQuery(".wpa iframe[src*='viewablemedia.net']").length > 0 || jQuery(".wpa .sharethrough-placement").length > 0 ) {
+        jQuery( '.wpa' ).css( 'width', '400px' );
+    }
+setTimeout(function(){if(typeof GS_googleAddAdSenseService !== 'function'){new Image().src=document.location.protocol+"//stats.wordpress.com/g.gif?v=wpcom-no-pv&x_noads=adblock&baba="+Math.random()}},100);
+} );
+</script>
+<div id="jp-post-flair" class="sharedaddy sd-like-enabled"><div class='sharedaddy sd-block sd-like jetpack-likes-widget-wrapper jetpack-likes-widget-unloaded' id='like-post-wrapper-10740073-22-534cd1d91fb95' data-src='//widgets.wp.com/likes/#blog_id=10740073&amp;post_id=22&amp;origin=perl6advent.wordpress.com&amp;obj_id=10740073-22-534cd1d91fb95' data-name='like-post-frame-10740073-22-534cd1d91fb95'><h3 class='sd-title'>Like this:</h3><div class='likes-widget-placeholder post-likes-widget-placeholder' style='height:55px'><span class='button'><span>Like</span></span> <span class="loading">Loading...</span></div><span class='sd-text-color'></span><a class='sd-link-color'></a></div>
+<div id='jp-relatedposts' class='jp-relatedposts' >
+	<h3 class="jp-relatedposts-headline"><em>Related</em></h3>
+</div></div>
+								<p class="clear">Tags: <a href="https://perl6advent.wordpress.com/tag/perl6/" rel="tag">perl6</a>, <a href="https://perl6advent.wordpress.com/tag/regex/" rel="tag">regex</a>, <a href="https://perl6advent.wordpress.com/tag/grammar/" rel="tag">grammar</a>, <a href="https://perl6advent.wordpress.com/tag/pattern-matching/" rel="tag">pattern matching</a></p>
+				<p class="postmetadata alt">
+					<small>
+												This entry was posted on December 10, 2009 at 12:00 am and is filed under <a href="https://perl6advent.wordpress.com/category/2009/" title="View all posts in 2009" rel="category tag">2009</a>.						You can follow any responses to this entry through the <a href='https://perl6advent.wordpress.com/2009/12/10/day-10-a-regex-story/feed/'>RSS 2.0</a> feed.
+													You can <a href="#respond">leave a response</a>, or <a href="https://perl6advent.wordpress.com/2009/12/10/day-10-a-regex-story/trackback/" rel="trackback">trackback</a> from your own site.
+						
+					</small>
+				</p>
+
+			</div>
+		</div>
+
+	
+<!-- You can start editing here. -->
+	<h3 id="comments">6 Responses to &#8220;Day 10: A Regex&nbsp;Story&#8221;</h3>
+
+	<ol class="commentlist">
+					<li class="comment even thread-even depth-1 highlander-comment" id="comment-83">
+			<img alt='' src='https://1.gravatar.com/avatar/7dddb30df0a6de8196d625d846b60e28?s=32&#038;d=identicon&#038;r=G' class='avatar avatar-32' height='32' width='32' />			<cite><a href='http://www.flowsites.de' rel='external nofollow' class='url'>bened</a></cite> Says:						<br />
+
+			<small class="commentmetadata"><a href="#comment-83" title="">December 10, 2009 at 3:07 pm</a> | <a class='comment-reply-link' href='/2009/12/10/day-10-a-regex-story/?replytocom=83#respond' onclick='return addComment.moveForm("comment-83", "83", "respond", "22")'>Reply</a> </small>
+
+			<p>Nice story, I liked the ending. ; )</p>
+<p>What&#8217;s with the first pipe in the group:<br />
+[<br />
+| ...<br />
+| ...<br />
+]<br />
+Doesn&#8217;t this match empty strings too, like (?:|&#8230;|&#8230;) would have in Perl 5?</p>
+<ul class="children">
+			<li class="comment byuser comment-author-pmichaud odd alt depth-2 highlander-comment" id="comment-84">
+			<img alt='' src='https://1.gravatar.com/avatar/de5e8997fc2ae86fa58a2e4c99cbdfa3?s=32&#038;d=identicon&#038;r=G' class='avatar avatar-32' height='32' width='32' />			<cite>pmichaud</cite> Says:						<br />
+
+			<small class="commentmetadata"><a href="#comment-84" title="">December 10, 2009 at 3:23 pm</a> | <a class='comment-reply-link' href='/2009/12/10/day-10-a-regex-story/?replytocom=84#respond' onclick='return addComment.moveForm("comment-84", "84", "respond", "22")'>Reply</a> </small>
+
+			<p>In general, null patterns are disallowed in Perl 6 &#8212; one has to explicitly request matching against an empty string (often either &#8221; or &lt;?&gt;).</p>
+<p>Because of this, we&#8217;re able to say that a leading &#8220;empty&#8221; alternation (pipe) is simply ignored in a pattern.  That makes it easy to write an alternation group as shown in the example above, where each alternative begins with a pipe character and the pipes/grouping brackets can be aligned.</p>
+<p>Pm</p>
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+			<li class="comment even thread-odd thread-alt depth-1 highlander-comment" id="comment-85">
+			<img alt='' src='https://1.gravatar.com/avatar/d43d060019b4271bed56912f4556cf18?s=32&#038;d=identicon&#038;r=G' class='avatar avatar-32' height='32' width='32' />			<cite>Gorm</cite> Says:						<br />
+
+			<small class="commentmetadata"><a href="#comment-85" title="">December 10, 2009 at 5:37 pm</a> | <a class='comment-reply-link' href='/2009/12/10/day-10-a-regex-story/?replytocom=85#respond' onclick='return addComment.moveForm("comment-85", "85", "respond", "22")'>Reply</a> </small>
+
+			<p>Could someone more familiar with perl6 please extend this story a bit?<br />
+Specifically, the referenced synopsis page has &#8216;token&#8217; and &#8216;rule&#8217; statements that seem like they would be useful in this story.</p>
+<p>My (uninformed) take:</p>
+<p>grammar Inventory {<br />
+    token product { \d+ }<br />
+    token quantity { \d+ }<br />
+    token color { \S+ }<br />
+    token description { \N* }<br />
+    rule TOP { ^^<br />
+                [<br />
+                |  '('   ')'<br />
+                |<br />
+                ]<br />
+                $$<br />
+    }<br />
+}</p>
+<p>Would this work?</p>
+</li><!-- #comment-## -->
+			<li class="comment odd alt thread-even depth-1 highlander-comment" id="comment-86">
+			<img alt='' src='https://1.gravatar.com/avatar/d43d060019b4271bed56912f4556cf18?s=32&#038;d=identicon&#038;r=G' class='avatar avatar-32' height='32' width='32' />			<cite>Gorm</cite> Says:						<br />
+
+			<small class="commentmetadata"><a href="#comment-86" title="">December 10, 2009 at 5:43 pm</a> | <a class='comment-reply-link' href='/2009/12/10/day-10-a-regex-story/?replytocom=86#respond' onclick='return addComment.moveForm("comment-86", "86", "respond", "22")'>Reply</a> </small>
+
+			<p>Could someone more familiar with perl6 please extend this story a bit?<br />
+Specifically, the referenced synopsis page has ‘token’ and ‘rule’ statements that seem like they would be useful in this story.</p>
+<pre>
+grammar Inventory {
+    token product { \d+ }
+    token quantity { \d+ }
+    token color { \S+ }
+    token description { \N* }
+    rule TOP { ^^ &lt;product&gt; &lt;quantity&gt;
+                [
+                | &lt;description&gt; '(' &lt;color&gt; ')'
+                | &lt;color&gt; &lt;description&gt;
+                ]
+                $$
+    }
+}
+</pre>
+<p>Would this work?</p>
+<ul class="children">
+			<li class="comment byuser comment-author-foobar123 even depth-2 highlander-comment" id="comment-87">
+			<img alt='' src='https://2.gravatar.com/avatar/eb69242357e150e580be56604b208a83?s=32&#038;d=identicon&#038;r=G' class='avatar avatar-32' height='32' width='32' />			<cite><a href='http://perlgeek.de/' rel='external nofollow' class='url'>Moritz</a></cite> Says:						<br />
+
+			<small class="commentmetadata"><a href="#comment-87" title="">December 10, 2009 at 6:10 pm</a> | <a class='comment-reply-link' href='/2009/12/10/day-10-a-regex-story/?replytocom=87#respond' onclick='return addComment.moveForm("comment-87", "87", "respond", "22")'>Reply</a> </small>
+
+			<p>Some of the advent calendar authors are also working on a book about Perl 6. It&#8217;s not finished yet, but the chapters on regexes and grammars has some substance already, and explains what regex/token/rule is about. </p>
+<p>You can find it here:<br />
+<a href="http://github.com/perl6/book/downloads" rel="nofollow">http://github.com/perl6/book/downloads</a></p>
+</li><!-- #comment-## -->
+			<li class="comment byuser comment-author-pmichaud odd alt depth-2 highlander-comment" id="comment-88">
+			<img alt='' src='https://1.gravatar.com/avatar/de5e8997fc2ae86fa58a2e4c99cbdfa3?s=32&#038;d=identicon&#038;r=G' class='avatar avatar-32' height='32' width='32' />			<cite>pmichaud</cite> Says:						<br />
+
+			<small class="commentmetadata"><a href="#comment-88" title="">December 10, 2009 at 6:20 pm</a> | <a class='comment-reply-link' href='/2009/12/10/day-10-a-regex-story/?replytocom=88#respond' onclick='return addComment.moveForm("comment-88", "88", "respond", "22")'>Reply</a> </small>
+
+			<p>Switching the regexes to &#8216;token&#8217; and &#8216;rule&#8217; in this example would not work, because the patterns in this example need backtracking in order to match.  (The &#8216;token&#8217; and &#8216;rule&#8217; keywords disable backtracking in regexes.)</p>
+<p>Pm</p>
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+	</ol>
+
+	<div class="navigation">
+		<div class="alignleft"></div>
+		<div class="alignright"></div>
+	</div>
+
+
+
+								<div id="respond" class="comment-respond">
+				<h3 id="reply-title" class="comment-reply-title">Leave a Reply <small><a rel="nofollow" id="cancel-comment-reply-link" href="/2009/12/10/day-10-a-regex-story/#respond" style="display:none;">Cancel reply</a></small></h3>
+									<form action="https://perl6advent.wordpress.com/wp-comments-post.php" method="post" id="commentform" class="comment-form">
+																										
+
+
+												<input type="hidden" id="highlander_comment_nonce" name="highlander_comment_nonce" value="69292a17f8" /><input type="hidden" name="_wp_http_referer" value="/2009/12/10/day-10-a-regex-story/" />
+<input type="hidden" name="hc_post_as" id="hc_post_as" value="guest" />
+
+<div class="comment-form-field comment-textarea">
+	<label for="comment">Enter your comment here...</label>
+	<div id="comment-form-comment"><textarea id="comment" name="comment" title="Enter your comment here..."></textarea></div>
+</div>
+
+<div id="comment-form-identity">
+
+	<div id="comment-form-nascar">
+		<p>Fill in your details below or click an icon to log in:</p>
+		<ul>
+			<li class="selected" style="display:none;">
+				<a href="#comment-form-guest" id="postas-guest" title="Guest">
+					<span></span>
+				</a>
+			</li>
+			<li>
+				<a href="#comment-form-load-service:WordPress.com" id="postas-wordpress" title="WordPress.com">
+					<span></span>
+				</a>
+			</li>
+			<li>
+				<a href="#comment-form-load-service:Twitter" id="postas-twitter" title="Twitter">
+					<span></span>
+				</a>
+			</li>
+			<li>
+				<a href="#comment-form-load-service:Facebook" id="postas-facebook" title="Facebook">
+					<span></span>
+				</a>
+			</li>
+			<li>
+			<iframe id="googleplus-sign-in" name="googleplus-sign-in" src="https://public-api.wordpress.com/connect/?googleplus-sign-in=https%3A%2F%2Fperl6advent.wordpress.com" width="24" height="24" scrolling="no" allowtransparency="true" seamless="seamless" frameborder="0"></iframe>
+			</li>
+		</ul>
+	</div>
+
+	<div id="comment-form-guest" class="comment-form-service selected">
+		<div class="comment-form-padder">
+			<div class="comment-form-avatar">
+<a href="https://gravatar.com/site/signup/" target="_blank">				<img src="https://1.gravatar.com/avatar/ad516503a11cd5ca435acc9bb6523536?s=25&amp;d=identicon&amp;forcedefault=y&amp;r=G" alt="Gravatar" width="25" class="no-grav" />
+</a>			</div>
+
+				<div class="comment-form-fields">
+				<div class="comment-form-field comment-form-email">
+					<label for="email">Email <span class="required">(required)</span> <span class="nopublish">(Address never made public)</span></label>
+					<div class="comment-form-input"><input id="email" name="email" type="email" value="" /></div>
+				</div>
+				<div class="comment-form-field comment-form-author">
+					<label for="author">Name <span class="required">(required)</span></label>
+					<div class="comment-form-input"><input id="author" name="author" type="text" value="" /></div>
+				</div>
+				<div class="comment-form-field comment-form-url">
+					<label for="url">Website</label>
+					<div class="comment-form-input"><input id="url" name="url" type="text" value="" /></div>
+				</div>
+			</div>
+	
+		</div>
+	</div>
+
+	<div id="comment-form-wordpress" class="comment-form-service">
+		<div class="comment-form-padder">
+			<div class="comment-form-avatar">
+				<img src="https://s2.wp.com/wp-content/mu-plugins/highlander-comments/images/wplogo.png" alt="WordPress.com Logo" width="25" class="no-grav" />
+			</div>
+
+				<div class="comment-form-fields">
+				<input type="hidden" name="wp_avatar" id="wordpress-avatar" class="comment-meta-wordpress" value="" />
+				<input type="hidden" name="wp_user_id" id="wordpress-user_id" class="comment-meta-wordpress" value="" />
+				<input type="hidden" name="wp_access_token" id="wordpress-access_token" class="comment-meta-wordpress" value="" />
+				<p class="comment-form-posting-as pa-wordpress"><strong></strong> You are commenting using your WordPress.com account. <span class="comment-form-log-out">(&nbsp;<a href="javascript:HighlanderComments.doExternalLogout( 'wordpress' );">Log&nbsp;Out</a>&nbsp;/&nbsp;<a href="#" onclick="javascript:HighlanderComments.switchAccount();return false;">Change</a>&nbsp;)</span></p>
+			</div>
+	
+		</div>
+	</div>
+
+	<div id="comment-form-twitter" class="comment-form-service">
+		<div class="comment-form-padder">
+			<div class="comment-form-avatar">
+				<img src="https://1.gravatar.com/avatar/ad516503a11cd5ca435acc9bb6523536?s=25&amp;d=identicon&amp;forcedefault=y&amp;r=G" alt="Twitter picture" width="25" class="no-grav" />
+			</div>
+
+				<div class="comment-form-fields">
+				<input type="hidden" name="twitter_avatar" id="twitter-avatar" class="comment-meta-twitter" value="" />
+				<input type="hidden" name="twitter_user_id" id="twitter-user_id" class="comment-meta-twitter" value="" />
+				<input type="hidden" name="twitter_access_token" id="twitter-access_token" class="comment-meta-twitter" value="" />
+				<p class="comment-form-posting-as pa-twitter"><strong></strong> You are commenting using your Twitter account. <span class="comment-form-log-out">(&nbsp;<a href="javascript:HighlanderComments.doExternalLogout( 'twitter' );">Log&nbsp;Out</a>&nbsp;/&nbsp;<a href="#" onclick="javascript:HighlanderComments.switchAccount();return false;">Change</a>&nbsp;)</span></p>
+			</div>
+	
+		</div>
+	</div>
+
+	<div id="comment-form-facebook" class="comment-form-service">
+		<div class="comment-form-padder">
+			<div class="comment-form-avatar">
+				<img src="https://1.gravatar.com/avatar/ad516503a11cd5ca435acc9bb6523536?s=25&amp;d=identicon&amp;forcedefault=y&amp;r=G" alt="Facebook photo" width="25" class="no-grav" />
+			</div>
+
+				<div class="comment-form-fields">
+				<input type="hidden" name="fb_avatar" id="facebook-avatar" class="comment-meta-facebook" value="" />
+				<input type="hidden" name="fb_user_id" id="facebook-user_id" class="comment-meta-facebook" value="" />
+				<input type="hidden" name="fb_access_token" id="facebook-access_token" class="comment-meta-facebook" value="" />
+				<p class="comment-form-posting-as pa-facebook"><strong></strong> You are commenting using your Facebook account. <span class="comment-form-log-out">(&nbsp;<a href="javascript:HighlanderComments.doExternalLogout( 'facebook' );">Log&nbsp;Out</a>&nbsp;/&nbsp;<a href="#" onclick="javascript:HighlanderComments.switchAccount();return false;">Change</a>&nbsp;)</span></p>
+			</div>
+	
+		</div>
+	</div>
+
+	<div id="comment-form-googleplus" class="comment-form-service">
+		<div class="comment-form-padder">
+			<div class="comment-form-avatar">
+				<img src="https://1.gravatar.com/avatar/ad516503a11cd5ca435acc9bb6523536?s=25&amp;d=identicon&amp;forcedefault=y&amp;r=G" alt="Google+ photo" width="25" class="no-grav" />
+			</div>
+
+				<div class="comment-form-fields">
+				<input type="hidden" name="googleplus_avatar" id="googleplus-avatar" class="comment-meta-googleplus" value="" />
+				<input type="hidden" name="googleplus_user_id" id="googleplus-user_id" class="comment-meta-googleplus" value="" />
+				<input type="hidden" name="googleplus_access_token" id="googleplus-access_token" class="comment-meta-googleplus" value="" />
+				<p class="comment-form-posting-as pa-googleplus"><strong></strong> You are commenting using your Google+ account. <span class="comment-form-log-out">(&nbsp;<a href="javascript:HighlanderComments.doExternalLogout( 'googleplus' );">Log&nbsp;Out</a>&nbsp;/&nbsp;<a href="#" onclick="javascript:HighlanderComments.switchAccount();return false;">Change</a>&nbsp;)</span></p>
+			</div>
+	
+		</div>
+	</div>
+
+
+	<div id="comment-form-load-service" class="comment-form-service">
+		<div class="comment-form-posting-as-cancel"><a href="javascript:HighlanderComments.cancelExternalWindow();">Cancel</a></div>
+		<p>Connecting to %s</p>
+	</div>
+
+	
+</div>
+
+<script type="text/javascript">
+var highlander_expando_javascript = function(){
+	var input = document.createElement( 'input' ),
+	    comment = jQuery( '#comment' );
+
+	if ( 'placeholder' in input ) {
+		comment.attr( 'placeholder', jQuery( '.comment-textarea label' ).remove().text() );
+	}
+
+	// Expando Mode: start small, then auto-resize on first click + text length
+	jQuery( '#comment-form-identity' ).hide();
+	jQuery( '#comment-form-subscribe' ).hide();
+	jQuery( '#commentform .form-submit' ).hide();
+
+	comment.css( { 'height':'10px' } ).one( 'focus', function() {
+		var timer = setInterval( HighlanderComments.resizeCallback, 10 )
+		jQuery( this ).animate( { 'height': HighlanderComments.initialHeight } ).delay( 100 ).queue( function(n) { clearInterval( timer ); HighlanderComments.resizeCallback(); n(); } );
+		jQuery( '#comment-form-identity' ).slideDown();
+		jQuery( '#comment-form-subscribe' ).slideDown();
+		jQuery( '#commentform .form-submit' ).slideDown();
+	});
+}
+jQuery(document).ready( highlander_expando_javascript );
+</script>
+
+<div id="comment-form-subscribe">
+	<p class="comment-subscription-form"><input type="checkbox" name="subscribe" id="subscribe" value="subscribe" style="width: auto;" tabindex="6"/> <label class="subscribe-label" id="subscribe-label" for="subscribe" style="display: inline;">Notify me of follow-up comments via email.</label></p></div>
+
+												<p class="form-submit">
+							<input name="submit" type="submit" id="comment-submit" value="Post Comment" />
+							<input type='hidden' name='comment_post_ID' value='22' id='comment_post_ID' />
+<input type='hidden' name='comment_parent' id='comment_parent' value='0' />
+						</p>
+						
+<input type="hidden" name="genseq" value="1397543385" />
+<p style="display: none;"><input type="hidden" id="akismet_comment_nonce" name="akismet_comment_nonce" value="951938d298" /></p><script type='text/javascript' src='https://s2.wp.com/wp-content/mu-plugins/akismet-2.5/form.js?m=1308783962g'></script>
+<p style="display: none;"><input type="hidden" id="ak_js" name="ak_js" value="164"/></p>					</form>
+							</div><!-- #respond -->
+			<div style="clear: both"></div>
+
+	
+	</div>
+
+
+<hr />
+<div id="footer">
+	<p>
+		<a href="http://theme.wordpress.com/themes/kubrick/" title="Learn more about this theme">The Kubrick Theme</a> <a href="http://wordpress.com/?ref=footer">Blog at WordPress.com</a>.
+		<br /><a href="https://perl6advent.wordpress.com/feed/">Entries (RSS)</a> and <a href="https://perl6advent.wordpress.com/comments/feed/">Comments (RSS)</a>.	</p>
+</div>
+</div>
+
+<script type='text/javascript' src='//0.gravatar.com/js/gprofiles.js?ver=201416x'></script>
+<script type='text/javascript'>
+/* <![CDATA[ */
+var WPGroHo = {"my_hash":""};
+/* ]]> */
+</script>
+<script type='text/javascript' src='https://s2.wp.com/wp-content/mu-plugins/gravatar-hovercards/wpgroho.js?m=1380573781g'></script>
+
+	<script>
+		//initialize and attach hovercards to all gravatars
+		jQuery( document ).ready( function( $ ) {
+			Gravatar.profile_cb = function( hash, id ) {
+				WPGroHo.syncProfileData( hash, id );
+			};
+			Gravatar.my_hash = WPGroHo.my_hash;
+			Gravatar.init( 'body', '#wp-admin-bar-my-account' );
+		});
+	</script>
+
+		<div style="display:none">
+	<div class="grofile-hash-map-7dddb30df0a6de8196d625d846b60e28">
+	</div>
+	<div class="grofile-hash-map-de5e8997fc2ae86fa58a2e4c99cbdfa3">
+	</div>
+	<div class="grofile-hash-map-d43d060019b4271bed56912f4556cf18">
+	</div>
+	<div class="grofile-hash-map-eb69242357e150e580be56604b208a83">
+	</div>
+	</div>
+<script type='text/javascript'>
+/* <![CDATA[ */
+var HighlanderComments = {"loggingInText":"Logging In\u2026","submittingText":"Posting Comment\u2026","postCommentText":"Post Comment","connectingToText":"Connecting to %s","commentingAsText":"%1$s: You are commenting using your %2$s account.","logoutText":"Log Out","loginText":"Log In","connectURL":"https:\/\/perl6advent.wordpress.com\/public.api\/connect\/?action=request","logoutURL":"https:\/\/perl6advent.wordpress.com\/wp-login.php?action=logout&_wpnonce=f3284f6283","homeURL":"https:\/\/perl6advent.wordpress.com\/","postID":"22","gravDefault":"identicon","enterACommentError":"Please enter a comment","enterEmailError":"Please enter your email address here","invalidEmailError":"Invalid email address","enterAuthorError":"Please enter your name here","gravatarFromEmail":"This picture will show whenever you leave a comment. Click to customize it.","logInToExternalAccount":"Log in to use details from one of these accounts.","change":"Change","changeAccount":"Change Account","comment_registration":"","userIsLoggedIn":"","isJetpack":"0"};
+/* ]]> */
+</script>
+<script type='text/javascript' src='https://s0.wp.com/_static/??/wp-content/js/jquery/jquery.autoresize.js,/wp-content/mu-plugins/highlander-comments/script.js?m=1395185286j'></script>
+
+	<div id="bit" class="loggedout-follow-normal">
+		<a class="bsub" href="javascript:void(0)"><span id='bsub-text'>Follow</span></a>
+		<div id="bitsubscribe">
+
+					<h3><label for="loggedout-follow-field">Follow &ldquo;Perl 6 Advent Calendar&rdquo;</label></h3>
+
+			<form action="https://subscribe.wordpress.com" method="post" accept-charset="utf-8" id="loggedout-follow">
+			<p>Get every new post delivered to your Inbox.</p>
+
+			<p id="loggedout-follow-error" style="display: none;"></p>
+
+						<p class="bit-follow-count">Join 36 other followers</p>
+			<p><input type="email" name="email" value="Enter your email address" onfocus='this.value=(this.value=="Enter your email address") ? "" : this.value;' onblur='this.value=(this.value=="") ? "Enter email address" : this.value;'  id="loggedout-follow-field"/></p>
+
+			<input type="hidden" name="action" value="subscribe"/>
+			<input type="hidden" name="blog_id" value="10740073"/>
+			<input type="hidden" name="source" value="https://perl6advent.wordpress.com/2009/12/10/day-10-a-regex-story/"/>
+			<input type="hidden" name="sub-type" value="loggedout-follow"/>
+
+			<input type="hidden" id="_wpnonce" name="_wpnonce" value="012dea5bde" /><input type="hidden" name="_wp_http_referer" value="/2009/12/10/day-10-a-regex-story/" />
+			<p id='bsub-subscribe-button'><input type="submit" value="Sign me up" /></p>
+			</form>
+					<div id='bsub-credit'><a href="http://wordpress.com/signup/?ref=lof">Powered by WordPress.com</a></div>
+		</div><!-- #bitsubscribe -->
+	</div><!-- #bit -->
+	<script type="text/javascript">
+	var skimlinks_pub_id = "725X584219"
+	var skimlinks_sitename = "perl6advent.wordpress.com";
+	</script>
+	<script type="text/javascript" src="https://s.skimresources.com/js/725X1342.skimlinks.js"></script>		<iframe src='https://widgets.wp.com/likes/master.html?ver=20140227#ver=20140227&amp;mp6=1' scrolling='no' id='likes-master' name='likes-master' style='display:none;'></iframe>
+		<div id='likes-other-gravatars'><div class="likes-text"><span>%d</span> bloggers like this:</div><ul class="wpl-avatars sd-like-gravatars"></ul></div>
+		<script type="text/javascript">
+		//<![CDATA[
+			var jetpackLikesWidgetQueue = [];
+			var jetpackLikesWidgetBatch = [];
+			var jetpackLikesMasterReady = false;
+
+			function JetpackLikespostMessage( message, target ) {
+				if ( "string" === typeof message ){
+					try{
+						message = JSON.parse( message );
+					}
+					catch(e) {
+						return;
+					}
+				}
+
+				pm( {
+					target: target,
+					type: 'likesMessage',
+					data: message,
+					origin: '*'
+				} );
+			}
+
+			function JetpackLikesBatchHandler() {
+				var requests = [];
+				jQuery( 'div.jetpack-likes-widget-unloaded' ).each( function( i ) {
+					if ( jetpackLikesWidgetBatch.indexOf( this.id ) > -1 )
+						return;
+					jetpackLikesWidgetBatch.push( this.id );
+					var regex = /like-(post|comment)-wrapper-(\d+)-(\d+)-(\w+)/;
+					var match = regex.exec( this.id );
+					if ( ! match || match.length != 5 )
+						return;
+
+					var info = {
+						blog_id: match[2],
+						width:   this.width
+					};
+
+					if ( 'post' == match[1] ) {
+						info.post_id = match[3];
+					} else if ( 'comment' == match[1] ) {
+						info.comment_id = match[3];
+					}
+
+					info.obj_id = match[4];
+
+					requests.push( info );
+				});
+
+				if ( requests.length > 0 ) {
+					JetpackLikespostMessage( { event: 'initialBatch', requests: requests }, window.frames['likes-master'] );
+				}
+			}
+
+			function JetpackLikesMessageListener( event ) {
+				if ( "undefined" == typeof event.event )
+					return;
+
+				if ( 'masterReady' == event.event ) {
+					jQuery( document ).ready( function() {
+						jetpackLikesMasterReady = true;
+
+						var stylesData = {
+								event: 'injectStyles'
+						};
+
+						if ( jQuery( 'iframe.admin-bar-likes-widget' ).length > 0 ) {
+							JetpackLikespostMessage( { event: 'adminBarEnabled' }, window.frames[ 'likes-master' ] );
+
+							stylesData.adminBarStyles = {
+								background: jQuery( '#wpadminbar .quicklinks li#wp-admin-bar-wpl-like > a' ).css( 'background' ),
+								isRtl: ( 'rtl' == jQuery( '#wpadminbar' ).css( 'direction' ) )
+							};
+						}
+
+						if ( !window.addEventListener )
+							jQuery( '#wp-admin-bar-admin-bar-likes-widget' ).hide();
+
+						stylesData.textStyles = {
+							color: jQuery( '.sd-text-color').css( 'color' ),
+							fontFamily: jQuery( '.sd-text-color' ).css( 'font-family' ),
+							fontSize: jQuery( '.sd-text-color' ).css( 'font-size' ),
+							direction: jQuery( '.sd-text-color' ).css( 'direction' ),
+							fontWeight: jQuery( '.sd-text-color' ).css( 'font-weight' ),
+							fontStyle: jQuery( '.sd-text-color' ).css( 'font-style' ),
+							textDecoration: jQuery( '.sd-text-color' ).css('text-decoration')
+						};
+
+						stylesData.linkStyles = {
+							color: jQuery( '.sd-link-color' ).css('color'),
+							fontFamily: jQuery( '.sd-link-color' ).css('font-family'),
+							fontSize: jQuery( '.sd-link-color' ).css('font-size'),
+							textDecoration: jQuery( '.sd-link-color' ).css('text-decoration'),
+							fontWeight: jQuery( '.sd-link-color' ).css( 'font-weight' ),
+							fontStyle: jQuery( '.sd-link-color' ).css( 'font-style' )
+						};
+
+						JetpackLikespostMessage( stylesData, window.frames[ 'likes-master' ] );
+
+						JetpackLikesBatchHandler();
+
+						jQuery( document ).on( 'inview', 'div.jetpack-likes-widget-unloaded', function() {
+							jetpackLikesWidgetQueue.push( this.id );
+						});
+					});
+				}
+
+				if ( 'showLikeWidget' == event.event ) {
+					jQuery( '#' + event.id + ' .post-likes-widget-placeholder'  ).fadeOut( 'fast', function() {
+						jQuery( '#' + event.id + ' .post-likes-widget' ).fadeIn( 'fast', function() {
+							JetpackLikespostMessage( { event: 'likeWidgetDisplayed', blog_id: event.blog_id, post_id: event.post_id, obj_id: event.obj_id }, window.frames['likes-master'] );
+						});
+					});
+				}
+
+				if ( 'clickReblogFlair' == event.event ) {
+					wpcom_reblog.toggle_reblog_box_flair( event.obj_id );
+				}
+
+				if ( 'showOtherGravatars' == event.event ) {
+					var $container = jQuery( '#likes-other-gravatars' );
+					var $list = $container.find( 'ul' );
+
+					$container.hide();
+					$list.html( '' );
+
+					$container.find( '.likes-text span' ).text( event.total );
+
+					jQuery.each( event.likers, function( i, liker ) {
+						$list.append( '<li class="' + liker.css_class + '"><a href="' + liker.profile_URL + '" class="wpl-liker" rel="nofollow" target="_parent"><img src="' + liker.avatar_URL + '" alt="' + liker.name + '" width="30" height="30" style="padding-right: 3px;" /></a></li>');
+					} );
+
+					var offset = jQuery( "[name='" + event.parent + "']" ).offset();
+
+					$container.css( 'left', offset.left + event.position.left - 10 + 'px' );
+					$container.css( 'top', offset.top + event.position.top - 33 + 'px' );
+
+					var rowLength = Math.floor( event.width / 37 );
+					var height = ( Math.ceil( event.likers.length / rowLength ) * 37 ) + 13;
+					if ( height > 204 ) {
+						height = 204;
+					}
+
+					$container.css( 'height', height + 'px' );
+					$container.css( 'width', rowLength * 37 - 7 + 'px' );
+
+					$list.css( 'width', rowLength * 37 + 'px' );
+
+					$container.fadeIn( 'slow' );
+
+					var scrollbarWidth = $list[0].offsetWidth - $list[0].clientWidth;
+					if ( scrollbarWidth > 0 ) {
+						$container.width( $container.width() + scrollbarWidth );
+						$list.width( $list.width() + scrollbarWidth );
+					}
+				}
+			}
+
+			pm.bind( 'likesMessage', function(e) { JetpackLikesMessageListener(e); } );
+
+			jQuery( document ).click( function( e ) {
+				var $container = jQuery( '#likes-other-gravatars' );
+
+				if ( $container.has( e.target ).length === 0 ) {
+					$container.fadeOut( 'slow' );
+				}
+			});
+
+			function JetpackLikesWidgetQueueHandler() {
+				var wrapperID;
+				if ( ! jetpackLikesMasterReady ) {
+					setTimeout( JetpackLikesWidgetQueueHandler, 500 );
+					return;
+				}
+
+				if ( jetpackLikesWidgetQueue.length > 0 ) {
+					// We may have a widget that needs creating now
+					var found = false;
+					while( jetpackLikesWidgetQueue.length > 0 ) {
+						// Grab the first member of the queue that isn't already loading.
+						wrapperID = jetpackLikesWidgetQueue.splice( 0, 1 )[0];
+						if ( jQuery( '#' + wrapperID ).hasClass( 'jetpack-likes-widget-unloaded' ) ) {
+							found = true;
+							break;
+						}
+					}
+					if ( ! found ) {
+						setTimeout( JetpackLikesWidgetQueueHandler, 500 );
+						return;
+					}
+				} else if ( jQuery( 'div.jetpack-likes-widget-unloaded' ).length > 0 ) {
+					// Grab any unloaded widgets for a batch request
+					JetpackLikesBatchHandler();
+
+					// Get the next unloaded widget
+					wrapperID = jQuery( 'div.jetpack-likes-widget-unloaded' ).first()[0].id;
+					if ( ! wrapperID ) {
+						// Everything is currently loaded
+						setTimeout( JetpackLikesWidgetQueueHandler, 500 );
+						return;
+					}
+				}
+
+				if ( 'undefined' === typeof wrapperID ) {
+					setTimeout( JetpackLikesWidgetQueueHandler, 500 );
+					return;
+				}
+
+				var $wrapper = jQuery( '#' + wrapperID );
+				$wrapper.find( 'iframe' ).remove();
+
+				if ( $wrapper.hasClass( 'slim-likes-widget' ) ) {
+					$wrapper.find( '.post-likes-widget-placeholder' ).after( "<iframe class='post-likes-widget jetpack-likes-widget' name='" + $wrapper.data( 'name' ) + "' height='22px' width='68px' frameBorder='0' scrolling='no' src='" + $wrapper.data( 'src' ) + "'></iframe>" );
+				} else {
+					$wrapper.find( '.post-likes-widget-placeholder' ).after( "<iframe class='post-likes-widget jetpack-likes-widget' name='" + $wrapper.data( 'name' ) + "' height='55px' width='100%' frameBorder='0' src='" + $wrapper.data( 'src' ) + "'></iframe>" );
+				}
+
+				$wrapper.removeClass( 'jetpack-likes-widget-unloaded' ).addClass( 'jetpack-likes-widget-loading' );
+
+				$wrapper.find( 'iframe' ).load( function( e ) {
+					var $iframe = jQuery( e.target );
+					$wrapper.removeClass( 'jetpack-likes-widget-loading' ).addClass( 'jetpack-likes-widget-loaded' );
+
+					JetpackLikespostMessage( { event: 'loadLikeWidget', name: $iframe.attr( 'name' ), width: $iframe.width() }, window.frames[ 'likes-master' ] );
+
+					if ( $wrapper.hasClass( 'slim-likes-widget' ) ) {
+						$wrapper.find( 'iframe' ).Jetpack( 'resizeable' );
+					}
+				});
+				setTimeout( JetpackLikesWidgetQueueHandler, 250 );
+			}
+			JetpackLikesWidgetQueueHandler();
+		//]]>
+		</script>
+<script type='text/javascript' src='https://s0.wp.com/_static/??/wp-content/js/devicepx.js,/wp-includes/js/comment-reply.min.js?m=1389017300j'></script>
+<script type="text/javascript">
+// <![CDATA[
+(function() {
+try{
+  if ( window.external &&'msIsSiteMode' in window.external) {
+    if (window.external.msIsSiteMode()) {
+      var jl = document.createElement('script');
+      jl.type='text/javascript';
+      jl.async=true;
+      jl.src='/wp-content/plugins/ie-sitemode/custom-jumplist.php';
+      var s = document.getElementsByTagName('script')[0];
+      s.parentNode.insertBefore(jl, s);
+    }
+  }
+}catch(e){}
+})();
+// ]]>
+</script><script src="https://ssl-stats.wordpress.com/w.js?21" type="text/javascript"></script>
+<script type="text/javascript">
+st_go({'blog':'10740073','v':'wpcom','tz':'0','user_id':'0','post':'22','subd':'perl6advent'});
+ex_go({'crypt':'UE5XaGUuOTlwaD85flAmcm1mcmZsaDhkV11YdWFnNncxc1tjZG9XVXhReTFqanhKV3x0UkQxQldDVUV4ZVR+cSt8Ny8tTm40WDY2NUd1SH5CMko/Rmx6TmhYLjZfbC5sPyt8ckZTYU9yaVpETGV5VmEuTDJBNC5qYWwvZElSMzR3ZGNrMWFzWHBrTz18JSVPSV8xbEdzUk4lQ2o2SFljckotS2ctbDAtWDNKZGhCTkxNdUFtcnBDP0MmOVJJWjg1OFQ5WXMxU2N5L1g5VkFZM3I3eSw3ZVtmR2omaDlzL0JvcVJXS0tERV9Uc2lGdW9taDgyaHdiMVVYWU94M2osKy55MC92ZCxjYVJhfEhjQWsuUmpEQlluLENOVjFYVn5C'});
+addLoadEvent(function(){linktracker_init('10740073',22);});
+	</script>
+<noscript><img src="https://stats.wordpress.com/b.gif?v=noscript" style="height:0px;width:0px;overflow:hidden" alt="" /></noscript>
+<script>
+if ( 'object' === typeof wpcom_mobile_user_agent_info ) {
+
+	wpcom_mobile_user_agent_info.init();
+	var mobileStatsQueryString = "";
+	
+	if( false !== wpcom_mobile_user_agent_info.matchedPlatformName )
+		mobileStatsQueryString += "&x_" + 'mobile_platforms' + '=' + wpcom_mobile_user_agent_info.matchedPlatformName;
+	
+	if( false !== wpcom_mobile_user_agent_info.matchedUserAgentName )
+		mobileStatsQueryString += "&x_" + 'mobile_devices' + '=' + wpcom_mobile_user_agent_info.matchedUserAgentName;
+	
+	if( wpcom_mobile_user_agent_info.isIPad() )
+		mobileStatsQueryString += "&x_" + 'ipad_views' + '=' + 'views';
+
+	if( "" != mobileStatsQueryString ) {
+		new Image().src = document.location.protocol + '//stats.wordpress.com/g.gif?v=wpcom-no-pv' + mobileStatsQueryString + '&baba=' + Math.random();
+	}
+	
+}
+</script></body>
+</html>

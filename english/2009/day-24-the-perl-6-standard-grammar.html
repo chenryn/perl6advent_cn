@@ -1,0 +1,860 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+
+<head profile="http://gmpg.org/xfn/11">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>Day 24: The Perl 6 standard grammar | Perl 6 Advent Calendar</title>
+<link rel="pingback" href="https://perl6advent.wordpress.com/xmlrpc.php" />
+<meta name="google-site-verification" content="YPNxtMSK3Jj7JR2XCK-hDqmF9xDIeBEyvYm3aT1s71Y" />
+<link rel="alternate" type="application/rss+xml" title="Perl 6 Advent Calendar &raquo; Feed" href="https://perl6advent.wordpress.com/feed/" />
+<link rel="alternate" type="application/rss+xml" title="Perl 6 Advent Calendar &raquo; Comments Feed" href="https://perl6advent.wordpress.com/comments/feed/" />
+<link rel="alternate" type="application/rss+xml" title="Perl 6 Advent Calendar &raquo; Day 24: The Perl 6 standard&nbsp;grammar Comments Feed" href="https://perl6advent.wordpress.com/2009/12/24/day-24-the-perl-6-standard-grammar/feed/" />
+<script type="text/javascript">
+/* <![CDATA[ */
+function addLoadEvent(func){var oldonload=window.onload;if(typeof window.onload!='function'){window.onload=func;}else{window.onload=function(){oldonload();func();}}}
+/* ]]> */
+</script>
+<link rel='stylesheet' id='all-css-0' href='https://s0.wp.com/_static/??-eJx9j90OgjAMRl/I2Yjiz4XxWcZWx6CjC+tCfHuHiZFIwl2/5px+KUxRGR4EB4GQVaTs/JCAfI8JOpSoTa8+aW9S2sECb4jdT2Dn0HIW9WQinmDy1qGspEXHiKQFrYqc5C9taYZHLPsQtcxEQOs1EoaCbWkhnr/WPLblr3WNtOVOgpgb6HMzetNDkhfhDD7C/XC8XarqdK3r7g1dsHQ6' type='text/css' media='all' />
+<!--[if lte IE 8]>
+<link rel='stylesheet' id='kubrick-ie-css'  href='https://s0.wp.com/wp-content/themes/pub/kubrick/ie.css?m=1273203575g&#038;ver=3.9-RC1' type='text/css' media='all' />
+<![endif]-->
+<link rel='stylesheet' id='all-css-2' href='https://s0.wp.com/_static/??-eJxljEsKgDAMBS9kjX9wIZ5F2xArbSOm4vWtrgru3sCbgftQmkPEEMFf6nAX2SBw4uqY0iTQkmOZsIBMiht6FNg6IMfr4n6HrHpbQxjlSxKzOXEx8gqzn+p2rPqh6ep2fwA3cTYI' type='text/css' media='all' />
+<link rel='stylesheet' id='print-css-2' href='https://s0.wp.com/wp-content/mu-plugins/global-print/global-print.css?m=1387483371g' type='text/css' media='print' />
+<script type='text/javascript'>
+/* <![CDATA[ */
+var LoggedOutFollow = {"invalid_email":"Your subscription did not succeed, please try again with a valid email address."};
+/* ]]> */
+</script>
+<script type='text/javascript' src='https://s0.wp.com/_static/??-eJyFj0kOwjAMRS+ESVEX0AXiLG3jRg6ZiBMiOD2pBAgKUlee3ve3RQkwepfQJaFZWD+QQciMsVe1B+Qmv9W8EZUjN5oskWdQXzLG2zOsAmBJxT7h1pJ7wR+uwXOyyFwt/0y/rchdCcsqpjGFfjxDRKb7z9bBeAXBZEWORc0VSp8TTN4YX0QhqTAtNTa/FRFNfUbCfPeiqqqTPe7abt8cuqbt9ANnG4Rf'></script>
+<link rel='stylesheet' id='all-css-0' href='https://s2.wp.com/wp-content/mu-plugins/highlander-comments/style.css?m=1377793621g' type='text/css' media='all' />
+<!--[if lt IE 8]>
+<link rel='stylesheet' id='highlander-comments-ie7-css'  href='https://s2.wp.com/wp-content/mu-plugins/highlander-comments/style-ie7.css?m=1351637563g&#038;ver=20110606' type='text/css' media='all' />
+<![endif]-->
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="https://perl6advent.wordpress.com/xmlrpc.php?rsd" />
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="https://perl6advent.wordpress.com/wp-includes/wlwmanifest.xml" /> 
+<link rel='prev' title='Day 23: Lazy fruits from the gather of&nbsp;Eden' href='https://perl6advent.wordpress.com/2009/12/23/day-23-lazy-fruits-from-the-gather-of-eden/' />
+<link rel='next' title='Merry Christmas!' href='https://perl6advent.wordpress.com/2009/12/25/merry-christmas/' />
+<meta name="generator" content="WordPress.com" />
+<link rel='canonical' href='https://perl6advent.wordpress.com/2009/12/24/day-24-the-perl-6-standard-grammar/' />
+<link rel='shortlink' href='http://wp.me/pJ3YZ-64' />
+<link rel="alternate" type="application/json+oembed" href="https://public-api.wordpress.com/oembed/1.0/?format=json&amp;url=https%3A%2F%2Fperl6advent.wordpress.com%2F2009%2F12%2F24%2Fday-24-the-perl-6-standard-grammar%2F&amp;for=wpcom-auto-discovery" /><link rel="alternate" type="application/xml+oembed" href="https://public-api.wordpress.com/oembed/1.0/?format=xml&amp;url=https%3A%2F%2Fperl6advent.wordpress.com%2F2009%2F12%2F24%2Fday-24-the-perl-6-standard-grammar%2F&amp;for=wpcom-auto-discovery" />
+<!-- Jetpack Open Graph Tags -->
+<meta property="og:type" content="article" />
+<meta property="og:title" content="Day 24: The Perl 6 standard grammar" />
+<meta property="og:url" content="https://perl6advent.wordpress.com/2009/12/24/day-24-the-perl-6-standard-grammar/" />
+<meta property="og:description" content="We&#039;ve now reached the end of this year&#039;s advent series, what will be the gift in our last box? The door opens to reveal...the Perl 6 grammar. At first it might seem odd to cite a grammar as a signi..." />
+<meta property="article:published_time" content="2009-12-24T00:01:46+00:00" />
+<meta property="article:modified_time" content="2010-12-07T15:50:18+00:00" />
+<meta property="article:author" content="https://perl6advent.wordpress.com/author/pmichaud/" />
+<meta property="og:site_name" content="Perl 6 Advent Calendar" />
+<meta property="og:image" content="http://wordpress.com/i/blank.jpg?m=1383295312g" />
+<meta name="twitter:site" content="@wordpressdotcom" />
+<meta name="twitter:card" content="summary" />
+<meta property="fb:app_id" content="249643311490" />
+<meta property="article:publisher" content="https://www.facebook.com/WordPresscom" />
+<link rel="shortcut icon" type="image/x-icon" href="https://s2.wp.com/i/favicon.ico" sizes="16x16 24x24 32x32 48x48" />
+<link rel="icon" type="image/x-icon" href="https://s2.wp.com/i/favicon.ico" sizes="16x16 24x24 32x32 48x48" />
+<link rel="apple-touch-icon-precomposed" href="https://s0.wp.com/i/webclip.png" />
+<link rel='openid.server' href='https://perl6advent.wordpress.com/?openidserver=1' />
+<link rel='openid.delegate' href='https://perl6advent.wordpress.com/' />
+<link rel="search" type="application/opensearchdescription+xml" href="https://perl6advent.wordpress.com/osd.xml" title="Perl 6 Advent Calendar" />
+<link rel="search" type="application/opensearchdescription+xml" href="http://wordpress.com/opensearch.xml" title="WordPress.com" />
+<style type='text/css'><!--
+body { background: url("https://s0.wp.com/wp-content/themes/pub/kubrick/images/kubrickbgcolor.gif"); }
+#page { background: url("https://s0.wp.com/wp-content/themes/pub/kubrick/images/kubrickbgwide.gif") repeat-y top !important; border: none; }
+#header { background: url("https://s0.wp.com/wp-content/themes/pub/kubrick/images/kubrickheader.gif") no-repeat bottom center; }
+#footer { background: url("https://s0.wp.com/wp-content/themes/pub/kubrick/images/kubrickfooter.gif") no-repeat bottom; border: none;}
+#header { margin: 0 !important; margin: 0 0 0 1px; padding: 1px; height: 198px; width: 758px; }
+#headerimg { margin: 7px 9px 0; height: 192px; width: 740px; }
+#headerimg h1 a, #headerimg h1 a:visited, #headerimg .description { color: #FFFFFF; }
+#headerimg h1 a, #headerimg .description { display:  }
+
+	--></style><meta name="application-name" content="Perl 6 Advent Calendar" /><meta name="msapplication-window" content="width=device-width;height=device-height" /><meta name="msapplication-tooltip" content="Something cool about Perl 6 every day" /><meta name="msapplication-task" content="name=Subscribe;action-uri=https://perl6advent.wordpress.com/feed/;icon-uri=https://s2.wp.com/i/favicon.ico" /><meta name="msapplication-task" content="name=Sign up for a free blog;action-uri=http://wordpress.com/signup/;icon-uri=https://s2.wp.com/i/favicon.ico" /><meta name="msapplication-task" content="name=WordPress.com Support;action-uri=http://support.wordpress.com/;icon-uri=https://s2.wp.com/i/favicon.ico" /><meta name="msapplication-task" content="name=WordPress.com Forums;action-uri=http://forums.wordpress.com/;icon-uri=https://s2.wp.com/i/favicon.ico" /><meta name="title" content="Day 24: The Perl 6 standard&nbsp;grammar | Perl 6 Advent Calendar on WordPress.com" />
+<meta name="description" content="We&#039;ve now reached the end of this year&#039;s advent series, what will be the gift in our last box? The door opens to reveal...the Perl 6 grammar. At first it might seem odd to cite a grammar as a significant component of a language. Obviously the syntax matters a lot to people writing programs in&hellip;" />
+<style type="text/css">
+#header     { margin: 0 !important; margin: 0 0 0 1px; padding: 1px; height: 198px; width: 758px; }
+#headerimg  { margin: 7px 9px 0; height: 192px; width: 740px; }
+#headerimg { background: url(https://perl6advent.files.wordpress.com/2009/12/perl6advent2.png) no-repeat top;}
+#header h1 a, #header h1 a:hover, #header .description {
+	color: #fff;
+}
+</style>
+
+<script type='text/javascript' src='http://partner.googleadservices.com/gampad/google_service.js'>
+</script>
+<script type='text/javascript'>
+if ( typeof GS_googleAddAdSenseService == 'function' ) { GS_googleAddAdSenseService("ca-pub-3443918307802676"); }
+if ( typeof GS_googleEnableAllServices == 'function' ) { GS_googleEnableAllServices() };
+</script>
+<script type="text/javascript" src="http://c.amazon-adsystem.com/aax2/amzn_ads.js"></script>
+<script type="text/javascript">
+try { amznads.getAds("3033","300x250"); } catch(e) { /* ignore */ }
+</script>
+<script type="text/javascript">
+var amznKeys = amznads.getKeys();
+if (typeof amznKeys != "undefined" && amznKeys != "") { for (var i =0; i < amznKeys.length; i++) { var key = amznKeys[i]; GA_googleAddAttr("amzn", key);} }
+document.close();
+</script>
+<script type='text/javascript'>
+if ( typeof GA_googleAddSlot == 'function' ) { GA_googleAddSlot("ca-pub-3443918307802676", "wpcom_below_post"); }
+</script>
+<script type='text/javascript'>
+if ( typeof GA_googleFetchAds == 'function' ) { GA_googleFetchAds(); }
+</script>
+
+<script type="text/javascript">
+var wpcom_ads = { bid: 10740073, pt: 'permalink', wa: 0, as: 0, domain: 'perl6advent.wordpress.com', url: 'https://perl6advent.wordpress.com/2009/12/24/day-24-the-perl-6-standard-grammar/', gid: '', };
+</script>
+<style type="text/css" id="syntaxhighlighteranchor"></style>
+<script type="text/javascript">
+	window.google_analytics_uacct = "UA-52447-2";
+</script>
+
+<script type="text/javascript">
+	var _gaq = _gaq || [];
+	_gaq.push(['_setAccount', 'UA-52447-2']);
+	_gaq.push(['_setDomainName', 'wordpress.com']);
+	_gaq.push(['_initData']);
+	_gaq.push(['_trackPageview']);
+
+	(function() {
+		var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+		ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+		(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(ga);
+	})();
+</script>
+</head>
+<body class="single single-post postid-376 single-format-standard mp6 highlander-enabled highlander-light">
+<div id="page">
+
+<div id="header">
+	<div id="headerimg" onclick=" location.href='https://perl6advent.wordpress.com';" style="cursor: pointer;">
+		<h1><a href="https://perl6advent.wordpress.com/">Perl 6 Advent Calendar</a></h1>
+		<div class="description">Something cool about Perl 6 every day</div>
+	</div>
+</div>
+<hr />
+
+	<div id="content" class="widecolumn">
+
+	
+		<div class="navigation">
+			<div class="alignleft">&laquo; <a href="https://perl6advent.wordpress.com/2009/12/23/day-23-lazy-fruits-from-the-gather-of-eden/" rel="prev">Day 23: Lazy fruits from the gather of&nbsp;Eden</a></div>
+			<div class="alignright"><a href="https://perl6advent.wordpress.com/2009/12/25/merry-christmas/" rel="next">Merry Christmas!</a> &raquo;</div>
+		</div>
+
+		<div class="post-376 post type-post status-publish format-standard hentry category-2009 clear" id="post-376">
+			<h2>Day 24: The Perl 6 standard&nbsp;grammar</h2>
+			<small class="single-by"><span class="by-author"><span class="sep">by</span> <span class="author vcard"><a class="url fn n" href="https://perl6advent.wordpress.com/author/pmichaud/" title="View all posts by pmichaud" rel="author">pmichaud</a></span> </span></small>
+
+			<div class="entry">
+				<p><!--PageText--></p>
+<div id="wikitext">
+<p>We&#8217;ve now reached the end of this year&#8217;s advent series, what will be the gift in our last box?  The door opens to reveal&#8230;the <a class="urllink" href="http://svn.pugscode.org/pugs/src/perl6/STD.pm6">Perl 6 grammar</a>.</p>
+<p>At first it might seem odd to cite a grammar as a significant component of a language.  Obviously the syntax matters a lot to people writing programs in that language, but once a syntax has been designed, we simply use grammars to describe the syntax and build parsers, right?</p>
+<p>Not in Perl 6, where language syntax is a dynamic thing &#8212; modifiable to accommodate new keywords and syntax not anticipated in the original design.  Or, perhaps more accurately, Perl 6 explicitly anticipates and supports modules and applications changing the language&#8217;s syntax for their specific needs.  <a class="urllink" href="https://perl6advent.wordpress.com/2009/12/22/day-22-operator-overloading/">Defining custom operators</a> is just one example of a place where we change the language syntax itself, but Perl 6 also allows the dynamic addition of macros, new statement types, new sigils, and the like.</p>
+<p>Thus a Perl 6 grammar and parser needs to not only parse the standard Perl 6 syntax, it must handle program-defined custom syntax as well.  Language modifications must also be scoped, so that defining a new operator in one module doesn&#8217;t inadvertently change the interpretation of another module in unintended ways.</p>
+<p>This is what the Perl 6 standard grammar achieves, and much of the effort that has gone into the Perl 6 specification for regexes and grammars (<a class="urllink" href="http://svn.pugscode.org/pugs/docs/Perl6/Spec/S05-regex.pod">Synopsis 5</a>) has been just to make this sort of thing possible.  I personally believe this is one of the key features that will enable Perl 6 to remain a viable language far into the future.  (On the other hand, when I first read the designs for Perl 6 in detail, I had serious doubts as to whether this could in fact be achieved.  It&#8217;s nice to see that it wasn&#8217;t an impossible dream.)</p>
+<p>The expectation is that parsers for Perl 6 will themselves be written in Perl 6, and there are several examples already available.  The &#8220;standard&#8221; or &#8220;reference&#8221; grammar and parser is <a class="urllink" href="http://svn.pugscode.org/pugs/src/perl6/STD.pm6">STD.pm</a>; Larry has been using this to refine the Perl 6 language specification and explore the impacts of various language constructs on the writing of Perl 6 programs.</p>
+<p>Some parts of STD.pm are still evolving in response to implementation concerns; thus Rakudo Perl maintains <a href="http://github.com/rakudo/rakudo/blob/master/src/Perl6/Grammar.pm">its own version of the language grammar</a> that works for its environment.  Many of the ideas first explored by Rakudo often find their way back into the standard grammar.  This is by design &#8212; our expectation is that the various grammar implementations will continue to converge over the course of the next year.</p>
+<p>The key feature that jumps out from looking at the Perl 6 grammar is the use of <em>protoregexes</em>.  A protoregex allows multiple regexes to be combined into a single &#8220;category&#8221;.  In a more traditional grammar, we might write:</p>
+<pre>    rule statement {
+        | &lt;if_statement&gt;
+        | &lt;while_statement&gt;
+        | &lt;for_statement&gt;
+        | &lt;expr&gt;
+    }
+    rule if_statement    { 'if' &lt;expr&gt; &lt;statement&gt; }
+    rule while_statement { 'while' &lt;expr&gt; &lt;statement&gt; }
+    rule for_statement   { 'for' '(' &lt;expr&gt; ';' &lt;expr&gt; ';' &lt;expr&gt; ')' &lt;stmt&gt; }</pre>
+<p>With a protoregex, we&#8217;d write it as follows:</p>
+<pre>    proto token statement { &lt;...&gt; }
+    rule statement:sym&lt;if&gt;    { 'if' &lt;expr&gt; &lt;statement&gt; }
+    rule statement:sym&lt;while&gt; { 'while' &lt;expr&gt; &lt;statement&gt; }
+    rule statement:sym&lt;for&gt;
+        { 'for' '(' &lt;expr&gt; ';' &lt;expr&gt; ';' &lt;expr&gt; ')' &lt;stmt&gt; }
+    rule statement:sym&lt;expr&gt;  { &lt;expr&gt; }</pre>
+<p>We&#8217;re still saying that a &lt;statement&gt; matches any of the listed statement constructs, but the protoregex version is much easier to extend.  In the non-protoregex version above, adding a new statement construct (such as &#8220;repeat..until&#8221;) would require rewriting the &#8220;rule statement&#8221; declaration in its entirety to include the new statement construct.  But with a protoregex, we can simply declare an additional rule:</p>
+<pre>    rule statement:sym&lt;repeat&gt; { 'repeat' &lt;stmt&gt; 'until' &lt;expr&gt; }</pre>
+<p>This newly declared rule is automatically added as one of the candidates to the &lt;statement&gt; protoregex.  All of this works for derived languages as well:</p>
+<pre>    grammar MyNewGrammar is BaseGrammar {
+        rule statement:sym&lt;repeat&gt; { 'repeat' &lt;stmt&gt; 'until' &lt;expr&gt; }
+    }</pre>
+<p>Thus MyGrammar parses everything the same as BaseGrammar, with the additional definition of the <code>repeat..until</code> statement construct.</p>
+<p>The ability to dynamically replace the existing grammar with a new one that has different parse semantics is at the heart of Perl 6&#8242;s operator overloading, macro handling, and other syntax modifying features.  Unlike source filters, this provides a much more nuanced approach to declaring new language constructs.</p>
+<p>Another significant component of the standard grammar is its devotion to providing useful error diagnostics when an error is encountered.  Instead of simply saying &#8220;an error occurred here&#8221;, it offers suggestions about what might have been intended instead, and places where it thinks the programmer may have been confused.  It also does significant work to catch constructs that have changed between Perl 5 and Perl 6, to assist people with migration.  For example, if someone writes an &#8220;unless&#8221; statement with an &#8220;else&#8221; block, the parser responds with</p>
+<pre>    unless does not take "else" in Perl 6; please rewrite using "if"</pre>
+<p>Or, if a program appears to contain the question-mark-colon (?:) ternary operator, the parser says</p>
+<pre>    Unsupported use of "?:"; in Perl 6 please use "??!!"</pre>
+<p>&nbsp;</p>
+<p>In late October of this year, Rakudo started a significant refactor in a new branch (called &#8220;ng&#8221;) that makes use of protoregexes and the many other features of the STD.pm grammar.  We still have a short way to continue before this new branch can become the official released version of Rakudo, but we expect that to happen in the January 2010 release.  Already this conversion has enabled us to finally add long-awaited features in Rakudo, including dynamic generation of <a class="urllink" href="https://perl6advent.wordpress.com/2009/12/05/day-5-metaoperator/">metaoperators</a>, lazy list handling, lexical context handling, and the like.</p>
+<p>With Rakudo&#8217;s conversion to following STD.pm for its grammar, we&#8217;re very much on track for the Rakudo Star release in April 2010.  While we expect that Rakudo Star won&#8217;t be a complete implementation of Perl 6, it will be sufficiently advanced and usable for a wide variety of applications.  We&#8217;ve been quickly resolving the critical items listed in the Rakudo Star <a class="urllink" href="http://github.com/rakudo/rakudo/blob/master/docs/ROADMAP">ROADMAP</a>, and over the next couple of months will be focusing on improved error reporting (like STD.pm) and distribution / packaging issues.</p>
+<p>&#8230;and this concludes the Perl 6 Advent series for December 2009.  We hope that you&#8217;ve enjoyed reading the articles at least as much as we&#8217;ve enjoyed writing them, and we appreciate the many comments that people have made about the posts.  We also hope to have conveyed our sense that many useful parts of Perl 6 are available now for experimentation, and that we&#8217;re well on the way to making them available in 2010 for a wider variety of applications.  Indeed, we have high hopes and expectations for the entire Perl family in 2010 &#8212; it promises to be an exciting time for us all.</p>
+<p>Happy holidays, and best wishes for the new year.</p>
+</div>
+<p><!--/PageText--></p>
+
+<div class="wpa" style="position: relative; width:300px; text-align: center; padding: 0; margin: 10px auto; overflow: hidden; clear: both;">
+<a style="position: absolute; text-align: left; display: block; font: 9px/1 sans-serif; text-decoration: underline;" href="http://en.wordpress.com/about-these-ads/" rel="nofollow">About these ads</a>
+<script type="text/javascript">
+		var wpcom_adclk_hovering = false;
+		var wpcom_adclk_recorded = false;
+		var wpcom_adclk_theme = "Kubrick";
+		var wpcom_adclk_slot = "wpcom_below_post";
+		var wpcom_adclk_network = ( typeof wpcom_adclk_network === "undefined" ) ? "" : wpcom_adclk_network ;
+
+		jQuery(document).ready( function() {
+			function wpcom_adclk_hover_yes() { wpcom_adclk_hovering = true; }
+			function wpcom_adclk_hover_no() { wpcom_adclk_hovering = false; }
+			jQuery(".wpa").click(wpcom_adclk_click);
+			jQuery(".wpa iframe").hover( wpcom_adclk_hover_yes, wpcom_adclk_hover_no );
+			jQuery(".wpa object").hover( wpcom_adclk_hover_yes, wpcom_adclk_hover_no );
+
+			jQuery(window).blur( function() {
+				if ( wpcom_adclk_hovering ) { wpcom_adclk_click(); }
+			});
+		});
+
+		function wpcom_adclk_impression() {
+			var stat_gif = document.location.protocol + "//stats.wordpress.com/g.gif?v=wpcom-no-pv";
+			stat_gif += "&x_ads_imp_theme=" + wpcom_adclk_theme;
+			stat_gif += "&x_ads_imp_placement="+wpcom_adclk_slot;
+			stat_gif += "&x_ads_imp_network=" + wpcom_adclk_network;
+			stat_gif += "&x_ads_imp_theme_network="+wpcom_adclk_theme+"_"+wpcom_adclk_network;
+			new Image().src = stat_gif + "&baba=" + Math.random();
+			return true;
+		}
+
+		function wpcom_adclk_click() {
+			if (wpcom_adclk_recorded) { return true; } // no double counting
+			var stat_gif = document.location.protocol + "//stats.wordpress.com/g.gif?v=wpcom-no-pv";
+			stat_gif += "&x_ads_click_theme=" + wpcom_adclk_theme;
+			stat_gif += "&x_ads_click_placement="+wpcom_adclk_slot;
+			stat_gif += "&x_ads_click_network=" + wpcom_adclk_network;
+			stat_gif += "&x_ads_click_theme_network="+wpcom_adclk_theme+"_"+wpcom_adclk_network;
+
+			new Image().src = stat_gif + "&baba=" + Math.random();
+			wpcom_adclk_recorded = true;
+			var now=new Date(); var end=now.getTime()+250;
+			while(true){now=new Date();if(now.getTime()>end){break;}}
+			return true;
+		}
+	
+if ( typeof GA_googleAddAttr == 'function' ) {
+GA_googleAddAttr("AdOpt", "1");
+GA_googleAddAttr("Origin", "other");
+GA_googleAddAttr("LangId", "1");
+GA_googleAddAttr("Domain", "perl6advent.wordpress.com");
+GA_googleAddAttr("BlogId", "10740073");
+GA_googleAddAttr("PageURL", "https://perl6advent.wordpress.com/2009/12/24/day-24-the-perl-6-standard-grammar/");
+GA_googleAddAttr("Autotag", "technology");
+GA_googleAddAttr("Autotag", "science");
+GA_googleAddAttr("Tag", "2009");
+GA_googleAddAttr("theme_bg", "ffffff");
+GA_googleAddAttr("theme_text", "333333");
+GA_googleAddAttr("theme_link", "0066cc");
+GA_googleAddAttr("theme_border", "f9f9f9");
+GA_googleAddAttr("theme_url", "114477");
+GA_googleAddAdSensePageAttr("google_page_url", "https://perl6advent.wordpress.com/2009/12/24/day-24-the-perl-6-standard-grammar/");
+GA_googleFillSlot("wpcom_below_post");
+}
+</script>
+</div>
+<style type="text/css">
+div.wpa>div { margin-top: 1em; } #google_ads_div_wpcom_below_post_adsafe_ad_container { display: block !important; }
+</style>
+<script type="text/javascript">
+jQuery( window ).load( function() {
+    if ( jQuery(".wpa script[src*='virool.com']").length > 0 || jQuery(".wpa script[src*='shareth.ru']").length > 0 || jQuery(".wpa iframe[src*='boomvideo.tv']").length > 0 || jQuery(".wpa iframe[src*='viewablemedia.net']").length > 0 || jQuery(".wpa .sharethrough-placement").length > 0 ) {
+        jQuery( '.wpa' ).css( 'width', '400px' );
+    }
+setTimeout(function(){if(typeof GS_googleAddAdSenseService !== 'function'){new Image().src=document.location.protocol+"//stats.wordpress.com/g.gif?v=wpcom-no-pv&x_noads=adblock&baba="+Math.random()}},100);
+} );
+</script>
+<div id="jp-post-flair" class="sharedaddy sd-like-enabled"><div class='sharedaddy sd-block sd-like jetpack-likes-widget-wrapper jetpack-likes-widget-unloaded' id='like-post-wrapper-10740073-376-534cd15d140ff' data-src='//widgets.wp.com/likes/#blog_id=10740073&amp;post_id=376&amp;origin=perl6advent.wordpress.com&amp;obj_id=10740073-376-534cd15d140ff' data-name='like-post-frame-10740073-376-534cd15d140ff'><h3 class='sd-title'>Like this:</h3><div class='likes-widget-placeholder post-likes-widget-placeholder' style='height:55px'><span class='button'><span>Like</span></span> <span class="loading">Loading...</span></div><span class='sd-text-color'></span><a class='sd-link-color'></a></div>
+<div id='jp-relatedposts' class='jp-relatedposts' >
+	<h3 class="jp-relatedposts-headline"><em>Related</em></h3>
+</div></div>
+								
+				<p class="postmetadata alt">
+					<small>
+												This entry was posted on December 24, 2009 at 12:01 am and is filed under <a href="https://perl6advent.wordpress.com/category/2009/" title="View all posts in 2009" rel="category tag">2009</a>.						You can follow any responses to this entry through the <a href='https://perl6advent.wordpress.com/2009/12/24/day-24-the-perl-6-standard-grammar/feed/'>RSS 2.0</a> feed.
+													You can <a href="#respond">leave a response</a>, or <a href="https://perl6advent.wordpress.com/2009/12/24/day-24-the-perl-6-standard-grammar/trackback/" rel="trackback">trackback</a> from your own site.
+						
+					</small>
+				</p>
+
+			</div>
+		</div>
+
+	
+<!-- You can start editing here. -->
+	<h3 id="comments">2 Responses to &#8220;Day 24: The Perl 6 standard&nbsp;grammar&#8221;</h3>
+
+	<ol class="commentlist">
+					<li class="comment even thread-even depth-1 highlander-comment" id="comment-319">
+			<img alt='' src='https://0.gravatar.com/avatar/f8f43ac197aa0dfbc98c79b4a628b1d1?s=32&#038;d=identicon&#038;r=G' class='avatar avatar-32' height='32' width='32' />			<cite>Satya</cite> Says:						<br />
+
+			<small class="commentmetadata"><a href="#comment-319" title="">June 7, 2010 at 5:50 am</a> | <a class='comment-reply-link' href='/2009/12/24/day-24-the-perl-6-standard-grammar/?replytocom=319#respond' onclick='return addComment.moveForm("comment-319", "319", "respond", "376")'>Reply</a> </small>
+
+			<p>Pls make it &#8220;Perl 6 grammar&#8221; point to <a href="http://svn.pugscode.org/pugs/src/perl6/STD.pm6" rel="nofollow">http://svn.pugscode.org/pugs/src/perl6/STD.pm6</a> instead of <a href="http://svn.pugscode.org/pugs/src/perl6/STD.pm" rel="nofollow">http://svn.pugscode.org/pugs/src/perl6/STD.pm</a></p>
+<p>Thanks</p>
+<ul class="children">
+			<li class="comment byuser comment-author-colomon odd alt depth-2 highlander-comment" id="comment-320">
+			<img alt='' src='https://0.gravatar.com/avatar/3bfeb633907f64a75fb2db415eb13370?s=32&#038;d=identicon&#038;r=G' class='avatar avatar-32' height='32' width='32' />			<cite><a href='https://perl6advent.wordpress.com' rel='external nofollow' class='url'>colomon</a></cite> Says:						<br />
+
+			<small class="commentmetadata"><a href="#comment-320" title="">June 7, 2010 at 10:17 am</a> | <a class='comment-reply-link' href='/2009/12/24/day-24-the-perl-6-standard-grammar/?replytocom=320#respond' onclick='return addComment.moveForm("comment-320", "320", "respond", "376")'>Reply</a> </small>
+
+			<p>Done.</p>
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+	</ol>
+
+	<div class="navigation">
+		<div class="alignleft"></div>
+		<div class="alignright"></div>
+	</div>
+
+
+
+								<div id="respond" class="comment-respond">
+				<h3 id="reply-title" class="comment-reply-title">Leave a Reply <small><a rel="nofollow" id="cancel-comment-reply-link" href="/2009/12/24/day-24-the-perl-6-standard-grammar/#respond" style="display:none;">Cancel reply</a></small></h3>
+									<form action="https://perl6advent.wordpress.com/wp-comments-post.php" method="post" id="commentform" class="comment-form">
+																										
+
+
+												<input type="hidden" id="highlander_comment_nonce" name="highlander_comment_nonce" value="69292a17f8" /><input type="hidden" name="_wp_http_referer" value="/2009/12/24/day-24-the-perl-6-standard-grammar/" />
+<input type="hidden" name="hc_post_as" id="hc_post_as" value="guest" />
+
+<div class="comment-form-field comment-textarea">
+	<label for="comment">Enter your comment here...</label>
+	<div id="comment-form-comment"><textarea id="comment" name="comment" title="Enter your comment here..."></textarea></div>
+</div>
+
+<div id="comment-form-identity">
+
+	<div id="comment-form-nascar">
+		<p>Fill in your details below or click an icon to log in:</p>
+		<ul>
+			<li class="selected" style="display:none;">
+				<a href="#comment-form-guest" id="postas-guest" title="Guest">
+					<span></span>
+				</a>
+			</li>
+			<li>
+				<a href="#comment-form-load-service:WordPress.com" id="postas-wordpress" title="WordPress.com">
+					<span></span>
+				</a>
+			</li>
+			<li>
+				<a href="#comment-form-load-service:Twitter" id="postas-twitter" title="Twitter">
+					<span></span>
+				</a>
+			</li>
+			<li>
+				<a href="#comment-form-load-service:Facebook" id="postas-facebook" title="Facebook">
+					<span></span>
+				</a>
+			</li>
+			<li>
+			<iframe id="googleplus-sign-in" name="googleplus-sign-in" src="https://public-api.wordpress.com/connect/?googleplus-sign-in=https%3A%2F%2Fperl6advent.wordpress.com" width="24" height="24" scrolling="no" allowtransparency="true" seamless="seamless" frameborder="0"></iframe>
+			</li>
+		</ul>
+	</div>
+
+	<div id="comment-form-guest" class="comment-form-service selected">
+		<div class="comment-form-padder">
+			<div class="comment-form-avatar">
+<a href="https://gravatar.com/site/signup/" target="_blank">				<img src="https://1.gravatar.com/avatar/ad516503a11cd5ca435acc9bb6523536?s=25&amp;d=identicon&amp;forcedefault=y&amp;r=G" alt="Gravatar" width="25" class="no-grav" />
+</a>			</div>
+
+				<div class="comment-form-fields">
+				<div class="comment-form-field comment-form-email">
+					<label for="email">Email <span class="required">(required)</span> <span class="nopublish">(Address never made public)</span></label>
+					<div class="comment-form-input"><input id="email" name="email" type="email" value="" /></div>
+				</div>
+				<div class="comment-form-field comment-form-author">
+					<label for="author">Name <span class="required">(required)</span></label>
+					<div class="comment-form-input"><input id="author" name="author" type="text" value="" /></div>
+				</div>
+				<div class="comment-form-field comment-form-url">
+					<label for="url">Website</label>
+					<div class="comment-form-input"><input id="url" name="url" type="text" value="" /></div>
+				</div>
+			</div>
+	
+		</div>
+	</div>
+
+	<div id="comment-form-wordpress" class="comment-form-service">
+		<div class="comment-form-padder">
+			<div class="comment-form-avatar">
+				<img src="https://s2.wp.com/wp-content/mu-plugins/highlander-comments/images/wplogo.png" alt="WordPress.com Logo" width="25" class="no-grav" />
+			</div>
+
+				<div class="comment-form-fields">
+				<input type="hidden" name="wp_avatar" id="wordpress-avatar" class="comment-meta-wordpress" value="" />
+				<input type="hidden" name="wp_user_id" id="wordpress-user_id" class="comment-meta-wordpress" value="" />
+				<input type="hidden" name="wp_access_token" id="wordpress-access_token" class="comment-meta-wordpress" value="" />
+				<p class="comment-form-posting-as pa-wordpress"><strong></strong> You are commenting using your WordPress.com account. <span class="comment-form-log-out">(&nbsp;<a href="javascript:HighlanderComments.doExternalLogout( 'wordpress' );">Log&nbsp;Out</a>&nbsp;/&nbsp;<a href="#" onclick="javascript:HighlanderComments.switchAccount();return false;">Change</a>&nbsp;)</span></p>
+			</div>
+	
+		</div>
+	</div>
+
+	<div id="comment-form-twitter" class="comment-form-service">
+		<div class="comment-form-padder">
+			<div class="comment-form-avatar">
+				<img src="https://1.gravatar.com/avatar/ad516503a11cd5ca435acc9bb6523536?s=25&amp;d=identicon&amp;forcedefault=y&amp;r=G" alt="Twitter picture" width="25" class="no-grav" />
+			</div>
+
+				<div class="comment-form-fields">
+				<input type="hidden" name="twitter_avatar" id="twitter-avatar" class="comment-meta-twitter" value="" />
+				<input type="hidden" name="twitter_user_id" id="twitter-user_id" class="comment-meta-twitter" value="" />
+				<input type="hidden" name="twitter_access_token" id="twitter-access_token" class="comment-meta-twitter" value="" />
+				<p class="comment-form-posting-as pa-twitter"><strong></strong> You are commenting using your Twitter account. <span class="comment-form-log-out">(&nbsp;<a href="javascript:HighlanderComments.doExternalLogout( 'twitter' );">Log&nbsp;Out</a>&nbsp;/&nbsp;<a href="#" onclick="javascript:HighlanderComments.switchAccount();return false;">Change</a>&nbsp;)</span></p>
+			</div>
+	
+		</div>
+	</div>
+
+	<div id="comment-form-facebook" class="comment-form-service">
+		<div class="comment-form-padder">
+			<div class="comment-form-avatar">
+				<img src="https://1.gravatar.com/avatar/ad516503a11cd5ca435acc9bb6523536?s=25&amp;d=identicon&amp;forcedefault=y&amp;r=G" alt="Facebook photo" width="25" class="no-grav" />
+			</div>
+
+				<div class="comment-form-fields">
+				<input type="hidden" name="fb_avatar" id="facebook-avatar" class="comment-meta-facebook" value="" />
+				<input type="hidden" name="fb_user_id" id="facebook-user_id" class="comment-meta-facebook" value="" />
+				<input type="hidden" name="fb_access_token" id="facebook-access_token" class="comment-meta-facebook" value="" />
+				<p class="comment-form-posting-as pa-facebook"><strong></strong> You are commenting using your Facebook account. <span class="comment-form-log-out">(&nbsp;<a href="javascript:HighlanderComments.doExternalLogout( 'facebook' );">Log&nbsp;Out</a>&nbsp;/&nbsp;<a href="#" onclick="javascript:HighlanderComments.switchAccount();return false;">Change</a>&nbsp;)</span></p>
+			</div>
+	
+		</div>
+	</div>
+
+	<div id="comment-form-googleplus" class="comment-form-service">
+		<div class="comment-form-padder">
+			<div class="comment-form-avatar">
+				<img src="https://1.gravatar.com/avatar/ad516503a11cd5ca435acc9bb6523536?s=25&amp;d=identicon&amp;forcedefault=y&amp;r=G" alt="Google+ photo" width="25" class="no-grav" />
+			</div>
+
+				<div class="comment-form-fields">
+				<input type="hidden" name="googleplus_avatar" id="googleplus-avatar" class="comment-meta-googleplus" value="" />
+				<input type="hidden" name="googleplus_user_id" id="googleplus-user_id" class="comment-meta-googleplus" value="" />
+				<input type="hidden" name="googleplus_access_token" id="googleplus-access_token" class="comment-meta-googleplus" value="" />
+				<p class="comment-form-posting-as pa-googleplus"><strong></strong> You are commenting using your Google+ account. <span class="comment-form-log-out">(&nbsp;<a href="javascript:HighlanderComments.doExternalLogout( 'googleplus' );">Log&nbsp;Out</a>&nbsp;/&nbsp;<a href="#" onclick="javascript:HighlanderComments.switchAccount();return false;">Change</a>&nbsp;)</span></p>
+			</div>
+	
+		</div>
+	</div>
+
+
+	<div id="comment-form-load-service" class="comment-form-service">
+		<div class="comment-form-posting-as-cancel"><a href="javascript:HighlanderComments.cancelExternalWindow();">Cancel</a></div>
+		<p>Connecting to %s</p>
+	</div>
+
+	
+</div>
+
+<script type="text/javascript">
+var highlander_expando_javascript = function(){
+	var input = document.createElement( 'input' ),
+	    comment = jQuery( '#comment' );
+
+	if ( 'placeholder' in input ) {
+		comment.attr( 'placeholder', jQuery( '.comment-textarea label' ).remove().text() );
+	}
+
+	// Expando Mode: start small, then auto-resize on first click + text length
+	jQuery( '#comment-form-identity' ).hide();
+	jQuery( '#comment-form-subscribe' ).hide();
+	jQuery( '#commentform .form-submit' ).hide();
+
+	comment.css( { 'height':'10px' } ).one( 'focus', function() {
+		var timer = setInterval( HighlanderComments.resizeCallback, 10 )
+		jQuery( this ).animate( { 'height': HighlanderComments.initialHeight } ).delay( 100 ).queue( function(n) { clearInterval( timer ); HighlanderComments.resizeCallback(); n(); } );
+		jQuery( '#comment-form-identity' ).slideDown();
+		jQuery( '#comment-form-subscribe' ).slideDown();
+		jQuery( '#commentform .form-submit' ).slideDown();
+	});
+}
+jQuery(document).ready( highlander_expando_javascript );
+</script>
+
+<div id="comment-form-subscribe">
+	<p class="comment-subscription-form"><input type="checkbox" name="subscribe" id="subscribe" value="subscribe" style="width: auto;" tabindex="6"/> <label class="subscribe-label" id="subscribe-label" for="subscribe" style="display: inline;">Notify me of follow-up comments via email.</label></p></div>
+
+												<p class="form-submit">
+							<input name="submit" type="submit" id="comment-submit" value="Post Comment" />
+							<input type='hidden' name='comment_post_ID' value='376' id='comment_post_ID' />
+<input type='hidden' name='comment_parent' id='comment_parent' value='0' />
+						</p>
+						
+<input type="hidden" name="genseq" value="1397543261" />
+<p style="display: none;"><input type="hidden" id="akismet_comment_nonce" name="akismet_comment_nonce" value="ebe4bb16a8" /></p><script type='text/javascript' src='https://s2.wp.com/wp-content/mu-plugins/akismet-2.5/form.js?m=1308783962g'></script>
+<p style="display: none;"><input type="hidden" id="ak_js" name="ak_js" value="66"/></p>					</form>
+							</div><!-- #respond -->
+			<div style="clear: both"></div>
+
+	
+	</div>
+
+
+<hr />
+<div id="footer">
+	<p>
+		<a href="http://theme.wordpress.com/themes/kubrick/" title="Learn more about this theme">The Kubrick Theme</a> <a href="http://wordpress.com/?ref=footer">Blog at WordPress.com</a>.
+		<br /><a href="https://perl6advent.wordpress.com/feed/">Entries (RSS)</a> and <a href="https://perl6advent.wordpress.com/comments/feed/">Comments (RSS)</a>.	</p>
+</div>
+</div>
+
+<script type='text/javascript' src='//0.gravatar.com/js/gprofiles.js?ver=201416x'></script>
+<script type='text/javascript'>
+/* <![CDATA[ */
+var WPGroHo = {"my_hash":""};
+/* ]]> */
+</script>
+<script type='text/javascript' src='https://s2.wp.com/wp-content/mu-plugins/gravatar-hovercards/wpgroho.js?m=1380573781g'></script>
+
+	<script>
+		//initialize and attach hovercards to all gravatars
+		jQuery( document ).ready( function( $ ) {
+			Gravatar.profile_cb = function( hash, id ) {
+				WPGroHo.syncProfileData( hash, id );
+			};
+			Gravatar.my_hash = WPGroHo.my_hash;
+			Gravatar.init( 'body', '#wp-admin-bar-my-account' );
+		});
+	</script>
+
+		<div style="display:none">
+	<div class="grofile-hash-map-f8f43ac197aa0dfbc98c79b4a628b1d1">
+	</div>
+	<div class="grofile-hash-map-3bfeb633907f64a75fb2db415eb13370">
+	</div>
+	</div>
+<script type='text/javascript'>
+/* <![CDATA[ */
+var HighlanderComments = {"loggingInText":"Logging In\u2026","submittingText":"Posting Comment\u2026","postCommentText":"Post Comment","connectingToText":"Connecting to %s","commentingAsText":"%1$s: You are commenting using your %2$s account.","logoutText":"Log Out","loginText":"Log In","connectURL":"https:\/\/perl6advent.wordpress.com\/public.api\/connect\/?action=request","logoutURL":"https:\/\/perl6advent.wordpress.com\/wp-login.php?action=logout&_wpnonce=f3284f6283","homeURL":"https:\/\/perl6advent.wordpress.com\/","postID":"376","gravDefault":"identicon","enterACommentError":"Please enter a comment","enterEmailError":"Please enter your email address here","invalidEmailError":"Invalid email address","enterAuthorError":"Please enter your name here","gravatarFromEmail":"This picture will show whenever you leave a comment. Click to customize it.","logInToExternalAccount":"Log in to use details from one of these accounts.","change":"Change","changeAccount":"Change Account","comment_registration":"","userIsLoggedIn":"","isJetpack":"0"};
+/* ]]> */
+</script>
+<script type='text/javascript' src='https://s0.wp.com/_static/??/wp-content/js/jquery/jquery.autoresize.js,/wp-content/mu-plugins/highlander-comments/script.js?m=1395185286j'></script>
+
+	<div id="bit" class="loggedout-follow-normal">
+		<a class="bsub" href="javascript:void(0)"><span id='bsub-text'>Follow</span></a>
+		<div id="bitsubscribe">
+
+					<h3><label for="loggedout-follow-field">Follow &ldquo;Perl 6 Advent Calendar&rdquo;</label></h3>
+
+			<form action="https://subscribe.wordpress.com" method="post" accept-charset="utf-8" id="loggedout-follow">
+			<p>Get every new post delivered to your Inbox.</p>
+
+			<p id="loggedout-follow-error" style="display: none;"></p>
+
+						<p class="bit-follow-count">Join 36 other followers</p>
+			<p><input type="email" name="email" value="Enter your email address" onfocus='this.value=(this.value=="Enter your email address") ? "" : this.value;' onblur='this.value=(this.value=="") ? "Enter email address" : this.value;'  id="loggedout-follow-field"/></p>
+
+			<input type="hidden" name="action" value="subscribe"/>
+			<input type="hidden" name="blog_id" value="10740073"/>
+			<input type="hidden" name="source" value="https://perl6advent.wordpress.com/2009/12/24/day-24-the-perl-6-standard-grammar/"/>
+			<input type="hidden" name="sub-type" value="loggedout-follow"/>
+
+			<input type="hidden" id="_wpnonce" name="_wpnonce" value="012dea5bde" /><input type="hidden" name="_wp_http_referer" value="/2009/12/24/day-24-the-perl-6-standard-grammar/" />
+			<p id='bsub-subscribe-button'><input type="submit" value="Sign me up" /></p>
+			</form>
+					<div id='bsub-credit'><a href="http://wordpress.com/signup/?ref=lof">Powered by WordPress.com</a></div>
+		</div><!-- #bitsubscribe -->
+	</div><!-- #bit -->
+	<script type="text/javascript">
+	var skimlinks_pub_id = "725X584219"
+	var skimlinks_sitename = "perl6advent.wordpress.com";
+	</script>
+	<script type="text/javascript" src="https://s.skimresources.com/js/725X1342.skimlinks.js"></script>		<iframe src='https://widgets.wp.com/likes/master.html?ver=20140227#ver=20140227&amp;mp6=1' scrolling='no' id='likes-master' name='likes-master' style='display:none;'></iframe>
+		<div id='likes-other-gravatars'><div class="likes-text"><span>%d</span> bloggers like this:</div><ul class="wpl-avatars sd-like-gravatars"></ul></div>
+		<script type="text/javascript">
+		//<![CDATA[
+			var jetpackLikesWidgetQueue = [];
+			var jetpackLikesWidgetBatch = [];
+			var jetpackLikesMasterReady = false;
+
+			function JetpackLikespostMessage( message, target ) {
+				if ( "string" === typeof message ){
+					try{
+						message = JSON.parse( message );
+					}
+					catch(e) {
+						return;
+					}
+				}
+
+				pm( {
+					target: target,
+					type: 'likesMessage',
+					data: message,
+					origin: '*'
+				} );
+			}
+
+			function JetpackLikesBatchHandler() {
+				var requests = [];
+				jQuery( 'div.jetpack-likes-widget-unloaded' ).each( function( i ) {
+					if ( jetpackLikesWidgetBatch.indexOf( this.id ) > -1 )
+						return;
+					jetpackLikesWidgetBatch.push( this.id );
+					var regex = /like-(post|comment)-wrapper-(\d+)-(\d+)-(\w+)/;
+					var match = regex.exec( this.id );
+					if ( ! match || match.length != 5 )
+						return;
+
+					var info = {
+						blog_id: match[2],
+						width:   this.width
+					};
+
+					if ( 'post' == match[1] ) {
+						info.post_id = match[3];
+					} else if ( 'comment' == match[1] ) {
+						info.comment_id = match[3];
+					}
+
+					info.obj_id = match[4];
+
+					requests.push( info );
+				});
+
+				if ( requests.length > 0 ) {
+					JetpackLikespostMessage( { event: 'initialBatch', requests: requests }, window.frames['likes-master'] );
+				}
+			}
+
+			function JetpackLikesMessageListener( event ) {
+				if ( "undefined" == typeof event.event )
+					return;
+
+				if ( 'masterReady' == event.event ) {
+					jQuery( document ).ready( function() {
+						jetpackLikesMasterReady = true;
+
+						var stylesData = {
+								event: 'injectStyles'
+						};
+
+						if ( jQuery( 'iframe.admin-bar-likes-widget' ).length > 0 ) {
+							JetpackLikespostMessage( { event: 'adminBarEnabled' }, window.frames[ 'likes-master' ] );
+
+							stylesData.adminBarStyles = {
+								background: jQuery( '#wpadminbar .quicklinks li#wp-admin-bar-wpl-like > a' ).css( 'background' ),
+								isRtl: ( 'rtl' == jQuery( '#wpadminbar' ).css( 'direction' ) )
+							};
+						}
+
+						if ( !window.addEventListener )
+							jQuery( '#wp-admin-bar-admin-bar-likes-widget' ).hide();
+
+						stylesData.textStyles = {
+							color: jQuery( '.sd-text-color').css( 'color' ),
+							fontFamily: jQuery( '.sd-text-color' ).css( 'font-family' ),
+							fontSize: jQuery( '.sd-text-color' ).css( 'font-size' ),
+							direction: jQuery( '.sd-text-color' ).css( 'direction' ),
+							fontWeight: jQuery( '.sd-text-color' ).css( 'font-weight' ),
+							fontStyle: jQuery( '.sd-text-color' ).css( 'font-style' ),
+							textDecoration: jQuery( '.sd-text-color' ).css('text-decoration')
+						};
+
+						stylesData.linkStyles = {
+							color: jQuery( '.sd-link-color' ).css('color'),
+							fontFamily: jQuery( '.sd-link-color' ).css('font-family'),
+							fontSize: jQuery( '.sd-link-color' ).css('font-size'),
+							textDecoration: jQuery( '.sd-link-color' ).css('text-decoration'),
+							fontWeight: jQuery( '.sd-link-color' ).css( 'font-weight' ),
+							fontStyle: jQuery( '.sd-link-color' ).css( 'font-style' )
+						};
+
+						JetpackLikespostMessage( stylesData, window.frames[ 'likes-master' ] );
+
+						JetpackLikesBatchHandler();
+
+						jQuery( document ).on( 'inview', 'div.jetpack-likes-widget-unloaded', function() {
+							jetpackLikesWidgetQueue.push( this.id );
+						});
+					});
+				}
+
+				if ( 'showLikeWidget' == event.event ) {
+					jQuery( '#' + event.id + ' .post-likes-widget-placeholder'  ).fadeOut( 'fast', function() {
+						jQuery( '#' + event.id + ' .post-likes-widget' ).fadeIn( 'fast', function() {
+							JetpackLikespostMessage( { event: 'likeWidgetDisplayed', blog_id: event.blog_id, post_id: event.post_id, obj_id: event.obj_id }, window.frames['likes-master'] );
+						});
+					});
+				}
+
+				if ( 'clickReblogFlair' == event.event ) {
+					wpcom_reblog.toggle_reblog_box_flair( event.obj_id );
+				}
+
+				if ( 'showOtherGravatars' == event.event ) {
+					var $container = jQuery( '#likes-other-gravatars' );
+					var $list = $container.find( 'ul' );
+
+					$container.hide();
+					$list.html( '' );
+
+					$container.find( '.likes-text span' ).text( event.total );
+
+					jQuery.each( event.likers, function( i, liker ) {
+						$list.append( '<li class="' + liker.css_class + '"><a href="' + liker.profile_URL + '" class="wpl-liker" rel="nofollow" target="_parent"><img src="' + liker.avatar_URL + '" alt="' + liker.name + '" width="30" height="30" style="padding-right: 3px;" /></a></li>');
+					} );
+
+					var offset = jQuery( "[name='" + event.parent + "']" ).offset();
+
+					$container.css( 'left', offset.left + event.position.left - 10 + 'px' );
+					$container.css( 'top', offset.top + event.position.top - 33 + 'px' );
+
+					var rowLength = Math.floor( event.width / 37 );
+					var height = ( Math.ceil( event.likers.length / rowLength ) * 37 ) + 13;
+					if ( height > 204 ) {
+						height = 204;
+					}
+
+					$container.css( 'height', height + 'px' );
+					$container.css( 'width', rowLength * 37 - 7 + 'px' );
+
+					$list.css( 'width', rowLength * 37 + 'px' );
+
+					$container.fadeIn( 'slow' );
+
+					var scrollbarWidth = $list[0].offsetWidth - $list[0].clientWidth;
+					if ( scrollbarWidth > 0 ) {
+						$container.width( $container.width() + scrollbarWidth );
+						$list.width( $list.width() + scrollbarWidth );
+					}
+				}
+			}
+
+			pm.bind( 'likesMessage', function(e) { JetpackLikesMessageListener(e); } );
+
+			jQuery( document ).click( function( e ) {
+				var $container = jQuery( '#likes-other-gravatars' );
+
+				if ( $container.has( e.target ).length === 0 ) {
+					$container.fadeOut( 'slow' );
+				}
+			});
+
+			function JetpackLikesWidgetQueueHandler() {
+				var wrapperID;
+				if ( ! jetpackLikesMasterReady ) {
+					setTimeout( JetpackLikesWidgetQueueHandler, 500 );
+					return;
+				}
+
+				if ( jetpackLikesWidgetQueue.length > 0 ) {
+					// We may have a widget that needs creating now
+					var found = false;
+					while( jetpackLikesWidgetQueue.length > 0 ) {
+						// Grab the first member of the queue that isn't already loading.
+						wrapperID = jetpackLikesWidgetQueue.splice( 0, 1 )[0];
+						if ( jQuery( '#' + wrapperID ).hasClass( 'jetpack-likes-widget-unloaded' ) ) {
+							found = true;
+							break;
+						}
+					}
+					if ( ! found ) {
+						setTimeout( JetpackLikesWidgetQueueHandler, 500 );
+						return;
+					}
+				} else if ( jQuery( 'div.jetpack-likes-widget-unloaded' ).length > 0 ) {
+					// Grab any unloaded widgets for a batch request
+					JetpackLikesBatchHandler();
+
+					// Get the next unloaded widget
+					wrapperID = jQuery( 'div.jetpack-likes-widget-unloaded' ).first()[0].id;
+					if ( ! wrapperID ) {
+						// Everything is currently loaded
+						setTimeout( JetpackLikesWidgetQueueHandler, 500 );
+						return;
+					}
+				}
+
+				if ( 'undefined' === typeof wrapperID ) {
+					setTimeout( JetpackLikesWidgetQueueHandler, 500 );
+					return;
+				}
+
+				var $wrapper = jQuery( '#' + wrapperID );
+				$wrapper.find( 'iframe' ).remove();
+
+				if ( $wrapper.hasClass( 'slim-likes-widget' ) ) {
+					$wrapper.find( '.post-likes-widget-placeholder' ).after( "<iframe class='post-likes-widget jetpack-likes-widget' name='" + $wrapper.data( 'name' ) + "' height='22px' width='68px' frameBorder='0' scrolling='no' src='" + $wrapper.data( 'src' ) + "'></iframe>" );
+				} else {
+					$wrapper.find( '.post-likes-widget-placeholder' ).after( "<iframe class='post-likes-widget jetpack-likes-widget' name='" + $wrapper.data( 'name' ) + "' height='55px' width='100%' frameBorder='0' src='" + $wrapper.data( 'src' ) + "'></iframe>" );
+				}
+
+				$wrapper.removeClass( 'jetpack-likes-widget-unloaded' ).addClass( 'jetpack-likes-widget-loading' );
+
+				$wrapper.find( 'iframe' ).load( function( e ) {
+					var $iframe = jQuery( e.target );
+					$wrapper.removeClass( 'jetpack-likes-widget-loading' ).addClass( 'jetpack-likes-widget-loaded' );
+
+					JetpackLikespostMessage( { event: 'loadLikeWidget', name: $iframe.attr( 'name' ), width: $iframe.width() }, window.frames[ 'likes-master' ] );
+
+					if ( $wrapper.hasClass( 'slim-likes-widget' ) ) {
+						$wrapper.find( 'iframe' ).Jetpack( 'resizeable' );
+					}
+				});
+				setTimeout( JetpackLikesWidgetQueueHandler, 250 );
+			}
+			JetpackLikesWidgetQueueHandler();
+		//]]>
+		</script>
+<script type='text/javascript' src='https://s0.wp.com/_static/??/wp-content/js/devicepx.js,/wp-includes/js/comment-reply.min.js?m=1389017300j'></script>
+<script type="text/javascript">
+// <![CDATA[
+(function() {
+try{
+  if ( window.external &&'msIsSiteMode' in window.external) {
+    if (window.external.msIsSiteMode()) {
+      var jl = document.createElement('script');
+      jl.type='text/javascript';
+      jl.async=true;
+      jl.src='/wp-content/plugins/ie-sitemode/custom-jumplist.php';
+      var s = document.getElementsByTagName('script')[0];
+      s.parentNode.insertBefore(jl, s);
+    }
+  }
+}catch(e){}
+})();
+// ]]>
+</script><script src="https://ssl-stats.wordpress.com/w.js?21" type="text/javascript"></script>
+<script type="text/javascript">
+st_go({'blog':'10740073','v':'wpcom','tz':'0','user_id':'0','post':'376','subd':'perl6advent'});
+ex_go({'crypt':'UE5XaGUuOTlwaD85flAmcm1mcmZsaDhkV11YdWFnNncxc1tjZG9XVXhReTFqanhKV3x0UkQxQldDVUV4ZVR+cSt8Ny8tTm40WDY2NUd1SH5CMko/Rmx6TmhYLjZfbC5sPyt8ckZTYU9yaVpETGVvUD9qMEFyfnRhZ0dEUk5iMjJoeUgzJkVaS2UwVzgmeDh0JnxLX2xEZEkyUkZmRUp1fkZaWFlUXzRTYkxjenJRQ352UDJ2a0gmWDF8LT9xdkxnZlFtY1ZsRHRSaVJWUyxINHdzZD1CZ0w0VWNOQXZEb1Y3VTFQcSZzbktEXW1jcDk5TCUsazJ6TnlOY0hMMmNMVm5OW01temZGZ1hjR3RKOGZFbHAvbXRKW0w4MlJTJV9R'});
+addLoadEvent(function(){linktracker_init('10740073',376);});
+	</script>
+<noscript><img src="https://stats.wordpress.com/b.gif?v=noscript" style="height:0px;width:0px;overflow:hidden" alt="" /></noscript>
+<script>
+if ( 'object' === typeof wpcom_mobile_user_agent_info ) {
+
+	wpcom_mobile_user_agent_info.init();
+	var mobileStatsQueryString = "";
+	
+	if( false !== wpcom_mobile_user_agent_info.matchedPlatformName )
+		mobileStatsQueryString += "&x_" + 'mobile_platforms' + '=' + wpcom_mobile_user_agent_info.matchedPlatformName;
+	
+	if( false !== wpcom_mobile_user_agent_info.matchedUserAgentName )
+		mobileStatsQueryString += "&x_" + 'mobile_devices' + '=' + wpcom_mobile_user_agent_info.matchedUserAgentName;
+	
+	if( wpcom_mobile_user_agent_info.isIPad() )
+		mobileStatsQueryString += "&x_" + 'ipad_views' + '=' + 'views';
+
+	if( "" != mobileStatsQueryString ) {
+		new Image().src = document.location.protocol + '//stats.wordpress.com/g.gif?v=wpcom-no-pv' + mobileStatsQueryString + '&baba=' + Math.random();
+	}
+	
+}
+</script></body>
+</html>
