@@ -1,0 +1,3041 @@
+# Perl 5 to Perl 6
+
+This collection of articles started out as a [series of blog posts][16], and has been assembled here because it's easier to read in the chronological order.
+
+## Table of Contents
+
+* [Introduction][17]
+* [Strings, Arrays, Hashes;][18]
+* [Types][19]
+* [Basic Control Structures][20]
+* [Subroutines and Signatures][21]
+* [Objects and Classes][22]
+* [Contexts][23]
+* [Regexes (also called "rules")][24]
+* [Junctions][25]
+* [Comparing and Matching][26]
+* [Containers and Values][27]
+* [Changes to Perl 5 Operators][28]
+* [Laziness][29]
+* [Custom Operators][30]
+* [The MAIN sub][31]
+* [Twigils][32]
+* [Enums][33]
+* [Unicode][34]
+* [Scoping][35]
+* [Regexes strike back][36]
+* [A grammar for (pseudo) XML][37]
+* [Subset Types][38]
+* [The State of the implementations][39]
+* [Quoting and Parsing][40]
+* [The Reduction Meta Operator][41]
+* [The Cross Meta Operator][42]
+* [Exceptions and control exceptions][43]
+* [Common Perl 6 data processing idioms][44]
+* [Currying][45]
+
+## Introduction
+
+Sat Sep 20 22:00:00 2008
+
+### [NAME][46]
+
+"Perl 5 to 6" - Introduction
+
+### [SYNOPSIS][47]
+
+    Learn Perl 6 (if you already know Perl 5)
+    Learn to love Perl 6
+    Understand why
+
+### [DESCRIPTION][48]
+
+Perl 6 is under-documented. That's no surprise, because (apart from the specification) writing a compiler for Perl 6 seems to be much more urgent than writing documentation that targets the user.
+
+Unfortunately that means that it's not easy to learn Perl 6, and that you have to have a profound interest in Perl 6 to actually find the motivation to learn it from the specification, IRC channels or from the test suite.
+
+This project, which I'll preliminary call "Perl 5 to 6" (for lack of a better name) attempts to fill that gap with a series of short articles.
+
+Each lesson has a rather limited scope, and tries to explain the two or three most important points with very short examples. It also tries to explain why things changed from Perl 5 to 6, and why this is important. I also hope that the knowledge you gain from reading these lessons is enough to basically understand the Synopses, which are the canonical source of all Perl 6 wisdom.
+
+To keep the reading easy, each lesson should not exceed 200 lines or 1000 words (but it's a soft limit).
+
+Perhaps the lessons are too short to learn a programming language from them, but I hope that they draw an outline of the language design, which allows you to see its beauty without having to learn the language.
+
+### [IT'S NOT][49]
+
+This is not a guide for converting Perl 5 to Perl 6 programs. It is also not a comprehensive list of differences.
+
+It is also not oriented on the current state of the implementations, but on the ideal language as specified.
+
+### [ROADMAP][50]
+
+Already written or in preparation:
+
+    00 Intro
+    01 Strings, Arrays, Hashes
+    02 Types
+    03 Control structures
+    04 Subs and Signatures
+    05 Objects and Classes
+    06 Contexts
+    07 Rules
+    08 Junctions
+    09 Comparisons and Smartmatching
+    10 Containers and Binding
+    11 Basic Operators
+    12 Laziness (-)
+    13 Custom Operators (-)
+    14 the MAIN sub
+    15 Twigils
+    16 Enums
+    17 Unicode (-)
+    18 Scoping
+    19 More Regexes
+    20 A Grammar for XML
+    21 Subset types
+    22 State of the Implementations
+    23 Quoting and Parsing (-)
+    24 Recude meta operator
+    25 Cross meta operator
+    26 Exceptions and control exceptions
+
+(Things that are not or mostly not implemented in Rakudo are marked with `(-)`)
+
+Things that I want to write about, but which I don't know well enough yet:
+
+    Macros
+    Meta Object Programming
+    Concurrency
+    IO
+
+Things that I want to mention somewhere, but don't know where
+
+    .perl method
+
+I'll also update these lessons from time to time make sure they are not too outdated.
+
+### [AUTHOR][51]
+
+Moritz Lenz, <http://perlgeek.de/>, `moritz@faui2k3.org`
+
+### [LINKS][52]
+
+Other documentation efforts can be found on <http://perl6.org/documentation/>.
+
+## Strings, Arrays, Hashes;
+
+Sat Sep 20 22:20:00 2008
+
+### [NAME][53]
+
+"Perl 5 to 6" Lesson 01 - Strings, Arrays, Hashes;
+
+### [SYNOPSIS][54]
+
+    my $five = 5;
+    print "an interpolating string, just like in perl $five\\n";
+    say 'say() adds a newline to the output, just like in perl 5.10';
+
+    my @array = 1, 2, 3, 'foo';
+    my $sum = @array[0] + @array[1];
+    if $sum &gt; @array[2] \{
+        say "not executed";
+    \}
+    my $number\_of\_elems = @array.elems;     # or +@array
+    my $last\_item = @array[\*-1];
+
+    my %hash = foo =&gt; 1, bar =&gt; 2, baz =&gt; 3;
+    say %hash\{'bar'\};                       # 2
+    say %hash&lt;bar&gt;;                         # same with auto-quoting
+    # this is an error: %hash\{bar\}
+    # (it tries to call the subroutine bar(), which is not declared
+
+### [DESCRIPTION][55]
+
+Perl 6 is just like Perl 5 - only better. Statements are terminated by semicolons. After the last statement in a block and after a closing curly brace at the end of a line the semicolon is optional.
+
+Variables still begin with a sigil (like `$`, `@`, `%`), and many Perl 5 builtins are still mostly unchanged in Perl 6.
+
+#### [Strings][56]
+
+Strings are surrounded by double quotes (in which case they are interpolating), or with single quotes. Backslash escapes work just like in Perl 5.
+
+However the interpolation rules have changed a bit. The following things interpolate
+
+    my $scalar = 6;
+    my @array = 1, 2, 3;
+    say "Perl $scalar";         # 'Perl 6'
+    say "An @array[]";          # 'An 1 2 3', a so-called "Zen slice"
+    say "@array[1]";            # '2'
+    say "Code: \{ $scalar \* 2 \}" # 'Code: 12'
+
+Arrays and hashes only interpolate if followed by an index (or a method call that ends in parenthesis, like `"some $obj.method()"`), empty indexes interpolate the whole data structure.
+
+A block in curly braces is executed as code, and the result is interpolated.
+
+#### [Arrays][57]
+
+Arrays variables still begin with the `@` sigil. And they always do, even when accessing stored items, ie. when an index is present.
+
+    my @a = 5, 1, 2;            # no parens needed anymore
+    say @a[0];                  # yes, it starts with @
+    say @a[0, 2];               # slices also work
+
+Lists are constructed with the Comma operator. `1,` is a list, `(1)` isn't.
+
+Since everything is an object, you can call methods on arrays:
+
+    my @b = @a.sort;
+    @b.elems;                   # number of items
+    if @b &gt; 2 \{ say "yes" \}     # still works
+    @b.end;                     # number of last index. Replaces $#array
+    my @c = @b.map(\{$\_ \* 2 \});  # map is also a method, yes
+
+There is a short form for the old `qw/../` quoting construct:
+
+    my @methods = &lt;shift unshift push pop end delete sort map&gt;;
+
+#### [Hashes][58]
+
+While Perl 5 hashes are even sized lists when viewed in list context, Perl 6 hashes are lists of pairs in that context. Pairs are also used for other things, like named arguments for subroutines, but more on that later.
+
+Just like with arrays the sigil stays invariant when you index it. And hashes also have methods that you can call on them.
+
+    my %drinks =
+        France  =&gt; 'Wine',
+        Bavaria =&gt; 'Beer',
+        USA     =&gt; 'Coke';
+
+    say "The people in France love ",  %drinks\{'France'\};
+    my @countries = %drinks.keys.sort;
+
+Note that when you access hash elements with `%hash{...}`, the key is not automatically quoted like in Perl 5. So `%hash{foo}` doesn't access index `"foo"`, but calls the function `foo()`. The auto quoting isn't gone, it just has a different syntax:
+
+    say %drinks&lt;Bavaria&gt;;
+
+#### [Final Notes][59]
+
+Most builtin methods exist both as a method and as a sub. So you can write both `sort @array` and `@array.sort`.
+
+Finally you should know that both `[..]` and `{...}` (occurring directly after a term) are just method calls with a special syntax, not something tied to arrays and hashes. That means that they are also not tied to a particular sigil.
+
+    my $a = [1, 2, 3];
+    say $a[2];          # 3
+
+This implies that you don't need special dereferencing syntax, and that you can create objects that can act as arrays, hashes and subs at the same time.
+
+### [SEE ALSO][60]
+
+<http://perlcabal.org/syn/S02.html>, <http://perlcabal.org/syn/S29.html>
+
+## Types
+
+Sat Sep 20 22:40:00 2008
+
+### [NAME][61]
+
+"Perl 5 to 6" Lesson 02 - Types
+
+### [SYNOPSIS][62]
+
+    my Int $x = 3;
+    $x = "foo";         # error
+    say $x.WHAT;        # 'Int()'
+
+    # check for a type:
+    if $x ~~ Int \{
+        say '$x contains an Int'
+    \}
+
+### [DESCRIPTION][63]
+
+Perl 6 has types. Everything is an object in some way, and has a type. Variables can have type constraints, but they don't need to have one.
+
+There are some basic types that you should know about:
+
+    'a string'      # Str
+    2               # Int
+    3.14            # Rat (rational number)
+    (1, 2, 3)       # Seq
+
+All "normal" built-in types begin with an upper case letter. All "normal" types inherit from `Any`, and absolutely everything inherits from `Mu`.
+
+You can restrict the type of values that a variable can hold by adding the type name to the declaration.
+
+    my Numeric $x = 3.4;
+    my Int @a = 1, 2, 3;
+
+It is an error to try to put a value into a variable that is of a "wrong" type (ie neither the specified type nor a subtype).
+
+A type declaration on an Array applies to its contents, so `my Str @s` is an array that can only contain strings.
+
+Some types stand for a whole family of more specific types, for example integers (type `Int`), rationals (type `Rat`) and floating-point numbers (type `Num`) conform to the `Numeric` type.
+
+#### [Introspection][64]
+
+You can learn about the direct type of a thing by calling its `.WHAT` method.
+
+    say "foo".WHAT;     # Str()
+
+However if you want to check if something is of a specific type, there is a different way, which also takes inheritance into account and is therefore recommended:
+
+    if $x ~~ Int \{
+        say 'Variable $x contains an integer';
+    \}
+
+### [MOTIVATION][65]
+
+The type system isn't very easy to grok in all its details, but there are good reasons why we need types:
+
+[Programming safety][66]
+
+If you declare something to be of a particular type, you can be sure that you can perform certain operations on it. No need to check.
+
+[Optimizability][67]
+
+When you have type informations at compile time, you can perform certain optimizations. Perl 6 doesn't have to be slower than C, in principle.
+
+[Extensibility][68]
+
+With type informations and multiple dispatch you can easily refine operators for particular types.
+
+### [SEE ALSO][69]
+
+[http://perlcabal.org/syn/S02.html#Built-In\_Data\_Types][70],
+
+## Basic Control Structures
+
+Sat Sep 20 23:00:00 2008
+
+### [NAME][71]
+
+"Perl 5 to 6" Lesson 03 - Basic Control Structures
+
+### [SYNOPSIS][72]
+
+    if $percent &gt; 100  \{
+        say "weird mathematics";
+    \}
+    for 1..3 \{
+        # using $\_ as loop variable
+        say 2 \* $\_;
+    \}
+    for 1..3 -&gt; $x \{
+        # with explicit loop variable
+        say 2 \* $x;
+    \}
+
+    while $stuff.is\_wrong \{
+        $stuff.try\_to\_make\_right;
+    \}
+
+    die "Access denied" unless $password eq "Secret";
+
+### [DESCRIPTION][73]
+
+Most Perl 5 control structures are quite similar in Perl 6. The biggest visual difference is that you don't need a pair of parentheses after `if`, `while`, `for` etc.
+
+In fact you are discouraged from using parenthesis around conditions. The reason is that any identifier followed immediately (ie. without whitespace) by an opening parenthesis is parsed as a subroutine call, so `if($x < 3)` tries to call a function named `if`. While a space after the `if` fixes that, it is safer to just omit the parens.
+
+#### [Branches][74]
+
+`if` is mostly unchanged, you can still add `elsif` and `else` branches. `unless` is still there, but no `else` branch is allowed after `unless`.
+
+    my $sheep = 42;
+    if $sheep == 0 \{
+        say "How boring";
+    \} elsif $sheep == 1 \{
+        say "One lonely sheep";
+    \} else \{
+        say "A herd, how lovely!";
+    \}
+
+You can also use `if` and `unless` as a statement modifier, i.e. after a statement:
+
+    say "you won" if $answer == 42;
+
+#### [Loops][75]
+
+You can manipulate loops with `next` and `last` just like in Perl 5.
+
+The `for`-Loop is now only used to iterate over lists. By default the topic variable `$_` is used, unless an explicit loop variable is given.
+
+    for 1..10 -&gt; $x \{
+        say $x;
+    \}
+
+The `-> $x { ... }` thing is called a "pointy block" and is something like an anonymous sub, or a lambda in lisp.
+
+You can also use more than one loop variable:
+
+    for 0..5 -&gt; $even, $odd \{
+        say "Even: $even \\t Odd: $odd";
+    \}
+
+This is also a good way to iterate over hashes:
+
+    my %h = a =&gt; 1, b =&gt; 2, c =&gt; 3;
+    for %h.kv -&gt; $key, $value \{
+        say "$key: $value";
+    \}
+
+The C-style for-loop is now called `loop` (and the only looping construct that requires parentheses):
+
+    loop (my $x = 2; $x &lt; 100; $x = $x\*\*2) \{
+        say $x;
+    \}
+
+### [SEE ALSO][76]
+
+[http://perlcabal.org/syn/S04.html#Conditional\_statements][77]
+
+## Subroutines and Signatures
+
+Sat Sep 20 23:20:00 2008
+
+### [NAME][78]
+
+"Perl 5 to 6" Lesson 04 - Subroutines and Signatures
+
+### [SYNOPSIS][79]
+
+    # sub without a signature - perl 5 like
+    sub print\_arguments \{
+        say "Arguments:";
+        for @\_ \{
+            say "\\t$\_";
+        \}
+    \}
+
+    # Signature with fixed arity and type:
+    sub distance(Int $x1, Int $y1, Int $x2, Int $y2) \{
+        return sqrt ($x2-$x1)\*\*2 + ($y2-$y1)\*\*2;
+    \}
+    say distance(3, 5, 0, 1);
+
+    # Default arguments
+    sub logarithm($num, $base = 2.7183) \{
+        return log($num) / log($base)
+    \}
+    say logarithm(4);       # uses default second argument
+    say logarithm(4, 2);    # explicit second argument
+
+    # named arguments
+
+    sub doit(:$when, :$what) \{
+        say "doing $what at $when";
+    \}
+    doit(what =&gt; 'stuff', when =&gt; 'once');  # 'doing stuff at once'
+    doit(:when&lt;noon&gt;, :what('more stuff')); # 'doing more stuff at noon'
+    # illegal: doit("stuff", "now")
+
+### [DESCRIPTION][80]
+
+Subroutines are declared with the `sub` keyword, and can have a list of formal parameters, just like in C, Java and most other languages. Optionally these parameters can have type constraints.
+
+Parameters are read-only by default. That can be changed with so-called "traits":
+
+    sub try-to-reset($bar) \{
+        $bar = 2;       # forbidden
+    \}
+
+    my $x = 2;
+    sub reset($bar is rw) \{
+        $bar = 0;         # allowed
+    \}
+    reset($x); say $x;    # 0
+
+    sub quox($bar is copy)\{
+        $bar = 3;
+    \}
+    quox($x); say $x    # still 0
+
+Parameters can be made optional by adding a question mark `?` after them, or by supplying a default value.
+
+    sub foo($x, $y?) \{
+        if $y.defined \{
+            say "Second parameter was supplied and defined";
+        \}
+    \}
+
+    sub bar($x, $y = 2 \* $x) \{
+        ...
+    \}
+
+#### [Named Parameters][81]
+
+When you invoke a subroutine like this: `my_sub($first, $second)` the `$first` argument is bound to the first formal parameter, the `$second` argument to the second parameter etc., which is why they are called "positional".
+
+Sometimes it's easier to remember names than numbers, which is why Perl 6 also has named parameters:
+
+    my $r = Rectangle.new(
+            x       =&gt; 100,
+            y       =&gt; 200,
+            height =&gt; 23,
+            width  =&gt; 42,
+            color  =&gt; 'black'
+    );
+
+When you see something like this, you immediately know what the specific arguments mean.
+
+To define a named parameter, you simply put a colon `:` before the parameter in the signature list:
+
+    sub area(:$width, :$height) \{
+        return $width \* $height;
+    \}
+    area(width =&gt; 2,  height =&gt; 3);
+    area(height =&gt; 3, width =&gt; 2 ); # the same
+    area(:height(3), :width(2));    # the same
+
+The last example uses the so-called _colon pair syntax_. Leaving off the name results in the value being `True`, and negating it results in the value being `False`:
+
+    :draw-perimeter                 # same as "draw-perimeter =&gt; True"
+    :!transparent                   # same as "transparent =&gt; False"
+
+In the declaration of named parameters, the variable name is also used as the name of the parameter. You can use a different name, though:
+
+    sub area(:width($w), :height($h))\{
+        return $w \* $h;
+    \}
+    area(width =&gt; 2,  height =&gt; 3);
+
+#### [Slurpy Parameters][82]
+
+Just because you give your sub a signature doesn't mean you have to know the number of arguments in advance. You can define so-called _slurpy_ parameters (after all the regular ones) which use up any remaining arguments:
+
+    sub tail ($first, \*@rest)\{
+        say "First: $first";
+        say "Rest: @rest[]";
+    \}
+    tail(1, 2, 3, 4);           # "First: 1\\nRest: 2 3 4\\n"
+
+Named slurpy parameters are declared by using an asterisk in front of a hash parameter:
+
+    sub order-meal($name, \*%extras) \{
+        say "I'd like some $name, but with a few modifications:";
+        say %extras.keys.join(', ');
+    \}
+
+    order-meal('beef steak', :vegetarian, :well-done);
+
+#### [Interpolation][83]
+
+By default arrays aren't interpolated in argument lists, so unlike in Perl 5 you can write something like this:
+
+    sub a($scalar1, @list, $scalar2) \{
+        say $scalar2;
+    \}
+
+    my @list = "foo", "bar";
+    a(1, @list, 2);                  # 2
+
+That also means that by default you can't use a list as an argument list:
+
+    my @indexes = 1, 4;
+    say "abc".substr(@indexes)       # doesn't do what you want
+
+(What actually happens is that the first argument is supposed to be an `Int`, and is coerced to an Int. Which is the same as if you had written `"abc."substr(@indexes.elems)` in the first place).
+
+You can achieve the desired behavior with a prefix `|`
+
+    say "abcdefgh".substr(|@indexes) # bcde, same as "abcdefgh".substr(1, 4)
+
+#### [Multi Subs][84]
+
+You can actually define multiple subs with the same name but with different parameter lists:
+
+    multi sub my\_substr($str) \{ ... \}                          # 1
+    multi sub my\_substr($str, $start) \{ ... \}                  # 2
+    multi sub my\_substr($str, $start, $end) \{ ... \}            # 3
+    multi sub my\_substr($str, $start, $end, $subst) \{ ... \}    # 4
+
+Now whenever you call such a sub, the one with the matching parameter list will be chosen.
+
+The multis don't have to differ in the arity (ie number of arguments), they can also differ in the type of the parameters:
+
+    multi sub frob(Str $s) \{ say "Frobbing String $s"  \}
+    multi sub frob(Int $i) \{ say "Frobbing Integer $i" \}
+
+    frob("x");      # Frobbing String x
+    frob(2);        # Frobbing Integer 2
+
+### [MOTIVATION][85]
+
+Nobody will doubt the usefulness of explicit sub signatures: less typing, less duplicate argument checks, and more self-documenting code. The value of named parameters has also been discussed already.
+
+It also allows useful introspection. For example when you pass a block or a subroutine to `Array.sort`, and that piece of code expects exactly one argument, a Schwartzian Transform (see [http://en.wikipedia.org/wiki/Schwartzian\_transform][86]) is automatically done for you - such a functionality would be impossible in Perl 5, because the lack of explicit signatures means that `sort` can never find out how many arguments the code block expects.
+
+Multi subs are very useful because they allow builtins to be overridden for new types. Let's assume you want a version of Perl 6 which is localized to handle Turkish strings correctly, which have unusual rules for case conversions.
+
+Instead of modifying the language, you can just introduce a new type `TurkishStr`, and add multi subs for the builtin functions:
+
+    multi uc(TurkishStr $s) \{ ... \}
+
+Now all you have to do is to take care that your strings have the type that corresponds to their language, and then you can use `uc` just like the normal builtin function.
+
+Since operators are also subs, these refinements work for operators too.
+
+### [SEE ALSO][87]
+
+<http://perlcabal.org/syn/S06.html>
+
+## Objects and Classes
+
+Tue Sep 23 22:20:00 2008
+
+### [NAME][88]
+
+"Perl 5 to 6" Lesson 05 - Objects and Classes
+
+### [SYNOPSIS][89]
+
+    class Shape \{
+        method area \{ ... \}    # literal '...'
+        has $.colour is rw;
+    \}
+
+    class Rectangle is Shape \{
+        has $.width;
+        has $.height;
+
+        method area \{
+            $!width \* $!height;
+        \}
+    \}
+
+    my $x = Rectangle.new(
+            width   =&gt; 30.0,
+            height  =&gt; 20.0,
+            colour  =&gt; 'black',
+        );
+    say $x.area;                # 600
+    say $x.colour;              # black
+    $x.colour = 'blue';
+
+### [DESCRIPTION][90]
+
+Perl 6 has an object model that is much more fleshed out than the Perl 5 one. It has keywords for creating classes, roles, attributes and methods, and has encapsulated private attributes and methods. In fact it's much closer to the `Moose` Perl 5 module (which was inspired by the Perl 6 object system).
+
+There are two ways to declare classes
+
+    class ClassName;
+    # class definition goes here
+
+The first one begins with `class ClassName;` and stretches to the end of the file. In the second one the class name is followed by a block, and all that is inside the block is considered to be the class definition.
+
+    class YourClass \{
+        # class definition goes here
+    \}
+    # more classes or other code here
+
+#### [Methods][91]
+
+Methods are declared with the `method` keyword. Inside the method you can use the term `self` to refer to the object on which the method is called (the _invocant_).
+
+You can also give the invocant a different name by adding a first parameter to the signature list and append a colon `:` to it.
+
+Public methods can be called with the syntax `$object.method` if it takes no arguments, and `$object.method(@args)` or `$object.method: @args` if it takes arguments.
+
+    class SomeClass \{
+        # these two methods do nothing but return the invocant
+        method foo \{
+            return self;
+        \}
+        method bar(SomeClass $s: ) \{
+            return $s;
+        \}
+    \}
+    my SomeClass $x .= new;
+    $x.foo.bar                      # same as $x
+
+(The `my SomeClass $x .= new` is actually a shorthand for `my SomeClass $x = SomeClass.new`. It works because the type declaration fills the variable with a "typo object" of `SomeClass`, which is an object representing the class.)
+
+Methods can also take additional arguments just like subs.
+
+Private methods can be declared with `method !methodname`, and called with `self!method_name`.
+
+    class Foo \{
+        method !private($frob) \{
+            return "Frobbed $frob";
+        \}
+
+        method public \{
+            say self!private("foo");
+        \}
+    \}
+
+Private methods can't be called from outside the class.
+
+#### [Attributes][92]
+
+Attributes are declared with the `has` keyword, and have a "twigil", that is a special character after the sigil. For private attributes that's a bang `!`, for public attributes it's the dot `.`. Public attributes are just private attributes with a public accessor. So if you want to modify the attribute, you need to use the `!` sigil to access the actual attribute, and not the accessor (unless the accessor is marked `is rw`).
+
+    class SomeClass \{
+        has $!a;
+        has $.b;
+        has $.c is rw;
+
+        method set\_stuff \{
+            $!a = 1;    # ok, writing to attribute from within the clas
+            $!b = 2;    # same
+            $.b = 3;    # ERROR, can't write to ro-accessor
+        \}
+
+        method do\_stuff \{
+            # you can use the private name instead of the public one
+            # $!b and $.b are really the same thing
+            return $!a + $!b + $!c;
+        \}
+    \}
+    my $x = SomeClass.new;
+    say $x.a;       # ERROR!
+    say $x.b;       # ok
+    $x.b = 2;       # ERROR!
+    $x.c = 3;       # ok
+
+#### [Inheritance][93]
+
+Inheritance is done through an `is` trait.
+
+    class Foo is Bar \{
+        # class Foo inherits from class Bar
+        ...
+    \}
+
+All the usual inheritance rules apply - methods are first looked up on the direct type, and if that fails, on the parent class (recursively). Likewise the type of a child class is conforming to that of a parent class:
+
+        class Bar \{ \}
+        class Foo is Bar \{ \}
+        my Bar $x = Foo.new();   # ok, since Foo ~~ Bar
+
+In this example the type of `$x` is `Bar`, and it is allowed to assign an object of type `Foo` to it, because "every `Foo` is a `Bar`".
+
+Classes can inherit from multiple other classes:
+
+    class ArrayHash is Hash is Array \{
+        ...
+    \}
+
+Though multiple inheritance also comes with multiple problems, and people usually advise against it. Roles are often a safer choice.
+
+#### [Roles and Composition][94]
+
+In general the world isn't hierarchical, and thus sometimes it's hard to press everything into an inheritance hierarchy. Which is one of the reasons why Perl 6 has Roles. Roles are quite similar to classes, except you can't create objects directly from them, and that composition of multiple roles with the same method names generate conflicts, instead of silently resolving to one of them, like multiple inheritance does.
+
+While classes are intended primarily for type conformance, roles are the primary means for code reuse in Perl 6.
+
+    role Paintable \{
+        has $.colour is rw;
+        method paint \{ ... \}
+    \}
+    class Shape \{
+        method area \{ ... \}
+    \}
+
+    class Rectangle is Shape does Paintable \{
+        has $.width;
+        has $.height;
+        method area \{
+            $!width \* $!height;
+        \}
+        method paint() \{
+            for 1..$.height \{
+                say 'x' x $.width;
+            \}
+        \}
+    \}
+
+    Rectangle.new(width =&gt; 8, height =&gt; 3).paint;
+
+### [SEE ALSO][95]
+
+<http://perlcabal.org/syn/S12.html> <http://perlcabal.org/syn/S14.html> <http://www.jnthn.net/papers/2009-yapc-eu-roles-slides.pdf> [http://en.wikipedia.org/wiki/Perl\_6#Roles][96]
+
+## Contexts
+
+Wed Sep 24 22:20:00 2008
+
+### [NAME][97]
+
+"Perl 5 to 6" Lesson 06 - Contexts
+
+### [SYNOPSIS][98]
+
+    my @a = &lt;a b c&gt;;
+    my $x = @a;
+    say $x[2];          # c
+    say (~2).WHAT;      # (Str)
+    say +@a;            # 3
+    if @a &lt; 10 \{ say "short array"; \}
+
+### [DESCRIPTION][99]
+
+When you write something like this
+
+    $x = @a
+
+in Perl 5, `$x` contains less information than `@a` - it contains only the number of items in `@a`. To preserve all information, you have to explicitly take a reference: `$x = \@a`.
+
+In Perl 6 it's the other way round: by default you don't lose anything, the scalar just stores the array. This was made possible by introducing a generic item context (called _scalar_ in Perl 5) and more specialized numeric, integer and string contexts. Void and List context remain unchanged.
+
+You can force contexts with special syntax.
+
+    syntax       context
+
+    ~stuff       String
+    ?stuff       Bool (logical)
+    +stuff       Numeric
+    -stuff       Numeric (also negates)
+    $( stuff )   Generic item context
+    @( stuff )   List context
+    %( stuff )   Hash context
+     stuff.tree  Tree context
+
+#### [Tree Context][100]
+
+In the early days of Perl 6, there were lots of builtins of which two versions existed, one that returned a flat list, one that return a list of arrays.
+
+Now this is solved by returning a list of `Parcel` objects, where the `Parcel` objects might or might not flatten out depending on the context.
+
+Consider the infix `Z` (short for _zip_) operator, which interleaves the elements from two lists:
+
+    my @a = &lt;a b c&gt; Z &lt;1 2 3&gt;;
+    say @a.join;                # a1b2c3
+
+What happened here is that the right-hand side of the first statement returned `('a', 1), ('b', 2), ('c', 3)`, and assignment to an array, which provides list context, flattened out the inner parcels. On the other hand if you write
+
+    my @t = (&lt;a b c&gt; Z &lt;1 2 3&gt;).tree;
+
+then `@t` now contains three elements, each of which are arrays that don't flatten out.
+
+    for @t -&gt; @inner \{
+        say "first: @inner[0]  second: @inner[1]"
+    \}
+
+Produces the output
+
+    first: a  second: 1
+    first: b  second: 2
+    first: c  second: 3
+
+### [MOTIVATION][101]
+
+More specific contexts are a way to delay design choices. For example it seems premature to decide what a list should return in scalar context - a reference to the list would preserve all information, but isn't very useful in numeric comparisons. On the other hand a string representation might be most useful for debugging purposes. So every possible choice disappoints somebody.
+
+With more specific context you don't need to make this choice - it returns some sensible default, and all operators that don't like this choice can simply evaluate the object a more specific context.
+
+For some things (like the Match object), the different contexts really enhance their usefulness and beauty.
+
+### [SEE ALSO][102]
+
+<http://perlcabal.org/syn/S02.html#Context> <http://perlgeek.de/blog-en/perl-6/immutable-sigils-and-context.html>
+
+## Regexes (also called "rules")
+
+Thu Sep 25 22:20:00 2008
+
+### [NAME][103]
+
+"Perl 5 to 6" Lesson 07 - Regexes (also called "rules")
+
+### [SYNOPSIS][104]
+
+    grammar URL \{
+        token TOP \{
+            &lt;schema&gt; '://'
+            [&lt;ip&gt; | &lt;hostname&gt; ]
+            [ ':' &lt;port&gt;]?
+            '/' &lt;path&gt;?
+        \}
+        token byte \{
+            (\\d\*\*1..3) &lt;?\{ $0 &lt; 256 \}&gt;
+        \}
+        token ip \{
+            &lt;byte&gt; [\\. &lt;byte&gt; ] \*\* 3
+        \}
+        token schema \{
+            \\w+
+        \}
+        token hostname \{
+            (\\w+) ( \\. \\w+ )\*
+        \}
+        token port \{
+            \\d+
+        \}
+        token path \{
+            &lt;[ a..z A..Z 0..9 \\-\_.!~\*'():@&amp;=+$,/ ]&gt;+
+        \}
+    \}
+
+    my $match = URL.parse('http://perl6.org/documentation/');
+    say $match&lt;hostname&gt;;       # perl6.org
+
+### [DESCRIPTION][105]
+
+Regexes are one of the areas that has been improved and revamped most in Perl 6. We don't call them _regular expressions_ anymore because they are even less regular than they are in Perl 5.
+
+There are three large changes and enhancements to the regexes
+
+[Syntax clean up][106]
+
+Many small changes make rules easier to write. For example the dot `.` matches any character now, the old semantics (anything but newlines) can be achieved with `\N`.
+
+Modifiers now go at the start of a regex, and non-capturing groups are `[...]`, which are a lot easier to read and write than the old `(?:...)`.
+
+[Nested captures and match object][107]
+
+In Perl 5, a regex like this `(a(b))(c)` would put `ab` into `$1`, `b` into `$2` and `c` into `$3` upon successful match. This has changed. Now `$0` (enumeration starts at zero) contains `ab`, and `$0[0]` or `$/[0][0]` contains `b`. `$1` holds `c`. So each nesting level of parenthesis is reflected in a new nesting level in the result match object.
+
+All the match variables are aliases into `$/`, which is the so-called _Match object_, and it actually contains a full match tree.
+
+[Named regexes and grammars][108]
+
+You can declare regexes with names just like you can with subs and methods. You can refer to these inside other rules with `<name>`. And you can put multiple regexes into grammars, which are just like classes and support inheritance and composition
+
+These changes make Perl 6 regexes and grammars much easier to write and maintain than Perl 5 regexes.
+
+All of these changes go quite deep, and only the surface can be scratched here.
+
+#### [Syntax clean up][109]
+
+Letter characters (ie underscore, digits and all Unicode letters) match literally, and have a special meaning (they are _metasyntactic_) when escaped with a backslash. For all other characters it's the other way round - they are metasyntactic unless escaped.
+
+    literal         metasyntactic
+    a  b  1  2      \\a \\b \\1 \\2
+    \\\* \\: \\. \\?     \*  :  .  ?
+
+Not all metasyntactic tokens have a meaning (yet). It is illegal to use those without a defined meaning.
+
+There is another way to escape strings in regexes: with quotes.
+
+    m/'a literal text: $#@!!'/
+
+The changed semantics of `.` has already been mentioned, and also that `[...]` now construct non-capturing groups. Char classes are `<[...]>`, and negated char classes `<-[...]>`. `^` and `$` always match begin and end of the string respectively, to match begin and end of lines use `^^` and `$$`.
+
+This means that the `/s` and `/m` modifiers are gone. Modifiers are now given at the start of a regex, and are given in this notation:
+
+    if "abc" ~~ m:i/B/ \{
+        say "Match";
+    \}
+
+... which happens to be the same as the _colon pair_ notation that you can use for passing named arguments to routines.
+
+Modifiers have a short and a long form. The old `/x` modifier is now the default, i.e. white spaces are ignored.
+
+    short   long            meaning
+    -------------------------------
+    :i      :ignorecase     ignore case (formerly /i)
+    :m      :ignoremark     ignore marks (accents, diaeresis etc.)
+    :g      :global         match as often as possible (/g)
+    :s      :sigspace       Every white space in the regex matches
+                            (optional) white space
+    :P5     :Perl5          Fall back to Perl 5 compatible regex syntax
+    :4x     :x(4)           Match four times (works for other numbers as well)
+    :3rd    :nth(3)         Third match
+    :ov     :overlap        Like :g, but also consider overlapping matches
+    :ex     :exhaustive     Match in all possible ways
+            :ratchet        Don't backtrack
+
+The `:sigspace` needs a bit more explanation. It replaces all whitespace in the pattern with `<.ws>` (that is it calls the rule `ws` without keeping its result). You can override that rule. By default it matches one or more whitespaces if it's enclosed in word characters, and zero or more otherwise.
+
+(There are more new modifiers, but probably not as important as the listed ones).
+
+#### [The Match Object][110]
+
+Every match generates a so-called match object, which is stored in the special variable `$/`. It is a versatile thing. In boolean context it returns `Bool::True` if the match succeeded. In string context it returns the matched string, when used as a list it contains the positional captures, and when used as a hash it contains the named captures. The `.from` and `.to` methods contain the first and last string position of the match respectively.
+
+    if 'abcdefg' ~~ m/(.(.)) (e | bla ) $&lt;foo&gt; = (.) / \{
+        say $/[0]\[0];           # d
+        say $/[0];              # cd
+        say $/[1];              # e
+        say $/&lt;foo&gt;             # f
+    \}
+
+`$0`, `$1` etc are just aliases for `$/[0]`, `$/[1]` etc. Likewise `$/<x>` and `$/{'x'}` are aliased to `$<x>`.
+
+Note that anything you access via `$/[...]` and `$/{...}` is a match object (or a list of Match objects) again. This allows you to build real parse trees with rules.
+
+#### [Named Regexes and Grammars][111]
+
+Regexes can either be used with the old style `m/.../`, or be declared like subs and methods.
+
+    regex a \{ ... \}
+    token b \{ ... \}
+    rule  c \{ ... \}
+
+The difference is that `token` implies the `:ratchet` modifier (which means no backtracking, like a `(?> ... )` group around each part of the regex in perl 5), and `rule` implies both `:ratchet` and `:sigspace`.
+
+To call such a rule (we'll call them all rules, independently with which keyword they were declared) you put the name in angle brackets: `<a>`. This implicitly anchors the sub rule to its current position in the string, and stores the result in the match object in `$/<a>`, ie it's a named capture. You can also call a rule without capturing its result by prefixing its name with a dot: `<.a>`.
+
+A grammar is a group of rules, just like a class (see the SYNOPSIS for an example). Grammars can inherit, override rules and so on.
+
+    grammar URL::HTTP is URL \{
+        token schema \{ 'http' \}
+    \}
+
+### [MOTIVATION][112]
+
+Perl 5 regexes are often rather unreadable, the grammars encourage you to split a large regex into more readable, short fragments. Named captures make the rules more self-documenting, and many things are now much more consistent than they were before.
+
+Finally grammars are so powerful that you can parse about every programming language with them, including Perl 6 itself. That makes the Perl 6 grammar easier to maintain and to change than the Perl 5 one, which is written in C and not changeable at parse time.
+
+### [SEE ALSO][113]
+
+<http://perlcabal.org/syn/S05.html>
+
+<http://perlgeek.de/en/article/mutable-grammar-for-perl-6>
+
+<http://perlgeek.de/en/article/longest-token-matching>
+
+## Junctions
+
+Fri Sep 26 22:20:00 2008
+
+### [NAME][114]
+
+"Perl 5 to 6" Lesson 07 - Junctions
+
+### [SYNOPSIS][115]
+
+    my $x = 4;
+    if $x == 3|4 \{
+        say '$x is either 3 or 4'
+    \}
+    say ((2|3|4)+7).perl        # (9|10|11)
+
+### [DESCRIPTION][116]
+
+Junctions are superpositions of unordered values. Operations on junctions are executed for each item of the junction separately (and maybe even in parallel), and the results are assembled in a junction of the same type.
+
+The junction types only differ when evaluated in boolean context. The types are `any`, `all`, `one` and `none`.
+
+    Type    Infix operator
+    any     |
+    one     ^
+    all     &amp;
+
+`1 | 2 | 3` is the same as `any(1..3)`.
+
+    my Junction $weekday = any &lt;Monday Tuesday Wednesday
+                                Thursday Friday Saturday Sunday&gt;
+    if $day eq $weekday \{
+        say "See you on $day";
+    \}
+
+In this example the `eq` operator is called with each pair `$day, 'Monday'`, `$day, 'Tuesday'` etc. and the result is put into an `any`-junction again. As soon as the result is determined (in this case, as soon as one comparison returns `True`) it can abort the execution of the other comparisons.
+
+This works not only for operators, but also for routines:
+
+    if 2 == sqrt(4 | 9 | 16) \{
+        say "YaY";
+    \}
+
+To make this possible, junctions stand outside the normal type hierarchy (a bit):
+
+                      Mu
+                    /    \\
+                   /      \\
+                 Any     Junction
+               /  |  \\
+            All other types
+
+If you want to write a sub that takes a junction and doesn't autothread over it, you have to declare the type of the parameter either as `Mu` or `Junction`
+
+    sub dump\_yaml(Junction $stuff) \{
+        # we hope that YAML can represent junctions ;-)
+        ....
+    \}
+
+A word of warning: junctions can behave counter-intuitive sometimes. With non-junction types `$a != $b` and `!($a == $b)` always mean the same thing. If one of these variables is a junction, that might be different:
+
+    my Junction $b = 3 | 2;
+    my $a = 2;
+    say "Yes" if   $a != $b ;       # Yes
+    say "Yes" if !($a == $b);       # no output
+
+`2 != 3` is true, thus `$a != 2|3` is also true. On the other hand the `$a == $b` comparison returns a single Bool value (`True`), and the negation of that is `False`.
+
+### [MOTIVATION][117]
+
+Perl aims to be rather close to natural languages, and in natural language you often say things like "if the result is $this or $that" instead of saying "if the result is $this or the result is $that". Most programming languages only allow (a translation of) the latter, which feels a bit clumsy. With junctions Perl 6 allows the former as well.
+
+It also allows you to write many comparisons very easily that otherwise require loops.
+
+As an example, imagine an array of numbers, and you want to know if all of them are non-negative. In Perl 5 you'd write something like this:
+
+    # Perl 5 code:
+    my @items = get\_data();
+    my $all\_non\_neg = 1;
+    for (@items)\{
+        if ($\_ &lt; 0) \{
+            $all\_non\_neg = 0;
+            last;
+        \}
+    \}
+    if ($all\_non\_neg) \{ ... \}
+
+Or if you happen to know about `List::MoreUtils`
+
+    use List::MoreUtils qw(all);
+    my @items = get\_data;
+    if (all \{ $\_ &gt;= 0 \} @items) \{ ...  \}
+
+In Perl 6 that is short and sweet:
+
+    my @items = get\_data();
+    if all(@items) &gt;= 0 \{ ... \}
+
+### [A Word of Warning][118]
+
+Many people get all excited about junctions, and try to do too much with them.
+
+Junctions are not sets; if you try to extract items from a junction, you are doing it wrong, and should be using a `Set` instead.
+
+It is a good idea to use junctions as smart conditions, but trying to build a solver for equations based on the junction autothreading rules is on over-extortion and usually results in frustration.
+
+### [SEE ALSO][119]
+
+[http://perlcabal.org/syn/S03.html#Junctive\_operators][120]
+
+## Comparing and Matching
+
+Sat Sep 27 22:20:00 2008
+
+### [NAME][121]
+
+"Perl 5 to 6" Lesson 09 - Comparing and Matching
+
+### [SYNOPSIS][122]
+
+    "ab"    eq      "ab"    True
+    "1.0"   eq      "1"     False
+    "a"     ==      "b"     failure, because "a" isn't numeric
+    "1"     ==      1.0     True
+    1       ===     1       True
+    [1, 2]  ===     [1, 2]  False
+    $x = [1, 2];
+    $x      ===     $x      True
+    $x      eqv     $x      True
+    [1, 2]  eqv     [1, 2]  True
+    1.0     eqv     1       False
+
+    'abc'   ~~      m/a/    Match object, True in boolean context
+    'abc'   ~~      Str     True
+    'abc'   ~~      Int     False
+    Str     ~~      Any     True
+    Str     ~~      Num     False
+    1       ~~      0..4    True
+    -3      ~~      0..4    False
+
+### [DESCRIPTION][123]
+
+Perl 6 still has string comparison operators (`eq`, `lt`, `gt`, `le`, `ge`, `ne`; `cmp` is now called `leg`) that evaluate their operands in string context. Similarly all the numeric operators from Perl 5 are still there.
+
+Since objects are more than blessed references, a new way for comparing them is needed. `===` returns only true for identical values. For immutable types like numbers or Strings that is a normal equality tests, for other objects it only returns `True` if both variables refer to the same object (like comparing memory addresses in C++).
+
+`eqv` tests if two things are equivalent, ie if they are of the same type and have the same value. In the case of containers (like `Array` or `Hash`), the contents are compared with `eqv`. Two identically constructed data structures are equivalent.
+
+#### [Smart matching][124]
+
+Perl 6 has a "compare everything" operator, called "smart match" operator, and spelled `~~`. It is asymmetrical, and generally the type of the right operand determines the kind of comparison that is made.
+
+For immutable types it is a simple equality comparison. A smart match against a type object checks for type conformance. A smart match against a regex matches the regex. Matching a scalar against a `Range` object checks if that scalar is included in the range.
+
+There are other, more advanced forms of matching: for example you can check if an argument list (`Capture`) fits to the parameter list (`Signature`) of a subroutine, or apply file test operators (like `-e` in Perl 5).
+
+What you should remember is that any "does $x fit to $y?"-Question will be formulated as a smart match in Perl 6.
+
+### [SEE ALSO][125]
+
+[http://perlcabal.org/syn/S03.html#Smart\_matching][126]
+
+## Containers and Values
+
+Wed Oct 15 22:00:00 2008
+
+### [NAME][127]
+
+"Perl 5 to 6" Lesson 10 - Containers and Values
+
+### [Synopsis][128]
+
+    my ($x, $y);
+    $x := $y;
+    $y = 4;
+    say $x;             # 4
+    if $x =:= $y \{
+        say '$x and $y are different names for the same thing'
+    \}
+
+### [DESCRIPTION][129]
+
+Perl 6 distinguishes between containers, and values that can be stored in containers.
+
+A normal scalar variable is a container, and can have some properties like type constraints, access constraints (for example it can be read only), and finally it can be aliased to other containers.
+
+Putting a value into a container is called _assignment_, and aliasing two containers is called `binding`.
+
+    my @a = 1, 2, 3;
+    my Int $x = 4;
+    @a[0] := $x;     # now @a[0] and $x are the same variable
+    @a[0] = 'Foo';   # Error 'Type check failed'
+
+Types like `Int` and `Str` are immutable, ie the objects of these types can't be changed; but you can still change the variables (the containers, that is) which hold these values:
+
+    my $a = 1;
+    $a = 2;     # no surprise here
+
+Binding can also be done at compile time with the `::=` operator.
+
+You can check if two things are bound together the `=:=` comparison operator.
+
+### [MOTIVATION][130]
+
+Exporting and importing subs, types and variables is done via aliasing. Instead of some hard-to-grasp typeglob aliasing magic, Perl 6 offers a simple operator.
+
+### [SEE ALSO][131]
+
+[http://perlcabal.org/syn/S03.html#Item\_assignment\_precedence][132]
+
+## Changes to Perl 5 Operators
+
+Thu Oct 16 22:00:00 2008
+
+### [NAME][133]
+
+"Perl 5 to 6" Lesson 11 - Changes to Perl 5 Operators
+
+### [SYNOPSIS][134]
+
+    # bitwise operators
+    5   +| 3;       # 7
+    5   +^ 3;       # 6
+    5   +&amp; 3;       # 1
+    "b" ~| "d";     # 'f'
+
+    # string concatenation
+    'a' ~ 'b';      # 'ab'
+
+    # file tests
+    if '/etc/passwd'.path ~~ :e \{ say "exists" \}
+
+    # repetition
+    'a' x 3;        # 'aaa'
+    'a' xx 3;       # 'a', 'a', 'a'
+
+    # ternary, conditional op
+    my ($a, $b) = 2, 2;
+    say $a == $b ?? 2 \* $a !! $b - $a;
+
+    # chained comparisons
+    my $angle = 1.41;
+    if 0 &lt;= $angle &lt; 2 \* pi \{ ... \}
+
+### [DESCRIPTION][135]
+
+All the numeric operators (`+`, `-`, `/`, `*`, `**`, `%`) remain unchanged.
+
+Since `|`, `^` and `&` now construct junctions, the bitwise operators have a changed syntax. They now contain a context prefix, so for example `+|` is bit wise OR with numeric context, and `~^` is one's complement on a string. Bit shift operators changed in the same way.
+
+String concatenation is now `~`, the dot `.` is used for method calls.
+
+File tests are now formulated in `Pair` notation, Perl 5 `-e` is now `:e`. If something other than `$_` should be used as the file name, it can be supplied via `$filename.path ~~ :e`.
+
+The repetition operator `x` is now split into two operators: `x` replicates strings, `xx` lists.
+
+The ternary operator, formerly `$condition ? $true : $false`, is now spelled `$condition ?? $true !! $false`.
+
+Comparison operators can now be chained, so you can write `$a < $b < $c` and it does what you mean.
+
+### [MOTIVATION][136]
+
+Many changes to the operators aim at a better Huffman coding, ie give often used things short names (like `.` for method calls) and seldom used operators a longer name (like `~&` for string bit-wise AND).
+
+The chaining comparison operators are another step towards making the language more natural, and allowing things that are commonly used in mathematical notation.
+
+### [SEE ALSO][137]
+
+[http://perlcabal.org/syn/S03.html#Changes\_to\_Perl\_5\_operators][138]
+
+## Laziness
+
+Fri Oct 17 22:00:00 2008
+
+### [NAME][139]
+
+"Perl 5 to 6" Lesson 12 - Laziness
+
+### [SYNOPSIS][140]
+
+    my @integers = 0..\*;
+    for @integers -&gt; $i \{
+        say $i;
+        last if $i % 17 == 0;
+    \}
+
+    my @even := map \{ 2 \* $\_ \}, 0..\*;
+    my @stuff := gather \{
+        for 0 .. Inf \{
+            take 2 \*\* $\_;
+        \}
+    \}
+
+### [DESCRIPTION][141]
+
+Perl programmers tend to be lazy. And so are their lists.
+
+In this case _lazy_ means, that the evaluation is delayed as much as possible. When you write something like `@a := map BLOCK, @b`, the block isn't executed at all. Only when you start to access items from `@a` the `map` actually executes the block and fills `@a` as much as needed.
+
+Note the use of binding instead of assignment: Assigning to an array might force eager evaluation (unless the compiler knows the list is going to be infinite; the exact details of figuring this out are still subject to change), binding never does.
+
+Laziness allows you to deal with infinite lists: as long as you don't do anything to all of its arguments, they take up only as much space as the items need that have already been evaluated.
+
+There are pitfalls, though: determining the length of a list or sorting it kills laziness - if the list is infinite, it will likely loop infinitely, or fail if the infiniteness can be detected.
+
+In general all conversions to a scalar (like `List.join`) are _eager_, i.e. non-lazy.
+
+Laziness prevents unnecessary computations, and can therefore boost performance while keeping code simple.
+
+When you read a file line by line in Perl 5, you don't use `for (<HANDLE>)` because it reads all the file into memory, and only then starts iterating. With laziness that's not an issue:
+
+    my $file = open '/etc/passwd';
+    for $file.lines -&gt; $line \{
+        say $line;
+    \}
+
+Since `$file.lines` is a lazy list, the lines are only physically read from disk as needed (besides buffering, of course).
+
+#### [gather/take][142]
+
+A very useful construct for creating lazy lists is `gather { take }`. It is used like this:
+
+    my @list := gather \{
+        while True \{
+            # some computations;
+            take $result;
+        \}
+    \}
+
+`gather BLOCK` returns a lazy list. When items from `@list` are needed, the `BLOCK` is run until `take` is executed. `take` is just like return, and all `take`n items are used to construct `@list`. When more items from `@list` are needed, the execution of the block is resumed after `take`.
+
+`gather/take` is dynamically scoped, so it is possible to call `take` outside of the lexical scope of the `gather` block:
+
+    my @list = gather \{
+        for 1..10 \{
+            do\_some\_computation($\_);
+        \}
+    \}
+
+    sub do\_some\_computation($x) \{
+        take $x \* ($x + 1);
+    \}
+
+Note that `gather` can act on a single statement instead of a block too:
+
+    my @list = gather for 1..10 \{
+        do\_some\_computation($\_);
+    \}
+
+#### [Controlling Laziness][143]
+
+Laziness has its problems (and when you try to learn Haskell you'll notice how weird their IO system is because Haskell is both lazy and free of side effects), and sometimes you don't want stuff to be lazy. In this case you can just prefix it with `eager`.
+
+    my @list = eager map \{ $block\_with\_side\_effects \}, @list;
+
+On the other hand only lists are lazy by default. But you can also make lazy scalars:
+
+    my $ls = lazy \{ $expansive\_computation \};
+
+### [MOTIVATION][144]
+
+In computer science most problems can be described with a tree of possible combinations, in which a solution is being searched for. The key to efficient algorithms is not only to find an efficient way to search, but also to construct only the interesting parts of the tree.
+
+With lazy lists you can recursively define this tree and search in it, and it automatically constructs only these parts of the tree that you're actually using.
+
+In general laziness makes programming easier because you don't have to know if the result of a computation will be used at all - you just make it lazy, and if it's not used the computation isn't executed at all. If it's used, you lost nothing.
+
+### [SEE ALSO][145]
+
+<http://perlcabal.org/syn/S02.html#Lists>
+
+## Custom Operators
+
+Sat Oct 18 22:00:00 2008
+
+### [NAME][146]
+
+"Perl 5 to 6" Lesson 13 - Custom Operators
+
+### [SYNOPSIS][147]
+
+    multi sub postfix:&lt;!&gt;(Int $x) \{
+        my $factorial = 1;
+        $factorial \*= $\_ for 2..$x;
+        return $factorial;
+    \}
+
+    say 5!;                     # 120
+
+### [DESCRIPTION][148]
+
+Operators are functions with unusual names, and a few additional properties like precedence and associativity. Perl 6 usually follows the pattern `term infix term`, where `term` can be optionally preceded by prefix operators and followed by postfix or postcircumfix operators.
+
+    1 + 1               infix
+    +1                  prefix
+    $x++                postfix
+    &lt;a b c&gt;             circumfix
+    @a[1]               postcircumfix
+
+Operator names are not limited to "special" characters, they can contain anything except whitespace.
+
+The long name of an operator is its type, followed by a colon and a string literal or list of the symbol or symbols, for example `infix:<+>` is the the operator in `1+2`. Another example is `postcircumfix:<[ ]>`, which is the operator in `@a[0]`.
+
+With this knowledge you can already define new operators:
+
+    multi sub prefix:&lt;€&gt; (Str $x) \{
+        2 \*  $x;
+    \}
+    say €4;                         # 8
+
+#### [Precedence][149]
+
+In an expression like `$a + $b * $c` the `infix:<*>` operator has tighter precedence than `infix:<+>`, which is why the expression is evaluated as `$a + ($b * $c)`.
+
+The precedence of a new operator can be specified in comparison to to existing operators:
+
+    multi sub infix:&lt;foo&gt; is equiv(&amp;infix:&lt;+&gt;) \{ ...  \}
+    mutli sub infix:&lt;bar&gt; is tighter(&amp;infix:&lt;+&gt;) \{ ... \}
+    mutli sub infix:&lt;baz&gt; is looser(&amp;infix:&lt;+&gt;) \{ ... \}
+
+#### [Associativity][150]
+
+Most infix operators take only two arguments. In an expression like `1 / 2 / 4` the _associativity_ of the operator decides the order of evaluation. The `infix:</>` operator is left associative, so this expression is parsed as `(1 / 2) / 4`. for a right associative operator like `infix:<**>` (exponentiation) `2 ** 2 ** 4` is parsed as `2 ** (2 ** 4)`.
+
+Perl 6 has more associativities: `none` forbids chaining of operators of the same precedence (for example `2 <=> 3 <=> 4` is forbidden), and `infix:<,>` has `list` associativity. `1, 2, 3` is translated to `infix:<,>(1; 2; 3)`. Finally there's the `chain` associativity: `$a < $b < $c` translates to `($a < $b) && ($b < $c)`.
+
+    multi sub infix:&lt;foo&gt; is tighter(&amp;infix:&lt;+&gt;)
+                          is assoc('left')
+                          ($a, $b) \{
+        ...
+    \}
+
+#### [Postcircumfix and Circumfix][151]
+
+Postcircumfix operators are method calls:
+
+    class OrderedHash is Hash \{
+        method postcircumfix:&lt;\{ \}&gt;(Str $key) \{
+            ...
+        \}
+    \}
+
+If you call that as `$object{$stuff}`, `$stuff` will be passed as an argument to the method, and `$object` is available as `self`.
+
+Circumfix operators usually imply a different syntax (like in `my @list = <a b c>;`), and are thus implemented as macros:
+
+    macro circumfix:«&lt; &gt;»($text) is parsed / &lt;-[&gt;]&gt;+ / \{
+        return $text.comb(rx/\\S+/);
+    \}
+
+The `is parsed` trait is followed by a regex that parses everything between the delimiters. If no such rule is given, it is parsed as normal Perl 6 code (which is usually not what you want if you introduce a new syntax). `Str.comb` searches for occurrences of a regex and returns a list of the text of all matches.
+
+#### ["Overload" existing operators][152]
+
+Most (if not all) existing operators are multi subs or methods, and can therefore be customized for new types. Adding a multi sub is the way of "overloading" operators.
+
+    class MyStr \{ ... \}
+    multi sub infix:&lt;~&gt;(MyStr $this, Str $other) \{ ... \}
+
+This means that you can write objects that behave just like the built in "special" objects like `Str`, `Int` etc.
+
+### [MOTIVATION][153]
+
+Allowing the user to declare new operators and "overload" existing ones makes user defined types just as powerful and useful as built in types. If the built in ones turn out to be insufficient, you can replace them with new ones that better fit your situation, without changing anything in the compiler.
+
+It also removes the gap between using a language and modifying the language.
+
+### [SEE ALSO][154]
+
+[http://perlcabal.org/syn/S06.html#Operator\_overloading][155]
+
+If you are interested in the technical background, ie how Perl 6 can implement such operator changes and other grammar changes, read <http://perlgeek.de/en/article/mutable-grammar-for-perl-6>.
+
+## The MAIN sub
+
+Sun Oct 19 22:00:00 2008
+
+### [NAME][156]
+
+"Perl 5 to 6" Lesson 14 - The MAIN sub
+
+### [SYNOPSIS][157]
+
+  # file doit.pl
+
+  #!/usr/bin/perl6
+  sub MAIN($path, :$force, :$recursive, :$home = '~/') \{
+      # do stuff here
+  \}
+
+  # command line
+  $ ./doit.pl --force --home=/home/someoneelse file\_to\_process
+
+### [DESCRIPTION][158]
+
+Calling subs and running a typical Unix program from the command line is visually very similar: you can have positional, optional and named arguments.
+
+You can benefit from it, because Perl 6 can process the command line for you, and turn it into a sub call. Your script is normally executed (at which time it can munge the command line arguments stored in `@*ARGS`), and then the sub `MAIN` is called, if it exists.
+
+If the sub can't be called because the command line arguments don't match the formal parameters of the `MAIN` sub, an automatically generated usage message is printed.
+
+Command line options map to subroutine arguments like this:
+
+  -name                   :name
+  -name=value             :name&lt;value&gt;
+
+  # remember, &lt;...&gt; is like qw(...)
+  --hackers=Larry,Damian  :hackers&lt;Larry Damian&gt;
+
+  --good\_language         :good\_language
+  --good\_lang=Perl        :good\_lang&lt;Perl&gt;
+  --bad\_lang PHP          :bad\_lang&lt;PHP&gt;
+
+  +stuff                  :!stuff
+  +stuff=healty           :stuff&lt;healthy&gt; but False
+
+The `$x = $obj but False` means that `$x` is a copy of `$obj`, but gives `Bool::False` in boolean context.
+
+So for simple (and some not quite simple) cases you don't need an external command line processor, but you can just use sub `MAIN` for that.
+
+### [MOTIVATION][159]
+
+The motivation behind this should be quite obvious: it makes simple things easier, similar things similar, and in many cases reduces command line processing to a single line of code: the signature of `MAIN`.
+
+### [SEE ALSO][160]
+
+[http://perlcabal.org/syn/S06.html#Declaring\_a\_MAIN\_subroutine][161] contains the specification.
+
+## Twigils
+
+Mon Oct 20 22:00:00 2008
+
+### [NAME][162]
+
+"Perl 5 to 6" Lesson 15 - Twigils
+
+### [SYNOPSIS][163]
+
+  class Foo \{
+      has $.bar;
+      has $!baz;
+  \}
+
+  my @stuff = sort \{ $^b[1] &lt;=&gt; $^a[1]\}, [1, 2], [0, 3], [4, 8];
+  my $block = \{ say "This is the named 'foo' parameter: $:foo" \};
+  $block(:foo&lt;bar&gt;);
+
+  say "This is file $?FILE on line $?LINE"
+
+  say "A CGI script" if %\*ENV.exists('DOCUMENT\_ROOT');
+
+### [DESCRIPTION][164]
+
+Some variables have a second sigil, called _twigil_. It basically means that the variable isn't "normal", but differs in some way, for example it could be differently scoped.
+
+You've already seen that public and private object attributes have the `.` and `!` twigil respectively; they are not normal variables, they are tied to `self`.
+
+The `^` twigil removes a special case from perl 5. To be able to write
+
+  # beware: perl 5 code
+  sort \{ $a &lt;=&gt; $b \} @array
+
+the variables `$a` and `$b` are special cased by the `strict` pragma. In Perl 6, there's a concept named _self-declared positional parameter_, and these parameters have the `^` twigil. It means that they are positional parameters of the current block, without being listed in a signature. The variables are filled in lexicographic (alphabetic) order:
+
+  my $block = \{ say "$^c $^a $^b" \};
+  $block(1, 2, 3);                # 3 1 2
+
+So now you can write
+
+  @list = sort \{ $^b &lt;=&gt; $^a \}, @list;
+  # or:
+  @list = sort \{ $^foo &lt;=&gt; $^bar \}, @list;
+
+Without any special cases.
+
+And to keep the symmetry between positional and named arguments, the `:` twigil does the same for named parameters, so these lines are roughly equivalent:
+
+  my $block = \{ say $:stuff \}
+  my $sub   = sub (:$stuff) \{ say $stuff \}
+
+The `?` twigil stands for variables and constants that are known at compile time, like `$?LINE` for the current line number (formerly `__LINE__`), and `$?DATA` is the file handle to the `DATA` section.
+
+Contextual variables can be accessed with the `*` twigil, so `$*IN` and `$*OUT` can be overridden dynamically.
+
+A pseudo twigil is `<`, which is used in a construct like `$<capture>`, where it is a shorthand for `$/<capture>`, which accesses the Match object after a regex match.
+
+### [MOTIVATION][165]
+
+When you read Perl 5's `perlvar` document, you can see that it has far too many variables, most of them global, that affect your program in various ways.
+
+The twigils try to bring some order in these special variables, and at the other hand they remove the need for special cases. In the case of object attributes they shorten `self.var` to `$.var` (or `@.var` or whatever).
+
+So all in all the increased "punctuation noise" actually makes the programs much more consistent and readable.
+
+## Enums
+
+Wed Nov 26 23:00:00 2008
+
+### [NAME][166]
+
+"Perl 5 to 6" Lesson 16 - Enums
+
+### [SYNOPSIS][167]
+
+  enum bit Bool &lt;False True&gt;;
+  my $value = $arbitrary\_value but True;
+  if $value \{
+      say "Yes, it's true";       # will be printed
+  \}
+
+  enum Day ('Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun');
+  if custom\_get\_date().Day == Day::Sat | Day::Sun \{
+      say "Weekend";
+  \}
+
+### [DESCRIPTION][168]
+
+Enums are versatile beasts. They are low-level classes that consist of an enumeration of constants, typically integers or strings (but can be arbitrary).
+
+These constants can act as subtypes, methods or normal values. They can be attached to an object with the `but` operator, which "mixes" the enum into the value:
+
+  my $x = $today but Day::Tue;
+
+You can also use the type name of the Enum as a function, and supply the value as an argument:
+
+  $x = $today but Day($weekday);
+
+Afterwards that object has a method with the name of the enum type, here `Day`:
+
+  say $x.Day;             # 1
+
+The value of first constant is 0, the next 1 and so on, unless you explicitly provide another value with pair notation:
+
+  Enum Hackers (:Larry&lt;Perl&gt;, :Guido&lt;Python&gt;, :Paul&lt;Lisp&gt;);
+
+You can check if a specific value was mixed in by using the versatile smart match operator, or with `.does`:
+
+  if $today ~~ Day::Fri \{
+      say "Thank Christ it's Friday"
+  \}
+  if $today.does(Fri) \{ ... \}
+
+Note that you can specify the name of the value only (like `Fri`) if that's unambiguous, if it's ambiguous you have to provide the full name `Day::Fri`.
+
+### [MOTIVATION][169]
+
+Enums replace both the "magic" that is involved with tainted variables in Perl 5 and the `return "0 but True"` hack (a special case for which no warning is emitted if used as a number). Plus they give a `Bool` type.
+
+Enums also provide the power and flexibility of attaching arbitrary meta data for debugging or tracing.
+
+### [SEE ALSO][170]
+
+<http://perlcabal.org/syn/S12.html#Enumerations>
+
+## Unicode
+
+Thu Nov 27 23:00:00 2008
+
+### [NAME][171]
+
+"Perl 5 to 6" Lesson 17 - Unicode
+
+### [SYNOPSIS][172]
+
+  (none)
+
+### [DESCRIPTION][173]
+
+Perl 5's Unicode model suffers from a big weakness: it uses the same type for binary and for text data. For example if your program reads 512 bytes from a network socket, it is certainly a byte string. However when (still in Perl 5) you call `uc` on that string, it will be treated as text. The recommended way is to decode that string first, but when a subroutine receives a string as an argument, it can never surely know if it had been encoded or not, ie if it is to be treated as a blob or as a text.
+
+Perl 6 on the other hand offers the type `buf`, which is just a collection of bytes, and `Str`, which is a collection of logical characters.
+
+_Logical character_ is still a vague term. To be more precise a `Str` is an object that can be viewed at different levels: `Byte`, `Codepoint` (anything that the Unicode Consortium assigned a number to is a codepoint), `Grapheme` (things that visually appear as a character) and `CharLingua` (language defined characters).
+
+For example the string with the hex bytes `61 cc 80` consists of three bytes (obviously), but can also be viewed as being consisting of two codepoints with the names `LATIN SMALL LETTER A` (U+0041) and `COMBINING GRAVE ACCENT` (U+0300), or as one grapheme that, if neither my blog software nor your browser kill it, looks like this: `à`.
+
+So you can't simply ask for the length of a string, you have to ask for a specific length:
+
+  $str.bytes;
+  $str.codes;
+  $str.graphs;
+
+There's also method named `chars`, which returns the length in the current Unicode level (which can be set by a pragma like `use bytes`, and which defaults to graphemes).
+
+In Perl 5 you sometimes had the problem of accidentally concatenating byte strings and text strings. If you should ever suffer from that problem in Perl 6, you can easily identify where it happens by overloading the concatenation operator:
+
+  sub GLOBAL::infix:&lt;~&gt; is deep (Str $a, buf $b)|(buf $b, Str $a) \{
+      die "Can't concatenate text string «"
+          ~ $a.encode("UTF-8")
+            "» with byte string «$b»\\n";
+  \}
+
+#### [Encoding and Decoding][174]
+
+The specification of the IO system is very basic and does not yet define any encoding and decoding layers, which is why this article has no useful SYNOPSIS section. I'm sure that there will be such a mechanism, and I could imagine it will look something like this:
+
+  my $handle = open($filename, :r, :encoding&lt;UTF-8&gt;);
+
+#### [Regexes and Unicode][175]
+
+Regexes can take modifiers that specify their Unicode level, so `m:codes/./` will match exactly one codepoint. In the absence of such modifiers the current Unicode level will be used.
+
+Character classes like `\w` (match a word character) behave accordingly to the Unicode standard. There are modifiers that ignore case (`:i`) and accents (`:a`), and modifiers for the substitution operators that can carry case information to the substitution string (`:samecase` and `:sameaccent`, short `:ii`, `:aa`).
+
+### [MOTIVATION][176]
+
+It is quite hard to correctly process strings with most tools and most programming languages these days. Suppose you have a web application in perl 5, and you want to break long words automatically so that they don't mess up your layout. When you use naive `substr` to do that, you might accidentally rip graphemes apart.
+
+Perl 6 will be the first mainstream programming language with built in support for grapheme level string manipulation, which basically removes most Unicode worries, and which (in conjunction with regexes) makes Perl 6 one of the most powerful languages for string processing.
+
+The separate data types for text and byte strings make debugging and introspection quite easy.
+
+### [SEE ALSO][177]
+
+<http://perlcabal.org/syn/S32/Str.html>
+
+## Scoping
+
+Fri Nov 28 23:00:00 2008
+
+### [NAME][178]
+
+"Perl 5 to 6" Lesson 18 - Scoping
+
+### [SYNOPSIS][179]
+
+    for 1 .. 10 -&gt; $a \{
+        # $a visible here
+    \}
+    # $a not visible here
+
+    while my $b = get\_stuff() \{
+        # $b visible here
+    \}
+    # $b still visible here
+
+    my $c = 5;
+    \{
+        my $c = $c;
+        # $c is undef here
+    \}
+    # $c is 5 here
+
+    my $y;
+    my $x = $y + 2 while $y = calc();
+    # $x still visible
+
+### [DESCRIPTION][180]
+
+#### [Lexical Scoping][181]
+
+Scoping in Perl 6 is quite similar to that of Perl 5. A Block introduces a new lexical scope. A variable name is searched in the innermost lexical scope first, if it's not found it is then searched for in the next outer scope and so on. Just like in Perl 5 a `my` variable is a proper lexical variable, and an `our` declaration introduces a lexical alias for a package variable.
+
+But there are subtle differences: variables are exactly visible in the rest of the block where they are declared, variables declared in block headers (for example in the condition of a `while` loop) are not limited to the block afterwards.
+
+Also Perl 6 only ever looks up unqualified names (variables and subroutines) in lexical scopes.
+
+If you want to limit the scope, you can use formal parameters to the block:
+
+    if calc() -&gt; $result \{
+        # you can use $result here
+    \}
+    # $result not visible here
+
+Variables are visible immediately after they are declared, not at the end of the statement as in Perl 5.
+
+    my $x = .... ;
+
+            $x visible here in Perl 6
+            but not in Perl 5
+
+#### [Dynamic scoping][182]
+
+The `local` adjective is now called `temp`, and if it's not followed by an initialization the previous value of that variable is used (not `undef`).
+
+There's also a new kind of dynamically scoped variable called a _hypothetical_ variable. If the block is left with an exception, then the previous value of the variable is restored. If not, it is kept.
+
+#### [Context variables][183]
+
+Some variables that are global in Perl 5 (`$!`, `$_`) are _context_ variables in Perl 6, that is they are passed between dynamic scopes.
+
+This solves an old Problem in Perl 5. In Perl 5 an `DESTROY` sub can be called at a block exit, and accidentally change the value of a global variable, for example one of the error variables:
+
+   # Broken Perl 5 code here:
+   sub DESTROY \{ eval \{ 1 \}; \}
+
+   eval \{
+       my $x = bless \{\};
+       die "Death\\n";
+   \};
+   print $@ if $@;         # No output here
+
+In Perl 6 this problem is avoided by not implicitly using global variables.
+
+(In Perl 5.14 there is a workaround that protects `$@` from being modified, thus averting the most harm from this particular example.)
+
+#### [Pseudo-packages][184]
+
+If a variable is hidden by another lexical variable of the same name, it can be accessed with the `OUTER` pseudo package
+
+    my $x = 3;
+    \{
+        my $x = 10;
+        say $x;             # 10
+        say $OUTER::x;      # 3
+        say OUTER::&lt;$x&gt;     # 3
+    \}
+
+Likewise a function can access variables from its caller with the `CALLER` and `CONTEXT` pseudo packages. The difference is that `CALLER` only accesses the scope of the immediate caller, `CONTEXT` works like UNIX environment variables (and should only be used internally by the compiler for handling `$_`, `$!` and the like). To access variables from the outer dynamic scope they must be declared with `is context`.
+
+### [MOTIVATION][185]
+
+It is now common knowledge that global variables are really bad, and cause lots of problems. We also have the resources to implement better scoping mechanism. Therefore global variables are only used for inherently global data (like `%*ENV` or `$*PID`).
+
+The block scoping rules haven been greatly simplified.
+
+Here's a quote from Perl 5's `perlsyn` document; we don't want similar things in Perl 6:
+
+ NOTE: The behaviour of a "my" statement modified with a statement
+ modifier conditional or loop construct (e.g. "my $x if ...") is
+ undefined.  The value of the "my" variable may be "undef", any
+ previously assigned value, or possibly anything else.  Don't rely on
+ it.  Future versions of perl might do something different from the
+ version of perl you try it out on.  Here be dragons.
+
+### [SEE ALSO][186]
+
+S04 discusses block scoping: <http://perlcabal.org/syn/S04.html>.
+
+S02 lists all pseudo packages and explains context scoping: <http://perlcabal.org/syn/S02.html#Names>.
+
+## Regexes strike back
+
+Sat Nov 29 23:00:00 2008
+
+### [NAME][187]
+
+"Perl 5 to 6" Lesson 19 - Regexes strike back
+
+### [SYNOPSIS][188]
+
+    # normal matching:
+    if 'abc' ~~ m/../ \{
+        say $/;                 # ab
+    \}
+
+    # match with implicit :sigspace modifier
+    if 'ab cd ef'  ~~ mm/ (..) \*\* 2 / \{
+        say $1;                 # cd
+    \}
+
+    # substitute with the :sigspace modifier
+    my $x = "abc     defg";
+    $x ~~ ss/c d/x y/;
+    say $x;                     # abx     yefg
+
+### [DESCRIPTION][189]
+
+Since the basics of regexes are already covered in lesson 07, here are some useful (but not very structured) additional facts about Regexes.
+
+#### [Matching][190]
+
+You don't need to write grammars to match regexes, the traditional form `m/.../` still works, and has a new brother, the `mm/.../` form, which implies the `:sigspace` modifier. Remember, that means that whitespaces in the regex are substituted by the `<.ws>` rule.
+
+The default for the rule is to match `\s+` if it is surrounded by two word-characters (ie those matching those `\w`), and `\s*` otherwise.
+
+In substitutions the `:samespace` modifier takes care that whitespaces matched with the `ws` rule are preserved. Likewise the `:samecase` modifier, short `:ii` (since it's a variant of `:i`) preserve case.
+
+    my $x = 'Abcd';
+    $x ~~ s:ii/^../foo/;
+    say $x;                     # Foocd
+    $x = 'ABC'
+    $x ~~ s:ii/^../foo/;
+    say $x                      # FOO
+
+This is very useful if you want to globally rename your module `Foo`, to `Bar`, but for example in environment variables it is written as all uppercase. With the `:ii` modifier the case is automatically preserved.
+
+It copies case information on a character by character. But there's also a more intelligent version; when combined with the `:sigspace` (short `:s`) modifier, it tries to find a pattern in the case information of the source string. Recognized are `.lc`, `.uc`, `.lc.ucfirst`, `.uc.lcfirst` and `.lc.capitaliz` (`Str.capitalize` uppercases the first character of each word). If such a pattern is found, it is also applied to the substitution string.
+
+    my $x = 'The Quick Brown Fox';
+    $x ~~ s :s :ii /brown.\*/perl 6 developer/;
+    # $x is now 'The Quick Perl 6 Developer'
+
+#### [Alternations][191]
+
+Alternations are still formed with the single bar `|`, but it means something else than in Perl 5. Instead of sequentially matching the alternatives and taking the first match, it now matches all alternatives in parallel, and takes the longest one.
+
+    'aaaa' ~~ m/ a | aaa | aa /;
+    say $/                          # aaa
+
+While this might seem like a trivial change, it has far reaching consequences, and is crucial for extensible grammars. Since Perl 6 is parsed using a Perl 6 grammar, it is responsible for the fact that in `++$a` the `++` is parsed as a single token, not as two `prefix:<+>` tokens.
+
+The old, sequential style is still available with `||`:
+
+    grammar Math::Expression \{
+        token value \{
+            | &lt;number&gt;
+            | '('
+              &lt;expression&gt;
+              [ ')' || \{ fail("Parenthesis not closed") \} ]
+        \}
+
+        ...
+    \}
+
+The `{ ... }` execute a closure, and calling `fail` in that closure makes the expression fail. That branch is guaranteed to be executed only if the previous (here the `')'`) fails, so it can be used to emit useful error messages while parsing.
+
+There are other ways to write alternations, for example if you "interpolate" an array, it will match as an alternation of its values:
+
+    $\_ = '12 oranges';
+    my @fruits = &lt;apple orange banana kiwi&gt;;
+    if m:i:s/ (\\d+) (@fruits)s? / \{
+        say "You've got $0 $1s, I've got \{ $0 + 2 \} of them. You lost.";
+    \}
+
+There is yet another construct that automatically matches the longest alternation: multi regexes. They can be either written as `multi token name` or with a `proto`:
+
+    grammar Perl \{
+        ...
+        proto token sigil \{ \* \}
+        token sigil:sym&lt;$&gt; \{ &lt;sym&gt; \}
+        token sigil:sym&lt;@&gt; \{ &lt;sym&gt; \}
+        token sigil:sym&lt;%&gt; \{ &lt;sym&gt; \}
+        ...
+
+       token variable \{ &lt;sigil&gt; &lt;twigil&gt;? &lt;identifier&gt; \}
+   \}
+
+This example shows multiple tokens called `sigil`, which are parameterized by `sym`. When the short name, ie `sigil` is used, all of these tokens are matched in an alternation. You may think that this is a very inconvenient way to write an alternation, but it has a huge advantage over writing `'$'|'@'|'%'`: it is easily extensible:
+
+    grammar AddASigil is Perl \{
+        token sigil:sym&lt;!&gt; \{ &lt;sym&gt; \}
+    \}
+    # wow, we have a Perl 6 grammar with an additional sigil!
+
+Likewise you can override existing alternatives:
+
+    grammar WeirdSigil is Perl \{
+        token sigil:sym&lt;$&gt; \{ '°' \}
+    \}
+
+In this grammar the sigil for scalar variables is `°`, so whenever the grammar looks for a sigil it searches for a `°` instead of a `$`, but the compiler will still know that it was the regex `sigil:sym<$>` that matched it.
+
+In the next lesson you'll see the development of a real, working grammar with Rakudo.
+
+## A grammar for (pseudo) XML
+
+Fri Dec 5 23:00:00 2008
+
+### [NAME][192]
+
+"Perl 5 to 6" Lesson 20 - A grammar for (pseudo) XML
+
+### [SYNOPSIS][193]
+
+    grammar XML \{
+        token TOP   \{ ^ &lt;xml&gt; $ \};
+        token xml   \{ &lt;text&gt; [ &lt;tag&gt; &lt;text&gt; ]\* \};
+        token text \{  &lt;-[&lt;&gt;&amp;]&gt;\* \};
+        rule tag   \{
+            '&lt;'(\\w+) &lt;attributes&gt;\*
+            [
+                | '/&gt;'                 # a single tag
+                | '&gt;'&lt;xml&gt;'&lt;/' $0 '&gt;'  # an opening and a closing tag
+            ]
+        \};
+        token attributes \{ \\w+ '="' &lt;-["&lt;&gt;]&gt;\* '"' \};
+    \};
+
+### [DESCRIPTION][194]
+
+So far the focus of these articles has been the Perl 6 language, independently of what has been implemented so far. To show you that it's not a purely fantasy language, and to demonstrate the power of grammars, this lesson shows the development of a grammar that parses basic XML, and that runs with Rakudo.
+
+Please follow the instructions on <http://rakudo.org/how-to-get-rakudo/> to obtain and build Rakudo, and try it out yourself.
+
+#### [Our idea of XML][195]
+
+For our purposes XML is quite simple: it consists of plain text and nested tags that can optionally have attributes. So here are few tests for what we want to parse as valid "XML", and what not:
+
+    my @tests = (
+        [1, 'abc'                       ],      # 1
+        [1, '&lt;a&gt;&lt;/a&gt;'                   ],      # 2
+        [1, '..&lt;ab&gt;foo&lt;/ab&gt;dd'          ],      # 3
+        [1, '&lt;a&gt;&lt;b&gt;c&lt;/b&gt;&lt;/a&gt;'           ],      # 4
+        [1, '&lt;a href="foo"&gt;&lt;b&gt;c&lt;/b&gt;&lt;/a&gt;'],      # 5
+        [1, '&lt;a empty="" &gt;&lt;b&gt;c&lt;/b&gt;&lt;/a&gt;' ],      # 6
+        [1, '&lt;a&gt;&lt;b&gt;c&lt;/b&gt;&lt;c&gt;&lt;/c&gt;&lt;/a&gt;'    ],      # 7
+        [0, '&lt;'                         ],      # 8
+        [0, '&lt;a&gt;b&lt;/b&gt;'                  ],      # 9
+        [0, '&lt;a&gt;b&lt;/a'                   ],      # 10
+        [0, '&lt;a&gt;b&lt;/a href=""&gt;'          ],      # 11
+        [1, '&lt;a/&gt;'                      ],      # 12
+        [1, '&lt;a /&gt;'                     ],      # 13
+    );
+
+    my $count = 1;
+    for @tests -&gt; $t \{
+        my $s = $t[1];
+        my $M = XML.parse($s);
+        if !($M  xor $t[0]) \{
+            say "ok $count - '$s'";
+        \} else \{
+            say "not ok $count - '$s'";
+        \}
+        $count++;
+    \}
+
+This is a list of both "good" and "bad" XML, and a small test script that runs these tests by calling `XML.parse($string)`. By convention the rule that matches what the grammar should match is named `TOP`.
+
+(As you can see from test 1 we don't require a single root tag, but it would be trivial to add this restriction).
+
+#### [Developing the grammar][196]
+
+The essence of XML is surely the nesting of tags, so we'll focus on the second test first. Place this at the top of the test script:
+
+    grammar XML \{
+        token TOP   \{ ^ &lt;tag&gt; $ \}
+        token tag   \{
+            '&lt;' (\\w+) '&gt;'
+            '&lt;/' $0   '&gt;'
+        \}
+    \};
+
+Now run the script:
+
+    $ ./perl6 xml-01.pl
+    not ok 1 - 'abc'
+    ok 2 - '&lt;a&gt;&lt;/a&gt;'
+    not ok 3 - '..&lt;ab&gt;foo&lt;/ab&gt;dd'
+    not ok 4 - '&lt;a&gt;&lt;b&gt;c&lt;/b&gt;&lt;/a&gt;'
+    not ok 5 - '&lt;a href="foo"&gt;&lt;b&gt;c&lt;/b&gt;&lt;/a&gt;'
+    not ok 6 - '&lt;a empty="" &gt;&lt;b&gt;c&lt;/b&gt;&lt;/a&gt;'
+    not ok 7 - '&lt;a&gt;&lt;b&gt;c&lt;/b&gt;&lt;c&gt;&lt;/c&gt;&lt;/a&gt;'
+    ok 8 - '&lt;'
+    ok 9 - '&lt;a&gt;b&lt;/b&gt;'
+    ok 10 - '&lt;a&gt;b&lt;/a'
+    ok 11 - '&lt;a&gt;b&lt;/a href=""&gt;'
+    not ok 12 - '&lt;a/&gt;'
+    not ok 13 - '&lt;a /&gt;'
+
+So this simple rule parses one pair of start tag and end tag, and correctly rejects all four examples of invalid XML.
+
+The first test should be easy to pass as well, so let's try this:
+
+   grammar XML \{
+       token TOP   \{ ^ &lt;xml&gt; $ \};
+       token xml   \{ &lt;text&gt; | &lt;tag&gt; \};
+       token text  \{ &lt;-[&lt;&gt;&amp;]&gt;\*  \};
+       token tag   \{
+           '&lt;' (\\w+) '&gt;'
+           '&lt;/' $0   '&gt;'
+       \}
+    \};
+
+(Remember, `<-[...]>` is a negated character class.)
+
+And run it:
+
+    $ ./perl6 xml-03.pl
+    ok 1 - 'abc'
+    not ok 2 - '&lt;a&gt;&lt;/a&gt;'
+    (rest unchanged)
+
+Why in the seven hells did the second test stop working? The answer is that Rakudo doesn't do longest token matching yet (update 2013-01: it does now), but matches sequentially. `<text>` matches the empty string (and thus always), so `<text> | <tag>` never even tries to match `<tag>`. Reversing the order of the two alternations would help.
+
+But we don't just want to match either plain text or a tag anyway, but random combinations of both of them:
+
+    token xml   \{ &lt;text&gt; [ &lt;tag&gt; &lt;text&gt; ]\*  \};
+
+(`[...]` are non-capturing groups, like `(?: ... )` is in Perl 5).
+
+And low and behold, the first two tests both pass.
+
+The third test, `..<ab>foo</ab>dd`, has text between opening and closing tag, so we have to allow that next. But not only text is allowed between tags, but arbitrary XML, so let's just call `<xml>` there:
+
+    token tag   \{
+        '&lt;' (\\w+) '&gt;'
+        &lt;xml&gt;
+        '&lt;/' $0   '&gt;'
+    \}
+
+    ./perl6 xml-05.pl
+    ok 1 - 'abc'
+    ok 2 - '&lt;a&gt;&lt;/a&gt;'
+    ok 3 - '..&lt;ab&gt;foo&lt;/ab&gt;dd'
+    ok 4 - '&lt;a&gt;&lt;b&gt;c&lt;/b&gt;&lt;/a&gt;'
+    not ok 5 - '&lt;a href="foo"&gt;&lt;b&gt;c&lt;/b&gt;&lt;/a&gt;'
+    (rest unchanged)
+
+We can now focus on attributes (the `href="foo"` stuff):
+
+    token tag   \{
+        '&lt;' (\\w+) &lt;attribute&gt;\* '&gt;'
+        &lt;xml&gt;
+        '&lt;/' $0   '&gt;'
+    \};
+    token attribute \{
+        \\w+ '="' &lt;-["&lt;&gt;]&gt;\* \\"
+    \};
+
+But this doesn't make any new tests pass. The reason is the blank between the tag name and the attribute. Instead of adding `\s+` or `\s*` in many places we'll switch from `token` to `rule`, which implies the `:sigspace` modifier:
+
+    rule tag   \{
+        '&lt;'(\\w+) &lt;attribute&gt;\* '&gt;'
+        &lt;xml&gt;
+        '&lt;/'$0'&gt;'
+    \};
+    token attribute \{
+        \\w+ '="' &lt;-["&lt;&gt;]&gt;\* \\"
+    \};
+
+Now all tests pass, except the last two:
+
+    ok 1 - 'abc'
+    ok 2 - '&lt;a&gt;&lt;/a&gt;'
+    ok 3 - '..&lt;ab&gt;foo&lt;/ab&gt;dd'
+    ok 4 - '&lt;a&gt;&lt;b&gt;c&lt;/b&gt;&lt;/a&gt;'
+    ok 5 - '&lt;a href="foo"&gt;&lt;b&gt;c&lt;/b&gt;&lt;/a&gt;'
+    ok 6 - '&lt;a empty="" &gt;&lt;b&gt;c&lt;/b&gt;&lt;/a&gt;'
+    ok 7 - '&lt;a&gt;&lt;b&gt;c&lt;/b&gt;&lt;c&gt;&lt;/c&gt;&lt;/a&gt;'
+    ok 8 - '&lt;'
+    ok 9 - '&lt;a&gt;b&lt;/b&gt;'
+    ok 10 - '&lt;a&gt;b&lt;/a'
+    ok 11 - '&lt;a&gt;b&lt;/a href=""&gt;'
+    not ok 12 - '&lt;a/&gt;'
+    not ok 13 - '&lt;a /&gt;'
+
+These contain un-nested tags that are closed with a single slash `/`. No problem to add that to rule `tag`:
+
+    rule tag   \{
+        '&lt;'(\\w+) &lt;attribute&gt;\* [
+            | '/&gt;'
+            | '&gt;' &lt;xml&gt; '&lt;/'$0'&gt;'
+        ]
+    \};
+
+All tests pass, we're happy, our first grammar works well.
+
+#### [More hacking][197]
+
+Playing with grammars is much more fun that reading about playing, so here's what you could implement:
+
+* plain text can contain entities like `&amp;`
+* I don't know if XML tag names are allowed to begin with a number, but the current grammar allows that. You might look it up in the XML specification, and adapt the grammar if needed.
+* plain text can contain `<![CDATA[ ... ]]>` blocks, in which xml-like tags are ignored and `<` and the like don't need to be escaped
+* Real XML allows a preamble like `<?xml version="0.9" encoding="utf-8"?>` and requires one root tag which contains the rest (You'd have to change some of the existing test cases)
+* You could try to implement a pretty-printer for XML by recursively walking through the match object `$/`. (This is non-trivial; you might have to work around a few Rakudo bugs, and maybe also introduce some new captures).
+
+(Please don't post solutions to this as comments in this blog; let others have the same fun as you had ;-).
+
+Have fun hacking.
+
+### [MOTIVATION][198]
+
+It's powerful and fun
+
+### [SEE ALSO][199]
+
+Regexes are specified in great detail in S05: <http://perlcabal.org/syn/S05.html>.
+
+More working examples for grammars can be found at <https://github.com/moritz/json/> (check file lib/JSON/Tiny/Grammar.pm).
+
+## Subset Types
+
+Sat Dec 6 23:00:00 2008
+
+### [NAME][200]
+
+"Perl 5 to 6" Lesson 21 - Subset Types
+
+### [SYNOPSIS][201]
+
+    subset Squares of Int where \{ .sqrt.Int\*\*2 == $\_ \};
+
+    multi sub square\_root(Squares $x --&gt; Int) \{
+        return $x.sqrt.Int;
+    \}
+    multi sub square\_root(Num $x --&gt; Num) \{
+        return $x.sqrt;
+    \}
+
+### [DESCRIPTION][202]
+
+Java programmers tend to think of a type as either a class or an interface (which is something like a crippled class), but that view is too limited for Perl 6. A type is more generally a constraint of what a values a container can constraint. The "classical" constraint is _it is an object of a class `X` or of a class that inherits from `X`_. Perl 6 also has constraints like _the class or the object does role `Y`_, or _this piece of code returns true for our object_. The latter is the most general one, and is called a _subset_ type:
+
+    subset Even of Int where \{ $\_ % 2 == 0 \}
+    # Even can now be used like every other type name
+
+    my Even $x = 2;
+    my Even $y = 3; # type mismatch error
+
+(Try it out, Rakudo implements subset types).
+
+You can also use anonymous subtypes in signatures:
+
+    sub foo (Int where \{ ... \} $x) \{ ... \}
+    # or with the variable at the front:
+    sub foo ($x of Int where \{ ... \} ) \{ ... \}
+
+### [MOTIVATION][203]
+
+Allowing arbitrary type constraints in the form of code allows ultimate extensibility: if you don't like the current type system, you can just roll your own based on subset types.
+
+It also makes libraries easier to extend: instead of dying on data that can't be handled, the subs and methods can simply declare their types in a way that "bad" data is rejected by the multi dispatcher. If somebody wants to handle data that the previous implementation rejected as "bad", he can simple add a multi sub with the same name that accepts the data. For example a math library that handles real numbers could be enhanced this way to also handle complex numbers.
+
+## The State of the implementations
+
+Sun Dec 7 23:00:00 2008
+
+### [NAME][204]
+
+"Perl 5 to 6" Lesson 22 - The State of the implementations
+
+### [SYNOPSIS][205]
+
+    (none)
+
+### [DESCRIPTION][206]
+
+**Note:** This lesson is long outdated, and preserved for historical interest only. The best way to stay informed about various Perl 6 compilers is to follow the blogs at <http://planetsix.perl.org/>.
+
+Perl 6 is a language specification, and multiple compilers are being written that aim to implement Perl 6, and partially they already do.
+
+#### [Pugs][207]
+
+Pugs is a Perl 6 compiler written in Haskell. It was started by Audrey Tang, and she also did most of the work. In terms of implemented features it might still be the most advanced implementation today (May 2009).
+
+To build and test pugs, you have to install GHC 6.10.1 first, and then run
+
+    svn co http://svn.pugscode.org/pugs
+    cd pugs
+    perl Makefile.PL
+    make
+    make test
+
+That will install some Haskell dependencies locally and then build pugs. For `make test` you might need to install some Perl 5 modules, which you can do with `cpan Task::Smoke`.
+
+Pugs hasn't been developed during the last three years, except occasional clean-ups of the build system.
+
+Since the specification is evolving and Pugs is not updated, it is slowly drifting into obsoleteness.
+
+Pugs can parse most common constructs, implements object orientation, basic regexes, nearly(?) all control structures, basic user defined operators and macros, many builtins, contexts (except slice context), junctions, basic multi dispatch and the reduction meta operator - based on the syntax of three years past.
+
+#### [Rakudo][208]
+
+Rakudo is a parrot based compiler for Perl 6. The main architect is Patrick Michaud, many features were implemented by Jonathan Worthington.
+
+It is hosted on github, you can find build instructions on <http://rakudo.org/how-to-get-rakudo>.
+
+Rakudo development is very active, it's the most active Perl 6 compiler today. It passes a bit more than 17,000 tests from the official test suite (July 2009).
+
+It implements most control structures, most syntaxes for number literals, interpolation of scalars and closures, chained operators, `BEGIN`- and `END` blocks, pointy blocks, named, optional and slurpy arguments, sophisticated multi dispatch, large parts of the object system, regexes and grammars, Junctions, generic types, parametric roles, typed arrays and hashes, importing and exporting of subroutines and basic meta operators.
+
+If you want to experiment with Perl 6 today, Rakudo is the recommended choice.
+
+#### [Elf][209]
+
+Mitchell Charity started _elf_, a bootstrapping compiler written in Perl 6, with a grammar written in Ruby. Currently it has a Perl 5 backend, others are in planning.
+
+It lives in the pugs repository, once you've checked it out you can go to `misc/elf/` and run `./elf_f $filename`. You'll need ruby-1.9 and some perl modules, about which elf will complain bitterly when they are not present.
+
+`elf` is developed in bursts of activity followed by weeks of low activity, or even none at all.
+
+It parses more than 70% of the test suite, but implements mostly features that are easy to emulate with Perl 5, and passes about 700 tests from the test suite.
+
+#### [KindaPerl6][210]
+
+Flavio Glock started KindaPerl6 (short kp6), a mostly bootstrapped Perl 6 compiler. Since the bootstrapped version is much too slow to be fun to develop with, it is now waiting for a faster backend.
+
+Kp6 implements object orientation, grammars and a few distinct features like lazy gather/take. It also implements `BEGIN` blocks, which was one of the design goals.
+
+#### [v6.pm][211]
+
+`v6` is a source filter for Perl 5. It was written by Flavio Glock, and supports basic Perl 6 plus grammars. It is fairly stable and fast, and is occasionally enhanced. It lives on the CPAN and in the pugs repository in `perl5/*/`.
+
+#### [SMOP][212]
+
+Smop stands for _Simple Meta Object Programming_ and doesn't plan to implement all of Perl 6, it is designed as a backend (a little bit like parrot, but very different in both design and feature set). Unlike the other implementations it aims explicitly at implementing Perl 6's powerful meta object programming facilities, ie the ability to plug in different object systems.
+
+It is implemented in C and various domain specific languages. It was designed and implemented by Daniel Ruoso, with help from Yuval Kogman (design) and Paweł Murias (implementation, DSLs). A grant from The Perl Foundation supports its development, and it currently approaches the stage where one could begin to emit code for it from another compiler.
+
+It will then be used as a backend for either elf or kp6, and perhaps also for pugs.
+
+#### [STD.pm][213]
+
+Larry Wall wrote a grammar for Perl 6 in Perl 6. He also wrote a cheating script named `gimme5`, which translates that grammar to Perl 5. It can parse about every written and valid piece of Perl 6 that we know of, including the whole test suite (apart from a few failures now and then when Larry accidentally broke something).
+
+STD.pm lives in the pugs repository, and can be run and tested with perl-5.10.0 installed in `/usr/local/bin/perl` and a few perl modules (like `YAML::XS` and `Moose`):
+
+    cd src/perl6/
+    make
+    make testt      # warning: takes lot of time, 80 minutes or so
+    ./tryfile $your\_file
+
+It correctly parses custom operators and warns about non-existent subs, undeclared variables and multiple declarations of the same variable as well as about some Perl 5isms.
+
+### [MOTIVATION][214]
+
+Many people ask why we need so many different implementations, and if it wouldn't be better to focus on one instead.
+
+There are basically three answers to that.
+
+Firstly that's not how programming by volunteers work. People sometimes either want to start something with the tools they like, or they think that one aspect of Perl 6 is not sufficiently honoured by the design of the existing implementations. Then they start a new project.
+
+The second possible answer is that the projects explore different areas of the vast Perl 6 language: SMOP explores meta object programming (from which Rakudo will also benefit), Rakudo and parrot care a lot about efficient language interoperability, grammars and platform independence, kp6 explored BEGIN blocks, and pugs was the first implementation to explore the syntax, and many parts of the language for the first time.
+
+The third answer is that we don't want a single point of failure. If we had just one implementation, and had severe problems with one of them for unforeseeable reasons (technical, legal, personal, ...) we have possible fallbacks.
+
+### [SEE ALSO][215]
+
+Pugs: <http://www.pugscode.org/>, <http://pugs.blogs.com/pugs/2008/07/pugshs-is-back.html>, <http://pugs.blogspot.com>, source: <http://svn.pugscode.org/pugs>.
+
+Rakudo: <http://rakudo.org/>, <http://www.parrot.org/>,
+
+Elf: <http://perl.net.au/wiki/Elf> source: see pugs, `misc/elf/`.
+
+KindaPerl6: source: see pugs, `v6/v6-KindaPerl6`.
+
+v6.pm: source: see pugs, `perl5/`.
+
+STD.pm: source: see pugs, `src/perl6/`.
+
+## Quoting and Parsing
+
+Mon Dec 8 23:00:00 2008
+
+### [NAME][216]
+
+"Perl 5 to 6" Lesson 23 - Quoting and Parsing
+
+### [SYNOPSIS][217]
+
+    my @animals = &lt;dog cat tiger&gt;
+    # or
+    my @animals = qw/dog cat tiger/;
+    # or
+
+    my $interface = q\{eth0\};
+    my $ips = q :s :x /ifconfig $interface/;
+
+    # -----------
+
+    sub if \{
+        warn "if() calls a sub\\n";
+    \}
+    if();
+
+### [DESCRIPTION][218]
+
+#### [Quoting][219]
+
+Perl 6 has a powerful mechanism of quoting strings, you have exact control over what features you want in your string.
+
+Perl 5 had single quotes, double quotes and `qw(...)` (single quotes, splitted on whitespaces) as well as the `q(..)` and `qq(...)` forms which are basically synonyms for single and double quotes.
+
+Perl 6 in turn defines a quote operator named `Q` that can take various modifiers. The `:b` (_backslash_) modifier allows interpolation of backslash escape sequences like `\n`, the `:s` modifier allows interpolation of scalar variables, `:c` allows the interpolation of closures (`"1 + 2 = { 1 + 2 }"`) and so on, `:w` splits on words as `qw/.../` does.
+
+You can arbitrarily combine those modifiers. For example you might wish a form of `qw/../` that interpolates only scalars, but nothing else? No problem:
+
+    my $stuff = "honey";
+    my @list = Q :w :s/milk toast $stuff with\\tfunny\\nescapes/;
+    say @list[\*-1];                     # prints with\\nfunny\\nescapes
+
+Here's a list of what modifiers are available, mostly stolen from S02 directly. All of these also have long names, which I omitted here.
+
+    Features:
+        :q          Interpolate \\\\, \\q and \\'
+        :b          Other backslash escape sequences like \\n, \\t
+    Operations:
+        :x          Execute as shell command, return result
+        :w          Split on whitespaces
+        :ww         Split on whitespaces, with quote protection
+    Variable interpolation
+        :s          Interpolate scalars   ($stuff)
+        :a          Interpolate arrays    (@stuff[])
+        :h          Interpolate hashes    (%stuff\{\})
+        :f          Interpolate functions (&amp;stuff())
+    Other
+        :c          Interpolate closures  (\{code\})
+        :qq         Interpolate with :s, :a, :h, :f, :c, :b
+        :regex      parse as regex
+
+There are some short forms which make life easier for you:
+
+    q       Q:q
+    qq      Q:qq
+    m       Q:regex
+
+You can also omit the first colon `:` if the quoting symbol is a short form, and write it as a singe word:
+
+    symbol      short for
+    qw          q:w
+    Qw          Q:w
+    qx          q:x
+    Qc          Q:c
+    # and so on.
+
+However there is one form that does not work, and some Perl 5 programmers will miss it: you can't write `qw(...)` with the round parenthesis in Perl 6. It is interpreted as a call to sub `qw`.
+
+#### [Parsing][220]
+
+This is where parsing comes into play: Every construct of the form `identifier(...)` is parsed as sub call. Yes, every.
+
+    if($x&lt;3)
+
+is parsed as a call to sub `if`. You can disambiguate with whitespaces:
+
+    if ($x &lt; 3) \{ say '&lt;3' \}
+
+Or just omit the parens altogether:
+
+    if $x &lt; 3 \{ say '&lt;3' \}
+
+This implies that Perl 6 has no keywords. Actually there are keywords like `use` or `if`, but they are only special if used in a special syntax.
+
+### [MOTIVATION][221]
+
+Various combinations of the quoting modifiers are already used internally, for example `q:w` to parse `<...>`, and `:regex` for `m/.../`. It makes sense to expose these also to the user, who gains flexibility, and can very easily write macros that provide a shortcut for the exact quoting semantics he wants.
+
+And when you limit the specialty of keywords, you have far less troubles with backwards compatibility if you want to change what you consider a "keyword".
+
+### [SEE ALSO][222]
+
+<http://perlcabal.org/syn/S02.html#Literals>
+
+## The Reduction Meta Operator
+
+Tue Dec 9 23:00:00 2008
+
+### [NAME][223]
+
+"Perl 5 to 6" Lesson 24 - The Reduction Meta Operator
+
+### [SYNOPSIS][224]
+
+    say [+] 1, 2, 3;    # 6
+    say [+] ();         # 0
+    say [~] &lt;a b&gt;;      # ab
+    say [\*\*] 2, 3, 4;   # 2417851639229258349412352
+
+    [\\+] 1, 2, 3, 4     # 1, 3, 6, 10
+    [\\\*\*] 2, 3, 4       # 4, 81, 2417851639229258349412352
+
+    if [&lt;=] @list \{
+        say "ascending order";
+    \}
+
+### [Description][225]
+
+The reduction meta operator `[...]` can enclose any associative infix operator, and turn it into a list operator. This happens as if the operator was just put between the items of the list, so `[op] $i1, $i2, @rest` returns the same result as if it was written as `$i1 op $i2 op @rest[0] op @rest[1] ...`.
+
+This is a very powerful construct that promotes the plus `+` operator into a `sum` function, `~` into a `join` (with empty separator) and so on. It is somewhat similar to the `List.reduce` function, and if you had some exposure to functional programming, you'll probably know about `foldl` and `foldr` (in Lisp or Haskell). Unlike those `[...]` respects the associativity of the enclosed operator, so `[/] 1, 2, 3` is interpreted as `(1 / 2) / 3` (left associative), `[**] 1, 2, 3` is handled correctly as `1 ** (2**3)` (right associative).
+
+Like all other operators whitespaces are forbidden, so you while you can write `[+]`, you can't say `[ + ]`.
+
+Since comparison operators can be chained, you can also write things like
+
+    if    [==] @nums \{ say "all nums in @nums are the same" \}
+    elsif [&lt;]  @nums \{ say "@nums is in strict ascending order" \}
+    elsif [&lt;=] @nums \{ say "@nums is in ascending order"\}
+
+You can even reduce the assignment operator:
+
+    my @a = 1..3;
+    [=] @a, 4;          # same as @a[0] = @a[1] = @a[2] = 4;
+
+Note that `[...]` always returns a scalar, so `[,] @list` is actually the same as `[@list]`.
+
+#### [Getting partial results][226]
+
+There's a special form of this operator that uses a backslash like this: `[\+]`. It returns a list of the partial evaluation results. So `[\+] 1..3` returns the list `1, 1+2, 1+2+3`, which is of course `1, 3, 6`.
+
+    [\\~] 'a' .. 'd'     # &lt;a ab abc abcd&gt;
+
+Since right-associative operators evaluate from right to left, you also get the partial results that way:
+
+    [\\\*\*] 1..3;         # 3, 2\*\*3, 1\*\*(2\*\*3), which is 3, 8, 1
+
+Multiple reduction operators can be combined:
+
+    [~] [\\\*\*] 1..3;     # "381"
+
+### [MOTIVATION][227]
+
+Programmers are lazy, and don't want to write a loop just to apply a binary operator to all elements of a list. `List.reduce` does something similar, but it's not as terse as the meta operator (`[+] @list` would be `@list.reduce(&infix:<+>)`), and takes care of the associativity of the operator.
+
+If you're not convinced, play a bit with it (pugs mostly implements it), it's real fun.
+
+### [SEE ALSO][228]
+
+[http://perlcabal.org/syn/S03.html#Reduction\_operators][229], [http://www.perlmonks.org/?node\_id=716497][230]
+
+## The Cross Meta Operator
+
+Tue May 26 22:00:00 2009
+
+### [NAME][231]
+
+"Perl 5 to 6" Lesson 25 - The Cross Meta Operator
+
+### [SYNOPSIS][232]
+
+    for &lt;a b&gt; X 1..3 -&gt; $a, $b \{
+        print "$a: $b   ";
+    \}
+    # output: a: 1  a: 2  a: 3  b: 1  b: 2  b: 3
+
+    .say for &lt;a b c&gt; X 1, 2;
+    # output: a1\\n a2\\n b1\\n b2\\n c1\\n c2\\n
+    # (with real newlines instead of \\n)
+
+### [DESCRIPTION][233]
+
+The cross operator `X` returns the Cartesian product of two or more lists, which means that it returns all possible tuples where the first item is an item of the first list, the second item is an item of second list etc.
+
+If an operator follows the `X`, then this operator is applied to all tuple items, and the result is returned instead. So `1, 2 X+ 3, 6` will return the values `1+3, 1+6, 2+3, 2+6` (evaluated as `4, 7, 5, 8` of course).
+
+### [MOTIVATION][234]
+
+It's quite common that one has to iterate over all possible combinations of two or more lists, and the cross operator can condense that into a single iteration, thus simplifying programs and using up one less indentation level.
+
+The usage as a meta operator can sometimes eliminate the loops altogether.
+
+### [SEE ALSO][235]
+
+[http://perlcabal.org/syn/S03.html#Cross\_operators][236],
+
+## Exceptions and control exceptions
+
+Thu Jul 9 09:00:02 2009
+
+### [NAME][237]
+
+"Perl 5 to 6" Lesson 26 - Exceptions and control exceptions
+
+### [SYNOPSIS][238]
+
+    try \{
+        die "OH NOEZ";
+
+        CATCH \{
+            say "there was an error: $!";
+        \}
+    \}
+
+### [DESCRIPTION][239]
+
+Exceptions are, contrary to their name, nothing exceptional. In fact they are part of the normal control flow of programs in Perl 6.
+
+Exceptions are generated either by implicit errors (for example dividing by zero, calling a non-existing method, type check failures) or by explicitly calling `die` or other functions.
+
+When an exception is thrown, the program searches for `CATCH` statements or `try` blocks in the caller frames, unwinding the stack all the way (that means it forcibly returns from all routines called so far). If no `CATCH` or `try` is found, the program terminates, and prints out a hopefully helpful error message. If one was found, the error message is stored in the special variable `$!`, and the `CATCH` block is executed (or in the case of a `try` without a CATCH block the try block returns `undef`).
+
+So far exceptions might still sound exceptional, but error handling is integral part of each non-trivial application. But even more, normal `return` statements also throw exceptions!
+
+They are called _control exceptions_, and can be caught with `CONTROL` blocks, or are implicitly caught at each routine declaration.
+
+Consider this example:
+
+    use v6;
+    my $block = -&gt; \{ return "block"; say "still here" \};
+
+    sub s \{
+        $block.();
+        return "sub";
+    \}
+
+    say s();
+
+Here the `return "block"` throws a control exception, causing it to not only exit the current block (and thus not printing `still here` on the screen), but also exiting the subroutine, where it is caught by the `sub s...` declaration. The payload, here a string, is handed back as the return value, and the `say` in the last line prints it to the screen.
+
+Embedding the call `$block.()` in a `try { ... }` block or adding a `CONTROL { ... }` block to the body of the routine causes it to catch the exception.
+
+Contrary to what other programming languages do, the `CATCH`/`CONTROL` blocks are within the scope in which the error is caught (not on the outside), giving it full access to the lexical variables, which makes it easier to generate useful error message, and also prevents DESTROY blocks from being run before the error is handled.
+
+#### [Unthrown exceptions][240]
+
+Perl 6 embraces the idea of multi threading, and in particular automated parallelization. To make sure that not all threads suffer from the termination of a single thread, a kind of "soft" exception was invented.
+
+When a function calls `fail($obj)`, it returns a special value of `undef`, which contains the payload `$obj` (usually an error message) and the back trace (file name and line number). Processing that special undefined value without check if it's undefined causes a normal exception to be thrown.
+
+    my @files = &lt;/etc/passwd /etc/shadow nonexisting&gt;;
+    my @handles = hyper map \{ open($\_) \}, @files;
+
+In this example the `hyper` operator tells `map` to parallelize its actions as far as possible. When the opening of the `nonexisting` file fails, an ordinary `die "No such file or directory"` would also abort the execution of all other `open` operations. But since a failed open calls `fail("No such file or directory"` instead, it gives the caller the possibility to check the contents of `@handles`, and it _still has access to the full error message_.
+
+If you don't like soft exceptions, you say `use fatal;` at the start of the program and cause all exceptions from `fail()` to be thrown immediately.
+
+### [MOTIVATION][241]
+
+A good programming language needs exceptions to handle error conditions. Always checking return values for success is a plague and easily forgotten.
+
+Since traditional exceptions can be poisonous for implicit parallelism, we needed a solution that combined the best of both worlds: not killing everything at once, and still not losing any information.
+
+## Common Perl 6 data processing idioms
+
+Thu Jul 22 13:34:26 2010
+
+### [NAME][242]
+
+"Perl 5 to 6" Lesson 27 - Common Perl 6 data processing idioms
+
+### [SYNOPSIS][243]
+
+  # create a hash from a list of keys and values:
+  # solution 1: slices
+  my %hash; %hash\{@keys\} = @values;
+  # solution 2: meta operators
+  my %hash = @keys Z=&gt; @values;
+
+  # create a hash from an array, with
+  # true value for each array item:
+  my %exists = @keys Z=&gt; 1 xx \*;
+
+  # limit a value to a given range, here 0..10.
+  my $x = -2;
+  say 0 max $x min 10;
+
+  # for debugging: dump the contents of a variable,
+  # including its name, to STDERR
+  note :$x.perl;
+
+  # sort case-insensitively
+  say @list.sort: \*.lc;
+
+  # mandatory attributes
+  class Something \{
+      has $.required = die "Attribute 'required' is mandatory";
+  \}
+  Something.new(required =&gt; 2); # no error
+  Something.new()               # BOOM
+
+### [DESCRIPTION][244]
+
+Learning the specification of a language is not enough to be productive with it. Rather you need to know how to solve specific problems. Common usage patterns, called _idioms_, helps you not having to re-invent the wheel every time you're faced with a problem.
+
+So here a some common Perl 6 idioms, dealing with data structures.
+
+#### [Hashes][245]
+
+  # create a hash from a list of keys and values:
+  # solution 1: slices
+  my %hash; %hash\{@keys\} = @values;
+  # solution 2: meta operators
+  my %hash = @keys Z=&gt; @values;
+
+The first solution is the same you'd use in Perl 5: assignment to a slice. The second solution uses the zip operator `Z`, which joins to list like a zip fastener: `1, 2, 3 Z 10, 20, 30` is `1, 10, 2, 20, 3, 30`. The `Z=>` is a meta operator, which combines zip with `=>` (the Pair construction operator). So `1, 2, 3 Z=> 10, 20, 30` evaluates to `1 => 10, 2 => 20, 3 => 30`. Assignment to a hash variable turns that into a Hash.
+
+For existence checks, the values in a hash often doesn't matter, as long as they all evaluate to `True` in boolean context. In that case, a nice way to initialize the hash from a given array or list of keys is
+
+  my %exists = @keys Z=&gt; 1 xx \*;
+
+which uses a lazy, infinite list of 1s on the right-hand side, and relies on the fact that `Z` ends when the shorter list is exhausted.
+
+#### [Numbers][246]
+
+Sometimes you want to get a number from somewhere, but clip it into a predefined range (for example so that it can act as an array index).
+
+In Perl 5 you often end up with things like `$a = $b > $upper ? $upper : $b`, and another conditional for the lower limit. With the `max` and `min` infix operators, that simplifies considerably to
+
+  my $in-range = $lower max $x min $upper;
+
+because `$lower max $x` returns the larger of the two numbers, and thus clipping to the lower end of the range.
+
+Since `min` and `max` are infix operators, you can also clip infix:
+
+ $x max= 0;
+ $x min= 10;
+
+#### [Debugging][247]
+
+Perl 5 has Data::Dumper, Perl 6 objects have the `.perl` method. Both generate code that reproduces the original data structure as faithfully as possible.
+
+`:$var` generates a Pair ("colonpair"), using the variable name as key (but with sigil stripped). So it's the same as `var => $var`. `note()` writes to the standard error stream, appending a newline. So `note :$var.perl` is quick way of obtaining the value of a variable for debugging; purposes, along with its name.
+
+#### [Sorting][248]
+
+Like in Perl 5, the `sort` built-in can take a function that compares two values, and then sorts according to that comparison. Unlike Perl 5, it's a bit smarter, and automatically does a transformation for you if the function takes only one argument.
+
+In general, if you want to compare by a transformed value, in Perl 5 you can do:
+
+    # WARNING: Perl 5 code ahead
+    my @sorted = sort \{ transform($a) cmp transform($b) \} @values;
+
+    # or the so-called Schwartzian Transform:
+    my @sorted = map \{ $\_-&gt;[1] \}
+                 sort \{ $a-&gt;[0] cmp $b-&gt;[0] \}
+                 map \{ [transform($\_), $\_] \}
+                 @values
+
+The former solution requires repetitive typing of the transformation, and executes it for each comparison. The second solution avoids that by storing the transformed value along with the original value, but it's quite a bit of code to write.
+
+Perl 6 automates the second solution (and a bit more efficient than the naiive Schwartzian transform, by avoiding an array for each value) when the transformation function has arity one, ie accepts one argument only:
+
+    my @sorted = sort &amp;transform, @values;
+
+#### [Mandatory Attributes][249]
+
+The typical way to enforce the presence of an attribute is to check its presence in the constructor - or in all constructors, if there are many.
+
+That works in Perl 6 too, but it's easier and safer to require the presence at the level of each attribute:
+
+    has $.attr = die "'attr' is mandatory";
+
+This exploits the default value mechanism. When a value is supplied, the code for generating the default value is never executed, and the `die` never triggers. If any constructor fails to set it, an exception is thrown.
+
+### [MOTIVATION][250]
+
+N/A
+
+## Currying
+
+Sun Jul 25 09:17:10 2010
+
+### [NAME][251]
+
+"Perl 5 to 6" Lesson 28 - Currying
+
+### [SYNOPSIS][252]
+
+  use v6;
+
+  my &amp;f := &amp;substr.assuming('Hello, World');
+  say f(0, 2);                # He
+  say f(3, 2);                # lo
+  say f(7);                   # World
+
+  say &lt;a b c&gt;.map: \* x 2;     # aabbcc
+  say &lt;a b c&gt;.map: \*.uc;      # ABC
+  for ^10 \{
+      print &lt;R G B&gt;.[$\_ % \*]; # RGBRGBRGBR
+  \}
+
+### [DESCRIPTION][253]
+
+_Currying_ or _partial application_ is the process of generating a function from another function or method by providing only some of the arguments. This is useful for saving typing, and when you want to pass a callback to another function.
+
+Suppose you want a function that lets you extract substrings from `"Hello, World"` easily. The classical way of doing that is writing your own function:
+
+  sub f(\*@a) \{
+      substr('Hello, World', |@a)
+  \}
+
+#### [Currying with `assuming`][254]
+
+Perl 6 provides a method `assuming` on code objects, which applies the arguments passed to it to the invocant, and returns the partially applied function.
+
+  my &amp;f := &amp;substr.assuming('Hello, World');
+
+Now `f(1, 2)` is the same as `substr('Hello, World', 1, 2)`.
+
+`assuming` also works on operators, because operators are just subroutines with weird names. To get a subroutine that adds 2 to whatever number gets passed to it, you could write
+
+  my &amp;add\_two := &amp;infix:&lt;+&gt;.assuming(2);
+
+But that's tedious to write, so there's another option.
+
+#### [Currying with the Whatever-Star][255]
+
+  my &amp;add\_two := \* + 2;
+  say add\_two(4);         # 6
+
+The asterisk, called _Whatever_, is a placeholder for an argument, so the whole expression returns a closure. Multiple Whatevers are allowed in a single expression, and create a closure that expects more arguments, by replacing each term `*` by a formal parameter. So `* * 5 + *` is equivalent to `-> $a, $b { $a * 5 + $b }`.
+
+  my $c = \* \* 5 + \*;
+  say $c(10, 2);                # 52
+
+Note that the second `*` is an infix operator, not a term, so it is not subject to Whatever-currying.
+
+The process of lifting an expression with Whatever stars into a closure is driven by syntax, and done at compile time. This means that
+
+  my $star = \*;
+  my $code = $star + 2
+
+does not construct a closure, but instead dies with a message like
+
+  Can't take numeric value for object of type Whatever
+
+Whatever currying is more versatile than `.assuming`, because it allows to curry something else than the first argument very easily:
+
+  say  ~(1, 3).map: 'hi' x \*    # hi hihihi
+
+This curries the second argument of the string repetition operator infix `x`, so it returns a closure that, when called with a numeric argument, produces the string `hi` as often as that argument specifies.
+
+The invocant of a method call can also be Whatever star, so
+
+  say &lt;a b c&gt;.map: \*.uc;      # ABC
+
+involves a closure that calls the `uc` method on its argument.
+
+### [MOTIVATION][256]
+
+Perl 5 could be used for functional programming, which has been demonstrated in Mark Jason Dominus' book _Higher Order Perl_.
+
+Perl 6 strives to make it even easier, and thus provides tools to make typical constructs in functional programming easily available. Currying and easy construction of closures is a key to functional programming, and makes it very easy to write transformation for your data, for example together with `map` or `grep`.
+
+### [SEE ALSO][257]
+
+[http://perlcabal.org/syn/S02.html#Built-In\_Data\_Types][258]
+
+<http://hop.perl.plover.com/>
+
+<http://en.wikipedia.org/wiki/Currying>
+
+ Copyright 2008 - 2013: Moritz Lenz<br /> This page may be used under the terms of the [Creative Commons Attribution 3.0 Germany License][259]. Please place a link to the pages you use for your derivative work. <br /> Layout based on [YAML][260], powered by [mowyw][261]
+
+  [17]: #post_00
+  [18]: #post_01
+  [19]: #post_02
+  [20]: #post_03
+  [21]: #post_04
+  [22]: #post_05
+  [23]: #post_06
+  [24]: #post_07
+  [25]: #post_08
+  [26]: #post_09
+  [27]: #post_10
+  [28]: #post_11
+  [29]: #post_12
+  [30]: #post_13
+  [31]: #post_14
+  [32]: #post_15
+  [33]: #post_16
+  [34]: #post_17
+  [35]: #post_18
+  [36]: #post_19
+  [37]: #post_20
+  [38]: #post_21
+  [39]: #post_22
+  [40]: #post_23
+  [41]: #post_24
+  [42]: #post_25
+  [43]: #post_26
+  [44]: #post_27
+  [45]: #post_28
+  [46]: 
+  [47]: 
+  [48]: 
+  [49]: 
+  [50]: 
+  [51]: 
+  [52]: 
+  [53]: 
+  [54]: 
+  [55]: 
+  [56]: 
+  [57]: 
+  [58]: 
+  [59]: 
+  [60]: 
+  [61]: 
+  [62]: 
+  [63]: 
+  [64]: 
+  [65]: 
+  [66]: 
+  [67]: 
+  [68]: 
+  [69]: 
+  [70]: http://perlcabal.org/syn/S02.html#Built-In_Data_Types
+  [71]: 
+  [72]: 
+  [73]: 
+  [74]: 
+  [75]: 
+  [76]: 
+  [77]: http://perlcabal.org/syn/S04.html#Conditional_statements
+  [78]: 
+  [79]: 
+  [80]: 
+  [81]: 
+  [82]: 
+  [83]: 
+  [84]: 
+  [85]: 
+  [86]: http://en.wikipedia.org/wiki/Schwartzian_transform
+  [87]: 
+  [88]: 
+  [89]: 
+  [90]: 
+  [91]: 
+  [92]: 
+  [93]: 
+  [94]: 
+  [95]: 
+  [96]: http://en.wikipedia.org/wiki/Perl_6#Roles
+  [97]: 
+  [98]: 
+  [99]: 
+  [100]: 
+  [101]: 
+  [102]: 
+  [103]: 
+  [104]: 
+  [105]: 
+  [106]: 
+  [107]: 
+  [108]: 
+  [109]: 
+  [110]: 
+  [111]: 
+  [112]: 
+  [113]: 
+  [114]: 
+  [115]: 
+  [116]: 
+  [117]: 
+  [118]: 
+  [119]: 
+  [120]: http://perlcabal.org/syn/S03.html#Junctive_operators
+  [121]: 
+  [122]: 
+  [123]: 
+  [124]: 
+  [125]: 
+  [126]: http://perlcabal.org/syn/S03.html#Smart_matching
+  [127]: 
+  [128]: 
+  [129]: 
+  [130]: 
+  [131]: 
+  [132]: http://perlcabal.org/syn/S03.html#Item_assignment_precedence
+  [133]: 
+  [134]: 
+  [135]: 
+  [136]: 
+  [137]: 
+  [138]: http://perlcabal.org/syn/S03.html#Changes_to_Perl_5_operators
+  [139]: 
+  [140]: 
+  [141]: 
+  [142]: 
+  [143]: 
+  [144]: 
+  [145]: 
+  [146]: 
+  [147]: 
+  [148]: 
+  [149]: 
+  [150]: 
+  [151]: 
+  [152]: 
+  [153]: 
+  [154]: 
+  [155]: http://perlcabal.org/syn/S06.html#Operator_overloading
+  [156]: 
+  [157]: 
+  [158]: 
+  [159]: 
+  [160]: 
+  [161]: http://perlcabal.org/syn/S06.html#Declaring_a_MAIN_subroutine
+  [162]: 
+  [163]: 
+  [164]: 
+  [165]: 
+  [166]: 
+  [167]: 
+  [168]: 
+  [169]: 
+  [170]: 
+  [171]: 
+  [172]: 
+  [173]: 
+  [174]: 
+  [175]: 
+  [176]: 
+  [177]: 
+  [178]: 
+  [179]: 
+  [180]: 
+  [181]: 
+  [182]: 
+  [183]: 
+  [184]: 
+  [185]: 
+  [186]: 
+  [187]: 
+  [188]: 
+  [189]: 
+  [190]: 
+  [191]: 
+  [192]: 
+  [193]: 
+  [194]: 
+  [195]: 
+  [196]: 
+  [197]: 
+  [198]: 
+  [199]: 
+  [200]: 
+  [201]: 
+  [202]: 
+  [203]: 
+  [204]: 
+  [205]: 
+  [206]: 
+  [207]: 
+  [208]: 
+  [209]: 
+  [210]: 
+  [211]: 
+  [212]: 
+  [213]: 
+  [214]: 
+  [215]: 
+  [216]: 
+  [217]: 
+  [218]: 
+  [219]: 
+  [220]: 
+  [221]: 
+  [222]: 
+  [223]: 
+  [224]: 
+  [225]: 
+  [226]: 
+  [227]: 
+  [228]: 
+  [229]: http://perlcabal.org/syn/S03.html#Reduction_operators
+  [230]: http://www.perlmonks.org/?node_id=716497
+  [231]: 
+  [232]: 
+  [233]: 
+  [234]: 
+  [235]: 
+  [236]: http://perlcabal.org/syn/S03.html#Cross_operators
+  [237]: 
+  [238]: 
+  [239]: 
+  [240]: 
+  [241]: 
+  [242]: 
+  [243]: 
+  [244]: 
+  [245]: 
+  [246]: 
+  [247]: 
+  [248]: 
+  [249]: 
+  [250]: 
+  [251]: 
+  [252]: 
+  [253]: 
+  [254]: 
+  [255]: 
+  [256]: 
+  [257]: 
+  [258]: http://perlcabal.org/syn/S02.html#Built-In_Data_Types
+  [259]: http://creativecommons.org/licenses/by/3.0/de/
+  [260]: http://www.yaml.de/
+  [261]: /en/software/mowyw
