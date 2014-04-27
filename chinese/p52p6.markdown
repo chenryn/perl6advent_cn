@@ -44,33 +44,31 @@ Sat Sep 20 22:00:00 2008
 
 ### [SYNOPSIS][47]
 
-    Learn Perl 6 (if you already know Perl 5)
-    Learn to love Perl 6
-    Understand why
+    学习 Perl 6 (如果你已经了解 Perl 5)
+    学会并爱上 Perl 6
+    知道为什么
 
 ### [DESCRIPTION][48]
 
-Perl 6 is under-documented. That's no surprise, because (apart from the specification) writing a compiler for Perl 6 seems to be much more urgent than writing documentation that targets the user.
+Perl 6 目前文档不足. 这并不奇怪, 因为编写 Perl 6 的编译器比写文档( 目前只有一个 specification 规范)这个对于用户来讲更加重要多了.
 
-Unfortunately that means that it's not easy to learn Perl 6, and that you have to have a profound interest in Perl 6 to actually find the motivation to learn it from the specification, IRC channels or from the test suite.
+不幸的是，这意味着会让大家不容易学习 Perl 6, 除非你是对 Perl 6 有比较深入的关注, 也就只能从 specification, IRC 和测试套件中学习.
 
-This project, which I'll preliminary call "Perl 5 to 6" (for lack of a better name) attempts to fill that gap with a series of short articles.
+这个项目, 初步给名字定为 "Perl 5 to 6"(目前我找不到更好的名字) 来填补文档空白这个事情.
 
-Each lesson has a rather limited scope, and tries to explain the two or three most important points with very short examples. It also tries to explain why things changed from Perl 5 to 6, and why this is important. I also hope that the knowledge you gain from reading these lessons is enough to basically understand the Synopses, which are the canonical source of all Perl 6 wisdom.
+这个课程都内容都相当矮小精悍. 并试图用很短的例子来解释 42-3 个重点. 也会解释从 Perl 5 变成 Perl 5 的改步, 这一点非常重要. 我希望你通过读这些课程学到所需要的知识. 并基本明白 Synopses 这个东西是 Perl 智慧的来源.
 
-To keep the reading easy, each lesson should not exceed 200 lines or 1000 words (but it's a soft limit).
+为了保证读起来方便, 每个课程会控制在不超过 200 行或者 1000 个单词(当然就是个软限制);
 
-Perhaps the lessons are too short to learn a programming language from them, but I hope that they draw an outline of the language design, which allows you to see its beauty without having to learn the language.
+这个对于学习编程语言也许太短了. 但我希望是讲出语言的设计, 让你看到它强大美丽的一面, 并且不用按语言大纲学习就会使用.
 
 ### [IT'S NOT][49]
 
-This is not a guide for converting Perl 5 to Perl 6 programs. It is also not a comprehensive list of differences.
-
-It is also not oriented on the current state of the implementations, but on the ideal language as specified.
+这并不是一个 Perl 5 转成 Perl 6 的指南, 所以没有完整的转换列表.
 
 ### [ROADMAP][50]
 
-Already written or in preparation:
+已经在写了的和准备要写的:
 
     00 Intro
     01 Strings, Arrays, Hashes
@@ -100,20 +98,20 @@ Already written or in preparation:
     25 Cross meta operator
     26 Exceptions and control exceptions
 
-(Things that are not or mostly not implemented in Rakudo are marked with `(-)`)
+(有些不是或者目前 Rakudo 没有实现的内容标了一个 `(-)`)
 
-Things that I want to write about, but which I don't know well enough yet:
+有些东西我想写, 但我对这些的了解还不够:
 
     Macros
     Meta Object Programming
     Concurrency
     IO
 
-Things that I want to mention somewhere, but don't know where
+这个东西, 我想提到, 但不知道放在那个地方合适
 
     .perl method
 
-I'll also update these lessons from time to time make sure they are not too outdated.
+我也会更新这些课程, 也保证他们不是太落伍了.
 
 ### [AUTHOR][51]
 
@@ -139,29 +137,29 @@ Sat Sep 20 22:20:00 2008
 
     my @array = 1, 2, 3, 'foo';
     my $sum = @array[0] + @array[1];
-    if $sum &gt; @array[2] \{
+    if $sum > @array[2] \{
         say "not executed";
     \}
     my $number\_of\_elems = @array.elems;     # or +@array
     my $last\_item = @array[\*-1];
 
-    my %hash = foo =&gt; 1, bar =&gt; 2, baz =&gt; 3;
+    my %hash = foo => 1, bar => 2, baz => 3;
     say %hash\{'bar'\};                       # 2
-    say %hash&lt;bar&gt;;                         # same with auto-quoting
+    say %hash<bar>;                         # same with auto-quoting
     # this is an error: %hash\{bar\}
     # (it tries to call the subroutine bar(), which is not declared
 
 ### [DESCRIPTION][55]
 
-Perl 6 is just like Perl 5 - only better. Statements are terminated by semicolons. After the last statement in a block and after a closing curly brace at the end of a line the semicolon is optional.
+Perl 6 这些部分很象 Perl 5 - 只会更加好. 声明的语句以分号终止. 一个代码块的最后一条语句和在一行结束的右大括号的分号终止符是可选的.
 
-Variables still begin with a sigil (like `$`, `@`, `%`), and many Perl 5 builtins are still mostly unchanged in Perl 6.
+变量仍然以记号 (象 `$`, `@`, `%`)开头.
 
 #### [Strings][56]
 
-Strings are surrounded by double quotes (in which case they are interpolating), or with single quotes. Backslash escapes work just like in Perl 5.
+字符串是用双引号包起来(插值的情况下), 或者使用单引号. 反斜杠转义的工作方式和 Perl 5 中一样.
 
-However the interpolation rules have changed a bit. The following things interpolate
+然而插值规则已经改变了一点. 看下面插值
 
     my $scalar = 6;
     my @array = 1, 2, 3;
@@ -170,60 +168,61 @@ However the interpolation rules have changed a bit. The following things interpo
     say "@array[1]";            # '2'
     say "Code: \{ $scalar \* 2 \}" # 'Code: 12'
 
-Arrays and hashes only interpolate if followed by an index (or a method call that ends in parenthesis, like `"some $obj.method()"`), empty indexes interpolate the whole data structure.
 
-A block in curly braces is executed as code, and the result is interpolated.
+数组和哈希只有当后面跟一个索引的时候才会插值(或者方法调用, 象 `"some $obj.method()"`), 空索引会给整个数据结构做插值操作.
+
+当出现了一个花括号时会执行花括号中的代码给结果进行值操作.
 
 #### [Arrays][57]
 
-Arrays variables still begin with the `@` sigil. And they always do, even when accessing stored items, ie. when an index is present.
+数组还是以 `@` 标记开始. 并且他们总是这样, 就算访问数组中的元素. ie. 这个索引需要存在, 这个对新手学习就不在会晕了.
 
     my @a = 5, 1, 2;            # no parens needed anymore
     say @a[0];                  # yes, it starts with @
     say @a[0, 2];               # slices also work
 
-Lists are constructed with the Comma operator. `1,` is a list, `(1)` isn't.
+列表的构造是通过逗号, 不在需要括号. `1,` 是一个列表, `(1)` 不是. 
 
-Since everything is an object, you can call methods on arrays:
+既然一切都是对象，你可以调用数组的方法:
 
     my @b = @a.sort;
-    @b.elems;                   # number of items
-    if @b &gt; 2 \{ say "yes" \}     # still works
-    @b.end;                     # number of last index. Replaces $#array
-    my @c = @b.map(\{$\_ \* 2 \});  # map is also a method, yes
+    @b.elems;                   # 元素的数量 
+    if @b > 2 \{ say "yes" \}     # 老的方法仍能工作 
+    @b.end;                     # 最后一个索引的编号, 替换  $#array
+    my @c = @b.map(\{$\_ \* 2 \});  # map 这也是方法调用 
 
-There is a short form for the old `qw/../` quoting construct:
+下面的方法是替换老的 `qw/../` 来进行字符数组的构造:
 
-    my @methods = &lt;shift unshift push pop end delete sort map&gt;;
+    my @methods = <shift unshift push pop end delete sort map>;
 
 #### [Hashes][58]
 
-While Perl 5 hashes are even sized lists when viewed in list context, Perl 6 hashes are lists of pairs in that context. Pairs are also used for other things, like named arguments for subroutines, but more on that later.
+Perl 6 在列表上下文时哈希是一个列表对. 列表对可以做一些其它的事情, 它会是子函数的名字, 稍后详述.
 
-Just like with arrays the sigil stays invariant when you index it. And hashes also have methods that you can call on them.
+就象数组使用的开头的标记不变, 哈希也是一样. 当你创建索引时使用 % 开头. 并且 hash 也有自己的方法调用.
 
     my %drinks =
-        France  =&gt; 'Wine',
-        Bavaria =&gt; 'Beer',
-        USA     =&gt; 'Coke';
+        France  => 'Wine',
+        Bavaria => 'Beer',
+        USA     => 'Coke';
 
     say "The people in France love ",  %drinks\{'France'\};
     my @countries = %drinks.keys.sort;
 
-Note that when you access hash elements with `%hash{...}`, the key is not automatically quoted like in Perl 5. So `%hash{foo}` doesn't access index `"foo"`, but calls the function `foo()`. The auto quoting isn't gone, it just has a different syntax:
+注意, 当你访问哈希的元素是通过 `%hash{...}`, 这个 key 不会象 Perl 5 自动的加引号. 所以 `%hash{foo}` 并不能访问到索引 `"foo"` 的元素. 这会调用 `foo()` 的函数. 需要自动的对字符加引号就需要如下这种不同的语法:
 
-    say %drinks&lt;Bavaria&gt;;
+    say %drinks<Bavaria>;
 
 #### [Final Notes][59]
 
-Most builtin methods exist both as a method and as a sub. So you can write both `sort @array` and `@array.sort`.
+大多内置的方法, 既作为一种方法也可以做为 sub 调用. 所以你可以写在 `sort @array`  或者 `@array.sort`.
 
-Finally you should know that both `[..]` and `{...}` (occurring directly after a term) are just method calls with a special syntax, not something tied to arrays and hashes. That means that they are also not tied to a particular sigil.
+最后, 你需要知道这二个 `[..]` 和 `{...}`(一个词语之后直接加上), 这只是一个方法调用的特殊语法, 不是依赖于数组和哈希. 这意味着, 他们也不会依赖于特定的前缀符号.
 
     my $a = [1, 2, 3];
     say $a[2];          # 3
 
-This implies that you don't need special dereferencing syntax, and that you can create objects that can act as arrays, hashes and subs at the same time.
+这意味着, 我们不需要特殊的解引用的语法, 并且您可以创建能够同时充当数组, 哈希和 sub 子函数的对象.
 
 ### [SEE ALSO][60]
 
@@ -250,35 +249,35 @@ Sat Sep 20 22:40:00 2008
 
 ### [DESCRIPTION][63]
 
-Perl 6 has types. Everything is an object in some way, and has a type. Variables can have type constraints, but they don't need to have one.
+Perl 6 有类型. 因为任何东西都是对象, 都有类型. 变量可以有类型的限制, 并他们并不是必需的.
 
-There are some basic types that you should know about:
+有一些基本的类型, 你必须知道的:
 
     'a string'      # Str
     2               # Int
     3.14            # Rat (rational number)
     (1, 2, 3)       # Seq
 
-All "normal" built-in types begin with an upper case letter. All "normal" types inherit from `Any`, and absolutely everything inherits from `Mu`.
+全部 "标准" 的内置类型都是大写字母开头. 全部 "标准" 类型继承 "Any", 所有的类型都继承 `Mu`.
 
-You can restrict the type of values that a variable can hold by adding the type name to the declaration.
+你可以限制变量在你的值的类型, 只要你在声明的时候指定变量类型.
 
     my Numeric $x = 3.4;
     my Int @a = 1, 2, 3;
 
-It is an error to try to put a value into a variable that is of a "wrong" type (ie neither the specified type nor a subtype).
+有一种错误是, 试图给存一个错误的类型的值到一个变量 (ie neither the specified type nor a subtype).
 
-A type declaration on an Array applies to its contents, so `my Str @s` is an array that can only contain strings.
+类型的声明也合适于数组的包含的元素内容, 所以 `my Str @s` 是指定这个数组只能包含字符串.
 
-Some types stand for a whole family of more specific types, for example integers (type `Int`), rationals (type `Rat`) and floating-point numbers (type `Num`) conform to the `Numeric` type.
+有某些类型可以代表更加具体的类型, 象 integers (type `Int`), rationals (type `Rat`) 和 浮点数 (type `Num`) 这些都是 `Numeric` 类型.
 
 #### [Introspection][64]
 
-You can learn about the direct type of a thing by calling its `.WHAT` method.
+你可以通过调用 `.WHAT` 方法了解对象的详细类型.
 
     say "foo".WHAT;     # Str()
 
-However if you want to check if something is of a specific type, there is a different way, which also takes inheritance into account and is therefore recommended:
+如果你想检查一些东西的类型, 有不同的方式, 也需要考虑到类型的继承, 所以建议使用下面的方法:
 
     if $x ~~ Int \{
         say 'Variable $x contains an integer';
@@ -286,19 +285,19 @@ However if you want to check if something is of a specific type, there is a diff
 
 ### [MOTIVATION][65]
 
-The type system isn't very easy to grok in all its details, but there are good reasons why we need types:
+这个类型系统是不是很容易了解所有的细节. 为什么我们需要类型, 使用他们也有很多理由:
 
 [Programming safety][66]
 
-If you declare something to be of a particular type, you can be sure that you can perform certain operations on it. No need to check.
+程序安全, 如果你声明了一些东西是特定的类型, 你就可以肯定的在上面执行某些操作, 并不需要检查它是什么.
 
 [Optimizability][67]
 
-When you have type informations at compile time, you can perform certain optimizations. Perl 6 doesn't have to be slower than C, in principle.
+当你在编译的时候有类型的信息, 可以执行更多的优化,  Perl 6 原则上不一定比 C 慢.
 
 [Extensibility][68]
 
-With type informations and multiple dispatch you can easily refine operators for particular types.
+当有类型信息时, 使用 multiple dispatch 时更加容易细化特定的操作.
 
 ### [SEE ALSO][69]
 
@@ -314,14 +313,14 @@ Sat Sep 20 23:00:00 2008
 
 ### [SYNOPSIS][72]
 
-    if $percent &gt; 100  \{
+    if $percent > 100  \{
         say "weird mathematics";
     \}
     for 1..3 \{
         # using $\_ as loop variable
         say 2 \* $\_;
     \}
-    for 1..3 -&gt; $x \{
+    for 1..3 -> $x \{
         # with explicit loop variable
         say 2 \* $x;
     \}
@@ -334,13 +333,13 @@ Sat Sep 20 23:00:00 2008
 
 ### [DESCRIPTION][73]
 
-Most Perl 5 control structures are quite similar in Perl 6. The biggest visual difference is that you don't need a pair of parentheses after `if`, `while`, `for` etc.
+大多数的 Perl 5 的控制结构和 Perl 6 是颇为相似，最大的视觉差异的是，你在使用 `if`, `while`, `for` 之类不后需要一对括号.
 
-In fact you are discouraged from using parenthesis around conditions. The reason is that any identifier followed immediately (ie. without whitespace) by an opening parenthesis is parsed as a subroutine call, so `if($x < 3)` tries to call a function named `if`. While a space after the `if` fixes that, it is safer to just omit the parens.
+为什么, 当任何标识符后面紧跟着(无空格)一个左括号时很容易被解析成子程序调用. 所以  `if($x < 3)` 很容易变成调用 `if` 函数. 所以这样更加安全, 还不需要写括号.
 
 #### [Branches][74]
 
-`if` is mostly unchanged, you can still add `elsif` and `else` branches. `unless` is still there, but no `else` branch is allowed after `unless`.
+`if` 功能大部分没在变化, 仍然可以添加  `elsif` 和 `else` 分支. `unless` 仍然存在，但是在 `unless` 之后没有了 `else` 分支.
 
     my $sheep = 42;
     if $sheep == 0 \{
@@ -351,38 +350,38 @@ In fact you are discouraged from using parenthesis around conditions. The reason
         say "A herd, how lovely!";
     \}
 
-You can also use `if` and `unless` as a statement modifier, i.e. after a statement:
+你现在还是可以使用 `if` 和 `unless` 做语句修饰, 即后声明.
 
     say "you won" if $answer == 42;
 
 #### [Loops][75]
 
-You can manipulate loops with `next` and `last` just like in Perl 5.
+你可以控制循环通过  `next` 和 `last` 就象 Perl 5 一样.
 
-The `for`-Loop is now only used to iterate over lists. By default the topic variable `$_` is used, unless an explicit loop variable is given.
+在这 `for` 循环现在只用于遍历列表. 默认是操作 `$_` 变量, 除非显式的指出变量名.
 
-    for 1..10 -&gt; $x \{
+    for 1..10 -> $x \{
         say $x;
     \}
 
-The `-> $x { ... }` thing is called a "pointy block" and is something like an anonymous sub, or a lambda in lisp.
+在这的 `-> $x { ... }`  是叫做  "pointy block" 这就象一个匿名的 sub or lisp 中的 lambda 操作.
 
-You can also use more than one loop variable:
+你也可以使用一个以上的循环变量:
 
-    for 0..5 -&gt; $even, $odd \{
+    for 0..5 -> $even, $odd \{
         say "Even: $even \\t Odd: $odd";
     \}
 
-This is also a good way to iterate over hashes:
+这也是遍历哈希值的好方法:
 
-    my %h = a =&gt; 1, b =&gt; 2, c =&gt; 3;
-    for %h.kv -&gt; $key, $value \{
+    my %h = a => 1, b => 2, c => 3;
+    for %h.kv -> $key, $value \{
         say "$key: $value";
     \}
 
-The C-style for-loop is now called `loop` (and the only looping construct that requires parentheses):
+这个 C-style 的 for 循环现在叫做 `loop` (这是唯一需要括号的循环结构):
 
-    loop (my $x = 2; $x &lt; 100; $x = $x\*\*2) \{
+    loop (my $x = 2; $x < 100; $x = $x\*\*2) \{
         say $x;
     \}
 
@@ -414,35 +413,35 @@ Sat Sep 20 23:20:00 2008
     \}
     say distance(3, 5, 0, 1);
 
-    # Default arguments
+    # 默认参数 
     sub logarithm($num, $base = 2.7183) \{
         return log($num) / log($base)
     \}
     say logarithm(4);       # uses default second argument
     say logarithm(4, 2);    # explicit second argument
 
-    # named arguments
+    # 命名参数
 
     sub doit(:$when, :$what) \{
         say "doing $what at $when";
     \}
-    doit(what =&gt; 'stuff', when =&gt; 'once');  # 'doing stuff at once'
-    doit(:when&lt;noon&gt;, :what('more stuff')); # 'doing more stuff at noon'
+    doit(what => 'stuff', when => 'once');  # 'doing stuff at once'
+    doit(:when<noon>, :what('more stuff')); # 'doing more stuff at noon'
     # illegal: doit("stuff", "now")
 
 ### [DESCRIPTION][80]
 
-Subroutines are declared with the `sub` keyword, and can have a list of formal parameters, just like in C, Java and most other languages. Optionally these parameters can have type constraints.
+子函数是使用  `sub` 关键字来声明, 并且有形式参数列表, 就象 C, Java 和一些其它的语言. 这些参数的类型约束是可选的.
 
-Parameters are read-only by default. That can be changed with so-called "traits":
+参数默认是只读的. 可通过 "traits" 来改变.
 
     sub try-to-reset($bar) \{
-        $bar = 2;       # forbidden
+        $bar = 2;       # 禁止修改参数
     \}
 
     my $x = 2;
     sub reset($bar is rw) \{
-        $bar = 0;         # allowed
+        $bar = 0;         # 可以修改
     \}
     reset($x); say $x;    # 0
 
@@ -451,7 +450,7 @@ Parameters are read-only by default. That can be changed with so-called "traits"
     \}
     quox($x); say $x    # still 0
 
-Parameters can be made optional by adding a question mark `?` after them, or by supplying a default value.
+参数可以在后面增加一个问号来标记是否可选.
 
     sub foo($x, $y?) \{
         if $y.defined \{
@@ -465,116 +464,116 @@ Parameters can be made optional by adding a question mark `?` after them, or by 
 
 #### [Named Parameters][81]
 
-When you invoke a subroutine like this: `my_sub($first, $second)` the `$first` argument is bound to the first formal parameter, the `$second` argument to the second parameter etc., which is why they are called "positional".
+当你调用子函数是这样的: `my_sub($first, $second)` 这个 `$first` 参数会绑定到第一个正式的参数, `$second` 会传递给第二个参数..等等, 这就是所谓的位置 "positional".
 
-Sometimes it's easier to remember names than numbers, which is why Perl 6 also has named parameters:
+有时, 我们希望使用更加容易记住的名字, 而不是数字. 变是为什么使用命名参数:
 
     my $r = Rectangle.new(
-            x       =&gt; 100,
-            y       =&gt; 200,
-            height =&gt; 23,
-            width  =&gt; 42,
-            color  =&gt; 'black'
+            x       => 100,
+            y       => 200,
+            height => 23,
+            width  => 42,
+            color  => 'black'
     );
 
-When you see something like this, you immediately know what the specific arguments mean.
+当你看到这样这些名字, 你马上知道参数具体是什么含义。
 
-To define a named parameter, you simply put a colon `:` before the parameter in the signature list:
+要定义一个命名参数, 你只需要给 `:` 放在参数之前: 
 
     sub area(:$width, :$height) \{
         return $width \* $height;
     \}
-    area(width =&gt; 2,  height =&gt; 3);
-    area(height =&gt; 3, width =&gt; 2 ); # the same
+    area(width => 2,  height => 3);
+    area(height => 3, width => 2 ); # the same
     area(:height(3), :width(2));    # the same
 
 The last example uses the so-called _colon pair syntax_. Leaving off the name results in the value being `True`, and negating it results in the value being `False`:
 
-    :draw-perimeter                 # same as "draw-perimeter =&gt; True"
-    :!transparent                   # same as "transparent =&gt; False"
+    :draw-perimeter                 # same as "draw-perimeter => True"
+    :!transparent                   # same as "transparent => False"
 
-In the declaration of named parameters, the variable name is also used as the name of the parameter. You can use a different name, though:
+在命名参数的声明, 变量名也被用来作为参数的名称. 您可以使用不同的名称:
 
-    sub area(:width($w), :height($h))\{
-        return $w \* $h;
-    \}
-    area(width =&gt; 2,  height =&gt; 3);
+    sub area(:width($w), :height($h)) {
+        return $w * $h;
+    }
+    area(width => 2,  height => 3);
 
 #### [Slurpy Parameters][82]
 
-Just because you give your sub a signature doesn't mean you have to know the number of arguments in advance. You can define so-called _slurpy_ parameters (after all the regular ones) which use up any remaining arguments:
+你给你的 sub 参数的时候, 有时你并不知道所有的参数个数. 你可以定义一种称作 _slurpy_ 参数来使用任何剩余个数的参数:
 
-    sub tail ($first, \*@rest)\{
+    sub tail ($first, *@rest){
         say "First: $first";
         say "Rest: @rest[]";
-    \}
+    }
     tail(1, 2, 3, 4);           # "First: 1\\nRest: 2 3 4\\n"
 
-Named slurpy parameters are declared by using an asterisk in front of a hash parameter:
+对于哈希, 命名的 slurpy 参数定义是使用前端有 * 号的哈希参数:
 
-    sub order-meal($name, \*%extras) \{
+    sub order-meal($name, *%extras) {
         say "I'd like some $name, but with a few modifications:";
         say %extras.keys.join(', ');
-    \}
+    }
 
     order-meal('beef steak', :vegetarian, :well-done);
 
 #### [Interpolation][83]
 
-By default arrays aren't interpolated in argument lists, so unlike in Perl 5 you can write something like this:
+默认数组是不能插入到参数的列表中. 所以这不同于 Perl 5 的写法.
 
-    sub a($scalar1, @list, $scalar2) \{
+    sub a($scalar1, @list, $scalar2) {
         say $scalar2;
-    \}
+    }
 
     my @list = "foo", "bar";
     a(1, @list, 2);                  # 2
 
-That also means that by default you can't use a list as an argument list:
+这也意味着, 默认的情况下你不能使用一个列表做为参数列表:
 
     my @indexes = 1, 4;
-    say "abc".substr(@indexes)       # doesn't do what you want
+    say "abc".substr(@indexes)       # 不能实现你想做的 
 
-(What actually happens is that the first argument is supposed to be an `Int`, and is coerced to an Int. Which is the same as if you had written `"abc."substr(@indexes.elems)` in the first place).
+(实际的情况是, 第一个参数需要是一个 `Int`, 并且被强制转换成 Int, 所以你可以写成 `"abc."substr(@indexes.elems)` 来放在第一位).
 
-You can achieve the desired behavior with a prefix `|`
+当然, 你也可以使用前缀 `|` 来完成所需的行为
 
-    say "abcdefgh".substr(|@indexes) # bcde, same as "abcdefgh".substr(1, 4)
+    say "abcdefgh".substr(|@indexes) #  结果 bcde, 等同于 "abcdefgh".substr(1, 4)
 
 #### [Multi Subs][84]
 
-You can actually define multiple subs with the same name but with different parameter lists:
+实际上, 你其实可以定义多个 sub 来使用相同的名字, 但接收不同的参数列表:
 
-    multi sub my\_substr($str) \{ ... \}                          # 1
-    multi sub my\_substr($str, $start) \{ ... \}                  # 2
-    multi sub my\_substr($str, $start, $end) \{ ... \}            # 3
-    multi sub my\_substr($str, $start, $end, $subst) \{ ... \}    # 4
+    multi sub my_substr($str) { ... }                          # 1
+    multi sub my_substr($str, $start) { ... }                  # 2
+    multi sub my_substr($str, $start, $end) { ... }            # 3
+    multi sub my_substr($str, $start, $end, $subst) { ... }    # 4
 
-Now whenever you call such a sub, the one with the matching parameter list will be chosen.
+现在, 当你调用这个 sub 时, 所述的参数会有一个匹配上并选择使用的.
 
-The multis don't have to differ in the arity (ie number of arguments), they can also differ in the type of the parameters:
+这个 multis 并不只是可以工作在参数数量不等的情况上, 也可以工作在不同的参数类型的时候:
 
-    multi sub frob(Str $s) \{ say "Frobbing String $s"  \}
-    multi sub frob(Int $i) \{ say "Frobbing Integer $i" \}
+    multi sub frob(Str $s) { say "Frobbing String $s"  }
+    multi sub frob(Int $i) { say "Frobbing Integer $i" }
 
     frob("x");      # Frobbing String x
     frob(2);        # Frobbing Integer 2
 
 ### [MOTIVATION][85]
 
-Nobody will doubt the usefulness of explicit sub signatures: less typing, less duplicate argument checks, and more self-documenting code. The value of named parameters has also been discussed already.
+没有人会怀疑明确的子函数参数的实用性: 少打字, 少重复的参数检查, 更多的安全文档代码. 
 
-It also allows useful introspection. For example when you pass a block or a subroutine to `Array.sort`, and that piece of code expects exactly one argument, a Schwartzian Transform (see [http://en.wikipedia.org/wiki/Schwartzian\_transform][86]) is automatically done for you - such a functionality would be impossible in Perl 5, because the lack of explicit signatures means that `sort` can never find out how many arguments the code block expects.
+这些功能还有益于自省. 例如, 当传递给一个块或者子函数使用 `Array.sort`, 并且这段代码预期只有一个参数, 完成 Schwartzian 转换( 见 [http://en.wikipedia.org/wiki/Schwartzian_transform][86] ) 是自动的 - 这些功能在 Perl 5 中不太可能, 由于少了明确的参数, 意味着排序代码块永远不知道有多少个参数.
 
-Multi subs are very useful because they allow builtins to be overridden for new types. Let's assume you want a version of Perl 6 which is localized to handle Turkish strings correctly, which have unusual rules for case conversions.
+Multi subs 这个功能也非常有用, 因为它可以使用新类型来覆盖内建命令. 假设你想有一个版本的 Perl6 是本地化上来正确处理土耳其字符串，这对大小写转换是使用的不同寻常的规则时非常好用.
 
-Instead of modifying the language, you can just introduce a new type `TurkishStr`, and add multi subs for the builtin functions:
+而不是修改语言本身. 你只需要加入一个新的 `TurkishStr`, 并为原生的函数加入一个 multi subs:
 
-    multi uc(TurkishStr $s) \{ ... \}
+    multi uc(TurkishStr $s) { ... }
 
-Now all you have to do is to take care that your strings have the type that corresponds to their language, and then you can use `uc` just like the normal builtin function.
+现在, 所有这个对字符串处理就会自动对应他们的语言类型, 然后你就可以使用 `uc` 函数象内置的函数一样.
 
-Since operators are also subs, these refinements work for operators too.
+由于操作也可以使用 subs, 所以这些改进操作是可以正常工作的.
 
 ### [SEE ALSO][87]
 
@@ -586,28 +585,28 @@ Tue Sep 23 22:20:00 2008
 
 ### [NAME][88]
 
-"Perl 5 to 6" Lesson 05 - Objects and Classes
+"Perl 5 to 6" Lesson 05 - 对象和类
 
 ### [SYNOPSIS][89]
 
-    class Shape \{
-        method area \{ ... \}    # literal '...'
+    class Shape {
+        method area { ... }    # literal '...'
         has $.colour is rw;
-    \}
+    }
 
-    class Rectangle is Shape \{
+    class Rectangle is Shape {
         has $.width;
         has $.height;
 
-        method area \{
-            $!width \* $!height;
-        \}
-    \}
+        method area {
+            $!width * $!height;
+        }
+    }
 
     my $x = Rectangle.new(
-            width   =&gt; 30.0,
-            height  =&gt; 20.0,
-            colour  =&gt; 'black',
+            width   => 30.0,
+            height  => 20.0,
+            colour  => 'black',
         );
     say $x.area;                # 600
     say $x.colour;              # black
@@ -615,79 +614,81 @@ Tue Sep 23 22:20:00 2008
 
 ### [DESCRIPTION][90]
 
-Perl 6 has an object model that is much more fleshed out than the Perl 5 one. It has keywords for creating classes, roles, attributes and methods, and has encapsulated private attributes and methods. In fact it's much closer to the `Moose` Perl 5 module (which was inspired by the Perl 6 object system).
+Perl 6 比起 Perl 5 更加好的地方在于对象模型. 它有可以通过关键字创建类, 角色, 属性和方法, 并可以封装私有属性和方法. 事实上, 这个很象 Perl 5 中的 `Moose`( 这东西的灵感来自 Perl 6 的对象系统).
 
-There are two ways to declare classes
+有两种方法来声明类
 
     class ClassName;
-    # class definition goes here
+    # 类定义放在这里 
 
-The first one begins with `class ClassName;` and stretches to the end of the file. In the second one the class name is followed by a block, and all that is inside the block is considered to be the class definition.
+第一个是文件一开始就有一个 `class ClassName;` 并一直延伸到文件的末尾. 第二种方法是类名后跟一个块, 块中所有的都被认为是当前类的定义.
 
-    class YourClass \{
-        # class definition goes here
-    \}
-    # more classes or other code here
+    class YourClass {
+        # 类定义放在这里 
+    }
+    # 更多的类和其它的代码
 
 #### [Methods][91]
 
+方法定义是使用 `method` 关键字. 在方法内部可以使用 `self` 来指向对象本身.
 Methods are declared with the `method` keyword. Inside the method you can use the term `self` to refer to the object on which the method is called (the _invocant_).
 
-You can also give the invocant a different name by adding a first parameter to the signature list and append a colon `:` to it.
+你也可以通过参数来给调用者一个不同的名字. 并附加一个冒号 `:` 来给它.
 
-Public methods can be called with the syntax `$object.method` if it takes no arguments, and `$object.method(@args)` or `$object.method: @args` if it takes arguments.
+Public 的公有方法可以通过语法 `$object.method` 来调用, 有参数的话,可以使用 `$object.method(@args)` 或者 `$object.method: @args`  来调用.
 
-    class SomeClass \{
+    class SomeClass {
         # these two methods do nothing but return the invocant
-        method foo \{
+        method foo {
             return self;
-        \}
-        method bar(SomeClass $s: ) \{
+        }
+        method bar(SomeClass $s: ) {
             return $s;
-        \}
-    \}
+        }
+    }
     my SomeClass $x .= new;
     $x.foo.bar                      # same as $x
 
-(The `my SomeClass $x .= new` is actually a shorthand for `my SomeClass $x = SomeClass.new`. It works because the type declaration fills the variable with a "typo object" of `SomeClass`, which is an object representing the class.)
+(这个 `my SomeClass $x .= new` 其实是 `my SomeClass $x = SomeClass.new` 的简写. 这之所以正常工作是因为, 这是一个类型声明, 声明这个变量的类型是一个 `SomeClass` 的 "typo object", 这个类型对象就表示类的对象)
 
-Methods can also take additional arguments just like subs.
+方法可以象子函数一样接收参数.
 
-Private methods can be declared with `method !methodname`, and called with `self!method_name`.
+Private 的私有方法可以通过 `method !methodname` 的方式来声明, 调用通过  `self!method_name`.
 
-    class Foo \{
-        method !private($frob) \{
+    class Foo {
+        method !private($frob) {
             return "Frobbed $frob";
-        \}
+        }
 
-        method public \{
+        method public {
             say self!private("foo");
-        \}
-    \}
+        }
+    }
 
-Private methods can't be called from outside the class.
+私有的方法并不能从类的外面调用.
 
 #### [Attributes][92]
 
-Attributes are declared with the `has` keyword, and have a "twigil", that is a special character after the sigil. For private attributes that's a bang `!`, for public attributes it's the dot `.`. Public attributes are just private attributes with a public accessor. So if you want to modify the attribute, you need to use the `!` sigil to access the actual attribute, and not the accessor (unless the accessor is marked `is rw`).
+属性声明通过 `has` 关键字, 有个 "twigil" 的功能, 这是在特别符号之后有些特定的字符串. 对于私有属性, 这是一个 `!`, 对于公有属性, 这是使用 `.`. 
+公共属性实际上是有公有的访问权限的私有属性. 所以, 它不能修改, 如果你想修改时, 就需要使用 `!` 来访问实际的属性而不是使用存取器(除非它被标记为 `is rw`).
 
-    class SomeClass \{
+    class SomeClass {
         has $!a;
         has $.b;
         has $.c is rw;
 
-        method set\_stuff \{
+        method set_stuff {
             $!a = 1;    # ok, writing to attribute from within the clas
             $!b = 2;    # same
             $.b = 3;    # ERROR, can't write to ro-accessor
-        \}
+        }
 
-        method do\_stuff \{
+        method do_stuff {
             # you can use the private name instead of the public one
             # $!b and $.b are really the same thing
             return $!a + $!b + $!c;
-        \}
-    \}
+        }
+    }
     my $x = SomeClass.new;
     say $x.a;       # ERROR!
     say $x.b;       # ok
@@ -696,57 +697,58 @@ Attributes are declared with the `has` keyword, and have a "twigil", that is a s
 
 #### [Inheritance][93]
 
-Inheritance is done through an `is` trait.
+继承是通过 `is` 这个关键字.
 
-    class Foo is Bar \{
-        # class Foo inherits from class Bar
+    class Foo is Bar {
+        # 类 Foo  继承类 Bar
         ...
-    \}
+    }
 
-All the usual inheritance rules apply - methods are first looked up on the direct type, and if that fails, on the parent class (recursively). Likewise the type of a child class is conforming to that of a parent class:
+所有常用的继承规则 - 方法会先直接检查自己的类型, 如果失败, 操作父类（递归）.同样的, 一个子类的类型是否符合父类:
 
-        class Bar \{ \}
-        class Foo is Bar \{ \}
+        class Bar { }
+        class Foo is Bar { }
         my Bar $x = Foo.new();   # ok, since Foo ~~ Bar
 
-In this example the type of `$x` is `Bar`, and it is allowed to assign an object of type `Foo` to it, because "every `Foo` is a `Bar`".
+在这个例子中 `$x` 的类型是 `Bar`, 它允许分配一个对象类型 `Foo` 给它, 因为每天个 "`Foo` 都是 `Bar` 之下".
 
-Classes can inherit from multiple other classes:
+类也可以继承多个其它的类:
 
-    class ArrayHash is Hash is Array \{
+    class ArrayHash is Hash is Array {
         ...
-    \}
+    }
 
-Though multiple inheritance also comes with multiple problems, and people usually advise against it. Roles are often a safer choice.
+尽管多重继承会附加很多问题, 人们通常会建议反对这么使用. 角色往往是一个更安全的选择.
 
 #### [Roles and Composition][94]
 
+现实的世界是不分层, 所以有时很难给一切都使用层次结构继承. 这也是为什么 Perl 6 中有角色的原因之一. 角色和类十分类似, 除了你不能由角色直接创建对象, 也不能使用相同的名字组成. 
 In general the world isn't hierarchical, and thus sometimes it's hard to press everything into an inheritance hierarchy. Which is one of the reasons why Perl 6 has Roles. Roles are quite similar to classes, except you can't create objects directly from them, and that composition of multiple roles with the same method names generate conflicts, instead of silently resolving to one of them, like multiple inheritance does.
 
-While classes are intended primarily for type conformance, roles are the primary means for code reuse in Perl 6.
+虽然类主要针对的是类型一致性, 但角色才是在 Perl6 的代码重用的主要手段。
 
-    role Paintable \{
+    role Paintable {
         has $.colour is rw;
-        method paint \{ ... \}
-    \}
-    class Shape \{
-        method area \{ ... \}
-    \}
+        method paint { ... }
+    }
+    class Shape {
+        method area { ... }
+    }
 
-    class Rectangle is Shape does Paintable \{
+    class Rectangle is Shape does Paintable {
         has $.width;
         has $.height;
-        method area \{
-            $!width \* $!height;
-        \}
-        method paint() \{
-            for 1..$.height \{
+        method area {
+            $!width * $!height;
+        }
+        method paint() {
+            for 1..$.height {
                 say 'x' x $.width;
-            \}
-        \}
-    \}
+            }
+        }
+    }
 
-    Rectangle.new(width =&gt; 8, height =&gt; 3).paint;
+    Rectangle.new(width => 8, height => 3).paint;
 
 ### [SEE ALSO][95]
 
@@ -758,30 +760,30 @@ Wed Sep 24 22:20:00 2008
 
 ### [NAME][97]
 
-"Perl 5 to 6" Lesson 06 - Contexts
+"Perl 5 to 6" Lesson 06 - Contexts 上下文
 
 ### [SYNOPSIS][98]
 
-    my @a = &lt;a b c&gt;;
+    my @a = <a b c>;
     my $x = @a;
     say $x[2];          # c
     say (~2).WHAT;      # (Str)
     say +@a;            # 3
-    if @a &lt; 10 \{ say "short array"; \}
+    if @a < 10 { say "short array"; }
 
 ### [DESCRIPTION][99]
 
-When you write something like this
+当你写了一些如下的东西
 
     $x = @a
 
-in Perl 5, `$x` contains less information than `@a` - it contains only the number of items in `@a`. To preserve all information, you have to explicitly take a reference: `$x = \@a`.
+在 Perl 5 中 `$x` 包含的信息会比 `@a` 少 - 它包含只有  `@a` 中元素的个数. 要保存所有的信息, 你只能明确的指出它是一个引用: `$x = \@a`.
 
-In Perl 6 it's the other way round: by default you don't lose anything, the scalar just stores the array. This was made possible by introducing a generic item context (called _scalar_ in Perl 5) and more specialized numeric, integer and string contexts. Void and List context remain unchanged.
+在 Perl 6 中是反过来的: 默认你不会丢失任何东西, 标量会存储整个数组. 之所以能这样,  是因为有一个 item 的通用上下文( 在 Perl 5 中叫 _scalar_ )和其它更加专业的象数字, 整型, 和字符上下文. 空和列表上下文保持不变.
 
-You can force contexts with special syntax.
+你可以强制上下文环境, 通过下面的语法
 
-    syntax       context
+    语法         上下文
 
     ~stuff       String
     ?stuff       Bool (logical)
@@ -794,26 +796,28 @@ You can force contexts with special syntax.
 
 #### [Tree Context][100]
 
-In the early days of Perl 6, there were lots of builtins of which two versions existed, one that returned a flat list, one that return a list of arrays.
+在Perl6的初期, 还有二个版本的原生内建, 一个返回简单列表, 一个返回数组列表(象是数组的数组).
 
-Now this is solved by returning a list of `Parcel` objects, where the `Parcel` objects might or might not flatten out depending on the context.
+现在是通过返回列表内部内容的对象, 通过返回的东西可能会和可能不会拉平这依赖于上下文.
 
-Consider the infix `Z` (short for _zip_) operator, which interleaves the elements from two lists:
+考虑中缀操作 `Z` (它是 _aip_ 操作的简写)操作符, 交错从二个列表中取元素:
 
-    my @a = &lt;a b c&gt; Z &lt;1 2 3&gt;;
+    my @a = <a b c> Z <1 2 3>;
     say @a.join;                # a1b2c3
 
-What happened here is that the right-hand side of the first statement returned `('a', 1), ('b', 2), ('c', 3)`, and assignment to an array, which provides list context, flattened out the inner parcels. On the other hand if you write
+这发生的事情是, 第一个语句的右边返回 `('a', 1), ('b', 2), ('c', 3)`, 并赋值给一个数组, 它提供列表上下文, 然后接下操作会拉平内部的元素.
 
-    my @t = (&lt;a b c&gt; Z &lt;1 2 3&gt;).tree;
+其它可能发现的情况
 
-then `@t` now contains three elements, each of which are arrays that don't flatten out.
+    my @t = (<a b c> Z <1 2 3>).tree;
 
-    for @t -&gt; @inner \{
+这个 `@t` 现在包含三个元素, 每个数组都没有拉平.
+
+    for @t -> @inner {
         say "first: @inner[0]  second: @inner[1]"
-    \}
+    }
 
-Produces the output
+会输出:
 
     first: a  second: 1
     first: b  second: 2
@@ -821,11 +825,11 @@ Produces the output
 
 ### [MOTIVATION][101]
 
-More specific contexts are a way to delay design choices. For example it seems premature to decide what a list should return in scalar context - a reference to the list would preserve all information, but isn't very useful in numeric comparisons. On the other hand a string representation might be most useful for debugging purposes. So every possible choice disappoints somebody.
+更具体的上下文中是一种方法以延迟的设计选择. 例如. 我们要决定在标题上下文时要返回什么清单- 引用的列表需要保留所有的信息, 但在数字比较时没用. 另外,字符串表示形式也对于调试目的更别有用. 但每种选择总是会有人失望的.
 
-With more specific context you don't need to make this choice - it returns some sensible default, and all operators that don't like this choice can simply evaluate the object a more specific context.
+大多的时候, 你根本不要做这样的选择 - 它都会返回合理的值. 不需要你选择怎么样返回.
 
-For some things (like the Match object), the different contexts really enhance their usefulness and beauty.
+对于一些事情, 象 Match 对象, 这种不同的上下文提升了实用性和美感.
 
 ### [SEE ALSO][102]
 
@@ -837,69 +841,69 @@ Thu Sep 25 22:20:00 2008
 
 ### [NAME][103]
 
-"Perl 5 to 6" Lesson 07 - Regexes (also called "rules")
+"Perl 5 to 6" Lesson 07 - Regexes 正则表达式 (also called "rules")
 
 ### [SYNOPSIS][104]
 
-    grammar URL \{
-        token TOP \{
-            &lt;schema&gt; '://'
-            [&lt;ip&gt; | &lt;hostname&gt; ]
-            [ ':' &lt;port&gt;]?
-            '/' &lt;path&gt;?
-        \}
-        token byte \{
-            (\\d\*\*1..3) &lt;?\{ $0 &lt; 256 \}&gt;
-        \}
-        token ip \{
-            &lt;byte&gt; [\\. &lt;byte&gt; ] \*\* 3
-        \}
-        token schema \{
-            \\w+
-        \}
-        token hostname \{
-            (\\w+) ( \\. \\w+ )\*
-        \}
-        token port \{
-            \\d+
-        \}
-        token path \{
-            &lt;[ a..z A..Z 0..9 \\-\_.!~\*'():@&amp;=+$,/ ]&gt;+
-        \}
-    \}
+    grammar URL {
+        token TOP {
+            <schema> '://'
+            [<ip> | <hostname> ]
+            [ ':' <port>]?
+            '/' <path>?
+        }
+        token byte {
+            (\d**1..3) <? $0 < 256 \}>
+        }
+        token ip {
+            <byte> [\. <byte> ] ** 3
+        }
+        token schema {
+            \w+
+        }
+        token hostname {
+            (\w+) ( \. \w+ )\*
+        }
+        token port {
+            \d+
+        }
+        token path {
+            <[ a..z A..Z 0..9 \-_.!~\*'():@&amp;=+$,/ ]>+
+        }
+    }
 
     my $match = URL.parse('http://perl6.org/documentation/');
-    say $match&lt;hostname&gt;;       # perl6.org
+    say $match<hostname>;       # perl6.org
 
 ### [DESCRIPTION][105]
 
-Regexes are one of the areas that has been improved and revamped most in Perl 6. We don't call them _regular expressions_ anymore because they are even less regular than they are in Perl 5.
+正则表达式已经大量改良和革新, 是 Perl 6 改进之一. 我们不叫它 _regular expressions_ 了. 因为它比起 Perl 5 更加不正规.
 
-There are three large changes and enhancements to the regexes
+正则表达式有三个大的更改和改进
 
 [Syntax clean up][106]
 
-Many small changes make rules easier to write. For example the dot `.` matches any character now, the old semantics (anything but newlines) can be achieved with `\N`.
+许多小变化使得规则更加容易编写. 例如, dot `.` 在匹配任何字符. 旧的语义是除了换行, 可以使用 `\N` 来实现.
 
-Modifiers now go at the start of a regex, and non-capturing groups are `[...]`, which are a lot easier to read and write than the old `(?:...)`.
+修饰符现在在一个正则表达式的起始, 并且非捕获组是 `[...]`, 这比起旧的 `(?:...)` 更加容易读取和写.
 
 [Nested captures and match object][107]
 
-In Perl 5, a regex like this `(a(b))(c)` would put `ab` into `$1`, `b` into `$2` and `c` into `$3` upon successful match. This has changed. Now `$0` (enumeration starts at zero) contains `ab`, and `$0[0]` or `$/[0][0]` contains `b`. `$1` holds `c`. So each nesting level of parenthesis is reflected in a new nesting level in the result match object.
+在 Perl 5 中, 正则 `(a(b))(c)` 会给 `ab` 存到 `$1`, `b` 会存到 `$2` 和 `c` 存到 `$3`. 这种情况现在改变, 现在 `$0` (枚举从零开始)包含 `ab`, `$0[0]` or `$/[0][0]` 包含 `b`, `$1` 存着 `c`. 所以括号中的每个嵌套级别反映在结果匹配对象的一个新的嵌套级别.
 
-All the match variables are aliases into `$/`, which is the so-called _Match object_, and it actually contains a full match tree.
+所有匹配变量是别名为`$/`，也就是所谓的 _Match object_, 它实际上包含了一个完整的匹配树。
 
 [Named regexes and grammars][108]
 
-You can declare regexes with names just like you can with subs and methods. You can refer to these inside other rules with `<name>`. And you can put multiple regexes into grammars, which are just like classes and support inheritance and composition
+你可以定义你正则表达式的名字, 就象在 subs 和方法中. 你可以通过 `<name>` 来在其它地方使用这个. 你可以给多个正则表达式做成 grammars, 这就象类和支持继承和组合.
 
-These changes make Perl 6 regexes and grammars much easier to write and maintain than Perl 5 regexes.
+这些改变使得 Perl 6 的正则表达式和 grammars 比起 Perl 5 更加容易维护和编写.
 
-All of these changes go quite deep, and only the surface can be scratched here.
+这些变化的东西比较深, 这个文章中, 我们只能见到表面的东西.
 
 #### [Syntax clean up][109]
 
-Letter characters (ie underscore, digits and all Unicode letters) match literally, and have a special meaning (they are _metasyntactic_) when escaped with a backslash. For all other characters it's the other way round - they are metasyntactic unless escaped.
+字母字符 ( 如下划线, 数字和所有 Unicode 字母) 匹配从字面上看, 当使用反斜杠转义时具有特殊的意义( 这是 _metasyntactic_ ), 对于所有的其它字符是反过来的 - 除非它转义.
 
     literal         metasyntactic
     a  b  1  2      \\a \\b \\1 \\2
@@ -945,11 +949,11 @@ The `:sigspace` needs a bit more explanation. It replaces all whitespace in the 
 
 Every match generates a so-called match object, which is stored in the special variable `$/`. It is a versatile thing. In boolean context it returns `Bool::True` if the match succeeded. In string context it returns the matched string, when used as a list it contains the positional captures, and when used as a hash it contains the named captures. The `.from` and `.to` methods contain the first and last string position of the match respectively.
 
-    if 'abcdefg' ~~ m/(.(.)) (e | bla ) $&lt;foo&gt; = (.) / \{
+    if 'abcdefg' ~~ m/(.(.)) (e | bla ) $<foo> = (.) / \{
         say $/[0]\[0];           # d
         say $/[0];              # cd
         say $/[1];              # e
-        say $/&lt;foo&gt;             # f
+        say $/<foo>             # f
     \}
 
 `$0`, `$1` etc are just aliases for `$/[0]`, `$/[1]` etc. Likewise `$/<x>` and `$/{'x'}` are aliased to `$<x>`.
@@ -1017,8 +1021,8 @@ The junction types only differ when evaluated in boolean context. The types are 
 
 `1 | 2 | 3` is the same as `any(1..3)`.
 
-    my Junction $weekday = any &lt;Monday Tuesday Wednesday
-                                Thursday Friday Saturday Sunday&gt;
+    my Junction $weekday = any <Monday Tuesday Wednesday
+                                Thursday Friday Saturday Sunday>
     if $day eq $weekday \{
         say "See you on $day";
     \}
@@ -1068,7 +1072,7 @@ As an example, imagine an array of numbers, and you want to know if all of them 
     my @items = get\_data();
     my $all\_non\_neg = 1;
     for (@items)\{
-        if ($\_ &lt; 0) \{
+        if ($\_ < 0) \{
             $all\_non\_neg = 0;
             last;
         \}
@@ -1079,12 +1083,12 @@ Or if you happen to know about `List::MoreUtils`
 
     use List::MoreUtils qw(all);
     my @items = get\_data;
-    if (all \{ $\_ &gt;= 0 \} @items) \{ ...  \}
+    if (all \{ $\_ >= 0 \} @items) \{ ...  \}
 
 In Perl 6 that is short and sweet:
 
     my @items = get\_data();
-    if all(@items) &gt;= 0 \{ ... \}
+    if all(@items) >= 0 \{ ... \}
 
 ### [A Word of Warning][118]
 
@@ -1230,7 +1234,7 @@ Thu Oct 16 22:00:00 2008
 
     # chained comparisons
     my $angle = 1.41;
-    if 0 &lt;= $angle &lt; 2 \* pi \{ ... \}
+    if 0 <= $angle < 2 \* pi \{ ... \}
 
 ### [DESCRIPTION][135]
 
@@ -1269,7 +1273,7 @@ Fri Oct 17 22:00:00 2008
 ### [SYNOPSIS][140]
 
     my @integers = 0..\*;
-    for @integers -&gt; $i \{
+    for @integers -> $i \{
         say $i;
         last if $i % 17 == 0;
     \}
@@ -1300,7 +1304,7 @@ Laziness prevents unnecessary computations, and can therefore boost performance 
 When you read a file line by line in Perl 5, you don't use `for (<HANDLE>)` because it reads all the file into memory, and only then starts iterating. With laziness that's not an issue:
 
     my $file = open '/etc/passwd';
-    for $file.lines -&gt; $line \{
+    for $file.lines -> $line \{
         say $line;
     \}
 
@@ -1369,7 +1373,7 @@ Sat Oct 18 22:00:00 2008
 
 ### [SYNOPSIS][147]
 
-    multi sub postfix:&lt;!&gt;(Int $x) \{
+    multi sub postfix:<!>(Int $x) \{
         my $factorial = 1;
         $factorial \*= $\_ for 2..$x;
         return $factorial;
@@ -1384,7 +1388,7 @@ Operators are functions with unusual names, and a few additional properties like
     1 + 1               infix
     +1                  prefix
     $x++                postfix
-    &lt;a b c&gt;             circumfix
+    <a b c>             circumfix
     @a[1]               postcircumfix
 
 Operator names are not limited to "special" characters, they can contain anything except whitespace.
@@ -1393,7 +1397,7 @@ The long name of an operator is its type, followed by a colon and a string liter
 
 With this knowledge you can already define new operators:
 
-    multi sub prefix:&lt;€&gt; (Str $x) \{
+    multi sub prefix:<€> (Str $x) \{
         2 \*  $x;
     \}
     say €4;                         # 8
@@ -1404,9 +1408,9 @@ In an expression like `$a + $b * $c` the `infix:<*>` operator has tighter preced
 
 The precedence of a new operator can be specified in comparison to to existing operators:
 
-    multi sub infix:&lt;foo&gt; is equiv(&amp;infix:&lt;+&gt;) \{ ...  \}
-    mutli sub infix:&lt;bar&gt; is tighter(&amp;infix:&lt;+&gt;) \{ ... \}
-    mutli sub infix:&lt;baz&gt; is looser(&amp;infix:&lt;+&gt;) \{ ... \}
+    multi sub infix:<foo> is equiv(&amp;infix:<+>) \{ ...  \}
+    mutli sub infix:<bar> is tighter(&amp;infix:<+>) \{ ... \}
+    mutli sub infix:<baz> is looser(&amp;infix:<+>) \{ ... \}
 
 #### [Associativity][150]
 
@@ -1414,7 +1418,7 @@ Most infix operators take only two arguments. In an expression like `1 / 2 / 4` 
 
 Perl 6 has more associativities: `none` forbids chaining of operators of the same precedence (for example `2 <=> 3 <=> 4` is forbidden), and `infix:<,>` has `list` associativity. `1, 2, 3` is translated to `infix:<,>(1; 2; 3)`. Finally there's the `chain` associativity: `$a < $b < $c` translates to `($a < $b) && ($b < $c)`.
 
-    multi sub infix:&lt;foo&gt; is tighter(&amp;infix:&lt;+&gt;)
+    multi sub infix:<foo> is tighter(&amp;infix:<+>)
                           is assoc('left')
                           ($a, $b) \{
         ...
@@ -1425,7 +1429,7 @@ Perl 6 has more associativities: `none` forbids chaining of operators of the sam
 Postcircumfix operators are method calls:
 
     class OrderedHash is Hash \{
-        method postcircumfix:&lt;\{ \}&gt;(Str $key) \{
+        method postcircumfix:<\{ \}>(Str $key) \{
             ...
         \}
     \}
@@ -1434,7 +1438,7 @@ If you call that as `$object{$stuff}`, `$stuff` will be passed as an argument to
 
 Circumfix operators usually imply a different syntax (like in `my @list = <a b c>;`), and are thus implemented as macros:
 
-    macro circumfix:«&lt; &gt;»($text) is parsed / &lt;-[&gt;]&gt;+ / \{
+    macro circumfix:«< >»($text) is parsed / <-[>]>+ / \{
         return $text.comb(rx/\\S+/);
     \}
 
@@ -1445,7 +1449,7 @@ The `is parsed` trait is followed by a regex that parses everything between the 
 Most (if not all) existing operators are multi subs or methods, and can therefore be customized for new types. Adding a multi sub is the way of "overloading" operators.
 
     class MyStr \{ ... \}
-    multi sub infix:&lt;~&gt;(MyStr $this, Str $other) \{ ... \}
+    multi sub infix:<~>(MyStr $this, Str $other) \{ ... \}
 
 This means that you can write objects that behave just like the built in "special" objects like `Str`, `Int` etc.
 
@@ -1492,17 +1496,17 @@ If the sub can't be called because the command line arguments don't match the fo
 Command line options map to subroutine arguments like this:
 
   -name                   :name
-  -name=value             :name&lt;value&gt;
+  -name=value             :name<value>
 
-  # remember, &lt;...&gt; is like qw(...)
-  --hackers=Larry,Damian  :hackers&lt;Larry Damian&gt;
+  # remember, <...> is like qw(...)
+  --hackers=Larry,Damian  :hackers<Larry Damian>
 
   --good\_language         :good\_language
-  --good\_lang=Perl        :good\_lang&lt;Perl&gt;
-  --bad\_lang PHP          :bad\_lang&lt;PHP&gt;
+  --good\_lang=Perl        :good\_lang<Perl>
+  --bad\_lang PHP          :bad\_lang<PHP>
 
   +stuff                  :!stuff
-  +stuff=healty           :stuff&lt;healthy&gt; but False
+  +stuff=healty           :stuff<healthy> but False
 
 The `$x = $obj but False` means that `$x` is a copy of `$obj`, but gives `Bool::False` in boolean context.
 
@@ -1531,9 +1535,9 @@ Mon Oct 20 22:00:00 2008
       has $!baz;
   \}
 
-  my @stuff = sort \{ $^b[1] &lt;=&gt; $^a[1]\}, [1, 2], [0, 3], [4, 8];
+  my @stuff = sort \{ $^b[1] <=> $^a[1]\}, [1, 2], [0, 3], [4, 8];
   my $block = \{ say "This is the named 'foo' parameter: $:foo" \};
-  $block(:foo&lt;bar&gt;);
+  $block(:foo<bar>);
 
   say "This is file $?FILE on line $?LINE"
 
@@ -1548,7 +1552,7 @@ You've already seen that public and private object attributes have the `.` and `
 The `^` twigil removes a special case from perl 5. To be able to write
 
   # beware: perl 5 code
-  sort \{ $a &lt;=&gt; $b \} @array
+  sort \{ $a <=> $b \} @array
 
 the variables `$a` and `$b` are special cased by the `strict` pragma. In Perl 6, there's a concept named _self-declared positional parameter_, and these parameters have the `^` twigil. It means that they are positional parameters of the current block, without being listed in a signature. The variables are filled in lexicographic (alphabetic) order:
 
@@ -1557,9 +1561,9 @@ the variables `$a` and `$b` are special cased by the `strict` pragma. In Perl 6,
 
 So now you can write
 
-  @list = sort \{ $^b &lt;=&gt; $^a \}, @list;
+  @list = sort \{ $^b <=> $^a \}, @list;
   # or:
-  @list = sort \{ $^foo &lt;=&gt; $^bar \}, @list;
+  @list = sort \{ $^foo <=> $^bar \}, @list;
 
 Without any special cases.
 
@@ -1592,7 +1596,7 @@ Wed Nov 26 23:00:00 2008
 
 ### [SYNOPSIS][167]
 
-  enum bit Bool &lt;False True&gt;;
+  enum bit Bool <False True>;
   my $value = $arbitrary\_value but True;
   if $value \{
       say "Yes, it's true";       # will be printed
@@ -1621,7 +1625,7 @@ Afterwards that object has a method with the name of the enum type, here `Day`:
 
 The value of first constant is 0, the next 1 and so on, unless you explicitly provide another value with pair notation:
 
-  Enum Hackers (:Larry&lt;Perl&gt;, :Guido&lt;Python&gt;, :Paul&lt;Lisp&gt;);
+  Enum Hackers (:Larry<Perl>, :Guido<Python>, :Paul<Lisp>);
 
 You can check if a specific value was mixed in by using the versatile smart match operator, or with `.does`:
 
@@ -1674,7 +1678,7 @@ There's also method named `chars`, which returns the length in the current Unico
 
 In Perl 5 you sometimes had the problem of accidentally concatenating byte strings and text strings. If you should ever suffer from that problem in Perl 6, you can easily identify where it happens by overloading the concatenation operator:
 
-  sub GLOBAL::infix:&lt;~&gt; is deep (Str $a, buf $b)|(buf $b, Str $a) \{
+  sub GLOBAL::infix:<~> is deep (Str $a, buf $b)|(buf $b, Str $a) \{
       die "Can't concatenate text string «"
           ~ $a.encode("UTF-8")
             "» with byte string «$b»\\n";
@@ -1684,7 +1688,7 @@ In Perl 5 you sometimes had the problem of accidentally concatenating byte strin
 
 The specification of the IO system is very basic and does not yet define any encoding and decoding layers, which is why this article has no useful SYNOPSIS section. I'm sure that there will be such a mechanism, and I could imagine it will look something like this:
 
-  my $handle = open($filename, :r, :encoding&lt;UTF-8&gt;);
+  my $handle = open($filename, :r, :encoding<UTF-8>);
 
 #### [Regexes and Unicode][175]
 
@@ -1714,7 +1718,7 @@ Fri Nov 28 23:00:00 2008
 
 ### [SYNOPSIS][179]
 
-    for 1 .. 10 -&gt; $a \{
+    for 1 .. 10 -> $a \{
         # $a visible here
     \}
     # $a not visible here
@@ -1747,7 +1751,7 @@ Also Perl 6 only ever looks up unqualified names (variables and subroutines) in 
 
 If you want to limit the scope, you can use formal parameters to the block:
 
-    if calc() -&gt; $result \{
+    if calc() -> $result \{
         # you can use $result here
     \}
     # $result not visible here
@@ -1793,7 +1797,7 @@ If a variable is hidden by another lexical variable of the same name, it can be 
         my $x = 10;
         say $x;             # 10
         say $OUTER::x;      # 3
-        say OUTER::&lt;$x&gt;     # 3
+        say OUTER::<$x>     # 3
     \}
 
 Likewise a function can access variables from its caller with the `CALLER` and `CONTEXT` pseudo packages. The difference is that `CALLER` only accesses the scope of the immediate caller, `CONTEXT` works like UNIX environment variables (and should only be used internally by the compiler for handling `$_`, `$!` and the like). To access variables from the outer dynamic scope they must be declared with `is context`.
@@ -1884,9 +1888,9 @@ The old, sequential style is still available with `||`:
 
     grammar Math::Expression \{
         token value \{
-            | &lt;number&gt;
+            | <number>
             | '('
-              &lt;expression&gt;
+              <expression>
               [ ')' || \{ fail("Parenthesis not closed") \} ]
         \}
 
@@ -1898,7 +1902,7 @@ The `{ ... }` execute a closure, and calling `fail` in that closure makes the ex
 There are other ways to write alternations, for example if you "interpolate" an array, it will match as an alternation of its values:
 
     $\_ = '12 oranges';
-    my @fruits = &lt;apple orange banana kiwi&gt;;
+    my @fruits = <apple orange banana kiwi>;
     if m:i:s/ (\\d+) (@fruits)s? / \{
         say "You've got $0 $1s, I've got \{ $0 + 2 \} of them. You lost.";
     \}
@@ -1908,25 +1912,25 @@ There is yet another construct that automatically matches the longest alternatio
     grammar Perl \{
         ...
         proto token sigil \{ \* \}
-        token sigil:sym&lt;$&gt; \{ &lt;sym&gt; \}
-        token sigil:sym&lt;@&gt; \{ &lt;sym&gt; \}
-        token sigil:sym&lt;%&gt; \{ &lt;sym&gt; \}
+        token sigil:sym<$> \{ <sym> \}
+        token sigil:sym<@> \{ <sym> \}
+        token sigil:sym<%> \{ <sym> \}
         ...
 
-       token variable \{ &lt;sigil&gt; &lt;twigil&gt;? &lt;identifier&gt; \}
+       token variable \{ <sigil> <twigil>? <identifier> \}
    \}
 
 This example shows multiple tokens called `sigil`, which are parameterized by `sym`. When the short name, ie `sigil` is used, all of these tokens are matched in an alternation. You may think that this is a very inconvenient way to write an alternation, but it has a huge advantage over writing `'$'|'@'|'%'`: it is easily extensible:
 
     grammar AddASigil is Perl \{
-        token sigil:sym&lt;!&gt; \{ &lt;sym&gt; \}
+        token sigil:sym<!> \{ <sym> \}
     \}
     # wow, we have a Perl 6 grammar with an additional sigil!
 
 Likewise you can override existing alternatives:
 
     grammar WeirdSigil is Perl \{
-        token sigil:sym&lt;$&gt; \{ '°' \}
+        token sigil:sym<$> \{ '°' \}
     \}
 
 In this grammar the sigil for scalar variables is `°`, so whenever the grammar looks for a sigil it searches for a `°` instead of a `$`, but the compiler will still know that it was the regex `sigil:sym<$>` that matched it.
@@ -1944,17 +1948,17 @@ Fri Dec 5 23:00:00 2008
 ### [SYNOPSIS][193]
 
     grammar XML \{
-        token TOP   \{ ^ &lt;xml&gt; $ \};
-        token xml   \{ &lt;text&gt; [ &lt;tag&gt; &lt;text&gt; ]\* \};
-        token text \{  &lt;-[&lt;&gt;&amp;]&gt;\* \};
+        token TOP   \{ ^ <xml> $ \};
+        token xml   \{ <text> [ <tag> <text> ]\* \};
+        token text \{  <-[<>&amp;]>\* \};
         rule tag   \{
-            '&lt;'(\\w+) &lt;attributes&gt;\*
+            '<'(\\w+) <attributes>\*
             [
-                | '/&gt;'                 # a single tag
-                | '&gt;'&lt;xml&gt;'&lt;/' $0 '&gt;'  # an opening and a closing tag
+                | '/>'                 # a single tag
+                | '>'<xml>'</' $0 '>'  # an opening and a closing tag
             ]
         \};
-        token attributes \{ \\w+ '="' &lt;-["&lt;&gt;]&gt;\* '"' \};
+        token attributes \{ \\w+ '="' <-["<>]>\* '"' \};
     \};
 
 ### [DESCRIPTION][194]
@@ -1969,22 +1973,22 @@ For our purposes XML is quite simple: it consists of plain text and nested tags 
 
     my @tests = (
         [1, 'abc'                       ],      # 1
-        [1, '&lt;a&gt;&lt;/a&gt;'                   ],      # 2
-        [1, '..&lt;ab&gt;foo&lt;/ab&gt;dd'          ],      # 3
-        [1, '&lt;a&gt;&lt;b&gt;c&lt;/b&gt;&lt;/a&gt;'           ],      # 4
-        [1, '&lt;a href="foo"&gt;&lt;b&gt;c&lt;/b&gt;&lt;/a&gt;'],      # 5
-        [1, '&lt;a empty="" &gt;&lt;b&gt;c&lt;/b&gt;&lt;/a&gt;' ],      # 6
-        [1, '&lt;a&gt;&lt;b&gt;c&lt;/b&gt;&lt;c&gt;&lt;/c&gt;&lt;/a&gt;'    ],      # 7
-        [0, '&lt;'                         ],      # 8
-        [0, '&lt;a&gt;b&lt;/b&gt;'                  ],      # 9
-        [0, '&lt;a&gt;b&lt;/a'                   ],      # 10
-        [0, '&lt;a&gt;b&lt;/a href=""&gt;'          ],      # 11
-        [1, '&lt;a/&gt;'                      ],      # 12
-        [1, '&lt;a /&gt;'                     ],      # 13
+        [1, '<a></a>'                   ],      # 2
+        [1, '..<ab>foo</ab>dd'          ],      # 3
+        [1, '<a><b>c</b></a>'           ],      # 4
+        [1, '<a href="foo"><b>c</b></a>'],      # 5
+        [1, '<a empty="" ><b>c</b></a>' ],      # 6
+        [1, '<a><b>c</b><c></c></a>'    ],      # 7
+        [0, '<'                         ],      # 8
+        [0, '<a>b</b>'                  ],      # 9
+        [0, '<a>b</a'                   ],      # 10
+        [0, '<a>b</a href="">'          ],      # 11
+        [1, '<a/>'                      ],      # 12
+        [1, '<a />'                     ],      # 13
     );
 
     my $count = 1;
-    for @tests -&gt; $t \{
+    for @tests -> $t \{
         my $s = $t[1];
         my $M = XML.parse($s);
         if !($M  xor $t[0]) \{
@@ -2004,10 +2008,10 @@ This is a list of both "good" and "bad" XML, and a small test script that runs t
 The essence of XML is surely the nesting of tags, so we'll focus on the second test first. Place this at the top of the test script:
 
     grammar XML \{
-        token TOP   \{ ^ &lt;tag&gt; $ \}
+        token TOP   \{ ^ <tag> $ \}
         token tag   \{
-            '&lt;' (\\w+) '&gt;'
-            '&lt;/' $0   '&gt;'
+            '<' (\\w+) '>'
+            '</' $0   '>'
         \}
     \};
 
@@ -2015,30 +2019,30 @@ Now run the script:
 
     $ ./perl6 xml-01.pl
     not ok 1 - 'abc'
-    ok 2 - '&lt;a&gt;&lt;/a&gt;'
-    not ok 3 - '..&lt;ab&gt;foo&lt;/ab&gt;dd'
-    not ok 4 - '&lt;a&gt;&lt;b&gt;c&lt;/b&gt;&lt;/a&gt;'
-    not ok 5 - '&lt;a href="foo"&gt;&lt;b&gt;c&lt;/b&gt;&lt;/a&gt;'
-    not ok 6 - '&lt;a empty="" &gt;&lt;b&gt;c&lt;/b&gt;&lt;/a&gt;'
-    not ok 7 - '&lt;a&gt;&lt;b&gt;c&lt;/b&gt;&lt;c&gt;&lt;/c&gt;&lt;/a&gt;'
-    ok 8 - '&lt;'
-    ok 9 - '&lt;a&gt;b&lt;/b&gt;'
-    ok 10 - '&lt;a&gt;b&lt;/a'
-    ok 11 - '&lt;a&gt;b&lt;/a href=""&gt;'
-    not ok 12 - '&lt;a/&gt;'
-    not ok 13 - '&lt;a /&gt;'
+    ok 2 - '<a></a>'
+    not ok 3 - '..<ab>foo</ab>dd'
+    not ok 4 - '<a><b>c</b></a>'
+    not ok 5 - '<a href="foo"><b>c</b></a>'
+    not ok 6 - '<a empty="" ><b>c</b></a>'
+    not ok 7 - '<a><b>c</b><c></c></a>'
+    ok 8 - '<'
+    ok 9 - '<a>b</b>'
+    ok 10 - '<a>b</a'
+    ok 11 - '<a>b</a href="">'
+    not ok 12 - '<a/>'
+    not ok 13 - '<a />'
 
 So this simple rule parses one pair of start tag and end tag, and correctly rejects all four examples of invalid XML.
 
 The first test should be easy to pass as well, so let's try this:
 
    grammar XML \{
-       token TOP   \{ ^ &lt;xml&gt; $ \};
-       token xml   \{ &lt;text&gt; | &lt;tag&gt; \};
-       token text  \{ &lt;-[&lt;&gt;&amp;]&gt;\*  \};
+       token TOP   \{ ^ <xml> $ \};
+       token xml   \{ <text> | <tag> \};
+       token text  \{ <-[<>&amp;]>\*  \};
        token tag   \{
-           '&lt;' (\\w+) '&gt;'
-           '&lt;/' $0   '&gt;'
+           '<' (\\w+) '>'
+           '</' $0   '>'
        \}
     \};
 
@@ -2048,14 +2052,14 @@ And run it:
 
     $ ./perl6 xml-03.pl
     ok 1 - 'abc'
-    not ok 2 - '&lt;a&gt;&lt;/a&gt;'
+    not ok 2 - '<a></a>'
     (rest unchanged)
 
 Why in the seven hells did the second test stop working? The answer is that Rakudo doesn't do longest token matching yet (update 2013-01: it does now), but matches sequentially. `<text>` matches the empty string (and thus always), so `<text> | <tag>` never even tries to match `<tag>`. Reversing the order of the two alternations would help.
 
 But we don't just want to match either plain text or a tag anyway, but random combinations of both of them:
 
-    token xml   \{ &lt;text&gt; [ &lt;tag&gt; &lt;text&gt; ]\*  \};
+    token xml   \{ <text> [ <tag> <text> ]\*  \};
 
 (`[...]` are non-capturing groups, like `(?: ... )` is in Perl 5).
 
@@ -2064,63 +2068,63 @@ And low and behold, the first two tests both pass.
 The third test, `..<ab>foo</ab>dd`, has text between opening and closing tag, so we have to allow that next. But not only text is allowed between tags, but arbitrary XML, so let's just call `<xml>` there:
 
     token tag   \{
-        '&lt;' (\\w+) '&gt;'
-        &lt;xml&gt;
-        '&lt;/' $0   '&gt;'
+        '<' (\\w+) '>'
+        <xml>
+        '</' $0   '>'
     \}
 
     ./perl6 xml-05.pl
     ok 1 - 'abc'
-    ok 2 - '&lt;a&gt;&lt;/a&gt;'
-    ok 3 - '..&lt;ab&gt;foo&lt;/ab&gt;dd'
-    ok 4 - '&lt;a&gt;&lt;b&gt;c&lt;/b&gt;&lt;/a&gt;'
-    not ok 5 - '&lt;a href="foo"&gt;&lt;b&gt;c&lt;/b&gt;&lt;/a&gt;'
+    ok 2 - '<a></a>'
+    ok 3 - '..<ab>foo</ab>dd'
+    ok 4 - '<a><b>c</b></a>'
+    not ok 5 - '<a href="foo"><b>c</b></a>'
     (rest unchanged)
 
 We can now focus on attributes (the `href="foo"` stuff):
 
     token tag   \{
-        '&lt;' (\\w+) &lt;attribute&gt;\* '&gt;'
-        &lt;xml&gt;
-        '&lt;/' $0   '&gt;'
+        '<' (\\w+) <attribute>\* '>'
+        <xml>
+        '</' $0   '>'
     \};
     token attribute \{
-        \\w+ '="' &lt;-["&lt;&gt;]&gt;\* \\"
+        \\w+ '="' <-["<>]>\* \\"
     \};
 
 But this doesn't make any new tests pass. The reason is the blank between the tag name and the attribute. Instead of adding `\s+` or `\s*` in many places we'll switch from `token` to `rule`, which implies the `:sigspace` modifier:
 
     rule tag   \{
-        '&lt;'(\\w+) &lt;attribute&gt;\* '&gt;'
-        &lt;xml&gt;
-        '&lt;/'$0'&gt;'
+        '<'(\\w+) <attribute>\* '>'
+        <xml>
+        '</'$0'>'
     \};
     token attribute \{
-        \\w+ '="' &lt;-["&lt;&gt;]&gt;\* \\"
+        \\w+ '="' <-["<>]>\* \\"
     \};
 
 Now all tests pass, except the last two:
 
     ok 1 - 'abc'
-    ok 2 - '&lt;a&gt;&lt;/a&gt;'
-    ok 3 - '..&lt;ab&gt;foo&lt;/ab&gt;dd'
-    ok 4 - '&lt;a&gt;&lt;b&gt;c&lt;/b&gt;&lt;/a&gt;'
-    ok 5 - '&lt;a href="foo"&gt;&lt;b&gt;c&lt;/b&gt;&lt;/a&gt;'
-    ok 6 - '&lt;a empty="" &gt;&lt;b&gt;c&lt;/b&gt;&lt;/a&gt;'
-    ok 7 - '&lt;a&gt;&lt;b&gt;c&lt;/b&gt;&lt;c&gt;&lt;/c&gt;&lt;/a&gt;'
-    ok 8 - '&lt;'
-    ok 9 - '&lt;a&gt;b&lt;/b&gt;'
-    ok 10 - '&lt;a&gt;b&lt;/a'
-    ok 11 - '&lt;a&gt;b&lt;/a href=""&gt;'
-    not ok 12 - '&lt;a/&gt;'
-    not ok 13 - '&lt;a /&gt;'
+    ok 2 - '<a></a>'
+    ok 3 - '..<ab>foo</ab>dd'
+    ok 4 - '<a><b>c</b></a>'
+    ok 5 - '<a href="foo"><b>c</b></a>'
+    ok 6 - '<a empty="" ><b>c</b></a>'
+    ok 7 - '<a><b>c</b><c></c></a>'
+    ok 8 - '<'
+    ok 9 - '<a>b</b>'
+    ok 10 - '<a>b</a'
+    ok 11 - '<a>b</a href="">'
+    not ok 12 - '<a/>'
+    not ok 13 - '<a />'
 
 These contain un-nested tags that are closed with a single slash `/`. No problem to add that to rule `tag`:
 
     rule tag   \{
-        '&lt;'(\\w+) &lt;attribute&gt;\* [
-            | '/&gt;'
-            | '&gt;' &lt;xml&gt; '&lt;/'$0'&gt;'
+        '<'(\\w+) <attribute>\* [
+            | '/>'
+            | '>' <xml> '</'$0'>'
         ]
     \};
 
@@ -2162,10 +2166,10 @@ Sat Dec 6 23:00:00 2008
 
     subset Squares of Int where \{ .sqrt.Int\*\*2 == $\_ \};
 
-    multi sub square\_root(Squares $x --&gt; Int) \{
+    multi sub square\_root(Squares $x --> Int) \{
         return $x.sqrt.Int;
     \}
-    multi sub square\_root(Num $x --&gt; Num) \{
+    multi sub square\_root(Num $x --> Num) \{
         return $x.sqrt;
     \}
 
@@ -2320,7 +2324,7 @@ Mon Dec 8 23:00:00 2008
 
 ### [SYNOPSIS][217]
 
-    my @animals = &lt;dog cat tiger&gt;
+    my @animals = <dog cat tiger>
     # or
     my @animals = qw/dog cat tiger/;
     # or
@@ -2391,15 +2395,15 @@ However there is one form that does not work, and some Perl 5 programmers will m
 
 This is where parsing comes into play: Every construct of the form `identifier(...)` is parsed as sub call. Yes, every.
 
-    if($x&lt;3)
+    if($x<3)
 
 is parsed as a call to sub `if`. You can disambiguate with whitespaces:
 
-    if ($x &lt; 3) \{ say '&lt;3' \}
+    if ($x < 3) \{ say '<3' \}
 
 Or just omit the parens altogether:
 
-    if $x &lt; 3 \{ say '&lt;3' \}
+    if $x < 3 \{ say '<3' \}
 
 This implies that Perl 6 has no keywords. Actually there are keywords like `use` or `if`, but they are only special if used in a special syntax.
 
@@ -2425,13 +2429,13 @@ Tue Dec 9 23:00:00 2008
 
     say [+] 1, 2, 3;    # 6
     say [+] ();         # 0
-    say [~] &lt;a b&gt;;      # ab
+    say [~] <a b>;      # ab
     say [\*\*] 2, 3, 4;   # 2417851639229258349412352
 
     [\\+] 1, 2, 3, 4     # 1, 3, 6, 10
     [\\\*\*] 2, 3, 4       # 4, 81, 2417851639229258349412352
 
-    if [&lt;=] @list \{
+    if [<=] @list \{
         say "ascending order";
     \}
 
@@ -2446,8 +2450,8 @@ Like all other operators whitespaces are forbidden, so you while you can write `
 Since comparison operators can be chained, you can also write things like
 
     if    [==] @nums \{ say "all nums in @nums are the same" \}
-    elsif [&lt;]  @nums \{ say "@nums is in strict ascending order" \}
-    elsif [&lt;=] @nums \{ say "@nums is in ascending order"\}
+    elsif [<]  @nums \{ say "@nums is in strict ascending order" \}
+    elsif [<=] @nums \{ say "@nums is in ascending order"\}
 
 You can even reduce the assignment operator:
 
@@ -2460,7 +2464,7 @@ Note that `[...]` always returns a scalar, so `[,] @list` is actually the same a
 
 There's a special form of this operator that uses a backslash like this: `[\+]`. It returns a list of the partial evaluation results. So `[\+] 1..3` returns the list `1, 1+2, 1+2+3`, which is of course `1, 3, 6`.
 
-    [\\~] 'a' .. 'd'     # &lt;a ab abc abcd&gt;
+    [\\~] 'a' .. 'd'     # <a ab abc abcd>
 
 Since right-associative operators evaluate from right to left, you also get the partial results that way:
 
@@ -2490,12 +2494,12 @@ Tue May 26 22:00:00 2009
 
 ### [SYNOPSIS][232]
 
-    for &lt;a b&gt; X 1..3 -&gt; $a, $b \{
+    for <a b> X 1..3 -> $a, $b \{
         print "$a: $b   ";
     \}
     # output: a: 1  a: 2  a: 3  b: 1  b: 2  b: 3
 
-    .say for &lt;a b c&gt; X 1, 2;
+    .say for <a b c> X 1, 2;
     # output: a1\\n a2\\n b1\\n b2\\n c1\\n c2\\n
     # (with real newlines instead of \\n)
 
@@ -2548,7 +2552,7 @@ They are called _control exceptions_, and can be caught with `CONTROL` blocks, o
 Consider this example:
 
     use v6;
-    my $block = -&gt; \{ return "block"; say "still here" \};
+    my $block = -> \{ return "block"; say "still here" \};
 
     sub s \{
         $block.();
@@ -2569,7 +2573,7 @@ Perl 6 embraces the idea of multi threading, and in particular automated paralle
 
 When a function calls `fail($obj)`, it returns a special value of `undef`, which contains the payload `$obj` (usually an error message) and the back trace (file name and line number). Processing that special undefined value without check if it's undefined causes a normal exception to be thrown.
 
-    my @files = &lt;/etc/passwd /etc/shadow nonexisting&gt;;
+    my @files = </etc/passwd /etc/shadow nonexisting>;
     my @handles = hyper map \{ open($\_) \}, @files;
 
 In this example the `hyper` operator tells `map` to parallelize its actions as far as possible. When the opening of the `nonexisting` file fails, an ordinary `die "No such file or directory"` would also abort the execution of all other `open` operations. But since a failed open calls `fail("No such file or directory"` instead, it gives the caller the possibility to check the contents of `@handles`, and it _still has access to the full error message_.
@@ -2596,11 +2600,11 @@ Thu Jul 22 13:34:26 2010
   # solution 1: slices
   my %hash; %hash\{@keys\} = @values;
   # solution 2: meta operators
-  my %hash = @keys Z=&gt; @values;
+  my %hash = @keys Z=> @values;
 
   # create a hash from an array, with
   # true value for each array item:
-  my %exists = @keys Z=&gt; 1 xx \*;
+  my %exists = @keys Z=> 1 xx \*;
 
   # limit a value to a given range, here 0..10.
   my $x = -2;
@@ -2617,7 +2621,7 @@ Thu Jul 22 13:34:26 2010
   class Something \{
       has $.required = die "Attribute 'required' is mandatory";
   \}
-  Something.new(required =&gt; 2); # no error
+  Something.new(required => 2); # no error
   Something.new()               # BOOM
 
 ### [DESCRIPTION][244]
@@ -2632,13 +2636,13 @@ So here a some common Perl 6 idioms, dealing with data structures.
   # solution 1: slices
   my %hash; %hash\{@keys\} = @values;
   # solution 2: meta operators
-  my %hash = @keys Z=&gt; @values;
+  my %hash = @keys Z=> @values;
 
 The first solution is the same you'd use in Perl 5: assignment to a slice. The second solution uses the zip operator `Z`, which joins to list like a zip fastener: `1, 2, 3 Z 10, 20, 30` is `1, 10, 2, 20, 3, 30`. The `Z=>` is a meta operator, which combines zip with `=>` (the Pair construction operator). So `1, 2, 3 Z=> 10, 20, 30` evaluates to `1 => 10, 2 => 20, 3 => 30`. Assignment to a hash variable turns that into a Hash.
 
 For existence checks, the values in a hash often doesn't matter, as long as they all evaluate to `True` in boolean context. In that case, a nice way to initialize the hash from a given array or list of keys is
 
-  my %exists = @keys Z=&gt; 1 xx \*;
+  my %exists = @keys Z=> 1 xx \*;
 
 which uses a lazy, infinite list of 1s on the right-hand side, and relies on the fact that `Z` ends when the shorter list is exhausted.
 
@@ -2673,8 +2677,8 @@ In general, if you want to compare by a transformed value, in Perl 5 you can do:
     my @sorted = sort \{ transform($a) cmp transform($b) \} @values;
 
     # or the so-called Schwartzian Transform:
-    my @sorted = map \{ $\_-&gt;[1] \}
-                 sort \{ $a-&gt;[0] cmp $b-&gt;[0] \}
+    my @sorted = map \{ $\_->[1] \}
+                 sort \{ $a->[0] cmp $b->[0] \}
                  map \{ [transform($\_), $\_] \}
                  @values
 
@@ -2715,10 +2719,10 @@ Sun Jul 25 09:17:10 2010
   say f(3, 2);                # lo
   say f(7);                   # World
 
-  say &lt;a b c&gt;.map: \* x 2;     # aabbcc
-  say &lt;a b c&gt;.map: \*.uc;      # ABC
+  say <a b c>.map: \* x 2;     # aabbcc
+  say <a b c>.map: \*.uc;      # ABC
   for ^10 \{
-      print &lt;R G B&gt;.[$\_ % \*]; # RGBRGBRGBR
+      print <R G B>.[$\_ % \*]; # RGBRGBRGBR
   \}
 
 ### [DESCRIPTION][253]
@@ -2741,7 +2745,7 @@ Now `f(1, 2)` is the same as `substr('Hello, World', 1, 2)`.
 
 `assuming` also works on operators, because operators are just subroutines with weird names. To get a subroutine that adds 2 to whatever number gets passed to it, you could write
 
-  my &amp;add\_two := &amp;infix:&lt;+&gt;.assuming(2);
+  my &amp;add\_two := &amp;infix:<+>.assuming(2);
 
 But that's tedious to write, so there's another option.
 
@@ -2774,7 +2778,7 @@ This curries the second argument of the string repetition operator infix `x`, so
 
 The invocant of a method call can also be Whatever star, so
 
-  say &lt;a b c&gt;.map: \*.uc;      # ABC
+  say <a b c>.map: \*.uc;      # ABC
 
 involves a closure that calls the `uc` method on its argument.
 
