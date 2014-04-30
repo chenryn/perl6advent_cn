@@ -1464,7 +1464,7 @@ Circumfix 的调用意味着这有不同的语法  ( 象 `my @list = <a b c>;` )
 
 它也消除使用语言和修改语言之间的差距.
 
-### [SEE ALSO][154]
+### [SEE ALSO]
 
 [http://perlcabal.org/syn/S06.html#Operator_overloading][155]
 
@@ -1483,22 +1483,22 @@ Sun Oct 19 22:00:00 2008
   # file doit.pl
 
   #!/usr/bin/perl6
-  sub MAIN($path, :$force, :$recursive, :$home = '~/') \{
+  sub MAIN($path, :$force, :$recursive, :$home = '~/') {
       # do stuff here
-  \}
+  }
 
   # command line
-  $ ./doit.pl --force --home=/home/someoneelse file\_to\_process
+  $ ./doit.pl --force --home=/home/someoneelse file_to_process
 
 ### [DESCRIPTION][158]
 
-Calling subs and running a typical Unix program from the command line is visually very similar: you can have positional, optional and named arguments.
+调用子函数和运行一个类 Unix 的命令行程序从视觉上看, 其实非常相似: 你可以有选项, 可选参数和命名参数.
 
-You can benefit from it, because Perl 6 can process the command line for you, and turn it into a sub call. Your script is normally executed (at which time it can munge the command line arguments stored in `@*ARGS`), and then the sub `MAIN` is called, if it exists.
+使用 Perl 6 你可以从中利益很多, 它可以直接处理你的命令行, 并变成一个子函数调用. 你只要你的文件中存在  `MAIN` 的子函数, 你的脚本就可以正常的执行 ( 此时会给你的参数送给 `@*ARGS` ). 
 
-If the sub can't be called because the command line arguments don't match the formal parameters of the `MAIN` sub, an automatically generated usage message is printed.
+如果你提交的参数在那个 `MAIN` 的函数中并不对应, 会自动的帮你生成 usage 的信息.
 
-Command line options map to subroutine arguments like this:
+命令行的参数映射到子程序的参数是这样工作的:
 
   -name                   :name
   -name=value             :name<value>
@@ -1506,24 +1506,24 @@ Command line options map to subroutine arguments like this:
   # remember, <...> is like qw(...)
   --hackers=Larry,Damian  :hackers<Larry Damian>
 
-  --good\_language         :good\_language
-  --good\_lang=Perl        :good\_lang<Perl>
-  --bad\_lang PHP          :bad\_lang<PHP>
+  --good_language         :good_language
+  --good_lang=Perl        :good_lang<Perl>
+  --bad_lang PHP          :bad_lang<PHP>
 
   +stuff                  :!stuff
   +stuff=healty           :stuff<healthy> but False
 
-The `$x = $obj but False` means that `$x` is a copy of `$obj`, but gives `Bool::False` in boolean context.
+这个地方的 `$x = $obj but False` 的意思是这个 `$x` 是复制的 `$obj`, 但是在布尔上下文时会给出 `Bool::False`.
 
-So for simple (and some not quite simple) cases you don't need an external command line processor, but you can just use sub `MAIN` for that.
+因此, 对于简单的 (和一些不是很简单的) 情况下, 你并不需要一个外部命令行参数的处理程序, 你可以直播使用 `MAIN` 函数实现这一点.
 
 ### [MOTIVATION][159]
 
-The motivation behind this should be quite obvious: it makes simple things easier, similar things similar, and in many cases reduces command line processing to a single line of code: the signature of `MAIN`.
+这背后的动机应该是很明显的: 它使简单的事情变得更加容易, 很多时候给命令行代码传参只需要简单的 `MAIN` 函数.
 
 ### [SEE ALSO][160]
 
-[http://perlcabal.org/syn/S06.html#Declaring\_a\_MAIN\_subroutine][161] contains the specification.
+[http://perlcabal.org/syn/S06.html#Declaring_a_MAIN_subroutine][161] contains the specification.
 
 ## Twigils
 
@@ -1535,13 +1535,13 @@ Mon Oct 20 22:00:00 2008
 
 ### [SYNOPSIS][163]
 
-  class Foo \{
+  class Foo {
       has $.bar;
       has $!baz;
-  \}
+  }
 
-  my @stuff = sort \{ $^b[1] <=> $^a[1]\}, [1, 2], [0, 3], [4, 8];
-  my $block = \{ say "This is the named 'foo' parameter: $:foo" \};
+  my @stuff = sort { $^b[1] <=> $^a[1]}, [1, 2], [0, 3], [4, 8];
+  my $block = { say "This is the named 'foo' parameter: $:foo" };
   $block(:foo<bar>);
 
   say "This is file $?FILE on line $?LINE"
