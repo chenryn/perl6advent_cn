@@ -1,6 +1,6 @@
 # Perl 5 to Perl 6
 
-本文开始是以[一系列博客文章][16]的形式存在，为阅读方便收集整理而成。
+本文开始是以[一系列博客文章]的形式存在，为阅读方便收集整理而成。
 
 ## 目录
 
@@ -40,33 +40,35 @@ Sat Sep 20 22:00:00 2008
 
 ### NAME
 
-"Perl 5 to 6" - Introduction
+"Perl 5 to 6" - 介绍
 
-### [SYNOPSIS][47]
+### [概要]
 
-    学习 Perl 6 (如果你已经了解 Perl 5)
-    学会并爱上 Perl 6
+    学习 Perl 6 ( 假设你已经了解 Perl 5 )
+    学会它并爱上 Perl 6
     知道为什么
 
-### [DESCRIPTION][48]
+### [描述]
 
-Perl 6 目前文档不足. 这并不奇怪, 因为编写 Perl 6 的编译器比写文档( 目前只有一个 specification 规范)这个对于用户来讲更加重要多了.
+Perl 6 目前文档不足. 这并不奇怪, 因为编写 Perl 6 的编译器比写文档这事 ( 目前只有一个 specification 规范 ) 这个对于用户来讲更加重要多了.
 
-不幸的是，这意味着会让大家不容易学习 Perl 6, 除非你是对 Perl 6 有比较深入的关注, 也就只能从 specification, IRC 和测试套件中学习.
+不幸的是, 这意味着会让大家不太容易学习 Perl 6, 除非你是对 Perl 6 有比较深入的关注的人, 就算这样, 目前也就只能从 specification, IRC 和测试套件中学习.
 
 这个项目, 初步给名字定为 "Perl 5 to 6"(目前我找不到更好的名字) 来填补文档空白这个事情.
 
-这个课程都内容都相当矮小精悍. 并试图用很短的例子来解释 42-3 个重点. 也会解释从 Perl 5 变成 Perl 5 的改步, 这一点非常重要. 我希望你通过读这些课程学到所需要的知识. 并基本明白 Synopses 这个东西是 Perl 智慧的来源.
+这个课程都内容都会保持矮小精悍. 我会试图用很短的例子来解释 2-3 个重点. 也会解释从 Perl 5 变成 Perl 6 的改进, 这一点非常重要. 我希望你通过读这些课程学到所需要的知识. 
 
-为了保证读起来方便, 每个课程会控制在不超过 200 行或者 1000 个单词(当然就是个软限制);
+这些内容都是 Synopses 中的, 这是 Perl 智慧的来源和汇总.
 
-这个对于学习编程语言也许太短了. 但我希望是讲出语言的设计, 让你看到它强大美丽的一面, 并且不用按语言大纲学习就会使用.
+为了保证读起来方便, 每个课程会控制在不超过 200 行或者 1000 个单词 ( 当然就是个软限制 );
 
-### [IT'S NOT][49]
+这个对于学习编程语言也许太短了. 但我希望是讲出语言的设计的目标, 让你看到它强大并美丽的一面, 并且不用按语言大纲就能很快的学习并使用.
+
+### [IT'S NOT]
 
 这并不是一个 Perl 5 转成 Perl 6 的指南, 所以没有完整的转换列表.
 
-### [ROADMAP][50]
+### [文章路线图]
 
 已经在写了的和准备要写的:
 
@@ -98,7 +100,7 @@ Perl 6 目前文档不足. 这并不奇怪, 因为编写 Perl 6 的编译器比�
     25 Cross meta operator
     26 Exceptions and control exceptions
 
-(有些不是或者目前 Rakudo 没有实现的内容标了一个 `(-)`)
+( 有些不是或者目前 Rakudo 没有实现完的内容标了一个 `(-)`)
 
 有些东西我想写, 但我对这些的了解还不够:
 
@@ -113,11 +115,11 @@ Perl 6 目前文档不足. 这并不奇怪, 因为编写 Perl 6 的编译器比�
 
 我也会更新这些课程, 也保证他们不是太落伍了.
 
-### [AUTHOR][51]
+### [AUTHOR]
 
 Moritz Lenz, <http://perlgeek.de/>, `moritz@faui2k3.org`
 
-### [LINKS][52]
+### [LINKS]
 
 Other documentation efforts can be found on <http://perl6.org/documentation/>.
 
@@ -125,11 +127,11 @@ Other documentation efforts can be found on <http://perl6.org/documentation/>.
 
 Sat Sep 20 22:20:00 2008
 
-### [NAME][53]
+### [NAME]
 
 "Perl 5 to 6" 第 1 课 - 字符串、数组和哈希
 
-### [SYNOPSIS][54]
+### [SYNOPSIS]
     
     my $five = 5;
     print "an interpolating string, just like in perl $five\n";
@@ -149,7 +151,7 @@ Sat Sep 20 22:20:00 2008
     # this is an error: %hash{bar}
     # (it tries to call the subroutine bar(), which is not declared
 
-### [DESCRIPTION][55]
+### [DESCRIPTION]
 
 Perl 6 这些部分很象 Perl 5 - 只会更加好. 声明的语句以分号终止. 一个代码块的最后一条语句和在一行结束的右大括号的分号终止符是可选的.
 
