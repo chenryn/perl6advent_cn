@@ -42,13 +42,13 @@ Sat Sep 20 22:00:00 2008
 
 "Perl 5 to 6" - 介绍
 
-### [概要]
+### 概要
 
     学习 Perl 6 ( 假设你已经了解 Perl 5 )
-    学会它并爱上 Perl 6
+    学会欣赏Perl 6 
     知道为什么
 
-### [描述]
+### 描述
 
 Perl 6 目前文档不足. 这并不奇怪, 因为编写 Perl 6 的编译器比写文档这事 ( 目前只有一个 specification 规范 ) 这个对于用户来讲更加重要多了.
 
@@ -131,7 +131,7 @@ Sat Sep 20 22:20:00 2008
 
 "Perl 5 to 6" 第 1 课 - 字符串、数组和哈希
 
-### [SYNOPSIS]
+### 概要
     
     my $five = 5;
     print "an interpolating string, just like in perl $five\n";
@@ -142,24 +142,24 @@ Sat Sep 20 22:20:00 2008
     if $sum > @array[2] {
         say "not executed";
     }
-    my $number_of_elems = @array.elems;     # or +@array
+    my $number_of_elems = @array.elems;     # 或者使用 +@array
     my $last_item = @array[*-1];
 
     my %hash = foo => 1, bar => 2, baz => 3;
     say %hash{'bar'};                       # 2
-    say %hash<bar>;                         # same with auto-quoting
-    # this is an error: %hash{bar}
-    # (it tries to call the subroutine bar(), which is not declared
+    say %hash<bar>;                         # 同上, 会自动的加上双引 
+    # 在这使用 %hash{bar} 是错误的
+    # 没加引号的字符, 这会试着调用 bar 函数. 但这不存在 
 
-### [DESCRIPTION]
+### 描述
 
-Perl 6 这些部分很象 Perl 5 - 只会更加好. 声明的语句以分号终止. 一个代码块的最后一条语句和在一行结束的右大括号的分号终止符是可选的.
+Perl 6 这些部分很象 Perl 5 - 只会变得更加友好. 声明的语句还是以分号终止. 在代码块中最后的语句和在行结束的右大括号的分号终止符是可选的.
 
 变量仍然以记号 (象 `$`, `@`, `%`)开头.
 
-#### [Strings][56]
+#### 字符串 
 
-字符串是用双引号包起来(插值的情况下), 或者使用单引号. 反斜杠转义的工作方式和 Perl 5 中一样.
+字符串是用双引号包起来 ( 插值的情况下 ), 或者使用单引号. 反斜杠转义的工作方式和 Perl 5 中一样.
 
 然而插值规则已经改变了一点. 看下面插值
 
@@ -170,35 +170,35 @@ Perl 6 这些部分很象 Perl 5 - 只会更加好. 声明的语句以分号终�
     say "@array[1]";            # '2'
     say "Code: { $scalar * 2 }" # 'Code: 12'
 
-数组和哈希只有当后面跟一个索引的时候才会插值(或者方法调用, 象 `"some $obj.method()"`), 空索引会给整个数据结构做插值操作.
+数组和哈希只有当后面跟索引的时候才会插值 ( 或者方法调用, 象 `"some $obj.method()"` ), 空索引会给整个数据结构做插值操作.
 
-当出现了一个花括号时会执行花括号中的代码给结果进行值操作.
+当出现了一个花括号时会执行花括号中的代码给结果进行插值操作.
 
-#### [Arrays][57]
+#### 数组
 
-数组还是以 `@` 标记开始. 并且他们总是这样, 就算访问数组中的元素. ie. 这个索引需要存在, 这个对新手学习就不在会晕了.
+数组还是以 `@` 标记开始. 并且他们总是这样 ( 在 Perl 5 中元素文章不是 @ 是 $  ), 就算访问数组中的元素也是使用 @ 开头. ie. 这个索引需要存在, 这个对新手学习就不在会晕了.
 
-    my @a = 5, 1, 2;            # no parens needed anymore
-    say @a[0];                  # yes, it starts with @
-    say @a[0, 2];               # slices also work
+    my @a = 5, 1, 2;            # 不再需要括号 
+    say @a[0];                  # 没错, 是以 @ 开头 
+    say @a[0, 2];               # 数组切片也能正常工作 
 
 列表的构造是通过逗号, 不在需要括号. `1,` 是一个列表, `(1)` 不是. 
 
 既然一切都是对象，你可以调用数组的方法:
 
     my @b = @a.sort;
-    @b.elems;                   # number of items
-    if @b > 2 { say "yes" }     # still works
-    @b.end;                     # number of last index. Replaces $#array
-    my @c = @b.map({$_ * 2 });  # map is also a method, yes
+    @b.elems;                   # 成员元素数量 
+    if @b > 2 { say "yes" }     # 仍然可以这样 
+    @b.end;                     # 最后一个索引的位置, 替换 $#array
+    my @c = @b.map({$_ * 2 });  # 没错, map 也是个方法调用 
 
 下面的方法是替换老的 `qw/../` 来进行字符数组的构造:
 
     my @methods = <shift unshift push pop end delete sort map>;
 
-#### [Hashes][58]
+#### 哈希 
 
-Perl 6 在列表上下文时哈希是一个列表对. 列表对可以做一些其它的事情, 它会是子函数的名字, 稍后详述.
+Perl 6 在列表上下文时哈希是列表对. 列表对可以做一些其它的事情, 它可以是子函数的名字, 稍后详述.
 
 就象数组使用的开头的标记不变, 哈希也是一样. 当你创建索引时使用 % 开头. 并且 hash 也有自己的方法调用.
 
@@ -214,18 +214,18 @@ Perl 6 在列表上下文时哈希是一个列表对. 列表对可以做一些�
 
     say %drinks<Bavaria>;
 
-#### [Final Notes][59]
+#### 最后的注意事项 
 
 大多内置的方法, 既作为一种方法也可以做为 sub 调用. 所以你可以写在 `sort @array`  或者 `@array.sort`.
 
-最后, 你需要知道这二个 `[..]` 和 `{...}`(一个词语之后直接加上), 这只是一个方法调用的特殊语法, 不是依赖于数组和哈希. 这意味着, 他们也不会依赖于特定的前缀符号.
+最后, 你需要知道这 `[..]` 和 `{...}' 这二个东西, 现在它们只是方法调用的特殊语法, 在这不是绑定数组和哈希. 这意味着, 他们也不会依赖于特定的前缀符号.
 
     my $a = [1, 2, 3];
     say $a[2];          # 3
 
-这意味着, 我们不需要特殊的解引用的语法, 并且您可以创建能够同时充当数组, 哈希和 sub 子函数的对象.
+这意味着, 我们不需要特殊的引用和解引用的语法, 并且您可以创建能够同时充当数组, 哈希和 sub 子函数的对象.
 
-### [SEE ALSO][60]
+### 另请参阅
 
 <http://perlcabal.org/syn/S02.html>, <http://perlcabal.org/syn/S29.html>
 
@@ -237,7 +237,7 @@ Sat Sep 20 22:40:00 2008
 
 "Perl 5 to 6" Lesson 02 - Types
 
-### [SYNOPSIS][62]
+### 概要
 
     my Int $x = 3;
     $x = "foo";         # error
@@ -248,7 +248,7 @@ Sat Sep 20 22:40:00 2008
         say '$x contains an Int'
     }
 
-### [DESCRIPTION][63]
+### 描述[63]
 
 Perl 6 有类型. 因为任何东西都是对象, 都有类型. 变量可以有类型的限制, 并他们并不是必需的.
 
@@ -300,7 +300,7 @@ Perl 6 有类型. 因为任何东西都是对象, 都有类型. 变量可以有�
 
 当有类型信息时, 使用 multiple dispatch 时更加容易细化特定的操作.
 
-### [SEE ALSO][69]
+### 另请参阅[69]
 
 [http://perlcabal.org/syn/S02.html#Built-In_Data_Types][70],
 
@@ -312,7 +312,7 @@ Sat Sep 20 23:00:00 2008
 
 "Perl 5 to 6" Lesson 03 - Basic Control Structures
 
-### [SYNOPSIS][72]
+### 概要[72]
 
     if $percent > 100  {
         say "weird mathematics";
@@ -332,7 +332,7 @@ Sat Sep 20 23:00:00 2008
 
     die "Access denied" unless $password eq "Secret";
 
-### [DESCRIPTION][73]
+### 描述[73]
 
 大多数的 Perl 5 的控制结构和 Perl 6 是颇为相似，最大的视觉差异的是，你在使用 `if`, `while`, `for` 之类不后需要一对括号.
 
@@ -386,7 +386,7 @@ Sat Sep 20 23:00:00 2008
         say $x;
     }
 
-### [SEE ALSO][76]
+### 另请参阅[76]
 
 [http://perlcabal.org/syn/S04.html#Conditional_statements][77]
 
@@ -398,7 +398,7 @@ Sat Sep 20 23:20:00 2008
 
 "Perl 5 to 6" Lesson 04 - Subroutines and Signatures
 
-### [SYNOPSIS][79]
+### 概要[79]
 
     # sub without a signature - perl 5 like
     sub print\_arguments \{
@@ -430,7 +430,7 @@ Sat Sep 20 23:20:00 2008
     doit(:when<noon>, :what('more stuff')); # 'doing more stuff at noon'
     # illegal: doit("stuff", "now")
 
-### [DESCRIPTION][80]
+### 描述[80]
 
 子函数是使用  `sub` 关键字来声明, 并且有形式参数列表, 就象 C, Java 和一些其它的语言. 这些参数的类型约束是可选的.
 
@@ -576,7 +576,7 @@ Multi subs 这个功能也非常有用, 因为它可以使用新类型来覆盖�
 
 由于操作也可以使用 subs, 所以这些改进操作是可以正常工作的.
 
-### [SEE ALSO][87]
+### 另请参阅[87]
 
 <http://perlcabal.org/syn/S06.html>
 
@@ -588,7 +588,7 @@ Tue Sep 23 22:20:00 2008
 
 "Perl 5 to 6" Lesson 05 - 对象和类
 
-### [SYNOPSIS][89]
+### 概要[89]
 
     class Shape {
         method area { ... }    # literal '...'
@@ -613,7 +613,7 @@ Tue Sep 23 22:20:00 2008
     say $x.colour;              # black
     $x.colour = 'blue';
 
-### [DESCRIPTION][90]
+### 描述[90]
 
 Perl 6 比起 Perl 5 更加好的地方在于对象模型. 它有可以通过关键字创建类, 角色, 属性和方法, 并可以封装私有属性和方法. 事实上, 这个很象 Perl 5 中的 `Moose`( 这东西的灵感来自 Perl 6 的对象系统).
 
@@ -751,7 +751,7 @@ In general the world isn't hierarchical, and thus sometimes it's hard to press e
 
     Rectangle.new(width => 8, height => 3).paint;
 
-### [SEE ALSO][95]
+### 另请参阅[95]
 
 <http://perlcabal.org/syn/S12.html> <http://perlcabal.org/syn/S14.html> <http://www.jnthn.net/papers/2009-yapc-eu-roles-slides.pdf> [http://en.wikipedia.org/wiki/Perl\_6#Roles][96]
 
@@ -763,7 +763,7 @@ Wed Sep 24 22:20:00 2008
 
 "Perl 5 to 6" Lesson 06 - Contexts 上下文
 
-### [SYNOPSIS][98]
+### 概要[98]
 
     my @a = <a b c>;
     my $x = @a;
@@ -772,7 +772,7 @@ Wed Sep 24 22:20:00 2008
     say +@a;            # 3
     if @a < 10 { say "short array"; }
 
-### [DESCRIPTION][99]
+### 描述[99]
 
 当你写了一些如下的东西
 
@@ -832,7 +832,7 @@ Wed Sep 24 22:20:00 2008
 
 对于一些事情, 象 Match 对象, 这种不同的上下文提升了实用性和美感.
 
-### [SEE ALSO][102]
+### 另请参阅[102]
 
 <http://perlcabal.org/syn/S02.html#Context> <http://perlgeek.de/blog-en/perl-6/immutable-sigils-and-context.html>
 
@@ -844,7 +844,7 @@ Thu Sep 25 22:20:00 2008
 
 "Perl 5 to 6" Lesson 07 - Regexes 正则表达式 (also called "rules")
 
-### [SYNOPSIS][104]
+### 概要[104]
 
     grammar URL {
         token TOP {
@@ -876,7 +876,7 @@ Thu Sep 25 22:20:00 2008
     my $match = URL.parse('http://perl6.org/documentation/');
     say $match<hostname>;       # perl6.org
 
-### [DESCRIPTION][105]
+### 描述[105]
 
 正则表达式已经大量改良和革新, 是 Perl 6 改进之一. 我们不叫它 _regular expressions_ 了. 因为它比起 Perl 5 更加不正规.
 
@@ -988,7 +988,7 @@ Perl 5 的正则表达式常常不太可读, grammars 鼓励你把一个大的�
 
 最后, grammars 是如此强大, 你可以用它分析了解每一种编程语言, 包括 Perl6 本身. 这使得 Perl 6 的语法比起 Perl 5 更易于维护和修改比Perl 5.
 
-### [SEE ALSO][113]
+### 另请参阅[113]
 
 <http://perlcabal.org/syn/S05.html>
 
@@ -1004,7 +1004,7 @@ Fri Sep 26 22:20:00 2008
 
 "Perl 5 to 6" Lesson 07 - Junctions
 
-### [SYNOPSIS][115]
+### 概要[115]
 
     my $x = 4;
     if $x == 3|4 {
@@ -1012,7 +1012,7 @@ Fri Sep 26 22:20:00 2008
     }
     say ((2|3|4)+7).perl        # (9|10|11)
 
-### [DESCRIPTION][116]
+### 描述[116]
 
 Junctions 是叠加的一堆无序的值. 操作 junctions 的时候是对各自己的元素分别进行　junction (甚至是并行的), 并且结果组装成相同类型.
 
@@ -1103,7 +1103,7 @@ Perl 的目标是要接近自然语言, 自然语言中你常常会这样讲 "�
 
 It is a good idea to use junctions as smart conditions, but trying to build a solver for equations based on the junction autothreading rules is on over-extortion and usually results in frustration.
 
-### [SEE ALSO][119]
+### 另请参阅[119]
 
 [http://perlcabal.org/syn/S03.html#Junctive_operators][120]
 
@@ -1115,7 +1115,7 @@ Sat Sep 27 22:20:00 2008
 
 "Perl 5 to 6" Lesson 09 - Comparing and Matching 比较和匹配
 
-### [SYNOPSIS][122]
+### 概要[122]
 
     "ab"    eq      "ab"    True
     "1.0"   eq      "1"     False
@@ -1137,7 +1137,7 @@ Sat Sep 27 22:20:00 2008
     1       ~~      0..4    True
     -3      ~~      0..4    False
 
-### [DESCRIPTION][123]
+### 描述[123]
 
 Perl 6 仍有字符串比较操作符 (`eq`, `lt`, `gt`, `le`, `ge`, `ne`; `cmp` 现在叫 `leg`) 用于评估字符串上下文件的操作. 同样 Perl 5 中的所有数值运算符还是存在.
 
@@ -1155,7 +1155,7 @@ perl 6 有一个通用比较符, 叫 "智能匹配" 操作符, 拼写成 `~~`. �
 
 你只需要记住, 任何 "这个 $x 是否合适 $y?" 这种问题都可以使用 Perl 6 的智能匹配.
 
-### [SEE ALSO][125]
+### 另请参阅[125]
 
 [http://perlcabal.org/syn/S03.html#Smart\_matching][126]
 
@@ -1177,7 +1177,7 @@ Wed Oct 15 22:00:00 2008
         say '$x and $y are different names for the same thing'
     }
 
-### [DESCRIPTION][129]
+### 描述[129]
 
 Perl 6 区分不同的容器和值能存到各自的容器中.
 
@@ -1203,7 +1203,7 @@ Perl 6 区分不同的容器和值能存到各自的容器中.
 
 在子函数中的 Exporting 导出和 importing 导入, 这个类型和值都是通过别名. 用于替代 Perl 5 中难以理解的 typeglob 的语法, Perl 6 提供的这个简单多了.
 
-### [SEE ALSO][131]
+### 另请参阅[131]
 
 [http://perlcabal.org/syn/S03.html#Item_assignment_precedence][132]
 
@@ -1215,7 +1215,7 @@ Thu Oct 16 22:00:00 2008
 
 "Perl 5 to 6" Lesson 11 - Changes to Perl 5 Operators 进化了以后的 Perl 5 中的操作符
 
-### [SYNOPSIS][134]
+### 概要[134]
 
     # 位运算符 
     5   +| 3;       # 7
@@ -1241,7 +1241,7 @@ Thu Oct 16 22:00:00 2008
     my $angle = 1.41;
     if 0 <= $angle < 2 * pi { ... }
 
-### [DESCRIPTION][135]
+### 描述[135]
 
 所有的数值运算符 (`+`, `-`, `/`, `*`, `**`, `%`) 保持不变.
 
@@ -1263,7 +1263,7 @@ Thu Oct 16 22:00:00 2008
 
 比较操作之类都是为了使语言更加象自然语言一样. 
 
-### [SEE ALSO][137]
+### 另请参阅[137]
 
 [http://perlcabal.org/syn/S03.html#Changes_to_Perl_5_operators][138]
 
@@ -1275,7 +1275,7 @@ Fri Oct 17 22:00:00 2008
 
 "Perl 5 to 6" Lesson 12 - Laziness
 
-### [SYNOPSIS][140]
+### 概要[140]
 
     my @integers = 0..*;
     for @integers -> $i {
@@ -1290,7 +1290,7 @@ Fri Oct 17 22:00:00 2008
         }
     }
 
-### [DESCRIPTION][141]
+### 描述[141]
 
 对于象列表之类, 在 Perl 6 中都是 lazy 的.
 
@@ -1365,7 +1365,7 @@ Laziness 特性有可能会产生其它副作用 ( 当你尝试和学习过 Hask
 
 在一般的情况下, laziness 特性可以让你写程序更加容易, 因为这是透明的. 就算计算的所有结果都会被使用到, 你也不会失去什么. 如果他不使用, 就根本也不会执行.
 
-### [SEE ALSO][145]
+### 另请参阅[145]
 
 <http://perlcabal.org/syn/S02.html#Lists>
 
@@ -1377,7 +1377,7 @@ Sat Oct 18 22:00:00 2008
 
 "Perl 5 to 6" Lesson 13 - Custom Operators 定制操作符
 
-### [SYNOPSIS][147]
+### 概要[147]
 
     multi sub postfix:<!>(Int $x) {
         my $factorial = 1;
@@ -1387,7 +1387,7 @@ Sat Oct 18 22:00:00 2008
 
     say 5!;                     # 120
 
-### [DESCRIPTION][148]
+### 描述[148]
 
 操作符其实是一个特别的名字的函数, 并且有一些额外的属性, 象优先级和结合性. 在 Perl 6 中通常的操作符的模式是 `term infix term(词语 中缀 词语)`, 词语能选择是前面使用前缀运算符,还是使用后缀或者 postcircumfix 操作符.
 
@@ -1467,7 +1467,7 @@ Circumfix 的调用意味着这有不同的语法  ( 象 `my @list = <a b c>;` )
 
 它也消除使用语言和修改语言之间的差距.
 
-### [SEE ALSO]
+### 另请参阅
 
 [http://perlcabal.org/syn/S06.html#Operator_overloading][155]
 
@@ -1481,7 +1481,7 @@ Sun Oct 19 22:00:00 2008
 
 "Perl 5 to 6" Lesson 14 - The MAIN sub
 
-### [SYNOPSIS][157]
+### 概要[157]
 
   # file doit.pl
 
@@ -1493,7 +1493,7 @@ Sun Oct 19 22:00:00 2008
   # command line
   $ ./doit.pl --force --home=/home/someoneelse file_to_process
 
-### [DESCRIPTION][158]
+### 描述[158]
 
 调用子函数和运行一个类 Unix 的命令行程序从视觉上看, 其实非常相似: 你可以有选项, 可选参数和命名参数.
 
@@ -1524,7 +1524,7 @@ Sun Oct 19 22:00:00 2008
 
 这背后的动机应该是很明显的: 它使简单的事情变得更加容易, 很多时候给命令行代码传参只需要简单的 `MAIN` 函数.
 
-### [SEE ALSO][160]
+### 另请参阅[160]
 
 [http://perlcabal.org/syn/S06.html#Declaring_a_MAIN_subroutine][161] contains the specification.
 
@@ -1536,7 +1536,7 @@ Mon Oct 20 22:00:00 2008
 
 "Perl 5 to 6" Lesson 15 - Twigils 标记
 
-### [SYNOPSIS][163]
+### 概要[163]
 
   class Foo {
       has $.bar;
@@ -1551,7 +1551,7 @@ Mon Oct 20 22:00:00 2008
 
   say "A CGI script" if %\*ENV.exists('DOCUMENT\_ROOT');
 
-### [DESCRIPTION][164]
+### 描述[164]
 
 在 Perl 6 中有些变量有二个标记, 这个叫 _twigil_ 标记. 如果它存在, 意味着这个变量不是 "标准" 的变量, 它和普通的有些不同, 例如, %*ENV 这个中的 *  表示是全局的, 所以有不同的作用域, 因为默认都不是全局的.
 
@@ -1600,7 +1600,7 @@ Wed Nov 26 23:00:00 2008
 
 "Perl 5 to 6" Lesson 16 - Enums 枚举类型
 
-### [SYNOPSIS][167]
+### 概要[167]
 
   enum bit Bool <False True>;
   my $value = $arbitrary_value but True;
@@ -1613,7 +1613,7 @@ Wed Nov 26 23:00:00 2008
       say "Weekend";
   }
 
-### [DESCRIPTION][168]
+### 描述[168]
 
 枚举是通用的. 它是低层次类, 它可以包含常量, 整数和字符串.
 
@@ -1651,7 +1651,7 @@ Enums replace both the "magic" that is involved with tainted variables in Perl 5
 
 Enums also provide the power and flexibility of attaching arbitrary meta data for debugging or tracing.
 
-### [SEE ALSO][170]
+### 另请参阅[170]
 
 <http://perlcabal.org/syn/S12.html#Enumerations>
 
@@ -1663,11 +1663,11 @@ Thu Nov 27 23:00:00 2008
 
 "Perl 5 to 6" Lesson 17 - Perl 6 的 Unicode 字符编程
 
-### [SYNOPSIS][172]
+### 概要[172]
 
   (none)
 
-### [DESCRIPTION][173]
+### 描述[173]
 
 Perl 5 中的 Unicode 模型有个大问题: 它对于二进制和文本是使用的相同的类型. 例如, 你的程序从网络上的 socket 套接字上读取了 512 个字节, 它一定是一个 byte 串. 但是在 Perl 5 中对这个调用  `uc` 时, 就会被当成是文本. 推荐的方式是, 先对这个串进行解码, 但是做为子程序, 你接收一个串做为参数时, 你不能可靠的知道, 这到底是被解码了还是没有. 
 
@@ -1715,7 +1715,7 @@ Perl 6 会是第一个内置对 grapheme 级别的字符进行操作的编程语
 
 对于文本和 byte 字符的数据类型的调试和内省会容易多了.
 
-### [SEE ALSO][177]
+### 另请参阅[177]
 
 <http://perlcabal.org/syn/S32/Str.html>
 
@@ -1727,7 +1727,7 @@ Fri Nov 28 23:00:00 2008
 
 "Perl 5 to 6" Lesson 18 - Scoping  作用域
 
-### [SYNOPSIS][179]
+### 概要[179]
 
     for 1 .. 10 -> $a {
         # $a 在这可用 
@@ -1750,7 +1750,7 @@ Fri Nov 28 23:00:00 2008
     my $x = $y + 2 while $y = calc();
     # $x 这仍然可用 
 
-### [DESCRIPTION][180]
+### 描述[180]
 
 #### [Lexical Scoping][181]
 
@@ -1831,7 +1831,7 @@ Likewise a function can access variables from its caller with the `CALLER` and `
  it.  Future versions of perl might do something different from the
  version of perl you try it out on.  Here be dragons.
 
-### [SEE ALSO][186]
+### 另请参阅[186]
 
 S04 discusses block scoping: <http://perlcabal.org/syn/S04.html>.
 
@@ -1845,7 +1845,7 @@ Sat Nov 29 23:00:00 2008
 
 "Perl 5 to 6" Lesson 19 - Regexes strike back
 
-### [SYNOPSIS][188]
+### 概要[188]
 
     # normal matching:
     if 'abc' ~~ m/../ {
@@ -1862,7 +1862,7 @@ Sat Nov 29 23:00:00 2008
     $x ~~ ss/c d/x y/;
     say $x;                     # abx     yefg
 
-### [DESCRIPTION][189]
+### 描述[189]
 
 Since the basics of regexes are already covered in lesson 07, here are some useful (but not very structured) additional facts about Regexes.
 
@@ -1959,7 +1959,7 @@ Fri Dec 5 23:00:00 2008
 
 "Perl 5 to 6" Lesson 20 - A grammar for (pseudo) XML
 
-### [SYNOPSIS][193]
+### 概要[193]
 
     grammar XML {
         token TOP   { ^ <xml> $ };
@@ -1975,7 +1975,7 @@ Fri Dec 5 23:00:00 2008
         token attributes { \w+ '="' <-["<>]>* '"' };
     };
 
-### [DESCRIPTION][194]
+### 描述[194]
 
 So far the focus of these articles has been the Perl 6 language, independently of what has been implemented so far. To show you that it's not a purely fantasy language, and to demonstrate the power of grammars, this lesson shows the development of a grammar that parses basic XML, and that runs with Rakudo.
 
@@ -2162,7 +2162,7 @@ Have fun hacking.
 
 It's powerful and fun
 
-### [SEE ALSO][199]
+### 另请参阅[199]
 
 Regexes are specified in great detail in S05: <http://perlcabal.org/syn/S05.html>.
 
@@ -2176,7 +2176,7 @@ Sat Dec 6 23:00:00 2008
 
 "Perl 5 to 6" Lesson 21 - Subset Types
 
-### [SYNOPSIS][201]
+### 概要[201]
 
     subset Squares of Int where \{ .sqrt.Int\*\*2 == $\_ \};
 
@@ -2187,7 +2187,7 @@ Sat Dec 6 23:00:00 2008
         return $x.sqrt;
     \}
 
-### [DESCRIPTION][202]
+### 描述[202]
 
 Java programmers tend to think of a type as either a class or an interface (which is something like a crippled class), but that view is too limited for Perl 6. A type is more generally a constraint of what a values a container can constraint. The "classical" constraint is _it is an object of a class `X` or of a class that inherits from `X`_. Perl 6 also has constraints like _the class or the object does role `Y`_, or _this piece of code returns true for our object_. The latter is the most general one, and is called a _subset_ type:
 
@@ -2219,11 +2219,11 @@ Sun Dec 7 23:00:00 2008
 
 "Perl 5 to 6" Lesson 22 - The State of the implementations
 
-### [SYNOPSIS][205]
+### 概要[205]
 
     (none)
 
-### [DESCRIPTION][206]
+### 描述[206]
 
 **Note:** This lesson is long outdated, and preserved for historical interest only. The best way to stay informed about various Perl 6 compilers is to follow the blogs at <http://planetsix.perl.org/>.
 
@@ -2314,7 +2314,7 @@ The second possible answer is that the projects explore different areas of the v
 
 The third answer is that we don't want a single point of failure. If we had just one implementation, and had severe problems with one of them for unforeseeable reasons (technical, legal, personal, ...) we have possible fallbacks.
 
-### [SEE ALSO][215]
+### 另请参阅[215]
 
 Pugs: <http://www.pugscode.org/>, <http://pugs.blogs.com/pugs/2008/07/pugshs-is-back.html>, <http://pugs.blogspot.com>, source: <http://svn.pugscode.org/pugs>.
 
@@ -2336,7 +2336,7 @@ Mon Dec 8 23:00:00 2008
 
 "Perl 5 to 6" Lesson 23 - Quoting and Parsing
 
-### [SYNOPSIS][217]
+### 概要[217]
 
     my @animals = <dog cat tiger>
     # or
@@ -2353,7 +2353,7 @@ Mon Dec 8 23:00:00 2008
     \}
     if();
 
-### [DESCRIPTION][218]
+### 描述[218]
 
 #### [Quoting][219]
 
@@ -2427,7 +2427,7 @@ Various combinations of the quoting modifiers are already used internally, for e
 
 And when you limit the specialty of keywords, you have far less troubles with backwards compatibility if you want to change what you consider a "keyword".
 
-### [SEE ALSO][222]
+### 另请参阅[222]
 
 <http://perlcabal.org/syn/S02.html#Literals>
 
@@ -2439,7 +2439,7 @@ Tue Dec 9 23:00:00 2008
 
 "Perl 5 to 6" Lesson 24 - The Reduction Meta Operator
 
-### [SYNOPSIS][224]
+### 概要[224]
 
     say [+] 1, 2, 3;    # 6
     say [+] ();         # 0
@@ -2494,7 +2494,7 @@ Programmers are lazy, and don't want to write a loop just to apply a binary oper
 
 If you're not convinced, play a bit with it (pugs mostly implements it), it's real fun.
 
-### [SEE ALSO][228]
+### 另请参阅[228]
 
 [http://perlcabal.org/syn/S03.html#Reduction\_operators][229], [http://www.perlmonks.org/?node\_id=716497][230]
 
@@ -2506,7 +2506,7 @@ Tue May 26 22:00:00 2009
 
 "Perl 5 to 6" Lesson 25 - The Cross Meta Operator
 
-### [SYNOPSIS][232]
+### 概要[232]
 
     for <a b> X 1..3 -> $a, $b \{
         print "$a: $b   ";
@@ -2517,7 +2517,7 @@ Tue May 26 22:00:00 2009
     # output: a1\\n a2\\n b1\\n b2\\n c1\\n c2\\n
     # (with real newlines instead of \\n)
 
-### [DESCRIPTION][233]
+### 描述[233]
 
 The cross operator `X` returns the Cartesian product of two or more lists, which means that it returns all possible tuples where the first item is an item of the first list, the second item is an item of second list etc.
 
@@ -2529,7 +2529,7 @@ It's quite common that one has to iterate over all possible combinations of two 
 
 The usage as a meta operator can sometimes eliminate the loops altogether.
 
-### [SEE ALSO][235]
+### 另请参阅[235]
 
 [http://perlcabal.org/syn/S03.html#Cross\_operators][236],
 
@@ -2541,7 +2541,7 @@ Thu Jul 9 09:00:02 2009
 
 "Perl 5 to 6" Lesson 26 - Exceptions and control exceptions
 
-### [SYNOPSIS][238]
+### 概要[238]
 
     try \{
         die "OH NOEZ";
@@ -2551,7 +2551,7 @@ Thu Jul 9 09:00:02 2009
         \}
     \}
 
-### [DESCRIPTION][239]
+### 描述[239]
 
 Exceptions are, contrary to their name, nothing exceptional. In fact they are part of the normal control flow of programs in Perl 6.
 
@@ -2608,7 +2608,7 @@ Thu Jul 22 13:34:26 2010
 
 "Perl 5 to 6" Lesson 27 - Common Perl 6 data processing idioms
 
-### [SYNOPSIS][243]
+### 概要[243]
 
   # create a hash from a list of keys and values:
   # solution 1: slices
@@ -2638,7 +2638,7 @@ Thu Jul 22 13:34:26 2010
   Something.new(required => 2); # no error
   Something.new()               # BOOM
 
-### [DESCRIPTION][244]
+### 描述[244]
 
 Learning the specification of a language is not enough to be productive with it. Rather you need to know how to solve specific problems. Common usage patterns, called _idioms_, helps you not having to re-invent the wheel every time you're faced with a problem.
 
@@ -2724,7 +2724,7 @@ Sun Jul 25 09:17:10 2010
 
 "Perl 5 to 6" Lesson 28 - Currying
 
-### [SYNOPSIS][252]
+### 概要
 
   use v6;
 
@@ -2739,7 +2739,7 @@ Sun Jul 25 09:17:10 2010
       print <R G B>.[$\_ % \*]; # RGBRGBRGBR
   \}
 
-### [DESCRIPTION][253]
+### 描述
 
 _Currying_ or _partial application_ is the process of generating a function from another function or method by providing only some of the arguments. This is useful for saving typing, and when you want to pass a callback to another function.
 
@@ -2802,7 +2802,7 @@ Perl 5 could be used for functional programming, which has been demonstrated in 
 
 Perl 6 strives to make it even easier, and thus provides tools to make typical constructs in functional programming easily available. Currying and easy construction of closures is a key to functional programming, and makes it very easy to write transformation for your data, for example together with `map` or `grep`.
 
-### [SEE ALSO][257]
+### 另请参阅[257]
 
 [http://perlcabal.org/syn/S02.html#Built-In\_Data\_Types][258]
 
