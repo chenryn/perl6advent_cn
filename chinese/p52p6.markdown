@@ -235,7 +235,7 @@ Sat Sep 20 22:40:00 2008
 
 ### [NAME][61]
 
-"Perl 5 to 6" Lesson 02 - Types
+"Perl 5 to 6" Lesson 02 - 类型
 
 ### 概要
 
@@ -243,16 +243,16 @@ Sat Sep 20 22:40:00 2008
     $x = "foo";         # error
     say $x.WHAT;        # 'Int()'
 
-    # check for a type:
+    # 类型检查 
     if $x ~~ Int {
         say '$x contains an Int'
     }
 
-### 描述[63]
+### 描述
 
-Perl 6 有类型. 因为任何东西都是对象, 都有类型. 变量可以有类型的限制, 并他们并不是必需的.
+Perl 6 中有了类型这东西. 在 Perl 6 中任何东西都是对象, 都自己的类型. 变量虽然可以有类型的限制, 并他们并不是必需的.
 
-有一些基本的类型, 你必须知道的:
+有一些基本的常用类型, 你必须知道的:
 
     'a string'      # Str
     2               # Int
@@ -261,18 +261,18 @@ Perl 6 有类型. 因为任何东西都是对象, 都有类型. 变量可以有�
 
 全部 "标准" 的内置类型都是大写字母开头. 全部 "标准" 类型继承 "Any", 所有的类型都继承 `Mu`.
 
-你可以限制变量在你的值的类型, 只要你在声明的时候指定变量类型.
+你可以限制变量存储的值所用的类型, 只要你在声明的时候指定变量类型.
 
     my Numeric $x = 3.4;
     my Int @a = 1, 2, 3;
 
-有一种错误是, 试图给存一个错误的类型的值到一个变量 (ie neither the specified type nor a subtype).
+如果试图给存一个错误的类型的值到变量会提示出错. 
 
 类型的声明也合适于数组的包含的元素内容, 所以 `my Str @s` 是指定这个数组只能包含字符串.
 
 有某些类型可以代表更加具体的类型, 象 integers (type `Int`), rationals (type `Rat`) 和 浮点数 (type `Num`) 这些都是 `Numeric` 类型.
 
-#### [Introspection][64]
+#### 自省 
 
 你可以通过调用 `.WHAT` 方法了解对象的详细类型.
 
@@ -284,23 +284,23 @@ Perl 6 有类型. 因为任何东西都是对象, 都有类型. 变量可以有�
         say 'Variable $x contains an integer';
     }
 
-### [MOTIVATION][65]
+### 动机
 
-这个类型系统是不是很容易了解所有的细节. 为什么我们需要类型, 使用他们也有很多理由:
+这个类型系统让我们很容易了解所有的细节. 为什么我们需要类型, 使用他们也有很多理由:
 
-[Programming safety][66]
+[程序更加安全]
 
-程序安全, 如果你声明了一些东西是特定的类型, 你就可以肯定的在上面执行某些操作, 并不需要检查它是什么.
+如果你声明了一些东西是特定的类型, 你就可以肯定的在上面执行某些操作, 并不需要检查它是什么.
 
-[Optimizability][67]
+[优化]
 
 当你在编译的时候有类型的信息, 可以执行更多的优化,  Perl 6 原则上不一定比 C 慢.
 
-[Extensibility][68]
+[扩展性]
 
 当有类型信息时, 使用 multiple dispatch 时更加容易细化特定的操作.
 
-### 另请参阅[69]
+### 另请参阅
 
 [http://perlcabal.org/syn/S02.html#Built-In_Data_Types][70],
 
@@ -560,7 +560,7 @@ The last example uses the so-called _colon pair syntax_. Leaving off the name re
     frob("x");      # Frobbing String x
     frob(2);        # Frobbing Integer 2
 
-### [MOTIVATION][85]
+### 动机[85]
 
 没有人会怀疑明确的子函数参数的实用性: 少打字, 少重复的参数检查, 更多的安全文档代码. 
 
@@ -824,7 +824,7 @@ Wed Sep 24 22:20:00 2008
     first: b  second: 2
     first: c  second: 3
 
-### [MOTIVATION][101]
+### 动机[101]
 
 更具体的上下文中是一种方法以延迟的设计选择. 例如. 我们要决定在标题上下文时要返回什么清单- 引用的列表需要保留所有的信息, 但在数字比较时没用. 另外,字符串表示形式也对于调试目的更别有用. 但每种选择总是会有人失望的.
 
@@ -982,7 +982,7 @@ grammar 是一系列规则的组, 这很象类 ( 看　SYNOPSIS　中的例子).
         token schema { 'http' }
     }
 
-### [MOTIVATION][112]
+### 动机[112]
 
 Perl 5 的正则表达式常常不太可读, grammars 鼓励你把一个大的正则表达式表示成为更可读的, 短的片段. 命名捕获使规则更加能实现自我文档, 而且很多东西比起以前现在更加一致.
 
@@ -1065,7 +1065,7 @@ Junctions 是叠加的一堆无序的值. 操作 junctions 的时候是对各自
 
 `2 != 3` 是为真, 这 `$a != 2|3` 也是为真. 在其它的时候象 `$a == $b` 比较会返回布尔值 (`True`), 然后在取反为 `False`.
 
-### [MOTIVATION][117]
+### 动机[117]
 
 Perl 的目标是要接近自然语言, 自然语言中你常常会这样讲 "这如这个结果这样或者那样" 而不会讲 "如果这个结果是这样或者这个结果是那样". 很多编程语言都只能使用后者, 感觉有点奇怪. 所以还是 Perl 6 比较好.
 
@@ -1199,7 +1199,7 @@ Perl 6 区分不同的容器和值能存到各自的容器中.
 
 你可以通过 `=:=` 的操作符来比较二个绑定在一起的东西.
 
-### [MOTIVATION][130]
+### 动机[130]
 
 在子函数中的 Exporting 导出和 importing 导入, 这个类型和值都是通过别名. 用于替代 Perl 5 中难以理解的 typeglob 的语法, Perl 6 提供的这个简单多了.
 
@@ -1257,7 +1257,7 @@ Thu Oct 16 22:00:00 2008
 
 比较操作符现在可以做成一串的链, 所以你可以根据你的意思, 写成象 `$a < $b < $c`.
 
-### [MOTIVATION][136]
+### 动机[136]
 
 这些操作符的改变, 主要是为了写出更加好读好看的代码, 比如给最常使用的东西使用比较短的名字( 比如 `.` 现在用于方法调用 ) 和对于比较少使用的操作使用比较长的名字 ( 比如 `~&` 对于子符串进行位操作 );
 
@@ -1356,7 +1356,7 @@ Laziness 特性有可能会产生其它副作用 ( 当你尝试和学习过 Hask
 
     my $ls = lazy { $expansive_computation };
 
-### [MOTIVATION][144]
+### 动机[144]
 
 
 在计算机科学中, 大多数的问题都可以通过定义树来解决, 很常用的一个解决方案是进行高效的算法和有效的搜索, 并且, 构建树其实也是非常有趣的部分.
@@ -1461,7 +1461,7 @@ Circumfix 的调用意味着这有不同的语法  ( 象 `my @list = <a b c>;` )
 
 这也意味着你可以重写看起来是内置对象的特殊对象, 比如  `Str`, `Int` etc.
 
-### [MOTIVATION][153]
+### 动机[153]
 
 允许用户声明新的操作符和 "重载" 现有的用户定义的类型这非常强大. 如果内置的不合适你使用, 你可以使用自己的新的操作符, 无需编译器本身做任何改变.
 
@@ -1520,7 +1520,7 @@ Sun Oct 19 22:00:00 2008
 
 因此, 对于简单的 (和一些不是很简单的) 情况下, 你并不需要一个外部命令行参数的处理程序, 你可以直播使用 `MAIN` 函数实现这一点.
 
-### [MOTIVATION][159]
+### 动机[159]
 
 这背后的动机应该是很明显的: 它使简单的事情变得更加容易, 很多时候给命令行代码传参只需要简单的 `MAIN` 函数.
 
@@ -1584,7 +1584,7 @@ The `^` twigil removes a special case from perl 5. To be able to write
 
 有个伪 twigil 是 `<`, 它是象 `$<capture>` 的一个结构, 这是 `$/<capture>` 的简写, 用于访问正则表达式匹配了对象后的 Match object.
 
-### [MOTIVATION][165]
+### 动机[165]
 
 当你读 Perl 5 中的 `perlvar` 文档的时候, 你可以知道, 这有很多的变量, 很多是全局变量, 会影响你的程序.
 
@@ -1645,7 +1645,7 @@ These constants can act as subtypes, methods or normal values. They can be attac
 
 注意, 你可以指定唯一值的名字象 `Fri`. 如果你不确认你需要提供全名, 象 `Day::Fri`.
 
-### [MOTIVATION][169]
+### 动机[169]
 
 Enums replace both the "magic" that is involved with tainted variables in Perl 5 and the `return "0 but True"` hack (a special case for which no warning is emitted if used as a number). Plus they give a `Bool` type.
 
@@ -1707,7 +1707,7 @@ _logical character_仍然是一个模糊的术语. 为了更加准确的解释 `
 字符类象 `\w` ( 匹配单词字符 ) 会相应的使用 Unicode 标准. 
 Character classes like `\w` (match a word character) behave accordingly to the Unicode standard. There are modifiers that ignore case (`:i`) and accents (`:a`), and modifiers for the substitution operators that can carry case information to the substitution string (`:samecase` and `:sameaccent`, short `:ii`, `:aa`).
 
-### [MOTIVATION][176]
+### 动机[176]
 
 对于大多数编程语言和工具来讲, 能很正确的处理字符是十分困难的. 例如, 在 Perl 5 的 web 应用程序中, 你想使用象 `substr` 来进行字符的切割时, 很有可能它会撕裂整个字符, 变成半个.
 
@@ -1816,7 +1816,7 @@ Perl 6 永远只能查找到词法范围内所限定名称 ( 名称包含变量�
 
 Likewise a function can access variables from its caller with the `CALLER` and `CONTEXT` pseudo packages. The difference is that `CALLER` only accesses the scope of the immediate caller, `CONTEXT` works like UNIX environment variables (and should only be used internally by the compiler for handling `$_`, `$!` and the like). To access variables from the outer dynamic scope they must be declared with `is context`.
 
-### [MOTIVATION][185]
+### 动机[185]
 
 我们知道操作和使用全局变量并不好, 会引起很多问题. 我们目前有很多更加好的作用域的机制来实现, 因此, 全局变量仅用于本质上是全局数据, 象 `%*ENV` 或者 `$*PID`.
 
@@ -2158,7 +2158,7 @@ Playing with grammars is much more fun that reading about playing, so here's wha
 
 Have fun hacking.
 
-### [MOTIVATION][198]
+### 动机[198]
 
 It's powerful and fun
 
@@ -2205,7 +2205,7 @@ You can also use anonymous subtypes in signatures:
     # or with the variable at the front:
     sub foo ($x of Int where \{ ... \} ) \{ ... \}
 
-### [MOTIVATION][203]
+### 动机[203]
 
 Allowing arbitrary type constraints in the form of code allows ultimate extensibility: if you don't like the current type system, you can just roll your own based on subset types.
 
@@ -2302,7 +2302,7 @@ STD.pm lives in the pugs repository, and can be run and tested with perl-5.10.0 
 
 It correctly parses custom operators and warns about non-existent subs, undeclared variables and multiple declarations of the same variable as well as about some Perl 5isms.
 
-### [MOTIVATION][214]
+### 动机[214]
 
 Many people ask why we need so many different implementations, and if it wouldn't be better to focus on one instead.
 
@@ -2421,7 +2421,7 @@ Or just omit the parens altogether:
 
 This implies that Perl 6 has no keywords. Actually there are keywords like `use` or `if`, but they are only special if used in a special syntax.
 
-### [MOTIVATION][221]
+### 动机[221]
 
 Various combinations of the quoting modifiers are already used internally, for example `q:w` to parse `<...>`, and `:regex` for `m/.../`. It makes sense to expose these also to the user, who gains flexibility, and can very easily write macros that provide a shortcut for the exact quoting semantics he wants.
 
@@ -2488,7 +2488,7 @@ Multiple reduction operators can be combined:
 
     [~] [\\\*\*] 1..3;     # "381"
 
-### [MOTIVATION][227]
+### 动机[227]
 
 Programmers are lazy, and don't want to write a loop just to apply a binary operator to all elements of a list. `List.reduce` does something similar, but it's not as terse as the meta operator (`[+] @list` would be `@list.reduce(&infix:<+>)`), and takes care of the associativity of the operator.
 
@@ -2523,7 +2523,7 @@ The cross operator `X` returns the Cartesian product of two or more lists, which
 
 If an operator follows the `X`, then this operator is applied to all tuple items, and the result is returned instead. So `1, 2 X+ 3, 6` will return the values `1+3, 1+6, 2+3, 2+6` (evaluated as `4, 7, 5, 8` of course).
 
-### [MOTIVATION][234]
+### 动机[234]
 
 It's quite common that one has to iterate over all possible combinations of two or more lists, and the cross operator can condense that into a single iteration, thus simplifying programs and using up one less indentation level.
 
@@ -2594,7 +2594,7 @@ In this example the `hyper` operator tells `map` to parallelize its actions as f
 
 If you don't like soft exceptions, you say `use fatal;` at the start of the program and cause all exceptions from `fail()` to be thrown immediately.
 
-### [MOTIVATION][241]
+### 动机[241]
 
 A good programming language needs exceptions to handle error conditions. Always checking return values for success is a plague and easily forgotten.
 
@@ -2712,7 +2712,7 @@ That works in Perl 6 too, but it's easier and safer to require the presence at t
 
 This exploits the default value mechanism. When a value is supplied, the code for generating the default value is never executed, and the `die` never triggers. If any constructor fails to set it, an exception is thrown.
 
-### [MOTIVATION][250]
+### 动机[250]
 
 N/A
 
@@ -2796,7 +2796,7 @@ The invocant of a method call can also be Whatever star, so
 
 involves a closure that calls the `uc` method on its argument.
 
-### [MOTIVATION][256]
+### 动机[256]
 
 Perl 5 could be used for functional programming, which has been demonstrated in Mark Jason Dominus' book _Higher Order Perl_.
 
