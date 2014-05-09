@@ -310,19 +310,19 @@ Sat Sep 20 23:00:00 2008
 
 ### [NAME][71]
 
-"Perl 5 to 6" Lesson 03 - Basic Control Structures
+"Perl 5 to 6" Lesson 03 - 基本的控制结构 
 
-### 概要[72]
+### 概要
 
     if $percent > 100  {
         say "weird mathematics";
     }
     for 1..3 {
-        # using $_ as loop variable
+        # 在循环中使用 $_
         say 2 * $_;
     }
     for 1..3 -> $x {
-        # with explicit loop variable
+        # 有明确的循环变量
         say 2 * $x;
     }
 
@@ -332,13 +332,13 @@ Sat Sep 20 23:00:00 2008
 
     die "Access denied" unless $password eq "Secret";
 
-### 描述[73]
+### 描述
 
-大多数的 Perl 5 的控制结构和 Perl 6 是颇为相似，最大的视觉差异的是，你在使用 `if`, `while`, `for` 之类不后需要一对括号.
+大多 Perl 5 的控制结构和 Perl 6 颇为相似, 如果从视觉差异上来讲, 你可以见到在使用 `if`, `while`, `for` 之类不后需要一对括号.
 
-为什么, 当任何标识符后面紧跟着(无空格)一个左括号时很容易被解析成子程序调用. 所以  `if($x < 3)` 很容易变成调用 `if` 函数. 所以这样更加安全, 还不需要写括号.
+为什么没有括号了, 当任何标识符后面紧跟着 (无空格) 左括号时很容易被解析成子程序调用. 所以  `if($x < 3)` 很容易理解变成调用 `if` 函数的调用. 所以这样更加安全, 还不需要写括号.
 
-#### [Branches][74]
+#### 分支控制 
 
 `if` 功能大部分没在变化, 仍然可以添加  `elsif` 和 `else` 分支. `unless` 仍然存在，但是在 `unless` 之后没有了 `else` 分支.
 
@@ -351,13 +351,13 @@ Sat Sep 20 23:00:00 2008
         say "A herd, how lovely!";
     }
 
-你现在还是可以使用 `if` 和 `unless` 做语句修饰, 即后声明.
+你现在还是可以使用 `if` 和 `unless` 做语句修饰, 即后声明方式来使用.
 
     say "you won" if $answer == 42;
 
-#### [Loops][75]
+#### 循环 
 
-你可以控制循环通过  `next` 和 `last` 就象 Perl 5 一样.
+你可以通过  `next` 和 `last` 来控制循环就象 Perl 5 一样.
 
 在这 `for` 循环现在只用于遍历列表. 默认是操作 `$_` 变量, 除非显式的指出变量名.
 
@@ -365,7 +365,7 @@ Sat Sep 20 23:00:00 2008
         say $x;
     }
 
-在这的 `-> $x { ... }`  是叫做  "pointy block" 这就象一个匿名的 sub or lisp 中的 lambda 操作.
+在这的 `-> $x { ... }`  是叫做  "pointy block" 这就象一个匿名的子函数或者 lisp 中的 lambda 操作.
 
 你也可以使用一个以上的循环变量:
 
@@ -380,15 +380,15 @@ Sat Sep 20 23:00:00 2008
         say "$key: $value";
     }
 
-这个 C-style 的 for 循环现在叫做 `loop` (这是唯一需要括号的循环结构):
+这个 C-style 的 for 循环现在叫做 `loop` ( 这是唯一需要括号的循环结构 ):
 
     loop (my $x = 2; $x < 100; $x = $x**2) {
         say $x;
     }
 
-### 另请参阅[76]
+### 另请参阅
 
-[http://perlcabal.org/syn/S04.html#Conditional_statements][77]
+[http://perlcabal.org/syn/S04.html#Conditional_statements]
 
 ## Subroutines and Signatures
 
