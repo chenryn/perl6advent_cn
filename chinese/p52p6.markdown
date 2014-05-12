@@ -394,80 +394,80 @@ Sat Sep 20 23:00:00 2008
 
 Sat Sep 20 23:20:00 2008
 
-### [NAME][78]
+### NAME
 
 "Perl 5 to 6" Lesson 04 - Subroutines and Signatures
 
-### 概要[79]
+### 概要
 
-    # sub without a signature - perl 5 like
-    sub print\_arguments \{
+    # Perl 5 中传参的方式
+    sub print_arguments {
         say "Arguments:";
-        for @\_ \{
-            say "\\t$\_";
-        \}
-    \}
+        for @_ {
+            say "\t$_";
+        }
+    }
 
-    # Signature with fixed arity and type:
-    sub distance(Int $x1, Int $y1, Int $x2, Int $y2) \{
-        return sqrt ($x2-$x1)\*\*2 + ($y2-$y1)\*\*2;
-    \}
+    # 参数在这个地方使用固定的位置和指定的类型:
+    sub distance(Int $x1, Int $y1, Int $x2, Int $y2) {
+        return sqrt ($x2-$x1)**2 + ($y2-$y1)**2;
+    }
     say distance(3, 5, 0, 1);
 
     # 默认参数 
-    sub logarithm($num, $base = 2.7183) \{
+    sub logarithm($num, $base = 2.7183) {
         return log($num) / log($base)
-    \}
-    say logarithm(4);       # uses default second argument
-    say logarithm(4, 2);    # explicit second argument
+    }
+    say logarithm(4);       # 这会给第二个参数使用默认的值
+    say logarithm(4, 2);    # 明确的指名第二个参数 
 
     # 命名参数
 
-    sub doit(:$when, :$what) \{
+    sub doit(:$when, :$what) {
         say "doing $what at $when";
-    \}
+    }
     doit(what => 'stuff', when => 'once');  # 'doing stuff at once'
     doit(:when<noon>, :what('more stuff')); # 'doing more stuff at noon'
     # illegal: doit("stuff", "now")
 
 ### 描述[80]
 
-子函数是使用  `sub` 关键字来声明, 并且有形式参数列表, 就象 C, Java 和一些其它的语言. 这些参数的类型约束是可选的.
+子函数是使用  `sub` 关键字来声明, 并且有形式参数列表, 就象 C, Java 和一些其它的语言. 这些参数有可选的类型约束.
 
-参数默认是只读的. 可通过 "traits" 来改变.
+参数默认是只读的. 可通过 "traits" 来修改成可以读写.
 
-    sub try-to-reset($bar) \{
+    sub try-to-reset($bar) {
         $bar = 2;       # 禁止修改参数
-    \}
+    }
 
     my $x = 2;
-    sub reset($bar is rw) \{
+    sub reset($bar is rw) {
         $bar = 0;         # 可以修改
-    \}
+    }
     reset($x); say $x;    # 0
 
-    sub quox($bar is copy)\{
+    sub quox($bar is copy){
         $bar = 3;
-    \}
+    }
     quox($x); say $x    # still 0
 
 参数可以在后面增加一个问号来标记是否可选.
 
-    sub foo($x, $y?) \{
-        if $y.defined \{
+    sub foo($x, $y?) {
+        if $y.defined {
             say "Second parameter was supplied and defined";
-        \}
-    \}
+        }
+    }
 
-    sub bar($x, $y = 2 \* $x) \{
+    sub bar($x, $y = 2 * $x) {
         ...
-    \}
+    }
 
-#### [Named Parameters][81]
+#### 命名参数 
 
-当你调用子函数是这样的: `my_sub($first, $second)` 这个 `$first` 参数会绑定到第一个正式的参数, `$second` 会传递给第二个参数..等等, 这就是所谓的位置 "positional".
+当你象这样调用子函数: `my_sub($first, $second)`. 在这的这个 `$first` 参数会绑定到第一个正式的参数, `$second` 会传递给第二个参数..等等, 这就是所谓的位置 "positional".
 
-有时, 我们希望使用更加容易记住的名字, 而不是数字. 变是为什么使用命名参数:
+有时, 我们希望使用更加容易记住的名字, 而不是数字之类. 这是为什么使用命名参数的原因:
 
     my $r = Rectangle.new(
             x       => 100,
@@ -485,32 +485,33 @@ Sat Sep 20 23:20:00 2008
         return $width * $height;
     }
     area(width => 2,  height => 3);
-    area(height => 3, width => 2 ); # the same
-    area(:height(3), :width(2));    # the same
+    area(height => 3, width => 2 ); # 同上 
+    area(:height(3), :width(2));    # 同上
 
-The last example uses the so-called _colon pair syntax_. Leaving off the name results in the value being `True`, and negating it results in the value being `False`:
+这最后一个例子使用的是叫  _colon pair syntax_ 的语法. 当给使用 `:draw-perimeter` 给其赋布尔值的时候, 你什么都不写默认是 `True`, 当想给一个参数赋值为布尔类型的 `FALSE` 的时候，也不需要写明 `0`，而是用以下格式`:!transparent` 
+
 
     :draw-perimeter                 # same as "draw-perimeter => True"
     :!transparent                   # same as "transparent => False"
 
-在命名参数的声明, 变量名也被用来作为参数的名称. 您可以使用不同的名称:
+在命名参数的声明, 变量也被用来作为参数. 您可以使用不同的名称:
 
     sub area(:width($w), :height($h)) {
         return $w * $h;
     }
     area(width => 2,  height => 3);
 
-#### [Slurpy Parameters][82]
+#### Slurpy 参数 
 
-你给你的 sub 参数的时候, 有时你并不知道所有的参数个数. 你可以定义一种称作 _slurpy_ 参数来使用任何剩余个数的参数:
+你给你的 sub 参数的时候, 有时你并不知道所有的参数个数. 你可以定义一种称作 _slurpy_ 参数来提交任何所剩余的参数:
 
     sub tail ($first, *@rest){
         say "First: $first";
         say "Rest: @rest[]";
     }
-    tail(1, 2, 3, 4);           # "First: 1\\nRest: 2 3 4\\n"
+    tail(1, 2, 3, 4);           # "First: 1\nRest: 2 3 4\n"
 
-对于哈希, 命名的 slurpy 参数定义是使用前端有 * 号的哈希参数:
+对于哈希, 命名的 slurpy 参数定义是使用有 * 号前缀的哈希参数:
 
     sub order-meal($name, *%extras) {
         say "I'd like some $name, but with a few modifications:";
@@ -519,7 +520,7 @@ The last example uses the so-called _colon pair syntax_. Leaving off the name re
 
     order-meal('beef steak', :vegetarian, :well-done);
 
-#### [Interpolation][83]
+#### Interpolation
 
 默认数组是不能插入到参数的列表中. 所以这不同于 Perl 5 的写法.
 
@@ -535,13 +536,13 @@ The last example uses the so-called _colon pair syntax_. Leaving off the name re
     my @indexes = 1, 4;
     say "abc".substr(@indexes)       # 不能实现你想做的 
 
-(实际的情况是, 第一个参数需要是一个 `Int`, 并且被强制转换成 Int, 所以你可以写成 `"abc."substr(@indexes.elems)` 来放在第一位).
+( 实际的情况是, 这的第一个参数需要是一个 `Int`, 需要被强制转换成 Int, 所以你可以写成 `"abc."substr(@indexes.elems)` 来放在第一位 ).
 
 当然, 你也可以使用前缀 `|` 来完成所需的行为
 
     say "abcdefgh".substr(|@indexes) #  结果 bcde, 等同于 "abcdefgh".substr(1, 4)
 
-#### [Multi Subs][84]
+#### Multi Subs
 
 实际上, 你其实可以定义多个 sub 来使用相同的名字, 但接收不同的参数列表:
 
@@ -552,7 +553,7 @@ The last example uses the so-called _colon pair syntax_. Leaving off the name re
 
 现在, 当你调用这个 sub 时, 所述的参数会有一个匹配上并选择使用的.
 
-这个 multis 并不只是可以工作在参数数量不等的情况上, 也可以工作在不同的参数类型的时候:
+这个 multis 并不只是可以工作在参数数量不等的情况上, 也可以用于在不同的参数类型的时候:
 
     multi sub frob(Str $s) { say "Frobbing String $s"  }
     multi sub frob(Int $i) { say "Frobbing Integer $i" }
@@ -566,9 +567,9 @@ The last example uses the so-called _colon pair syntax_. Leaving off the name re
 
 这些功能还有益于自省. 例如, 当传递给一个块或者子函数使用 `Array.sort`, 并且这段代码预期只有一个参数, 完成 Schwartzian 转换( 见 [http://en.wikipedia.org/wiki/Schwartzian_transform][86] ) 是自动的 - 这些功能在 Perl 5 中不太可能, 由于少了明确的参数, 意味着排序代码块永远不知道有多少个参数.
 
-Multi subs 这个功能也非常有用, 因为它可以使用新类型来覆盖内建命令. 假设你想有一个版本的 Perl6 是本地化上来正确处理土耳其字符串，这对大小写转换是使用的不同寻常的规则时非常好用.
+Multi subs 这个功能也非常有用, 因为它可以使用新类型来覆盖内建命令. 比如, 你想有一个版本的 Perl6 是本地化上来正确处理土耳其字符串，这对大小写转换是使用的不同寻常的规则时非常好用.
 
-而不是修改语言本身. 你只需要加入一个新的 `TurkishStr`, 并为原生的函数加入一个 multi subs:
+这时, 不需要修改语言本身. 你只需要加入一个新的 `TurkishStr`, 并为原生的函数加入一个 multi subs:
 
     multi uc(TurkishStr $s) { ... }
 
@@ -576,7 +577,7 @@ Multi subs 这个功能也非常有用, 因为它可以使用新类型来覆盖�
 
 由于操作也可以使用 subs, 所以这些改进操作是可以正常工作的.
 
-### 另请参阅[87]
+### 另请参阅
 
 <http://perlcabal.org/syn/S06.html>
 
@@ -613,30 +614,29 @@ Tue Sep 23 22:20:00 2008
     say $x.colour;              # black
     $x.colour = 'blue';
 
-### 描述[90]
+### 描述
 
-Perl 6 比起 Perl 5 更加好的地方在于对象模型. 它有可以通过关键字创建类, 角色, 属性和方法, 并可以封装私有属性和方法. 事实上, 这个很象 Perl 5 中的 `Moose`( 这东西的灵感来自 Perl 6 的对象系统).
+Perl 6 比起 Perl 5 更加好的地方在于强大完整的对象模型. 它有可以通过关键字创建类, 角色, 属性和方法, 并可以封装私有属性和方法. 事实上, 这个很象 Perl 5 中的 `Moose`( 这东西的灵感来自 Perl 6 的对象系统).
 
 有两种方法来声明类
 
     class ClassName;
     # 类定义放在这里 
 
-第一个是文件一开始就有一个 `class ClassName;` 并一直延伸到文件的末尾. 第二种方法是类名后跟一个块, 块中所有的都被认为是当前类的定义.
+第一个方法是文件一开始就有一个 `class ClassName;` 并一直延伸到文件的末尾. 第二种方法是类名后跟一个块, 块中所有的内容都被认为是当前类的定义.
 
     class YourClass {
         # 类定义放在这里 
     }
     # 更多的类和其它的代码
 
-#### [Methods][91]
+#### 方法 Methods
 
 方法定义是使用 `method` 关键字. 在方法内部可以使用 `self` 来指向对象本身.
-Methods are declared with the `method` keyword. Inside the method you can use the term `self` to refer to the object on which the method is called (the _invocant_).
 
 你也可以通过参数来给调用者一个不同的名字. 并附加一个冒号 `:` 来给它.
 
-Public 的公有方法可以通过语法 `$object.method` 来调用, 有参数的话,可以使用 `$object.method(@args)` 或者 `$object.method: @args`  来调用.
+Public 公有方法可以通过语法 `$object.method` 来调用, 有参数的话,可以使用 `$object.method(@args)` 或者 `$object.method: @args`  来调用.
 
     class SomeClass {
         # these two methods do nothing but return the invocant
@@ -650,9 +650,9 @@ Public 的公有方法可以通过语法 `$object.method` 来调用, 有参数�
     my SomeClass $x .= new;
     $x.foo.bar                      # same as $x
 
-(这个 `my SomeClass $x .= new` 其实是 `my SomeClass $x = SomeClass.new` 的简写. 这之所以正常工作是因为, 这是一个类型声明, 声明这个变量的类型是一个 `SomeClass` 的 "typo object", 这个类型对象就表示类的对象)
+( 这个 `my SomeClass $x .= new` 其实是 `my SomeClass $x = SomeClass.new` 的简写. 这之所以正常工作是因为, 这同时也是类型声明, 声明这个变量的类型是一个 `SomeClass` 的 "typo object", 这个类型对象就表示类的对象)
 
-方法可以象子函数一样接收参数.
+对象中的方法可以象子函数一样接收参数.
 
 Private 的私有方法可以通过 `method !methodname` 的方式来声明, 调用通过  `self!method_name`.
 
@@ -668,10 +668,10 @@ Private 的私有方法可以通过 `method !methodname` 的方式来声明, 调
 
 私有的方法并不能从类的外面调用.
 
-#### [Attributes][92]
+#### 属性 Attributes
 
-属性声明通过 `has` 关键字, 有个 "twigil" 的功能, 这是在特别符号之后有些特定的字符串. 对于私有属性, 这是一个 `!`, 对于公有属性, 这是使用 `.`. 
-公共属性实际上是有公有的访问权限的私有属性. 所以, 它不能修改, 如果你想修改时, 就需要使用 `!` 来访问实际的属性而不是使用存取器(除非它被标记为 `is rw`).
+属性声明通过 `has` 关键字, 有个 "twigil" 的功能 ( 单词前有二个符号, 第二个符号在 Perl 6 中叫 twigil 有特定的意义 ). 对于私有属性, 这是使用的 `!` 符号, 对于公有属性, 这是使用 `.`. 
+公共属性实际上是有公有的访问权限的私有属性. 所以, 它不能修改, 如果你想修改时, 就需要使用 `!` 来访问实际的属性而不是使用存取器 ( 除非它被标记为 `is rw` ).
 
     class SomeClass {
         has $!a;
@@ -679,13 +679,13 @@ Private 的私有方法可以通过 `method !methodname` 的方式来声明, 调
         has $.c is rw;
 
         method set_stuff {
-            $!a = 1;    # ok, writing to attribute from within the clas
-            $!b = 2;    # same
-            $.b = 3;    # ERROR, can't write to ro-accessor
+            $!a = 1;    # ok, 这时才能写入类的属性
+            $!b = 2;    # 同上
+            $.b = 3;    # ERROR, 不能写, 因为这是私有只读的属性 
         }
 
         method do_stuff {
-            # you can use the private name instead of the public one
+            # 你可以使用私有的名字来替换掉公有的那个名字
             # $!b and $.b are really the same thing
             return $!a + $!b + $!c;
         }
@@ -696,7 +696,7 @@ Private 的私有方法可以通过 `method !methodname` 的方式来声明, 调
     $x.b = 2;       # ERROR!
     $x.c = 3;       # ok
 
-#### [Inheritance][93]
+#### 继承 Inheritance
 
 继承是通过 `is` 这个关键字.
 
@@ -705,7 +705,7 @@ Private 的私有方法可以通过 `method !methodname` 的方式来声明, 调
         ...
     }
 
-所有常用的继承规则 - 方法会先直接检查自己的类型, 如果失败, 操作父类（递归）.同样的, 一个子类的类型是否符合父类:
+根据常用的继承规则 - 方法会先直接检查自己的类型, 如果失败, 操作父类 ( 递归 ). 同样的, 一个子类的类型是否符合父类:
 
         class Bar { }
         class Foo is Bar { }
@@ -719,12 +719,11 @@ Private 的私有方法可以通过 `method !methodname` 的方式来声明, 调
         ...
     }
 
-尽管多重继承会附加很多问题, 人们通常会建议反对这么使用. 角色往往是一个更安全的选择.
+尽管多重继承会附加很多问题, 人们通常会建议反对这么使用. 所以角色往往是一个更安全的选择.
 
-#### [Roles and Composition][94]
+#### 角色 Roles 
 
-现实的世界是不分层, 所以有时很难给一切都使用层次结构继承. 这也是为什么 Perl 6 中有角色的原因之一. 角色和类十分类似, 除了你不能由角色直接创建对象, 也不能使用相同的名字组成. 
-In general the world isn't hierarchical, and thus sometimes it's hard to press everything into an inheritance hierarchy. Which is one of the reasons why Perl 6 has Roles. Roles are quite similar to classes, except you can't create objects directly from them, and that composition of multiple roles with the same method names generate conflicts, instead of silently resolving to one of them, like multiple inheritance does.
+现实的世界是不分层, 所以有时很难给一切都使用层次结构继承. 这也是为什么 Perl 6 中有角色的原因之一. 角色和类十分类似, 除了你不能由角色直接创建对象, 也不能使用相同的名字组成. 相同方法名的角色会互相混淆发生冲突, 但类就不会, 因为类是包含有继承关系的, 可以很好的解决这种命名冲突.
 
 虽然类主要针对的是类型一致性, 但角色才是在 Perl6 的代码重用的主要手段。
 
@@ -751,9 +750,12 @@ In general the world isn't hierarchical, and thus sometimes it's hard to press e
 
     Rectangle.new(width => 8, height => 3).paint;
 
-### 另请参阅[95]
+### 另请参阅
 
-<http://perlcabal.org/syn/S12.html> <http://perlcabal.org/syn/S14.html> <http://www.jnthn.net/papers/2009-yapc-eu-roles-slides.pdf> [http://en.wikipedia.org/wiki/Perl\_6#Roles][96]
+<http://perlcabal.org/syn/S12.html> 
+<http://perlcabal.org/syn/S14.html>
+<http://www.jnthn.net/papers/2009-yapc-eu-roles-slides.pdf> 
+[http://en.wikipedia.org/wiki/Perl_6#Roles]
 
 ## Contexts
 
@@ -878,6 +880,8 @@ Thu Sep 25 22:20:00 2008
 
 ### 描述[105]
 
+译者注: 不同于传统的正则表达式, Perl 6 不需要你记住的元字符的列表. 它通过一个简单的规则进行分类字符. 比如扩展的元语法 metasyntax 形式是 ( <...> ) 这样包含着字符. 比如 <.ws> 是尖括号包着 .ws 表示匹配空格. 其中的 . 表示不要捕获到正则的变量名 $<ws> 中.
+
 正则表达式已经大量改良和革新, 是 Perl 6 改进之一. 我们不叫它 _regular expressions_ 了. 因为它比起 Perl 5 更加不正规.
 
 正则表达式有三个大的更改和改进
@@ -895,6 +899,7 @@ Thu Sep 25 22:20:00 2008
 所有匹配变量是别名为 `$/`，也就是所谓的 _Match object_, 它实际上是一个包含了完整的匹配树型结构的对象。
 
 [Named regexes and grammars][108]
+
 
 你可以定义你正则表达式的名字, 就象在 subs 和方法中. 你可以通过 `<name>` 来在其它地方使用这个. 你可以给多个正则表达式做成 grammars, 这就象类和支持继承和组合.
 
@@ -934,7 +939,7 @@ Not all metasyntactic tokens have a meaning (yet). It is illegal to use those wi
     :i      :ignorecase     ignore case (formerly /i)
     :m      :ignoremark     ignore marks (accents, diaeresis etc.)
     :g      :global         match as often as possible (/g)
-    :s      :sigspace       Every white space in the regex matches 正则表达式匹配所有空格
+    :s      :sigspace       Every white space in the regex matches 正则表达式匹配所有空格, significant 
                             (optional) white space
     :P5     :Perl5          Fall back to Perl 5 compatible regex syntax
     :4x     :x(4)           Match four times (works for other numbers as well)
@@ -943,7 +948,7 @@ Not all metasyntactic tokens have a meaning (yet). It is illegal to use those wi
     :ex     :exhaustive     Match in all possible ways
             :ratchet        Don't backtrack
 
-这的　`:sigspace` 需要更多的解释. 它通过　`<.ws>`　替换了模式中的空格　 (that is it calls the rule `ws` without keeping its result).　你可以覆盖该规则.
+这的　`:sigspace` 需要花些时间来解释. 它通过 ru　`<.ws>`　替换了模式中的空格　 (that is it calls the rule `ws` without keeping its result).　你可以覆盖该规则.
 
 默认会匹配单词字符前后所包含的一个或者多个空格.
 
@@ -1065,7 +1070,7 @@ Junctions 是叠加的一堆无序的值. 操作 junctions 的时候是对各自
 
 `2 != 3` 是为真, 这 `$a != 2|3` 也是为真. 在其它的时候象 `$a == $b` 比较会返回布尔值 (`True`), 然后在取反为 `False`.
 
-### 动机[117]
+### 动机
 
 Perl 的目标是要接近自然语言, 自然语言中你常常会这样讲 "这如这个结果这样或者那样" 而不会讲 "如果这个结果是这样或者这个结果是那样". 很多编程语言都只能使用后者, 感觉有点奇怪. 所以还是 Perl 6 比较好.
 
@@ -1864,13 +1869,13 @@ Sat Nov 29 23:00:00 2008
 
 ### 描述[189]
 
-Since the basics of regexes are already covered in lesson 07, here are some useful (but not very structured) additional facts about Regexes.
+由于正则表达式的基本知识都已经涵盖在 lesson 07, 这里有关于正则表达式一些有用的 ( 但不是很有条理 ) 补充.
 
 #### [Matching][190]
 
-You don't need to write grammars to match regexes, the traditional form `m/.../` still works, and has a new brother, the `mm/.../` form, which implies the `:sigspace` modifier. Remember, that means that whitespaces in the regex are substituted by the `<.ws>` rule.
+匹配正则表达式时你并不需要编写 grammars, 传统的 `m/.../` 现在还是可以接着使用的, 并且还多了个新的兄弟使法, 就是使用 `mm/.../`, 这是隐含的是使用了 `:sigspace` 修饰符. 记住, 这意味着空格在正则表达式中由 `<.ws>` 规则代替的.
 
-The default for the rule is to match `\s+` if it is surrounded by two word-characters (ie those matching those `\w`), and `\s*` otherwise.
+`<.ws>` 是指, 如果在单词的中间有空格, 默认的规则是匹配 `\s+`, 其它的时候匹配 `\s*`.
 
 In substitutions the `:samespace` modifier takes care that whitespaces matched with the `ws` rule are preserved. Likewise the `:samecase` modifier, short `:ii` (since it's a variant of `:i`) preserve case.
 
