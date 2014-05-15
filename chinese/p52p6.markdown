@@ -1893,17 +1893,16 @@ Sat Nov 29 23:00:00 2008
     $x ~~ s :s :ii /brown.\*/perl 6 developer/;
     # $x is now 'The Quick Perl 6 Developer'
 
-#### [Alternations][191]
+#### Alternations 或匹配
 
-Alternations are still formed with the single bar `|`, but it means something else than in Perl 5. Instead of sequentially matching the alternatives and taking the first match, it now matches all alternatives in parallel, and takes the longest one.
-
+匹配多个条件交替 `|`, 但它和 Perl 5 比起来还是有些不同. 这个并不是按顺序匹配第一个, 它现在在正则中并行的去匹配, 并取匹配到的最长的一个.
 
     'aaaa' ~~ m/ a | aaa | aa /;
     say $/                          # aaa
 
-While this might seem like a trivial change, it has far reaching consequences, and is crucial for extensible grammars. Since Perl 6 is parsed using a Perl 6 grammar, it is responsible for the fact that in `++$a` the `++` is parsed as a single token, not as two `prefix:<+>` tokens.
+虽然这可能看起来像一个微不足道的变化, 它影响深远, 并且这对于 grammars 的可扩展性是至关重要的的. 自从 Perl 使用 grammar 来进行解析, 它对于象 `++$a` 这种会解析成单个 `++` 的标记, 不然会解析成二个 `prefix:<+>` 的标记.
 
-The old, sequential style is still available with `||`:
+对于旧的方式, 顺序匹配第一个找到的可以使用 `||`:
 
     grammar Math::Expression {
         token value {
@@ -1916,55 +1915,54 @@ The old, sequential style is still available with `||`:
         ...
     }
 
-The `{ ... }` execute a closure, and calling `fail` in that closure makes the expression fail. That branch is guaranteed to be executed only if the previous (here the `')'`) fails, so it can be used to emit useful error messages while parsing.
+这的 `{ ... }` 是执行的一个闭包, 并且它在表达式失败时调用闭包中的 `fail` 函数. 这个分支语句用于当前面的 `')'` 没找到时才执行, 所以可以使用它来做正则解析错误的提示.
 
-There are other ways to write alternations, for example if you "interpolate" an array, it will match as an alternation of its values:
+还有其它的方法来做或者的条件, 例如你想给一个数组做 "插值", 这时会使用或者的方式匹配它的值:
 
     $_ = '12 oranges';
     my @fruits = <apple orange banana kiwi>;
     if m:i:s/ (\d+) (@fruits)s? / {
-        say "You've got $0 $1s, I've got \{ $0 + 2 \} of them. You lost.";
+        say "You've got $0 $1s, I've got { $0 + 2 } of them. You lost.";
     }
-
-There is yet another construct that automatically matches the longest alternation: multi regexes. They can be either written as `multi token name` or with a `proto`:
+这还有另一种结构来自动匹配最长的或者条件: multi regexes. 这可以写 `multi token name` 或者 `proto`:
 
     grammar Perl {
         ...
-        proto token sigil { \* }
+        proto token sigil { * }
         token sigil:sym<$> { <sym> }
         token sigil:sym<@> { <sym> }
         token sigil:sym<%> { <sym> }
         ...
 
-       token variable \{ <sigil> <twigil>? <identifier> \}
+       token variable { <sigil> <twigil>? <identifier> }
    }
 
-This example shows multiple tokens called `sigil`, which are parameterized by `sym`. When the short name, ie `sigil` is used, all of these tokens are matched in an alternation. You may think that this is a very inconvenient way to write an alternation, but it has a huge advantage over writing `'$'|'@'|'%'`: it is easily extensible:
+这个例子中的 multiple tokens 叫做 `sigil`, 会给 `sym` 做参数化. 当使用这个短名称, 如 `sigil` 时, 所有的这个标记会去找或者的条件. 你可能认为这个方式来写或者条件的匹配非常麻烦. 但它有个巨大的优势就是可以写 `'$'|'@'|'%'`: 这是非常容易扩展的:
 
     grammar AddASigil is Perl {
         token sigil:sym<!> { <sym> }
     }
     # wow, we have a Perl 6 grammar with an additional sigil!
 
-Likewise you can override existing alternatives:
+你也可以覆盖现有的规则:
 
-    grammar WeirdSigil is Perl \{
-        token sigil:sym<$> \{ '°' \}
-    \}
+    grammar WeirdSigil is Perl {
+        token sigil:sym<$> { '°' }
+    }
 
-In this grammar the sigil for scalar variables is `°`, so whenever the grammar looks for a sigil it searches for a `°` instead of a `$`, but the compiler will still know that it was the regex `sigil:sym<$>` that matched it.
+在这个 grammar 中的 sigil 是一个标量变量 `°`, 所以每当 grammar 找到一个 sigil 它会查找 `°` 而不是 `$`, 但编译器会知道你是使用了正则 `sigil:sym<$>` 来匹配.
 
-In the next lesson you'll see the development of a real, working grammar with Rakudo.
+接下来你的课程, 给你看一个真实的实例, 这个例子在 Rakudo 是可以正常工作的.
 
 ## A grammar for (pseudo) XML
 
 Fri Dec 5 23:00:00 2008
 
-### [NAME][192]
+### NAME
 
 "Perl 5 to 6" Lesson 20 - A grammar for (pseudo) XML
 
-### 概要[193]
+### 概要
 
     grammar XML {
         token TOP   { ^ <xml> $ };
@@ -1979,6 +1977,7 @@ Fri Dec 5 23:00:00 2008
         };
         token attributes { \w+ '="' <-["<>]>* '"' };
     };
+
 
 ### 描述[194]
 
@@ -2007,16 +2006,16 @@ For our purposes XML is quite simple: it consists of plain text and nested tags 
     );
 
     my $count = 1;
-    for @tests -> $t \{
+    for @tests -> $t {
         my $s = $t[1];
         my $M = XML.parse($s);
-        if !($M  xor $t[0]) \{
+        if !($M  xor $t[0]) {
             say "ok $count - '$s'";
-        \} else \{
+        } else {
             say "not ok $count - '$s'";
-        \}
+        }
         $count++;
-    \}
+    }
 
 This is a list of both "good" and "bad" XML, and a small test script that runs these tests by calling `XML.parse($string)`. By convention the rule that matches what the grammar should match is named `TOP`.
 
@@ -2026,13 +2025,13 @@ This is a list of both "good" and "bad" XML, and a small test script that runs t
 
 The essence of XML is surely the nesting of tags, so we'll focus on the second test first. Place this at the top of the test script:
 
-    grammar XML \{
-        token TOP   \{ ^ <tag> $ \}
-        token tag   \{
-            '<' (\\w+) '>'
+    grammar XML {
+        token TOP   { ^ <tag> $ }
+        token tag   {
+            '<' (\w+) '>'
             '</' $0   '>'
-        \}
-    \};
+        }
+    };
 
 Now run the script:
 
@@ -2055,15 +2054,15 @@ So this simple rule parses one pair of start tag and end tag, and correctly reje
 
 The first test should be easy to pass as well, so let's try this:
 
-   grammar XML \{
-       token TOP   \{ ^ <xml> $ \};
-       token xml   \{ <text> | <tag> \};
-       token text  \{ <-[<>&amp;]>\*  \};
-       token tag   \{
-           '<' (\\w+) '>'
+   grammar XML {
+       token TOP   { ^ <xml> $ };
+       token xml   { <text> | <tag> };
+       token text  { <-[<>&]>*  };
+       token tag   {
+           '<' (\w+) '>'
            '</' $0   '>'
-       \}
-    \};
+       }
+    };
 
 (Remember, `<-[...]>` is a negated character class.)
 
@@ -2078,7 +2077,7 @@ Why in the seven hells did the second test stop working? The answer is that Raku
 
 But we don't just want to match either plain text or a tag anyway, but random combinations of both of them:
 
-    token xml   \{ <text> [ <tag> <text> ]\*  \};
+    token xml   { <text> [ <tag> <text> ]*  };
 
 (`[...]` are non-capturing groups, like `(?: ... )` is in Perl 5).
 
@@ -2086,11 +2085,11 @@ And low and behold, the first two tests both pass.
 
 The third test, `..<ab>foo</ab>dd`, has text between opening and closing tag, so we have to allow that next. But not only text is allowed between tags, but arbitrary XML, so let's just call `<xml>` there:
 
-    token tag   \{
-        '<' (\\w+) '>'
+    token tag   {
+        '<' (\w+) '>'
         <xml>
         '</' $0   '>'
-    \}
+    }
 
     ./perl6 xml-05.pl
     ok 1 - 'abc'
@@ -2102,25 +2101,25 @@ The third test, `..<ab>foo</ab>dd`, has text between opening and closing tag, so
 
 We can now focus on attributes (the `href="foo"` stuff):
 
-    token tag   \{
-        '<' (\\w+) <attribute>\* '>'
+    token tag   {
+        '<' (\w+) <attribute>* '>'
         <xml>
         '</' $0   '>'
-    \};
-    token attribute \{
-        \\w+ '="' <-["<>]>\* \\"
-    \};
+    };
+    token attribute {
+        \w+ '="' <-["<>]>* \"
+    };
 
 But this doesn't make any new tests pass. The reason is the blank between the tag name and the attribute. Instead of adding `\s+` or `\s*` in many places we'll switch from `token` to `rule`, which implies the `:sigspace` modifier:
 
-    rule tag   \{
-        '<'(\\w+) <attribute>\* '>'
+    rule tag   {
+        '<'(\w+) <attribute>* '>'
         <xml>
         '</'$0'>'
-    \};
-    token attribute \{
-        \\w+ '="' <-["<>]>\* \\"
-    \};
+    };
+    token attribute {
+        \w+ '="' <-["<>]>* \"
+    };
 
 Now all tests pass, except the last two:
 
@@ -2140,13 +2139,12 @@ Now all tests pass, except the last two:
 
 These contain un-nested tags that are closed with a single slash `/`. No problem to add that to rule `tag`:
 
-    rule tag   \{
-        '<'(\\w+) <attribute>\* [
+    rule tag   {
+        '<'(\w+) <attribute>* [
             | '/>'
             | '>' <xml> '</'$0'>'
         ]
-    \};
-
+    };
 All tests pass, we're happy, our first grammar works well.
 
 #### [More hacking][197]
@@ -2183,20 +2181,20 @@ Sat Dec 6 23:00:00 2008
 
 ### 概要[201]
 
-    subset Squares of Int where \{ .sqrt.Int\*\*2 == $\_ \};
+    subset Squares of Int where { .sqrt.Int**2 == $_ };
 
-    multi sub square\_root(Squares $x --> Int) \{
+    multi sub square_root(Squares $x --> Int) {
         return $x.sqrt.Int;
-    \}
-    multi sub square\_root(Num $x --> Num) \{
+    }
+    multi sub square_root(Num $x --> Num) {
         return $x.sqrt;
-    \}
+    }
 
 ### 描述[202]
 
 Java programmers tend to think of a type as either a class or an interface (which is something like a crippled class), but that view is too limited for Perl 6. A type is more generally a constraint of what a values a container can constraint. The "classical" constraint is _it is an object of a class `X` or of a class that inherits from `X`_. Perl 6 also has constraints like _the class or the object does role `Y`_, or _this piece of code returns true for our object_. The latter is the most general one, and is called a _subset_ type:
 
-    subset Even of Int where \{ $\_ % 2 == 0 \}
+    subset Even of Int where { $_ % 2 == 0 }
     # Even can now be used like every other type name
 
     my Even $x = 2;
@@ -2206,9 +2204,9 @@ Java programmers tend to think of a type as either a class or an interface (whic
 
 You can also use anonymous subtypes in signatures:
 
-    sub foo (Int where \{ ... \} $x) \{ ... \}
+    sub foo (Int where { ... } $x) { ... }
     # or with the variable at the front:
-    sub foo ($x of Int where \{ ... \} ) \{ ... \}
+    sub foo ($x of Int where { ... } ) { ... }
 
 ### 动机[203]
 
@@ -2230,15 +2228,15 @@ Sun Dec 7 23:00:00 2008
 
 ### 描述[206]
 
-**Note:** This lesson is long outdated, and preserved for historical interest only. The best way to stay informed about various Perl 6 compilers is to follow the blogs at <http://planetsix.perl.org/>.
+**注:** 这节课是早已过时, 只保存历史仅供有兴趣的人随时了解各种的 Perl 6 的编译器, 你最好的方法是常看 <http://planetsix.perl.org/>.
 
-Perl 6 is a language specification, and multiple compilers are being written that aim to implement Perl 6, and partially they already do.
+Perl 6 其实是一个语言规范, 并且有多个正在开发中的编译器旨在实现 Perl 6 的功能, 并且部分已经做到了.
 
-#### [Pugs][207]
+#### Pugs
 
-Pugs is a Perl 6 compiler written in Haskell. It was started by Audrey Tang, and she also did most of the work. In terms of implemented features it might still be the most advanced implementation today (May 2009).
+Pugs 是一个使用 Haskell 实现的 Perl 6 编译器. 它的作者是 Audrey Tang,  它在这上面做了大量的工作, 到 2009 年 5 月时, 它在实现的特性方面是最先进的.
 
-To build and test pugs, you have to install GHC 6.10.1 first, and then run
+如果要构建和测试 pugs, 你需要先安装 GHC 6.10.1, 然后执行下面
 
     svn co http://svn.pugscode.org/pugs
     cd pugs
@@ -2254,19 +2252,23 @@ Since the specification is evolving and Pugs is not updated, it is slowly drifti
 
 Pugs can parse most common constructs, implements object orientation, basic regexes, nearly(?) all control structures, basic user defined operators and macros, many builtins, contexts (except slice context), junctions, basic multi dispatch and the reduction meta operator - based on the syntax of three years past.
 
-#### [Rakudo][208]
+#### Rakudo
 
-Rakudo is a parrot based compiler for Perl 6. The main architect is Patrick Michaud, many features were implemented by Jonathan Worthington.
+Rakudo 是一个基于 parrot 实现的 Perl 6. 主要的架构师是 Patrick Michaud, 很多的功能和特性是由 Jonathan Worthington 实现. 
 
-It is hosted on github, you can find build instructions on <http://rakudo.org/how-to-get-rakudo>.
+注: 它是 Perl 6 的实现, 它现在可以还可以基于 JVM 和 MoarVM 虚拟来运行.
 
-Rakudo development is very active, it's the most active Perl 6 compiler today. It passes a bit more than 17,000 tests from the official test suite (July 2009).
+它是托管在 github 上, 你可以从 <http://rakudo.org/how-to-get-rakudo> 来下载和安装.
 
-It implements most control structures, most syntaxes for number literals, interpolation of scalars and closures, chained operators, `BEGIN`- and `END` blocks, pointy blocks, named, optional and slurpy arguments, sophisticated multi dispatch, large parts of the object system, regexes and grammars, Junctions, generic types, parametric roles, typed arrays and hashes, importing and exporting of subroutines and basic meta operators.
+Rakudo 的开发非常的活跃, 它是当前最好的 Perl 6 的实现. 它可以通过超过 17,000 个官方的测试 ( 2009 年 7 月 );
 
-If you want to experiment with Perl 6 today, Rakudo is the recommended choice.
+它实现了大部分的控制结构, 大部分的数字, 文字, 标量, 闭包, 内插的语法. 
+支持 `BEGIN`- 和`END` 块, pointy 块, 可选的和slurpy 的参数, 复杂的多调度, 大量的原生对象系统, 正则和 grammars, Junctions, 各种类型, 角色. 
+导入导出和基本的元操作符.
 
-#### [Elf][209]
+如果你想尝试用 Perl 6, Rakudo 是你不二的选择.
+
+#### Elf
 
 Mitchell Charity started _elf_, a bootstrapping compiler written in Perl 6, with a grammar written in Ruby. Currently it has a Perl 5 backend, others are in planning.
 
@@ -2276,17 +2278,17 @@ It lives in the pugs repository, once you've checked it out you can go to `misc/
 
 It parses more than 70% of the test suite, but implements mostly features that are easy to emulate with Perl 5, and passes about 700 tests from the test suite.
 
-#### [KindaPerl6][210]
+#### KindaPerl6
 
 Flavio Glock started KindaPerl6 (short kp6), a mostly bootstrapped Perl 6 compiler. Since the bootstrapped version is much too slow to be fun to develop with, it is now waiting for a faster backend.
 
 Kp6 implements object orientation, grammars and a few distinct features like lazy gather/take. It also implements `BEGIN` blocks, which was one of the design goals.
 
-#### [v6.pm][211]
+#### v6.pm
 
 `v6` is a source filter for Perl 5. It was written by Flavio Glock, and supports basic Perl 6 plus grammars. It is fairly stable and fast, and is occasionally enhanced. It lives on the CPAN and in the pugs repository in `perl5/*/`.
 
-#### [SMOP][212]
+#### SMOP
 
 Smop stands for _Simple Meta Object Programming_ and doesn't plan to implement all of Perl 6, it is designed as a backend (a little bit like parrot, but very different in both design and feature set). Unlike the other implementations it aims explicitly at implementing Perl 6's powerful meta object programming facilities, ie the ability to plug in different object systems.
 
@@ -2294,8 +2296,8 @@ It is implemented in C and various domain specific languages. It was designed an
 
 It will then be used as a backend for either elf or kp6, and perhaps also for pugs.
 
-#### [STD.pm][213]
-
+#### STD.pm
+Larry Wall 为 Perl 6 实现而使用 Perl 6 的 grammar 的实现. 这还有个名字叫 `gimme5`, 它转换 grammar 到 Perl 5. 它可以解析 Perl6 书面的和我们所知道的有效的所有东西, 包括整个测试套件.
 Larry Wall wrote a grammar for Perl 6 in Perl 6. He also wrote a cheating script named `gimme5`, which translates that grammar to Perl 5. It can parse about every written and valid piece of Perl 6 that we know of, including the whole test suite (apart from a few failures now and then when Larry accidentally broke something).
 
 STD.pm lives in the pugs repository, and can be run and tested with perl-5.10.0 installed in `/usr/local/bin/perl` and a few perl modules (like `YAML::XS` and `Moose`):
@@ -2307,7 +2309,7 @@ STD.pm lives in the pugs repository, and can be run and tested with perl-5.10.0 
 
 It correctly parses custom operators and warns about non-existent subs, undeclared variables and multiple declarations of the same variable as well as about some Perl 5isms.
 
-### 动机[214]
+### 动机
 
 Many people ask why we need so many different implementations, and if it wouldn't be better to focus on one instead.
 
@@ -2440,121 +2442,123 @@ And when you limit the specialty of keywords, you have far less troubles with ba
 
 Tue Dec 9 23:00:00 2008
 
-### [NAME][223]
+### NAME
 
-"Perl 5 to 6" Lesson 24 - The Reduction Meta Operator
+"Perl 5 to 6" Lesson 24 - Reduction 元操作 
 
-### 概要[224]
+### 概要
 
     say [+] 1, 2, 3;    # 6
     say [+] ();         # 0
     say [~] <a b>;      # ab
-    say [\*\*] 2, 3, 4;   # 2417851639229258349412352
+    say [**] 2, 3, 4;   # 2417851639229258349412352
 
-    [\\+] 1, 2, 3, 4     # 1, 3, 6, 10
-    [\\\*\*] 2, 3, 4       # 4, 81, 2417851639229258349412352
+    [\+] 1, 2, 3, 4     # 1, 3, 6, 10
+    [\**] 2, 3, 4       # 4, 81, 2417851639229258349412352
 
-    if [<=] @list \{
+    if [<=] @list {
         say "ascending order";
-    \}
+    }
 
-### [Description][225]
+### Description
 
-The reduction meta operator `[...]` can enclose any associative infix operator, and turn it into a list operator. This happens as if the operator was just put between the items of the list, so `[op] $i1, $i2, @rest` returns the same result as if it was written as `$i1 op $i2 op @rest[0] op @rest[1] ...`.
+这个 reduction 的元操作 `[...]` 可以放入所有的相关的缀操作符, 并把它变成一个列表操作符. 相当于给在这个操作符后面的列表中所有的元素进行前面的缀操作符的操作. 所以象 `[op] $i1, $i2, @rest` 返回的结果和你写的 `$i1 op $i2 op @rest[0] op @rest[1] ...` 是相同的.
 
-This is a very powerful construct that promotes the plus `+` operator into a `sum` function, `~` into a `join` (with empty separator) and so on. It is somewhat similar to the `List.reduce` function, and if you had some exposure to functional programming, you'll probably know about `foldl` and `foldr` (in Lisp or Haskell). Unlike those `[...]` respects the associativity of the enclosed operator, so `[/] 1, 2, 3` is interpreted as `(1 / 2) / 3` (left associative), `[**] 1, 2, 3` is handled correctly as `1 ** (2**3)` (right associative).
+这个东西非常强大, 你可要使用加 `+` 操作符就可以实现 `sum` 的功能, 使用 `~` 放到这个中就能实现 `join` ( 使用空分隔 ) 等等. 这个有点类似 `List.reduce` 的功能, 如果你有一些接触到函数式编程, 你可能知道 `foldl` 和 `foldr` ( 在 Lisp 和 Hashell 中有 ). 不同处在于 `[...]` 会涉及到其中的缀操作符的结合性, 所以 `[/] 1, 2, 3` 会解释成 `(1 / 2) / 3` ( 左结合性 ), `[**] 1, 2, 3` 可以正常的处理成 `1 ** (2**3)` ( 右结合性 ).
 
-Like all other operators whitespaces are forbidden, so you while you can write `[+]`, you can't say `[ + ]`.
+就象其它的操作符一样, 在操作符中间是禁止出现空格, 所以你可以写 `[+]`, 但你不能写 `[ + ]`.
 
-Since comparison operators can be chained, you can also write things like
+由于比较操作符可串连, 你也可以这样写
 
-    if    [==] @nums \{ say "all nums in @nums are the same" \}
-    elsif [<]  @nums \{ say "@nums is in strict ascending order" \}
-    elsif [<=] @nums \{ say "@nums is in ascending order"\}
+    if    [==] @nums { say "all nums in @nums are the same" }
+    elsif [<]  @nums { say "@nums is in strict ascending order" }
+    elsif [<=] @nums { say "@nums is in ascending order"}
 
-You can even reduce the assignment operator:
+你甚至可以没有赋值操作符:
 
     my @a = 1..3;
     [=] @a, 4;          # same as @a[0] = @a[1] = @a[2] = 4;
 
-Note that `[...]` always returns a scalar, so `[,] @list` is actually the same as `[@list]`.
+注意这个地方  `[...]` 总是返回标量, 所以 `[,] @list` 其实和 `[@list]` 是一样的.
 
-#### [Getting partial results][226]
+#### 取得过程中分片的结果 
 
-There's a special form of this operator that uses a backslash like this: `[\+]`. It returns a list of the partial evaluation results. So `[\+] 1..3` returns the list `1, 1+2, 1+2+3`, which is of course `1, 3, 6`.
+这个操作符有一种特殊形式使用反斜杠象 `[\+]`.  它会返回列表的运算的结果的列表的每一部分. 所以 `[\+] 1..3` 返回的列表是 `1, 1+2, 1+2+3`, 这个结果当然是 `1, 3, 6`.
 
-    [\\~] 'a' .. 'd'     # <a ab abc abcd>
+    [\~] 'a' .. 'd'     # <a ab abc abcd>
 
-Since right-associative operators evaluate from right to left, you also get the partial results that way:
+这个右结合性的操作符是从右到左的列表结果, 所以你可以取得象下面一样的结果:
 
-    [\\\*\*] 1..3;         # 3, 2\*\*3, 1\*\*(2\*\*3), which is 3, 8, 1
+    [\**] 1..3;         # 3, 2**3, 1**(2**3), which is 3, 8, 1
 
-Multiple reduction operators can be combined:
+多个 reduction 的操作符也可以绑定: 
 
-    [~] [\\\*\*] 1..3;     # "381"
+    [~] [\**] 1..3;     # "381" 
 
-### 动机[227]
+### 动机
 
-Programmers are lazy, and don't want to write a loop just to apply a binary operator to all elements of a list. `List.reduce` does something similar, but it's not as terse as the meta operator (`[+] @list` would be `@list.reduce(&infix:<+>)`), and takes care of the associativity of the operator.
+程序员是懒惰的, 所以我们并不想我们花了很多时间写了个循环, 其中只放一行用于操作列表所有元素的二元运算符.
+
+`List.reduce` 也可以做类似的事情, 但它并不是简洁的元操作符 ( `[+] @list 比起 `@list.reduce(&infix:<+>)` ), 注意要小心的的运算符的结合性.
 
 If you're not convinced, play a bit with it (pugs mostly implements it), it's real fun.
 
-### 另请参阅[228]
+### 另请参阅
 
-[http://perlcabal.org/syn/S03.html#Reduction\_operators][229], [http://www.perlmonks.org/?node\_id=716497][230]
+[http://perlcabal.org/syn/S03.html#Reduction_operators], [http://www.perlmonks.org/?node_id=716497]
 
 ## The Cross Meta Operator
 
 Tue May 26 22:00:00 2009
 
-### [NAME][231]
+### [NAME]
 
-"Perl 5 to 6" Lesson 25 - The Cross Meta Operator
+"Perl 5 to 6" Lesson 25 - Cross 元操作符
 
-### 概要[232]
+### 概要
 
-    for <a b> X 1..3 -> $a, $b \{
+    for <a b> X 1..3 -> $a, $b {
         print "$a: $b   ";
-    \}
+    }
     # output: a: 1  a: 2  a: 3  b: 1  b: 2  b: 3
 
     .say for <a b c> X 1, 2;
-    # output: a1\\n a2\\n b1\\n b2\\n c1\\n c2\\n
-    # (with real newlines instead of \\n)
+    # output: a1\n a2\n b1\n b2\n c1\n c2\n
+    # (with real newlines instead of \n)
 
-### 描述[233]
+### 描述
 
-The cross operator `X` returns the Cartesian product of two or more lists, which means that it returns all possible tuples where the first item is an item of the first list, the second item is an item of second list etc.
+这个 cross 操作符 `X` 用于返回两个或多个列表的笛卡儿积, 这表示它会返回所有可能的元组, 其中第一个元素是第一个列表中的元素，第二元素是第二个列表中的元素等..
 
-If an operator follows the `X`, then this operator is applied to all tuple items, and the result is returned instead. So `1, 2 X+ 3, 6` will return the values `1+3, 1+6, 2+3, 2+6` (evaluated as `4, 7, 5, 8` of course).
+如果有另一个操作符放在 `X` 之后, 这个操作符会被运用到所有的元组元素上, 它的结果也会相应换成这样, 所以 `1, 2 X+ 3, 6` 会返回 `1+3, 1+6, 2+3, 2+6` 的操作结果 `4, 7, 5, 8`.
 
-### 动机[234]
+### 动机
 
-It's quite common that one has to iterate over all possible combinations of two or more lists, and the cross operator can condense that into a single iteration, thus simplifying programs and using up one less indentation level.
+这个很常见的操作, 常常人们必须遍历两个或两个以上列表的所有可能的组合, 以及交叉其它操作符压缩成的单次迭代, 从而大大简化程序, 并只要使用一行缩进就搞定了.
 
-The usage as a meta operator can sometimes eliminate the loops altogether.
+使用这些元操作符有时不再需要进行循环.
 
-### 另请参阅[235]
+### 另请参阅
 
-[http://perlcabal.org/syn/S03.html#Cross\_operators][236],
+[http://perlcabal.org/syn/S03.html#Cross_operators]
 
 ## Exceptions and control exceptions
 
 Thu Jul 9 09:00:02 2009
 
-### [NAME][237]
+### NAME
 
-"Perl 5 to 6" Lesson 26 - Exceptions and control exceptions
+"Perl 5 to 6" Lesson 26 - 异常和异常控制 
 
 ### 概要[238]
 
-    try \{
+    try {
         die "OH NOEZ";
 
-        CATCH \{
+        CATCH { 
             say "there was an error: $!";
-        \}
-    \}
+        }
+    }
 
 ### 描述[239]
 
