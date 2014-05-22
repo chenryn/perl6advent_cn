@@ -1705,8 +1705,7 @@ _logical character_仍然是一个模糊的术语. 为了更加准确的解释 `
 
 正则表达式可以指定 Unicode level, 所以使用 `m:codes/./` 会匹配到 codepoint. 如果没有指定 Unicode level 会使用当前的 Unicode level.
 
-字符类象 `\w` ( 匹配单词字符 ) 会相应的使用 Unicode 标准. 
-Character classes like `\w` (match a word character) behave accordingly to the Unicode standard. There are modifiers that ignore case (`:i`) and accents (`:a`), and modifiers for the substitution operators that can carry case information to the substitution string (`:samecase` and `:sameaccent`, short `:ii`, `:aa`).
+字符类象 `\w` ( 匹配单词字符 ) 会相应的使用 Unicode 标准. 象忽略大小写 (:i) 和重音符  (:a) 和一些会携带找到的模式的替换字符串操作  (`:samecase` and `:sameaccent`, short `:ii`, `:aa`) 都支持.
 
 ### 动机
 
@@ -1813,9 +1812,7 @@ Perl 6 永远只能查找到词法范围内所限定名称 ( 名称包含变量�
         say OUTER::<$x>     # 3
     }
 
-同样, 你可以通过 `CALLER` 和 `CONTEXT` 来访问伪包的内容. 这不同之处在于 `CALLER` 只访问最接近的 caller 的命名空间, `CONTEXT` 的工作方式很象 UNIX 的环境变量
-
-Likewise a function can access variables from its caller with the `CALLER` and `CONTEXT` pseudo packages. The difference is that `CALLER` only accesses the scope of the immediate caller, `CONTEXT` works like UNIX environment variables (and should only be used internally by the compiler for handling `$_`, `$!` and the like). To access variables from the outer dynamic scope they must be declared with `is context`.
+同样函数可以通过 `CALLER` 和 `CONTEXT` 来访问伪包的内容. 这不同之处在于 `CALLER` 只访问最接近的 caller 的命名空间的变量, `CONTEXT` 的工作方式很象 UNIX 的环境变量, 得到的是上下文变量的值. 当使用上下文的伪包调用时, 需要在变量声明的时候使用 `is context`.
 
 ### 动机
 
@@ -1834,9 +1831,9 @@ Likewise a function can access variables from its caller with the `CALLER` and `
 
 ### 另请参阅
 
-S04 discusses block scoping: <http://perlcabal.org/syn/S04.html>.
+S04 中有关变量范围: <http://perlcabal.org/syn/S04.html>.
 
-S02 lists all pseudo packages and explains context scoping: <http://perlcabal.org/syn/S02.html#Names>.
+S02 中所有有的伪包和说明上下文的范围的内容:  <http://perlcabal.org/syn/S02.html#Names>.
 
 ## Regexes strike back
 
@@ -1844,7 +1841,7 @@ Sat Nov 29 23:00:00 2008
 
 ### [NAME]
 
-"Perl 5 to 6" Lesson 19 - Regexes strike back
+"Perl 5 to 6" Lesson 19 - 正则的反击 
 
 ### 概要
 
