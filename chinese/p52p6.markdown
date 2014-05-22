@@ -1480,11 +1480,11 @@ Circumfix 的调用意味着这有不同的语法  ( 象 `my @list = <a b c>;` )
 
 Sun Oct 19 22:00:00 2008
 
-### [NAME][156]
+### [NAME]
 
-"Perl 5 to 6" Lesson 14 - The MAIN sub
+"Perl 5 to 6" Lesson 14 - MAIN 函数
 
-### 概要[157]
+### 概要
 
   # file doit.pl
 
@@ -1496,7 +1496,7 @@ Sun Oct 19 22:00:00 2008
   # command line
   $ ./doit.pl --force --home=/home/someoneelse file_to_process
 
-### 描述[158]
+### 描述
 
 调用子函数和运行一个类 Unix 的命令行程序从视觉上看, 其实非常相似: 你可以有选项, 可选参数和命名参数.
 
@@ -1521,13 +1521,13 @@ Sun Oct 19 22:00:00 2008
 
 这个地方的 `$x = $obj but False` 的意思是这个 `$x` 是复制的 `$obj`, 但是在布尔上下文时会给出 `Bool::False`.
 
-因此, 对于简单的 (和一些不是很简单的) 情况下, 你并不需要一个外部命令行参数的处理程序, 你可以直播使用 `MAIN` 函数实现这一点.
+因此, 对于简单的 ( 和一些不是很简单的 ) 情况下, 你并不需要一个外部命令行参数的处理程序, 你可以直播使用 `MAIN` 函数实现这一点.
 
-### 动机[159]
+### 动机
 
 这背后的动机应该是很明显的: 它使简单的事情变得更加容易, 很多时候给命令行代码传参只需要简单的 `MAIN` 函数.
 
-### 另请参阅[160]
+### 另请参阅
 
 [http://perlcabal.org/syn/S06.html#Declaring_a_MAIN_subroutine][161] contains the specification.
 
@@ -1535,11 +1535,11 @@ Sun Oct 19 22:00:00 2008
 
 Mon Oct 20 22:00:00 2008
 
-### [NAME][162]
+### [NAME]
 
 "Perl 5 to 6" Lesson 15 - Twigils 标记
 
-### 概要[163]
+### 概要
 
   class Foo {
       has $.bar;
@@ -1552,9 +1552,9 @@ Mon Oct 20 22:00:00 2008
 
   say "This is file $?FILE on line $?LINE"
 
-  say "A CGI script" if %\*ENV.exists('DOCUMENT\_ROOT');
+  say "A CGI script" if %*ENV.exists('DOCUMENT_ROOT');
 
-### 描述[164]
+### 描述
 
 在 Perl 6 中有些变量有二个标记, 这个叫 _twigil_ 标记. 如果它存在, 意味着这个变量不是 "标准" 的变量, 它和普通的有些不同, 例如, %*ENV 这个中的 *  表示是全局的, 所以有不同的作用域, 因为默认都不是全局的.
 
@@ -1587,7 +1587,7 @@ The `^` twigil removes a special case from perl 5. To be able to write
 
 有个伪 twigil 是 `<`, 它是象 `$<capture>` 的一个结构, 这是 `$/<capture>` 的简写, 用于访问正则表达式匹配了对象后的 Match object.
 
-### 动机[165]
+### 动机
 
 当你读 Perl 5 中的 `perlvar` 文档的时候, 你可以知道, 这有很多的变量, 很多是全局变量, 会影响你的程序.
 
@@ -1599,11 +1599,11 @@ The `^` twigil removes a special case from perl 5. To be able to write
 
 Wed Nov 26 23:00:00 2008
 
-### [NAME][166]
+### [NAME]
 
 "Perl 5 to 6" Lesson 16 - Enums 枚举类型
 
-### 概要[167]
+### 概要
 
   enum bit Bool <False True>;
   my $value = $arbitrary_value but True;
@@ -1616,13 +1616,11 @@ Wed Nov 26 23:00:00 2008
       say "Weekend";
   }
 
-### 描述[168]
+### 描述
 
 枚举是通用的. 它是低层次类, 它可以包含常量, 整数和字符串.
 
-这些常量可以当成子类型 (subtype), 方法和普通的值. 这些可以通过 `but` 操作符, 加入到对象, which "mixes" the enum into the value:
-
-These constants can act as subtypes, methods or normal values. They can be attached to an object with the `but` operator, which "mixes" the enum into the value:
+这种常量可以当成子类型 (subtype), 方法和普通的值. 这些可以通过 `but` 操作符, 加入到对象, 看成混合了 enum 到变量:
 
   my $x = $today but Day::Tue;
 
@@ -1648,13 +1646,13 @@ These constants can act as subtypes, methods or normal values. They can be attac
 
 注意, 你可以指定唯一值的名字象 `Fri`. 如果你不确认你需要提供全名, 象 `Day::Fri`.
 
-### 动机[169]
+### 动机
 
-Enums replace both the "magic" that is involved with tainted variables in Perl 5 and the `return "0 but True"` hack (a special case for which no warning is emitted if used as a number). Plus they give a `Bool` type.
+枚举在 perl6 中做了两件事, 一个是 tainted 变量 ( 污染检查相关? ), 另一个是函数返回值问题. 这个问题就是: 很多函数用 return 0 返回, 这个时候函数返回的是 true.
 
-Enums also provide the power and flexibility of attaching arbitrary meta data for debugging or tracing.
+Enums 也为 debuggin 和 tracing 提供强大和方便附加元数据的功能.
 
-### 另请参阅[170]
+### 另请参阅
 
 <http://perlcabal.org/syn/S12.html#Enumerations>
 
@@ -1662,15 +1660,15 @@ Enums also provide the power and flexibility of attaching arbitrary meta data fo
 
 Thu Nov 27 23:00:00 2008
 
-### [NAME][171]
+### [NAME]
 
 "Perl 5 to 6" Lesson 17 - Perl 6 的 Unicode 字符编程
 
-### 概要[172]
+### 概要
 
   (none)
 
-### 描述[173]
+### 描述
 
 Perl 5 中的 Unicode 模型有个大问题: 它对于二进制和文本是使用的相同的类型. 例如, 你的程序从网络上的 socket 套接字上读取了 512 个字节, 它一定是一个 byte 串. 但是在 Perl 5 中对这个调用  `uc` 时, 就会被当成是文本. 推荐的方式是, 先对这个串进行解码, 但是做为子程序, 你接收一个串做为参数时, 你不能可靠的知道, 这到底是被解码了还是没有. 
 
@@ -1697,20 +1695,20 @@ _logical character_仍然是一个模糊的术语. 为了更加准确的解释 `
             "» with byte string «$b»\\n";
   }
 
-#### [Encoding and Decoding][174]
+#### 编码和解码
 
 目前 spec 文档中对于 IO 系统非常的低层, 并没有任何的编码和解码层, 这也是为什么这篇文章没有介绍这个部分, 不过肯定, 很快会有下面这样的一种机制:
 
   my $handle = open($filename, :r, :encoding<UTF-8>);
 
-#### [Regexes and Unicode][175]
+#### 正则和 Unicode
 
 正则表达式可以指定 Unicode level, 所以使用 `m:codes/./` 会匹配到 codepoint. 如果没有指定 Unicode level 会使用当前的 Unicode level.
 
 字符类象 `\w` ( 匹配单词字符 ) 会相应的使用 Unicode 标准. 
 Character classes like `\w` (match a word character) behave accordingly to the Unicode standard. There are modifiers that ignore case (`:i`) and accents (`:a`), and modifiers for the substitution operators that can carry case information to the substitution string (`:samecase` and `:sameaccent`, short `:ii`, `:aa`).
 
-### 动机[176]
+### 动机
 
 对于大多数编程语言和工具来讲, 能很正确的处理字符是十分困难的. 例如, 在 Perl 5 的 web 应用程序中, 你想使用象 `substr` 来进行字符的切割时, 很有可能它会撕裂整个字符, 变成半个.
 
@@ -1718,7 +1716,7 @@ Perl 6 会是第一个内置对 grapheme 级别的字符进行操作的编程语
 
 对于文本和 byte 字符的数据类型的调试和内省会容易多了.
 
-### 另请参阅[177]
+### 另请参阅
 
 <http://perlcabal.org/syn/S32/Str.html>
 
@@ -1726,7 +1724,7 @@ Perl 6 会是第一个内置对 grapheme 级别的字符进行操作的编程语
 
 Fri Nov 28 23:00:00 2008
 
-### [NAME][178]
+### [NAME]
 
 "Perl 5 to 6" Lesson 18 - Scoping  作用域
 
@@ -1753,9 +1751,9 @@ Fri Nov 28 23:00:00 2008
     my $x = $y + 2 while $y = calc();
     # $x 这仍然可用 
 
-### 描述[180]
+### 描述
 
-#### [Lexical Scoping][181]
+#### 语法作用域 
 
 Perl 6 中的作用域和 Perl 5 中的比较相似, 一个块会生成一个新的词法范围. 变量名搜索是从最里面的词法范围开始, 如果没有找到, 就查找接下来的外部范围. 就象 Perl 5 中的 `my` 声明的变量是一个词法变量, 如果使用 `our` 声明的其实是引入一个包变量的别名的词法变量.
 
@@ -1777,13 +1775,13 @@ Perl 6 永远只能查找到词法范围内所限定名称 ( 名称包含变量�
             $x visible here in Perl 6
             but not in Perl 5
 
-#### [Dynamic scoping][182]
+#### 动态作用域 
 
 原来的 `local` 关键字, 现在叫 `temp`, 使用这个, 如果你没有对这个变量进行初始化, 它这个提供的值是上一个名字空间的原来的值 ( 并不会为 `undef` );
 
 此外还有一种新的被称为 _hypothetical_ 的动态作用域的变量. 如果块中出现了异常, 接下来这个变量会先恢复先前的值, 如果没有, 就保持新的值.
 
-#### [Context variables][183]
+#### Context variables 上下文变量
 
 在 Perl 5 里, $!, $_ 是全局变量, 但在 Perl6 里就是上下文变量, 就是根据上下文的变化而变化的, 在 Perl6 中就是所谓的动态作用域 (dynamic scoping).
 
@@ -1819,7 +1817,7 @@ Perl 6 永远只能查找到词法范围内所限定名称 ( 名称包含变量�
 
 Likewise a function can access variables from its caller with the `CALLER` and `CONTEXT` pseudo packages. The difference is that `CALLER` only accesses the scope of the immediate caller, `CONTEXT` works like UNIX environment variables (and should only be used internally by the compiler for handling `$_`, `$!` and the like). To access variables from the outer dynamic scope they must be declared with `is context`.
 
-### 动机[185]
+### 动机
 
 我们知道操作和使用全局变量并不好, 会引起很多问题. 我们目前有很多更加好的作用域的机制来实现, 因此, 全局变量仅用于本质上是全局数据, 象 `%*ENV` 或者 `$*PID`.
 
@@ -1834,7 +1832,7 @@ Likewise a function can access variables from its caller with the `CALLER` and `
  it.  Future versions of perl might do something different from the
  version of perl you try it out on.  Here be dragons.
 
-### 另请参阅[186]
+### 另请参阅
 
 S04 discusses block scoping: <http://perlcabal.org/syn/S04.html>.
 
@@ -1844,11 +1842,11 @@ S02 lists all pseudo packages and explains context scoping: <http://perlcabal.or
 
 Sat Nov 29 23:00:00 2008
 
-### [NAME][187]
+### [NAME]
 
 "Perl 5 to 6" Lesson 19 - Regexes strike back
 
-### 概要[188]
+### 概要
 
     # normal matching:
     if 'abc' ~~ m/../ {
@@ -1978,15 +1976,15 @@ Fri Dec 5 23:00:00 2008
     };
 
 
-### 描述[194]
+### 描述
 
-So far the focus of these articles has been the Perl 6 language, independently of what has been implemented so far. To show you that it's not a purely fantasy language, and to demonstrate the power of grammars, this lesson shows the development of a grammar that parses basic XML, and that runs with Rakudo.
+到目前为止, 我们看到的都是 Perl 6 语言本身的一些实现的特性. 现在需要告诉你这不是一个纯粹 yy 的语言, 所以讲一些真实的应用, 来向你展示 Perl 强大的语法, 我们这课是使用 Rakudo 上的 grammar 来解析基本的 XML.
 
-Please follow the instructions on <http://rakudo.org/how-to-get-rakudo/> to obtain and build Rakudo, and try it out yourself.
+你可以看看 <http://rakudo.org/how-to-get-rakudo/> 来怎么样安装这个.
 
-#### [Our idea of XML][195]
+#### [Our idea of XML]
 
-For our purposes XML is quite simple: it consists of plain text and nested tags that can optionally have attributes. So here are few tests for what we want to parse as valid "XML", and what not:
+对于我们的目标 XML 解析是非常简单的: 它是包含了一些纯文本和一些嵌套的的标签并能包含一些可选的属性. 所以我们先写几个可用和不可用的 "XML" 的测试.
 
     my @tests = (
         [1, 'abc'                       ],      # 1
@@ -2016,13 +2014,13 @@ For our purposes XML is quite simple: it consists of plain text and nested tags 
         $count++;
     }
 
-This is a list of both "good" and "bad" XML, and a small test script that runs these tests by calling `XML.parse($string)`. By convention the rule that matches what the grammar should match is named `TOP`.
+这会列出 "good" 和 "bad" 的 XML. 只需要调用 `XML.parse($string)` 来运行这些测试的的列表. 根据惯例这些匹配的 grammar 的语法, 需要符合 "TOP" 的该规则才行.
 
-(As you can see from test 1 we don't require a single root tag, but it would be trivial to add this restriction).
+( 你可以看测试 1, 这个我们并没有 root 标签, 但我们会很容易来加入此限制 ).
 
-#### [Developing the grammar][196]
+#### grammar 开发
 
-The essence of XML is surely the nesting of tags, so we'll focus on the second test first. Place this at the top of the test script:
+XML 的本质必然是标签嵌套, 所以我们给重点放在了第二个测试上面. 这个上面能使用这个测试脚本中的 top .
 
     grammar XML {
         token TOP   { ^ <tag> $ }
@@ -2032,7 +2030,7 @@ The essence of XML is surely the nesting of tags, so we'll focus on the second t
         }
     };
 
-Now run the script:
+现在运行测试脚本:
 
     $ ./perl6 xml-01.pl
     not ok 1 - 'abc'
@@ -2049,9 +2047,9 @@ Now run the script:
     not ok 12 - '<a/>'
     not ok 13 - '<a />'
 
-So this simple rule parses one pair of start tag and end tag, and correctly rejects all four examples of invalid XML.
+所以这是使用了简单的规则来解析出了开始标签和结束标签对, 也正确的拒绝掉了无效的 XML 中的四个例子.
 
-The first test should be easy to pass as well, so let's try this:
+第一个测试应该很容易通过，所以让我们试试这个:
 
    grammar XML {
        token TOP   { ^ <xml> $ };
@@ -2063,9 +2061,9 @@ The first test should be easy to pass as well, so let's try this:
        }
     };
 
-(Remember, `<-[...]>` is a negated character class.)
+(记住, `<-[...]>` 是一个用于否定的字符类.)
 
-And run it:
+现在运行:
 
     $ ./perl6 xml-03.pl
     ok 1 - 'abc'
