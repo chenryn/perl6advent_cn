@@ -1954,7 +1954,7 @@ Fri Dec 5 23:00:00 2008
 
 ### NAME
 
-"Perl 5 to 6" Lesson 20 - A grammar for (pseudo) XML
+"Perl 5 to 6" Lesson 20 - 处理 XML 的 grammar
 
 ### 概要
 
@@ -2067,17 +2067,17 @@ XML 的本质必然是标签嵌套, 所以我们给重点放在了第二个测�
     not ok 2 - '<a></a>'
     (rest unchanged)
 
-Why in the seven hells did the second test stop working? The answer is that Rakudo doesn't do longest token matching yet (update 2013-01: it does now), but matches sequentially. `<text>` matches the empty string (and thus always), so `<text> | <tag>` never even tries to match `<tag>`. Reversing the order of the two alternations would help.
+为什么处理第第二个测试就工作了? 答案是因为 Rakudo 还不支持 token 的长匹配 ( update 2013=01: 现在支持 ), 这个匹配是顺序的. `<text>` 匹配空字符串命中, 所以 `<text> | <tag>` 从来没有尝试匹配 `<tag>`, 给这二个顺序修改一下会有所帮助.
 
-But we don't just want to match either plain text or a tag anyway, but random combinations of both of them:
+但我们并不只想无论怎么样都能匹配到纯文本或标签, 我们希望这二个能随机组合起来:
 
     token xml   { <text> [ <tag> <text> ]*  };
 
-(`[...]` are non-capturing groups, like `(?: ... )` is in Perl 5).
+(`[...]` 是不会捕捉内容, 象在 Perl 5 中的 `(?: ... )` ).
 
-And low and behold, the first two tests both pass.
+现在这前二个测试都能通过.
 
-The third test, `..<ab>foo</ab>dd`, has text between opening and closing tag, so we have to allow that next. But not only text is allowed between tags, but arbitrary XML, so let's just call `<xml>` there:
+第三个测试, `..<ab>foo</ab>dd`, 找有开头和结构标记之间的文本, 还要允许有多个标记, 因为不只是唯一中间可以放文本, 还要可以放任意的 XML. 因为这叫 `<xml>`.
 
     token tag   {
         '<' (\w+) '>'
@@ -2093,7 +2093,7 @@ The third test, `..<ab>foo</ab>dd`, has text between opening and closing tag, so
     not ok 5 - '<a href="foo"><b>c</b></a>'
     (rest unchanged)
 
-We can now focus on attributes (the `href="foo"` stuff):
+我们现在可以专注于属性的实现 ( `href="foo"` ):
 
     token tag   {
         '<' (\w+) <attribute>* '>'
@@ -2104,7 +2104,7 @@ We can now focus on attributes (the `href="foo"` stuff):
         \w+ '="' <-["<>]>* \"
     };
 
-But this doesn't make any new tests pass. The reason is the blank between the tag name and the attribute. Instead of adding `\s+` or `\s*` in many places we'll switch from `token` to `rule`, which implies the `:sigspace` modifier:
+这并不会有新的测试通过. 原因是因为签名和属性之间的有空白. 我们不使用 `\s+` 或 `\s*` 而是使用 `token` 转到 `rule`, 所以这会有 `:sigspace` 的修饰符:
 
     rule tag   {
         '<'(\w+) <attribute>* '>'
@@ -2115,7 +2115,7 @@ But this doesn't make any new tests pass. The reason is the blank between the ta
         \w+ '="' <-["<>]>* \"
     };
 
-Now all tests pass, except the last two:
+现在，所有的测试都通过了，除了最后两个:
 
     ok 1 - 'abc'
     ok 2 - '<a></a>'
@@ -2131,7 +2131,7 @@ Now all tests pass, except the last two:
     not ok 12 - '<a/>'
     not ok 13 - '<a />'
 
-These contain un-nested tags that are closed with a single slash `/`. No problem to add that to rule `tag`:
+这些包含在封闭的标签中有单个斜线 `/`. 这个很容易, 我们只要在我们的 rule 的  `tag` 中加入这个就好:
 
     rule tag   {
         '<'(\w+) <attribute>* [
@@ -2139,9 +2139,10 @@ These contain un-nested tags that are closed with a single slash `/`. No problem
             | '>' <xml> '</'$0'>'
         ]
     };
-All tests pass, we're happy, our first grammar works well.
 
-#### [More hacking][197]
+所有的测试都通过了, 我们很高兴, 我们的第一个 grammar 效果很好.
+
+#### [More hacking]
 
 Playing with grammars is much more fun that reading about playing, so here's what you could implement:
 
@@ -2155,11 +2156,11 @@ Playing with grammars is much more fun that reading about playing, so here's wha
 
 Have fun hacking.
 
-### 动机[198]
+### 动机
 
-It's powerful and fun
+这个很强大并且有意思
 
-### 另请参阅[199]
+### 另请参阅
 
 Regexes are specified in great detail in S05: <http://perlcabal.org/syn/S05.html>.
 
@@ -2169,11 +2170,11 @@ More working examples for grammars can be found at <https://github.com/moritz/js
 
 Sat Dec 6 23:00:00 2008
 
-### [NAME][200]
+### NAME
 
-"Perl 5 to 6" Lesson 21 - Subset Types
+"Perl 5 to 6" Lesson 21 - Subset Types 子类型
 
-### 概要[201]
+### 概要
 
     subset Squares of Int where { .sqrt.Int**2 == $_ };
 
@@ -2184,29 +2185,31 @@ Sat Dec 6 23:00:00 2008
         return $x.sqrt;
     }
 
-### 描述[202]
+### 描述
 
-Java programmers tend to think of a type as either a class or an interface (which is something like a crippled class), but that view is too limited for Perl 6. A type is more generally a constraint of what a values a container can constraint. The "classical" constraint is _it is an object of a class `X` or of a class that inherits from `X`_. Perl 6 also has constraints like _the class or the object does role `Y`_, or _this piece of code returns true for our object_. The latter is the most general one, and is called a _subset_ type:
+Java 程序员倾向于认为类型就是一个类或者接口 ( 这有点像一个残缺的类 ), 但这种观点是因为对 Perl 6 的了解太有限了. 类型普通普通看法是对容器中可以放什么值进行约束. 
+
+传统的一个约束是, 某个东西, 它是一个 X 类的对象或者它是从 X 继承, Perl 6 也有类似的限制象类或者对象 does role Y, 或者这一段代码返回 true 为我们的对象. 这个我们在这叫  _subset_ 类型.
 
     subset Even of Int where { $_ % 2 == 0 }
-    # Even can now be used like every other type name
+    # Even 现在是可以象其它类型一样使用了 
 
     my Even $x = 2;
-    my Even $y = 3; # type mismatch error
+    my Even $y = 3; # 类型不匹配错误 
 
-(Try it out, Rakudo implements subset types).
+( 试试, Rakudo 实现的子类型 ).
 
-You can also use anonymous subtypes in signatures:
+你也可以在子函数中使用匿名的子类型.
 
     sub foo (Int where { ... } $x) { ... }
     # or with the variable at the front:
     sub foo ($x of Int where { ... } ) { ... }
 
-### 动机[203]
+### 动机
 
-Allowing arbitrary type constraints in the form of code allows ultimate extensibility: if you don't like the current type system, you can just roll your own based on subset types.
+代码的终极可扩展性就是许任意类型的约束形式: 如果你不喜欢现有的类型系统, 你可以使用基于自己创建的子类型.
 
-It also makes libraries easier to extend: instead of dying on data that can't be handled, the subs and methods can simply declare their types in a way that "bad" data is rejected by the multi dispatcher. If somebody wants to handle data that the previous implementation rejected as "bad", he can simple add a multi sub with the same name that accepts the data. For example a math library that handles real numbers could be enhanced this way to also handle complex numbers.
+这也使的 lib 库更加容易扩展: 用来替换 die 处理不正常的数据, 在子函数和方法上只需要声明所需要的类型的方式, 不正常的数据就会被 multi dispatcher 所拒绝. 如果其它人想处理提交要处理的坏数据时, 因只需要简单的指定所需要的子类型, 就可以正常的工作. 例如, 你可以写一个 lib 库用于处理实数, 你可以通过这种方式扩展, 让他可以处理其它复杂的数字.
 
 ## The State of the implementations
 
