@@ -2565,49 +2565,46 @@ Thu Jul 9 09:00:02 2009
 
 异常隐含着错误 ( 如除以零, 调用不存在的方法, 类型检查失败 ) 或者通过显示的调用 `die` 之类其它的产生的异常.
 
-当抛出一个异常时, 这个程序会查找 `CATCH` 语句或者
-When an exception is thrown, the program searches for `CATCH` statements or `try` blocks in the caller frames, unwinding the stack all the way (that means it forcibly returns from all routines called so far). If no `CATCH` or `try` is found, the program terminates, and prints out a hopefully helpful error message. If one was found, the error message is stored in the special variable `$!`, and the `CATCH` block is executed (or in the case of a `try` without a CATCH block the try block returns `undef`).
+当异常发生时, 程序会在所有的函数中寻找相关的 CATCH 关键字或 try 代码段. 如果没有 catch 和 try 被找到, 程序退出, 这个时候可能会打印出一些错误提示但更可能是不会的. 如果 catch 或 try 被找到了, 错误信息会被存在特殊变量 $! 中, catch 中的内容会被执行. 另外, 当只有一个 try 代码段而没有对应的 catch 的时候, try 代码段会返回 undef.
 
-So far exceptions might still sound exceptional, but error handling is integral part of each non-trivial application. But even more, normal `return` statements also throw exceptions!
+到目前为止讲的异常处理都还比较常规, 但错误处理对程序来说是很复杂的, 有的时候甚至一个普通的函数返回 "return" 也会抛出异常. 这种情况被叫做 "control exceptions"，可以用 CONTROL 块获取到, 或是在每个 routine 定义的时候捕获到。 
 
-They are called _control exceptions_, and can be caught with `CONTROL` blocks, or are implicitly caught at each routine declaration.
-
-Consider this example:
+看下面这个例子:
 
     use v6;
-    my $block = -> \{ return "block"; say "still here" \};
+    my $block = -> { return "block"; say "still here" };
 
-    sub s \{
+    sub s {
         $block.();
         return "sub";
-    \}
+    }
 
     say s();
 
-Here the `return "block"` throws a control exception, causing it to not only exit the current block (and thus not printing `still here` on the screen), but also exiting the subroutine, where it is caught by the `sub s...` declaration. The payload, here a string, is handed back as the return value, and the `say` in the last line prints it to the screen.
+这的 `return "block"` 会抛出一个控制异常, 使其不仅退出当前块 ( 因此不会在屏幕上打印 "still here" ), 还会退出子函数, 这时会补 `sub s...` 的声明捕捉. 这是有效返回是字符串, 它被做为返回值, 并在最后一行的 `say` 来打印出来.
 
-Embedding the call `$block.()` in a `try { ... }` block or adding a `CONTROL { ... }` block to the body of the routine causes it to catch the exception.
+嵌入调用 `$block.()` 中放入 `$block.()` 块或者增加 `CONTROL { ... }` 块到程序的主体中可以使其捕获到异常.
 
-Contrary to what other programming languages do, the `CATCH`/`CONTROL` blocks are within the scope in which the error is caught (not on the outside), giving it full access to the lexical variables, which makes it easier to generate useful error message, and also prevents DESTROY blocks from being run before the error is handled.
+和其它编程语言不一样的, 这个 `CATCH`/`CONTROL` 块是工作在错误被捕获( 不是在外面 ) 的范围内, 这会完全进入词法变量, 这使得更容易产生有用的错误信息, 并且可以防止在处理错误之前, 这个块就被 DESTROY 掉.
 
-#### [Unthrown exceptions]
+#### 不抛出异常
 
-Perl 6 embraces the idea of multi threading, and in particular automated parallelization. To make sure that not all threads suffer from the termination of a single thread, a kind of "soft" exception was invented.
+Perl 6  中全部包含了多线程的想法, 尤其是自动并行化. 为了确保不是所有的线程要遭受从一个单独的线程中止而中断, 发明了一种 "软" 异常.
 
-When a function calls `fail($obj)`, it returns a special value of `undef`, which contains the payload `$obj` (usually an error message) and the back trace (file name and line number). Processing that special undefined value without check if it's undefined causes a normal exception to be thrown.
+当一个函数调用 `fail($obj)`, 它会返回一个特定的 `undef` 的值, 其实是包含了 `$obj`  ( 通常是一个错误消息 ) 和 back trace ( 文件名和行号 ). 进程需要在外面对这个特定的未定义的值进行检查, 如果它是未定义的来由自己控制异常抛出.
 
     my @files = </etc/passwd /etc/shadow nonexisting>;
-    my @handles = hyper map \{ open($\_) \}, @files;
+    my @handles = hyper map { open($_) }, @files;
 
-In this example the `hyper` operator tells `map` to parallelize its actions as far as possible. When the opening of the `nonexisting` file fails, an ordinary `die "No such file or directory"` would also abort the execution of all other `open` operations. But since a failed open calls `fail("No such file or directory"` instead, it gives the caller the possibility to check the contents of `@handles`, and it _still has access to the full error message_.
+在这个例子中 `hyper` 操作会让 `map` 尽可能并行的做自己所要做的动作. 当打开一个不存在的文件失败时, 普通的  `die "No such file or directory"` 会中止所有其它的  `open` 操作. 但如果使用了失败的打开后启用 `fail("No such file or directory")` 来替换 die 操作, 它会给调用者让其来检查包含的 `@handles`, 并且仍然可以访问完整的错误消息.
 
-If you don't like soft exceptions, you say `use fatal;` at the start of the program and cause all exceptions from `fail()` to be thrown immediately.
+如果你不喜欢 "软" 异常的处理, 你可以 `use fatal;`  这会让程序从一开始就给全部的异常的  `fail()`  变成立即抛出的所有异常.
 
 ### 动机
 
-A good programming language needs exceptions to handle error conditions. Always checking return values for success is a plague and easily forgotten.
+一个好的编程语言需要异常来处理错误的条件. 总是检查返回值是一种折磨也容易忘记.
 
-Since traditional exceptions can be poisonous for implicit parallelism, we needed a solution that combined the best of both worlds: not killing everything at once, and still not losing any information.
+由于传统的异常处理可能会影响隐式的并行性. 所以我们需要一个全其美的解决方案: 不会立即 kill 掉一切, 并且仍然不会丢失任何信息.
 
 ## Common Perl 6 data processing idioms
 
@@ -2654,46 +2651,46 @@ Thu Jul 22 13:34:26 2010
 
 ####  哈希
 
-  # create a hash from a list of keys and values:
-  # solution 1: slices
+  # 从键和值的列表创建哈希 
+  # 方案 1: slices 切片
   my %hash; %hash{@keys} = @values;
-  # solution 2: meta operators
+  # 方案 2: meta operators 元操作
   my %hash = @keys Z=> @values;
 
-The first solution is the same you'd use in Perl 5: assignment to a slice. The second solution uses the zip operator `Z`, which joins to list like a zip fastener: `1, 2, 3 Z 10, 20, 30` is `1, 10, 2, 20, 3, 30`. The `Z=>` is a meta operator, which combines zip with `=>` (the Pair construction operator). So `1, 2, 3 Z=> 10, 20, 30` evaluates to `1 => 10, 2 => 20, 3 => 30`. Assignment to a hash variable turns that into a Hash.
+这个第一个方案和你的 Perl 5 是基本相同的: 使用切片来分配. 第二个方案是使用的 zip 操作符的 `Z` 操作, 这会 zip 成一个列表象:  `1, 2, 3 Z 10, 20, 30` 变成  `1, 10, 2, 20, 3, 30`. 这的 `Z=>` 是元操作, 在这通过 `=>` ( Pair 创建的操作 ) 来绑定 zip . 所以 `1, 2, 3 Z=> 10, 20, 30` 相当于 `1, 2, 3 Z=> 10, 20, 30`. 赋值给哈希一个数组列表变量.
 
-For existence checks, the values in a hash often doesn't matter, as long as they all evaluate to `True` in boolean context. In that case, a nice way to initialize the hash from a given array or list of keys is
+对于存在检查, 这个哈希的值是不什么重要, 主要他们在布尔上下文返回 `True`. 在这种情况下, 有一个不错的方式来初始化哈希, 给 keys 一个数组或者列表
 
-  my %exists = @keys Z=> 1 xx \*;
+  my %exists = @keys Z=> 1 xx *;
 
-which uses a lazy, infinite list of 1s on the right-hand side, and relies on the fact that `Z` ends when the shorter list is exhausted.
+这是一个 lazy, 在右侧 1 组成无穷列表, 并依赖 `Z` 来结束这个列表.
 
-#### [Numbers][246]
+#### [Numbers]
 
-Sometimes you want to get a number from somewhere, but clip it into a predefined range (for example so that it can act as an array index).
+有时你从一些其它的地方取得一个数字, 但这个数字有一个自己预先定义的范围 ( 例如, 这样它可以作为一个数组索引 ).
 
-In Perl 5 you often end up with things like `$a = $b > $upper ? $upper : $b`, and another conditional for the lower limit. With the `max` and `min` infix operators, that simplifies considerably to
+在 Perl 5 中, 你常常会遇到什么 `$a = $b > $upper ? $upper : $b`, 其它的限制是 lower. 在这个地方我们使用 `max` 和 `min` 的中缀运算符, 可以简化成
 
   my $in-range = $lower max $x min $upper;
 
-because `$lower max $x` returns the larger of the two numbers, and thus clipping to the lower end of the range.
+因为  `$lower max $x` 返回两个数中较大的, 因此切出了这个范围的下端.
 
-Since `min` and `max` are infix operators, you can also clip infix:
+这为 `min` 和 `max` 是中缀运算符, 你也可以这样使用:
 
  $x max= 0;
  $x min= 10;
 
-#### [Debugging][247]
+#### [Debugging]
 
-Perl 5 has Data::Dumper, Perl 6 objects have the `.perl` method. Both generate code that reproduces the original data structure as faithfully as possible.
+Perl 5 中我们常常使用 Data::Dumper, 在 Perl 6 的中我们使用对象的 `.perl` 方法. 这二个都能尽可能生成, 真实的原始数据结构.
 
-`:$var` generates a Pair ("colonpair"), using the variable name as key (but with sigil stripped). So it's the same as `var => $var`. `note()` writes to the standard error stream, appending a newline. So `note :$var.perl` is quick way of obtaining the value of a variable for debugging; purposes, along with its name.
+这个 `:$var`  生成 => 的键值对 ("colonpair"), 使用变量名做为关键字 ( 但前标记会剥离开 ). 因些, 它们会是 `var => $var` 一样的结构. `note()` 是用于写入标准错误, 并追加一个换行. 所以 `:$var.perl 是一个获得用于调试, 名称, 目标的变量的值的快捷方式.
 
-#### [Sorting][248]
+#### [Sorting]
 
-Like in Perl 5, the `sort` built-in can take a function that compares two values, and then sorts according to that comparison. Unlike Perl 5, it's a bit smarter, and automatically does a transformation for you if the function takes only one argument.
+象 Perl 5 中一样, 这个 `sort` 是内置的. 它可根据所采取的比较函数来比较两个值, 然后排序. 不同于 Perl 5 的是, 这更加智能, 如果你的参数只有一个值会自动使用 transformation.
 
-In general, if you want to compare by a transformed value, in Perl 5 you can do:
+如果你想过一个 transformed 对值进行比较, 在 Perl 5 中你可以这样:
 
     # WARNING: Perl 5 code ahead
     my @sorted = sort { transform($a) cmp transform($b) } @values;
@@ -2704,23 +2701,23 @@ In general, if you want to compare by a transformed value, in Perl 5 you can do:
                  map { [transform($_), $_] }
                  @values
 
-The former solution requires repetitive typing of the transformation, and executes it for each comparison. The second solution avoids that by storing the transformed value along with the original value, but it's quite a bit of code to write.
+上面二个的解决方案的在进行比较的时候, 第一个需要不断重复转换的输入. 第二个方案通过存储原始值转化后的值避免了重复输入, 但它多写了相当多的代码.
 
-Perl 6 automates the second solution (and a bit more efficient than the naiive Schwartzian transform, by avoiding an array for each value) when the transformation function has arity one, ie accepts one argument only:
+Perl 6 会自动使用第二种方案 ( 使用更加有效的 Schwartzian 转换, 避免数组的每个值重复转换 ), 这个转换函数只有一个参数:
 
     my @sorted = sort &transform, @values;
 
-#### [Mandatory Attributes][249]
+#### 强制属性 
 
-The typical way to enforce the presence of an attribute is to check its presence in the constructor - or in all constructors, if there are many.
+通常我们强制一些属性必须存在, 是为了检查其构造函数中是否存在.
 
-That works in Perl 6 too, but it's easier and safer to require the presence at the level of each attribute:
+在 Perl 6 中也是这样工作的, 但它更加容易, 更加安全, 当请求每个需要存在属性时:
 
     has $.attr = die "'attr' is mandatory";
 
-This exploits the default value mechanism. When a value is supplied, the code for generating the default value is never executed, and the `die` never triggers. If any constructor fails to set it, an exception is thrown.
+这利用了默认值的机制. 当提供一个值, 这个就永远不会执行, 会用于生成默认值, 这个 `die` 不会触发. 如果有任何构造函数没设置这个值, 就会抛出异常.
 
-### 动机[250]
+### 动机
 
 N/A
 
@@ -2728,64 +2725,65 @@ N/A
 
 Sun Jul 25 09:17:10 2010
 
-### [NAME][251]
+### [NAME]
 
-"Perl 5 to 6" Lesson 28 - Currying
+"Perl 5 to 6" Lesson 28 - Currying 柯里化
 
 ### 概要
 
   use v6;
-
-  my &amp;f := &amp;substr.assuming('Hello, World');
+  
+  my &f := &substr.assuming('Hello, World');
   say f(0, 2);                # He
   say f(3, 2);                # lo
   say f(7);                   # World
-
-  say <a b c>.map: \* x 2;     # aabbcc
-  say <a b c>.map: \*.uc;      # ABC
-  for ^10 \{
-      print <R G B>.[$\_ % \*]; # RGBRGBRGBR
-  \}
+  
+  say <a b c>.map: * x 2;     # aabbcc
+  say <a b c>.map: *.uc;      # ABC
+  for ^10 {
+      print <R G B>.[$_ % *]; # RGBRGBRGBR
+  }
 
 ### 描述
 
-_Currying_ or _partial application_ is the process of generating a function from another function or method by providing only some of the arguments. This is useful for saving typing, and when you want to pass a callback to another function.
+Currying 和 partial application 用于用一个函数产生新的函数, 或是用一个方法提供一些参数再产生新的方法. 因为可以动态产生很多函数, 这样就省去很多码字的时间, 当函数需要返回一个回调的时候也会非常有用.
 
-Suppose you want a function that lets you extract substrings from `"Hello, World"` easily. The classical way of doing that is writing your own function:
+假设你想要一个函数用于从 `"Hello, World"` 做各种提取子串操作, 这样做的经典方法是写自己的函数:
 
-  sub f(\*@a) \{
+  sub f(*@a) {
       substr('Hello, World', |@a)
-  \}
+  }
 
-#### [Currying with `assuming`][254]
+#### [Currying with `assuming`]
 
-Perl 6 provides a method `assuming` on code objects, which applies the arguments passed to it to the invocant, and returns the partially applied function.
+Perl 6 提供了一个方法 `assuming` 在代码的对象上, 它可以传递给它参数给调用者, 并返回的部分的功能的函数.
 
-  my &amp;f := &amp;substr.assuming('Hello, World');
+    my &f := &substr.assuming('Hello, World');
 
-Now `f(1, 2)` is the same as `substr('Hello, World', 1, 2)`.
+现在  `f(1, 2)` 相当于 `substr('Hello, World', 1, 2)`.
 
-`assuming` also works on operators, because operators are just subroutines with weird names. To get a subroutine that adds 2 to whatever number gets passed to it, you could write
+这个  `assuming` 方法也可以工作在操作符上, 因为操作符只是一个奇怪名字的函数. 你想写一个子函数, 给任何传递给它的数都增加 2 , 你可以这样写.
 
-  my &amp;add\_two := &amp;infix:<+>.assuming(2);
+    my &add_two := &infix:<+>.assuming(2);
 
-But that's tedious to write, so there's another option.
+但这是一种很无聊的写法, 所以有另一种选择.
 
-#### [Currying with the Whatever-Star][255]
+#### [Currying with the Whatever-Star]
 
-  my &amp;add\_two := \* + 2;
-  say add\_two(4);         # 6
+  my &add_two := * + 2;
+  say add_two(4);         # 6
 
-The asterisk, called _Whatever_, is a placeholder for an argument, so the whole expression returns a closure. Multiple Whatevers are allowed in a single expression, and create a closure that expects more arguments, by replacing each term `*` by a formal parameter. So `* * 5 + *` is equivalent to `-> $a, $b { $a * 5 + $b }`.
+星号, 叫 _Whatever_, 是一个占位符参数, 所以整个表达式返回一个闭包. 多个星号 "Whatevers" 在单个表达式中也是可以的, 这样也会创建闭包, 但希望提供更多的参数, 通过形参替换每个 "*" 元素. 所以 `* * 5 + *` 相当于 `-> $a, $b { $a * 5 + $b }`.
 
-  my $c = \* \* 5 + \*;
+  my $c = * * 5 + *;
   say $c(10, 2);                # 52
 
-Note that the second `*` is an infix operator, not a term, so it is not subject to Whatever-currying.
+注意第二个 `*` 是一个中缀运算符, 不是术语, 所以不会被 Whatever-currying 影响.
 
+在进程中这些都是语法驱动成 
 The process of lifting an expression with Whatever stars into a closure is driven by syntax, and done at compile time. This means that
 
-  my $star = \*;
+  my $star = *;
   my $code = $star + 2
 
 does not construct a closure, but instead dies with a message like
@@ -2794,25 +2792,25 @@ does not construct a closure, but instead dies with a message like
 
 Whatever currying is more versatile than `.assuming`, because it allows to curry something else than the first argument very easily:
 
-  say  ~(1, 3).map: 'hi' x \*    # hi hihihi
+    say  ~(1, 3).map: 'hi' x *    # hi hihihi
 
 This curries the second argument of the string repetition operator infix `x`, so it returns a closure that, when called with a numeric argument, produces the string `hi` as often as that argument specifies.
 
 The invocant of a method call can also be Whatever star, so
 
-  say <a b c>.map: \*.uc;      # ABC
+      say <a b c>.map: *.uc;      # ABC
 
-involves a closure that calls the `uc` method on its argument.
+涉及一个闭包, 给其内容做为参数为其调用 `uc` 的方法.
 
 ### 动机[256]
 
-Perl 5 could be used for functional programming, which has been demonstrated in Mark Jason Dominus' book _Higher Order Perl_.
+Perl 5 中也可用于函数式编程, 你可以看看 Jason Dominus' book _Higher Order Perl_.
 
-Perl 6 strives to make it even easier, and thus provides tools to make typical constructs in functional programming easily available. Currying and easy construction of closures is a key to functional programming, and makes it very easy to write transformation for your data, for example together with `map` or `grep`.
+Perl 6 努力使用这些更加容易, 从而提供工作让你更加容易构造函数式编程. Currying 和容易的构造闭包是函数式编程的关键. 并且可以很容易的与 map 或者 grep 之类一起使用.
 
 ### 另请参阅[257]
 
-[http://perlcabal.org/syn/S02.html#Built-In\_Data\_Types][258]
+[http://perlcabal.org/syn/S02.html#Built-In_Data_Types]
 
 <http://hop.perl.plover.com/>
 
