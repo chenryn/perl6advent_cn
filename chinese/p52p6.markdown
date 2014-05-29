@@ -1,6 +1,6 @@
 # Perl 5 to Perl 6
 
-本文开始是以[一系列博客文章][16]的形式存在，为阅读方便收集整理而成。
+本文开始是以[一系列博客文章]的形式存在，为阅读方便收集整理而成。
 
 ## 目录
 
@@ -38,35 +38,37 @@
 
 Sat Sep 20 22:00:00 2008
 
-### [NAME][46]
+### NAME
 
-"Perl 5 to 6" - Introduction
+"Perl 5 to 6" - 介绍
 
-### [SYNOPSIS][47]
+### 概要
 
-    学习 Perl 6 (如果你已经了解 Perl 5)
-    学会并爱上 Perl 6
+    学习 Perl 6 ( 假设你已经了解 Perl 5 )
+    学会欣赏Perl 6 
     知道为什么
 
-### [DESCRIPTION][48]
+### 描述
 
-Perl 6 目前文档不足. 这并不奇怪, 因为编写 Perl 6 的编译器比写文档( 目前只有一个 specification 规范)这个对于用户来讲更加重要多了.
+Perl 6 目前文档不足. 这并不奇怪, 因为编写 Perl 6 的编译器比写文档这事 ( 目前只有一个 specification 规范 ) 这个对于用户来讲更加重要多了.
 
-不幸的是，这意味着会让大家不容易学习 Perl 6, 除非你是对 Perl 6 有比较深入的关注, 也就只能从 specification, IRC 和测试套件中学习.
+不幸的是, 这意味着会让大家不太容易学习 Perl 6, 除非你是对 Perl 6 有比较深入的关注的人, 就算这样, 目前也就只能从 specification, IRC 和测试套件中学习.
 
 这个项目, 初步给名字定为 "Perl 5 to 6"(目前我找不到更好的名字) 来填补文档空白这个事情.
 
-这个课程都内容都相当矮小精悍. 并试图用很短的例子来解释 42-3 个重点. 也会解释从 Perl 5 变成 Perl 5 的改步, 这一点非常重要. 我希望你通过读这些课程学到所需要的知识. 并基本明白 Synopses 这个东西是 Perl 智慧的来源.
+这个课程都内容都会保持矮小精悍. 我会试图用很短的例子来解释 2-3 个重点. 也会解释从 Perl 5 变成 Perl 6 的改进, 这一点非常重要. 我希望你通过读这些课程学到所需要的知识. 
 
-为了保证读起来方便, 每个课程会控制在不超过 200 行或者 1000 个单词(当然就是个软限制);
+这些内容都是 Synopses 中的, 这是 Perl 智慧的来源和汇总.
 
-这个对于学习编程语言也许太短了. 但我希望是讲出语言的设计, 让你看到它强大美丽的一面, 并且不用按语言大纲学习就会使用.
+为了保证读起来方便, 每个课程会控制在不超过 200 行或者 1000 个单词 ( 当然就是个软限制 );
 
-### [IT'S NOT][49]
+这个对于学习编程语言也许太短了. 但我希望是讲出语言的设计的目标, 让你看到它强大并美丽的一面, 并且不用按语言大纲就能很快的学习并使用.
+
+### [IT'S NOT]
 
 这并不是一个 Perl 5 转成 Perl 6 的指南, 所以没有完整的转换列表.
 
-### [ROADMAP][50]
+### [文章路线图]
 
 已经在写了的和准备要写的:
 
@@ -98,7 +100,7 @@ Perl 6 目前文档不足. 这并不奇怪, 因为编写 Perl 6 的编译器比�
     25 Cross meta operator
     26 Exceptions and control exceptions
 
-(有些不是或者目前 Rakudo 没有实现的内容标了一个 `(-)`)
+( 有些不是或者目前 Rakudo 没有实现完的内容标了一个 `(-)`)
 
 有些东西我想写, 但我对这些的了解还不够:
 
@@ -113,11 +115,11 @@ Perl 6 目前文档不足. 这并不奇怪, 因为编写 Perl 6 的编译器比�
 
 我也会更新这些课程, 也保证他们不是太落伍了.
 
-### [AUTHOR][51]
+### [AUTHOR]
 
 Moritz Lenz, <http://perlgeek.de/>, `moritz@faui2k3.org`
 
-### [LINKS][52]
+### [LINKS]
 
 Other documentation efforts can be found on <http://perl6.org/documentation/>.
 
@@ -125,39 +127,39 @@ Other documentation efforts can be found on <http://perl6.org/documentation/>.
 
 Sat Sep 20 22:20:00 2008
 
-### [NAME][53]
+### [NAME]
 
 "Perl 5 to 6" 第 1 课 - 字符串、数组和哈希
 
-### [SYNOPSIS][54]
-
+### 概要
+    
     my $five = 5;
-    print "an interpolating string, just like in perl $five\\n";
+    print "an interpolating string, just like in perl $five\n";
     say 'say() adds a newline to the output, just like in perl 5.10';
 
     my @array = 1, 2, 3, 'foo';
     my $sum = @array[0] + @array[1];
-    if $sum > @array[2] \{
+    if $sum > @array[2] {
         say "not executed";
-    \}
-    my $number\_of\_elems = @array.elems;     # or +@array
-    my $last\_item = @array[\*-1];
+    }
+    my $number_of_elems = @array.elems;     # 或者使用 +@array
+    my $last_item = @array[*-1];
 
     my %hash = foo => 1, bar => 2, baz => 3;
-    say %hash\{'bar'\};                       # 2
-    say %hash<bar>;                         # same with auto-quoting
-    # this is an error: %hash\{bar\}
-    # (it tries to call the subroutine bar(), which is not declared
+    say %hash{'bar'};                       # 2
+    say %hash<bar>;                         # 同上, 会自动的加上双引 
+    # 在这使用 %hash{bar} 是错误的
+    # 没加引号的字符, 这会试着调用 bar 函数. 但这不存在 
 
-### [DESCRIPTION][55]
+### 描述
 
-Perl 6 这些部分很象 Perl 5 - 只会更加好. 声明的语句以分号终止. 一个代码块的最后一条语句和在一行结束的右大括号的分号终止符是可选的.
+Perl 6 这些部分很象 Perl 5 - 只会变得更加友好. 声明的语句还是以分号终止. 在代码块中最后的语句和在行结束的右大括号的分号终止符是可选的.
 
 变量仍然以记号 (象 `$`, `@`, `%`)开头.
 
-#### [Strings][56]
+#### 字符串 
 
-字符串是用双引号包起来(插值的情况下), 或者使用单引号. 反斜杠转义的工作方式和 Perl 5 中一样.
+字符串是用双引号包起来 ( 插值的情况下 ), 或者使用单引号. 反斜杠转义的工作方式和 Perl 5 中一样.
 
 然而插值规则已经改变了一点. 看下面插值
 
@@ -166,38 +168,37 @@ Perl 6 这些部分很象 Perl 5 - 只会更加好. 声明的语句以分号终�
     say "Perl $scalar";         # 'Perl 6'
     say "An @array[]";          # 'An 1 2 3', a so-called "Zen slice"
     say "@array[1]";            # '2'
-    say "Code: \{ $scalar \* 2 \}" # 'Code: 12'
+    say "Code: { $scalar * 2 }" # 'Code: 12'
 
+数组和哈希只有当后面跟索引的时候才会插值 ( 或者方法调用, 象 `"some $obj.method()"` ), 空索引会给整个数据结构做插值操作.
 
-数组和哈希只有当后面跟一个索引的时候才会插值(或者方法调用, 象 `"some $obj.method()"`), 空索引会给整个数据结构做插值操作.
+当出现了一个花括号时会执行花括号中的代码给结果进行插值操作.
 
-当出现了一个花括号时会执行花括号中的代码给结果进行值操作.
+#### 数组
 
-#### [Arrays][57]
+数组还是以 `@` 标记开始. 并且他们总是这样 ( 在 Perl 5 中元素文章不是 @ 是 $  ), 就算访问数组中的元素也是使用 @ 开头. ie. 这个索引需要存在, 这个对新手学习就不在会晕了.
 
-数组还是以 `@` 标记开始. 并且他们总是这样, 就算访问数组中的元素. ie. 这个索引需要存在, 这个对新手学习就不在会晕了.
-
-    my @a = 5, 1, 2;            # no parens needed anymore
-    say @a[0];                  # yes, it starts with @
-    say @a[0, 2];               # slices also work
+    my @a = 5, 1, 2;            # 不再需要括号 
+    say @a[0];                  # 没错, 是以 @ 开头 
+    say @a[0, 2];               # 数组切片也能正常工作 
 
 列表的构造是通过逗号, 不在需要括号. `1,` 是一个列表, `(1)` 不是. 
 
 既然一切都是对象，你可以调用数组的方法:
 
     my @b = @a.sort;
-    @b.elems;                   # 元素的数量 
-    if @b > 2 \{ say "yes" \}     # 老的方法仍能工作 
-    @b.end;                     # 最后一个索引的编号, 替换  $#array
-    my @c = @b.map(\{$\_ \* 2 \});  # map 这也是方法调用 
+    @b.elems;                   # 成员元素数量 
+    if @b > 2 { say "yes" }     # 仍然可以这样 
+    @b.end;                     # 最后一个索引的位置, 替换 $#array
+    my @c = @b.map({$_ * 2 });  # 没错, map 也是个方法调用 
 
 下面的方法是替换老的 `qw/../` 来进行字符数组的构造:
 
     my @methods = <shift unshift push pop end delete sort map>;
 
-#### [Hashes][58]
+#### 哈希 
 
-Perl 6 在列表上下文时哈希是一个列表对. 列表对可以做一些其它的事情, 它会是子函数的名字, 稍后详述.
+Perl 6 在列表上下文时哈希是列表对. 列表对可以做一些其它的事情, 它可以是子函数的名字, 稍后详述.
 
 就象数组使用的开头的标记不变, 哈希也是一样. 当你创建索引时使用 % 开头. 并且 hash 也有自己的方法调用.
 
@@ -206,25 +207,25 @@ Perl 6 在列表上下文时哈希是一个列表对. 列表对可以做一些�
         Bavaria => 'Beer',
         USA     => 'Coke';
 
-    say "The people in France love ",  %drinks\{'France'\};
+    say "The people in France love ",  %drinks{'France'};
     my @countries = %drinks.keys.sort;
 
 注意, 当你访问哈希的元素是通过 `%hash{...}`, 这个 key 不会象 Perl 5 自动的加引号. 所以 `%hash{foo}` 并不能访问到索引 `"foo"` 的元素. 这会调用 `foo()` 的函数. 需要自动的对字符加引号就需要如下这种不同的语法:
 
     say %drinks<Bavaria>;
 
-#### [Final Notes][59]
+#### 最后的注意事项 
 
 大多内置的方法, 既作为一种方法也可以做为 sub 调用. 所以你可以写在 `sort @array`  或者 `@array.sort`.
 
-最后, 你需要知道这二个 `[..]` 和 `{...}`(一个词语之后直接加上), 这只是一个方法调用的特殊语法, 不是依赖于数组和哈希. 这意味着, 他们也不会依赖于特定的前缀符号.
+最后, 你需要知道这 `[..]` 和 `{...}' 这二个东西, 现在它们只是方法调用的特殊语法, 在这不是绑定数组和哈希. 这意味着, 他们也不会依赖于特定的前缀符号.
 
     my $a = [1, 2, 3];
     say $a[2];          # 3
 
-这意味着, 我们不需要特殊的解引用的语法, 并且您可以创建能够同时充当数组, 哈希和 sub 子函数的对象.
+这意味着, 我们不需要特殊的引用和解引用的语法, 并且您可以创建能够同时充当数组, 哈希和 sub 子函数的对象.
 
-### [SEE ALSO][60]
+### 另请参阅
 
 <http://perlcabal.org/syn/S02.html>, <http://perlcabal.org/syn/S29.html>
 
@@ -234,24 +235,24 @@ Sat Sep 20 22:40:00 2008
 
 ### [NAME][61]
 
-"Perl 5 to 6" Lesson 02 - Types
+"Perl 5 to 6" Lesson 02 - 类型
 
-### [SYNOPSIS][62]
+### 概要
 
     my Int $x = 3;
     $x = "foo";         # error
     say $x.WHAT;        # 'Int()'
 
-    # check for a type:
-    if $x ~~ Int \{
+    # 类型检查 
+    if $x ~~ Int {
         say '$x contains an Int'
-    \}
+    }
 
-### [DESCRIPTION][63]
+### 描述
 
-Perl 6 有类型. 因为任何东西都是对象, 都有类型. 变量可以有类型的限制, 并他们并不是必需的.
+Perl 6 中有了类型这东西. 在 Perl 6 中任何东西都是对象, 都自己的类型. 变量虽然可以有类型的限制, 并他们并不是必需的.
 
-有一些基本的类型, 你必须知道的:
+有一些基本的常用类型, 你必须知道的:
 
     'a string'      # Str
     2               # Int
@@ -260,18 +261,18 @@ Perl 6 有类型. 因为任何东西都是对象, 都有类型. 变量可以有�
 
 全部 "标准" 的内置类型都是大写字母开头. 全部 "标准" 类型继承 "Any", 所有的类型都继承 `Mu`.
 
-你可以限制变量在你的值的类型, 只要你在声明的时候指定变量类型.
+你可以限制变量存储的值所用的类型, 只要你在声明的时候指定变量类型.
 
     my Numeric $x = 3.4;
     my Int @a = 1, 2, 3;
 
-有一种错误是, 试图给存一个错误的类型的值到一个变量 (ie neither the specified type nor a subtype).
+如果试图给存一个错误的类型的值到变量会提示出错. 
 
 类型的声明也合适于数组的包含的元素内容, 所以 `my Str @s` 是指定这个数组只能包含字符串.
 
 有某些类型可以代表更加具体的类型, 象 integers (type `Int`), rationals (type `Rat`) 和 浮点数 (type `Num`) 这些都是 `Numeric` 类型.
 
-#### [Introspection][64]
+#### 自省 
 
 你可以通过调用 `.WHAT` 方法了解对象的详细类型.
 
@@ -279,29 +280,29 @@ Perl 6 有类型. 因为任何东西都是对象, 都有类型. 变量可以有�
 
 如果你想检查一些东西的类型, 有不同的方式, 也需要考虑到类型的继承, 所以建议使用下面的方法:
 
-    if $x ~~ Int \{
+    if $x ~~ Int {
         say 'Variable $x contains an integer';
-    \}
+    }
 
-### [MOTIVATION][65]
+### 动机
 
-这个类型系统是不是很容易了解所有的细节. 为什么我们需要类型, 使用他们也有很多理由:
+这个类型系统让我们很容易了解所有的细节. 为什么我们需要类型, 使用他们也有很多理由:
 
-[Programming safety][66]
+[程序更加安全]
 
-程序安全, 如果你声明了一些东西是特定的类型, 你就可以肯定的在上面执行某些操作, 并不需要检查它是什么.
+如果你声明了一些东西是特定的类型, 你就可以肯定的在上面执行某些操作, 并不需要检查它是什么.
 
-[Optimizability][67]
+[优化]
 
 当你在编译的时候有类型的信息, 可以执行更多的优化,  Perl 6 原则上不一定比 C 慢.
 
-[Extensibility][68]
+[扩展性]
 
 当有类型信息时, 使用 multiple dispatch 时更加容易细化特定的操作.
 
-### [SEE ALSO][69]
+### 另请参阅
 
-[http://perlcabal.org/syn/S02.html#Built-In\_Data\_Types][70],
+[http://perlcabal.org/syn/S02.html#Built-In_Data_Types][70],
 
 ## Basic Control Structures
 
@@ -309,164 +310,164 @@ Sat Sep 20 23:00:00 2008
 
 ### [NAME][71]
 
-"Perl 5 to 6" Lesson 03 - Basic Control Structures
+"Perl 5 to 6" Lesson 03 - 基本的控制结构 
 
-### [SYNOPSIS][72]
+### 概要
 
-    if $percent > 100  \{
+    if $percent > 100  {
         say "weird mathematics";
-    \}
-    for 1..3 \{
-        # using $\_ as loop variable
-        say 2 \* $\_;
-    \}
-    for 1..3 -> $x \{
-        # with explicit loop variable
-        say 2 \* $x;
-    \}
+    }
+    for 1..3 {
+        # 在循环中使用 $_
+        say 2 * $_;
+    }
+    for 1..3 -> $x {
+        # 有明确的循环变量
+        say 2 * $x;
+    }
 
-    while $stuff.is\_wrong \{
-        $stuff.try\_to\_make\_right;
-    \}
+    while $stuff.is_wrong {
+        $stuff.try_to_make_right;
+    }
 
     die "Access denied" unless $password eq "Secret";
 
-### [DESCRIPTION][73]
+### 描述
 
-大多数的 Perl 5 的控制结构和 Perl 6 是颇为相似，最大的视觉差异的是，你在使用 `if`, `while`, `for` 之类不后需要一对括号.
+大多 Perl 5 的控制结构和 Perl 6 颇为相似, 如果从视觉差异上来讲, 你可以见到在使用 `if`, `while`, `for` 之类不后需要一对括号.
 
-为什么, 当任何标识符后面紧跟着(无空格)一个左括号时很容易被解析成子程序调用. 所以  `if($x < 3)` 很容易变成调用 `if` 函数. 所以这样更加安全, 还不需要写括号.
+为什么没有括号了, 当任何标识符后面紧跟着 (无空格) 左括号时很容易被解析成子程序调用. 所以  `if($x < 3)` 很容易理解变成调用 `if` 函数的调用. 所以这样更加安全, 还不需要写括号.
 
-#### [Branches][74]
+#### 分支控制 
 
 `if` 功能大部分没在变化, 仍然可以添加  `elsif` 和 `else` 分支. `unless` 仍然存在，但是在 `unless` 之后没有了 `else` 分支.
 
     my $sheep = 42;
-    if $sheep == 0 \{
+    if $sheep == 0 {
         say "How boring";
-    \} elsif $sheep == 1 \{
+    } elsif $sheep == 1 {
         say "One lonely sheep";
-    \} else \{
+    } else {
         say "A herd, how lovely!";
-    \}
+    }
 
-你现在还是可以使用 `if` 和 `unless` 做语句修饰, 即后声明.
+你现在还是可以使用 `if` 和 `unless` 做语句修饰, 即后声明方式来使用.
 
     say "you won" if $answer == 42;
 
-#### [Loops][75]
+#### 循环 
 
-你可以控制循环通过  `next` 和 `last` 就象 Perl 5 一样.
+你可以通过  `next` 和 `last` 来控制循环就象 Perl 5 一样.
 
 在这 `for` 循环现在只用于遍历列表. 默认是操作 `$_` 变量, 除非显式的指出变量名.
 
-    for 1..10 -> $x \{
+    for 1..10 -> $x {
         say $x;
-    \}
+    }
 
-在这的 `-> $x { ... }`  是叫做  "pointy block" 这就象一个匿名的 sub or lisp 中的 lambda 操作.
+在这的 `-> $x { ... }`  是叫做  "pointy block" 这就象一个匿名的子函数或者 lisp 中的 lambda 操作.
 
 你也可以使用一个以上的循环变量:
 
-    for 0..5 -> $even, $odd \{
-        say "Even: $even \\t Odd: $odd";
-    \}
+    for 0..5 -> $even, $odd {
+        say "Even: $even \t Odd: $odd";
+    }
 
 这也是遍历哈希值的好方法:
 
     my %h = a => 1, b => 2, c => 3;
-    for %h.kv -> $key, $value \{
+    for %h.kv -> $key, $value {
         say "$key: $value";
-    \}
+    }
 
-这个 C-style 的 for 循环现在叫做 `loop` (这是唯一需要括号的循环结构):
+这个 C-style 的 for 循环现在叫做 `loop` ( 这是唯一需要括号的循环结构 ):
 
-    loop (my $x = 2; $x < 100; $x = $x\*\*2) \{
+    loop (my $x = 2; $x < 100; $x = $x**2) {
         say $x;
-    \}
+    }
 
-### [SEE ALSO][76]
+### 另请参阅
 
-[http://perlcabal.org/syn/S04.html#Conditional\_statements][77]
+[http://perlcabal.org/syn/S04.html#Conditional_statements]
 
 ## Subroutines and Signatures
 
 Sat Sep 20 23:20:00 2008
 
-### [NAME][78]
+### NAME
 
-"Perl 5 to 6" Lesson 04 - Subroutines and Signatures
+"Perl 5 to 6" Lesson 04 - 子函数和参数
 
-### [SYNOPSIS][79]
+### 概要
 
-    # sub without a signature - perl 5 like
-    sub print\_arguments \{
+    # Perl 5 中传参的方式
+    sub print_arguments {
         say "Arguments:";
-        for @\_ \{
-            say "\\t$\_";
-        \}
-    \}
+        for @_ {
+            say "\t$_";
+        }
+    }
 
-    # Signature with fixed arity and type:
-    sub distance(Int $x1, Int $y1, Int $x2, Int $y2) \{
-        return sqrt ($x2-$x1)\*\*2 + ($y2-$y1)\*\*2;
-    \}
+    # 参数在这个地方使用固定的位置和指定的类型:
+    sub distance(Int $x1, Int $y1, Int $x2, Int $y2) {
+        return sqrt ($x2-$x1)**2 + ($y2-$y1)**2;
+    }
     say distance(3, 5, 0, 1);
 
     # 默认参数 
-    sub logarithm($num, $base = 2.7183) \{
+    sub logarithm($num, $base = 2.7183) {
         return log($num) / log($base)
-    \}
-    say logarithm(4);       # uses default second argument
-    say logarithm(4, 2);    # explicit second argument
+    }
+    say logarithm(4);       # 这会给第二个参数使用默认的值
+    say logarithm(4, 2);    # 明确的指名第二个参数 
 
     # 命名参数
 
-    sub doit(:$when, :$what) \{
+    sub doit(:$when, :$what) {
         say "doing $what at $when";
-    \}
+    }
     doit(what => 'stuff', when => 'once');  # 'doing stuff at once'
     doit(:when<noon>, :what('more stuff')); # 'doing more stuff at noon'
     # illegal: doit("stuff", "now")
 
-### [DESCRIPTION][80]
+### 描述
 
-子函数是使用  `sub` 关键字来声明, 并且有形式参数列表, 就象 C, Java 和一些其它的语言. 这些参数的类型约束是可选的.
+子函数是使用  `sub` 关键字来声明, 并且有形式参数列表, 就象 C, Java 和一些其它的语言. 这些参数有可选的类型约束.
 
-参数默认是只读的. 可通过 "traits" 来改变.
+参数默认是只读的. 可通过 "traits" 来修改成可以读写.
 
-    sub try-to-reset($bar) \{
+    sub try-to-reset($bar) {
         $bar = 2;       # 禁止修改参数
-    \}
+    }
 
     my $x = 2;
-    sub reset($bar is rw) \{
+    sub reset($bar is rw) {
         $bar = 0;         # 可以修改
-    \}
+    }
     reset($x); say $x;    # 0
 
-    sub quox($bar is copy)\{
+    sub quox($bar is copy){
         $bar = 3;
-    \}
+    }
     quox($x); say $x    # still 0
 
 参数可以在后面增加一个问号来标记是否可选.
 
-    sub foo($x, $y?) \{
-        if $y.defined \{
+    sub foo($x, $y?) {
+        if $y.defined {
             say "Second parameter was supplied and defined";
-        \}
-    \}
+        }
+    }
 
-    sub bar($x, $y = 2 \* $x) \{
+    sub bar($x, $y = 2 * $x) {
         ...
-    \}
+    }
 
-#### [Named Parameters][81]
+#### 命名参数 
 
-当你调用子函数是这样的: `my_sub($first, $second)` 这个 `$first` 参数会绑定到第一个正式的参数, `$second` 会传递给第二个参数..等等, 这就是所谓的位置 "positional".
+当你象这样调用子函数: `my_sub($first, $second)`. 在这的这个 `$first` 参数会绑定到第一个正式的参数, `$second` 会传递给第二个参数..等等, 这就是所谓的位置 "positional".
 
-有时, 我们希望使用更加容易记住的名字, 而不是数字. 变是为什么使用命名参数:
+有时, 我们希望使用更加容易记住的名字, 而不是数字之类. 这是为什么使用命名参数的原因:
 
     my $r = Rectangle.new(
             x       => 100,
@@ -480,36 +481,37 @@ Sat Sep 20 23:20:00 2008
 
 要定义一个命名参数, 你只需要给 `:` 放在参数之前: 
 
-    sub area(:$width, :$height) \{
-        return $width \* $height;
-    \}
+    sub area(:$width, :$height) {
+        return $width * $height;
+    }
     area(width => 2,  height => 3);
-    area(height => 3, width => 2 ); # the same
-    area(:height(3), :width(2));    # the same
+    area(height => 3, width => 2 ); # 同上 
+    area(:height(3), :width(2));    # 同上
 
-The last example uses the so-called _colon pair syntax_. Leaving off the name results in the value being `True`, and negating it results in the value being `False`:
+这最后一个例子使用的是叫  _colon pair syntax_ 的语法. 当给使用 `:draw-perimeter` 给其赋布尔值的时候, 你什么都不写默认是 `True`, 当想给一个参数赋值为布尔类型的 `FALSE` 的时候，也不需要写明 `0`，而是用以下格式`:!transparent` 
+
 
     :draw-perimeter                 # same as "draw-perimeter => True"
     :!transparent                   # same as "transparent => False"
 
-在命名参数的声明, 变量名也被用来作为参数的名称. 您可以使用不同的名称:
+在命名参数的声明, 变量也被用来作为参数. 您可以使用不同的名称:
 
     sub area(:width($w), :height($h)) {
         return $w * $h;
     }
     area(width => 2,  height => 3);
 
-#### [Slurpy Parameters][82]
+#### Slurpy 参数 
 
-你给你的 sub 参数的时候, 有时你并不知道所有的参数个数. 你可以定义一种称作 _slurpy_ 参数来使用任何剩余个数的参数:
+你给你的 sub 参数的时候, 有时你并不知道所有的参数个数. 你可以定义一种称作 _slurpy_ 参数来提交任何所剩余的参数:
 
     sub tail ($first, *@rest){
         say "First: $first";
         say "Rest: @rest[]";
     }
-    tail(1, 2, 3, 4);           # "First: 1\\nRest: 2 3 4\\n"
+    tail(1, 2, 3, 4);           # "First: 1\nRest: 2 3 4\n"
 
-对于哈希, 命名的 slurpy 参数定义是使用前端有 * 号的哈希参数:
+对于哈希, 命名的 slurpy 参数定义是使用有 * 号前缀的哈希参数:
 
     sub order-meal($name, *%extras) {
         say "I'd like some $name, but with a few modifications:";
@@ -518,7 +520,7 @@ The last example uses the so-called _colon pair syntax_. Leaving off the name re
 
     order-meal('beef steak', :vegetarian, :well-done);
 
-#### [Interpolation][83]
+#### Interpolation
 
 默认数组是不能插入到参数的列表中. 所以这不同于 Perl 5 的写法.
 
@@ -534,13 +536,13 @@ The last example uses the so-called _colon pair syntax_. Leaving off the name re
     my @indexes = 1, 4;
     say "abc".substr(@indexes)       # 不能实现你想做的 
 
-(实际的情况是, 第一个参数需要是一个 `Int`, 并且被强制转换成 Int, 所以你可以写成 `"abc."substr(@indexes.elems)` 来放在第一位).
+( 实际的情况是, 这的第一个参数需要是一个 `Int`, 需要被强制转换成 Int, 所以你可以写成 `"abc."substr(@indexes.elems)` 来放在第一位 ).
 
 当然, 你也可以使用前缀 `|` 来完成所需的行为
 
     say "abcdefgh".substr(|@indexes) #  结果 bcde, 等同于 "abcdefgh".substr(1, 4)
 
-#### [Multi Subs][84]
+#### Multi Subs
 
 实际上, 你其实可以定义多个 sub 来使用相同的名字, 但接收不同的参数列表:
 
@@ -551,7 +553,7 @@ The last example uses the so-called _colon pair syntax_. Leaving off the name re
 
 现在, 当你调用这个 sub 时, 所述的参数会有一个匹配上并选择使用的.
 
-这个 multis 并不只是可以工作在参数数量不等的情况上, 也可以工作在不同的参数类型的时候:
+这个 multis 并不只是可以工作在参数数量不等的情况上, 也可以用于在不同的参数类型的时候:
 
     multi sub frob(Str $s) { say "Frobbing String $s"  }
     multi sub frob(Int $i) { say "Frobbing Integer $i" }
@@ -559,15 +561,15 @@ The last example uses the so-called _colon pair syntax_. Leaving off the name re
     frob("x");      # Frobbing String x
     frob(2);        # Frobbing Integer 2
 
-### [MOTIVATION][85]
+### 动机
 
 没有人会怀疑明确的子函数参数的实用性: 少打字, 少重复的参数检查, 更多的安全文档代码. 
 
 这些功能还有益于自省. 例如, 当传递给一个块或者子函数使用 `Array.sort`, 并且这段代码预期只有一个参数, 完成 Schwartzian 转换( 见 [http://en.wikipedia.org/wiki/Schwartzian_transform][86] ) 是自动的 - 这些功能在 Perl 5 中不太可能, 由于少了明确的参数, 意味着排序代码块永远不知道有多少个参数.
 
-Multi subs 这个功能也非常有用, 因为它可以使用新类型来覆盖内建命令. 假设你想有一个版本的 Perl6 是本地化上来正确处理土耳其字符串，这对大小写转换是使用的不同寻常的规则时非常好用.
+Multi subs 这个功能也非常有用, 因为它可以使用新类型来覆盖内建命令. 比如, 你想有一个版本的 Perl6 是本地化上来正确处理土耳其字符串，这对大小写转换是使用的不同寻常的规则时非常好用.
 
-而不是修改语言本身. 你只需要加入一个新的 `TurkishStr`, 并为原生的函数加入一个 multi subs:
+这时, 不需要修改语言本身. 你只需要加入一个新的 `TurkishStr`, 并为原生的函数加入一个 multi subs:
 
     multi uc(TurkishStr $s) { ... }
 
@@ -575,7 +577,7 @@ Multi subs 这个功能也非常有用, 因为它可以使用新类型来覆盖�
 
 由于操作也可以使用 subs, 所以这些改进操作是可以正常工作的.
 
-### [SEE ALSO][87]
+### 另请参阅
 
 <http://perlcabal.org/syn/S06.html>
 
@@ -583,11 +585,11 @@ Multi subs 这个功能也非常有用, 因为它可以使用新类型来覆盖�
 
 Tue Sep 23 22:20:00 2008
 
-### [NAME][88]
+### [NAME]
 
 "Perl 5 to 6" Lesson 05 - 对象和类
 
-### [SYNOPSIS][89]
+### 概要
 
     class Shape {
         method area { ... }    # literal '...'
@@ -612,30 +614,29 @@ Tue Sep 23 22:20:00 2008
     say $x.colour;              # black
     $x.colour = 'blue';
 
-### [DESCRIPTION][90]
+### 描述
 
-Perl 6 比起 Perl 5 更加好的地方在于对象模型. 它有可以通过关键字创建类, 角色, 属性和方法, 并可以封装私有属性和方法. 事实上, 这个很象 Perl 5 中的 `Moose`( 这东西的灵感来自 Perl 6 的对象系统).
+Perl 6 比起 Perl 5 更加好的地方在于强大完整的对象模型. 它有可以通过关键字创建类, 角色, 属性和方法, 并可以封装私有属性和方法. 事实上, 这个很象 Perl 5 中的 `Moose`( 这东西的灵感来自 Perl 6 的对象系统).
 
 有两种方法来声明类
 
     class ClassName;
     # 类定义放在这里 
 
-第一个是文件一开始就有一个 `class ClassName;` 并一直延伸到文件的末尾. 第二种方法是类名后跟一个块, 块中所有的都被认为是当前类的定义.
+第一个方法是文件一开始就有一个 `class ClassName;` 并一直延伸到文件的末尾. 第二种方法是类名后跟一个块, 块中所有的内容都被认为是当前类的定义.
 
     class YourClass {
         # 类定义放在这里 
     }
     # 更多的类和其它的代码
 
-#### [Methods][91]
+#### 方法 Methods
 
 方法定义是使用 `method` 关键字. 在方法内部可以使用 `self` 来指向对象本身.
-Methods are declared with the `method` keyword. Inside the method you can use the term `self` to refer to the object on which the method is called (the _invocant_).
 
 你也可以通过参数来给调用者一个不同的名字. 并附加一个冒号 `:` 来给它.
 
-Public 的公有方法可以通过语法 `$object.method` 来调用, 有参数的话,可以使用 `$object.method(@args)` 或者 `$object.method: @args`  来调用.
+Public 公有方法可以通过语法 `$object.method` 来调用, 有参数的话,可以使用 `$object.method(@args)` 或者 `$object.method: @args`  来调用.
 
     class SomeClass {
         # these two methods do nothing but return the invocant
@@ -649,9 +650,9 @@ Public 的公有方法可以通过语法 `$object.method` 来调用, 有参数�
     my SomeClass $x .= new;
     $x.foo.bar                      # same as $x
 
-(这个 `my SomeClass $x .= new` 其实是 `my SomeClass $x = SomeClass.new` 的简写. 这之所以正常工作是因为, 这是一个类型声明, 声明这个变量的类型是一个 `SomeClass` 的 "typo object", 这个类型对象就表示类的对象)
+( 这个 `my SomeClass $x .= new` 其实是 `my SomeClass $x = SomeClass.new` 的简写. 这之所以正常工作是因为, 这同时也是类型声明, 声明这个变量的类型是一个 `SomeClass` 的 "typo object", 这个类型对象就表示类的对象)
 
-方法可以象子函数一样接收参数.
+对象中的方法可以象子函数一样接收参数.
 
 Private 的私有方法可以通过 `method !methodname` 的方式来声明, 调用通过  `self!method_name`.
 
@@ -667,10 +668,10 @@ Private 的私有方法可以通过 `method !methodname` 的方式来声明, 调
 
 私有的方法并不能从类的外面调用.
 
-#### [Attributes][92]
+#### 属性 Attributes
 
-属性声明通过 `has` 关键字, 有个 "twigil" 的功能, 这是在特别符号之后有些特定的字符串. 对于私有属性, 这是一个 `!`, 对于公有属性, 这是使用 `.`. 
-公共属性实际上是有公有的访问权限的私有属性. 所以, 它不能修改, 如果你想修改时, 就需要使用 `!` 来访问实际的属性而不是使用存取器(除非它被标记为 `is rw`).
+属性声明通过 `has` 关键字, 有个 "twigil" 的功能 ( 单词前有二个符号, 第二个符号在 Perl 6 中叫 twigil 有特定的意义 ). 对于私有属性, 这是使用的 `!` 符号, 对于公有属性, 这是使用 `.`. 
+公共属性实际上是有公有的访问权限的私有属性. 所以, 它不能修改, 如果你想修改时, 就需要使用 `!` 来访问实际的属性而不是使用存取器 ( 除非它被标记为 `is rw` ).
 
     class SomeClass {
         has $!a;
@@ -678,13 +679,13 @@ Private 的私有方法可以通过 `method !methodname` 的方式来声明, 调
         has $.c is rw;
 
         method set_stuff {
-            $!a = 1;    # ok, writing to attribute from within the clas
-            $!b = 2;    # same
-            $.b = 3;    # ERROR, can't write to ro-accessor
+            $!a = 1;    # ok, 这时才能写入类的属性
+            $!b = 2;    # 同上
+            $.b = 3;    # ERROR, 不能写, 因为这是私有只读的属性 
         }
 
         method do_stuff {
-            # you can use the private name instead of the public one
+            # 你可以使用私有的名字来替换掉公有的那个名字
             # $!b and $.b are really the same thing
             return $!a + $!b + $!c;
         }
@@ -695,7 +696,7 @@ Private 的私有方法可以通过 `method !methodname` 的方式来声明, 调
     $x.b = 2;       # ERROR!
     $x.c = 3;       # ok
 
-#### [Inheritance][93]
+#### 继承 Inheritance
 
 继承是通过 `is` 这个关键字.
 
@@ -704,7 +705,7 @@ Private 的私有方法可以通过 `method !methodname` 的方式来声明, 调
         ...
     }
 
-所有常用的继承规则 - 方法会先直接检查自己的类型, 如果失败, 操作父类（递归）.同样的, 一个子类的类型是否符合父类:
+根据常用的继承规则 - 方法会先直接检查自己的类型, 如果失败, 操作父类 ( 递归 ). 同样的, 一个子类的类型是否符合父类:
 
         class Bar { }
         class Foo is Bar { }
@@ -718,12 +719,11 @@ Private 的私有方法可以通过 `method !methodname` 的方式来声明, 调
         ...
     }
 
-尽管多重继承会附加很多问题, 人们通常会建议反对这么使用. 角色往往是一个更安全的选择.
+尽管多重继承会附加很多问题, 人们通常会建议反对这么使用. 所以角色往往是一个更安全的选择.
 
-#### [Roles and Composition][94]
+#### 角色 Roles 
 
-现实的世界是不分层, 所以有时很难给一切都使用层次结构继承. 这也是为什么 Perl 6 中有角色的原因之一. 角色和类十分类似, 除了你不能由角色直接创建对象, 也不能使用相同的名字组成. 
-In general the world isn't hierarchical, and thus sometimes it's hard to press everything into an inheritance hierarchy. Which is one of the reasons why Perl 6 has Roles. Roles are quite similar to classes, except you can't create objects directly from them, and that composition of multiple roles with the same method names generate conflicts, instead of silently resolving to one of them, like multiple inheritance does.
+现实的世界是不分层, 所以有时很难给一切都使用层次结构继承. 这也是为什么 Perl 6 中有角色的原因之一. 角色和类十分类似, 除了你不能由角色直接创建对象, 也不能使用相同的名字组成. 相同方法名的角色会互相混淆发生冲突, 但类就不会, 因为类是包含有继承关系的, 可以很好的解决这种命名冲突.
 
 虽然类主要针对的是类型一致性, 但角色才是在 Perl6 的代码重用的主要手段。
 
@@ -750,9 +750,12 @@ In general the world isn't hierarchical, and thus sometimes it's hard to press e
 
     Rectangle.new(width => 8, height => 3).paint;
 
-### [SEE ALSO][95]
+### 另请参阅
 
-<http://perlcabal.org/syn/S12.html> <http://perlcabal.org/syn/S14.html> <http://www.jnthn.net/papers/2009-yapc-eu-roles-slides.pdf> [http://en.wikipedia.org/wiki/Perl\_6#Roles][96]
+<http://perlcabal.org/syn/S12.html> 
+<http://perlcabal.org/syn/S14.html>
+<http://www.jnthn.net/papers/2009-yapc-eu-roles-slides.pdf> 
+[http://en.wikipedia.org/wiki/Perl_6#Roles]
 
 ## Contexts
 
@@ -762,7 +765,7 @@ Wed Sep 24 22:20:00 2008
 
 "Perl 5 to 6" Lesson 06 - Contexts 上下文
 
-### [SYNOPSIS][98]
+### 概要[98]
 
     my @a = <a b c>;
     my $x = @a;
@@ -771,15 +774,15 @@ Wed Sep 24 22:20:00 2008
     say +@a;            # 3
     if @a < 10 { say "short array"; }
 
-### [DESCRIPTION][99]
+### 描述[99]
 
 当你写了一些如下的东西
 
     $x = @a
 
-在 Perl 5 中 `$x` 包含的信息会比 `@a` 少 - 它包含只有  `@a` 中元素的个数. 要保存所有的信息, 你只能明确的指出它是一个引用: `$x = \@a`.
+在 Perl 5 中 `$x` 包含的信息会比 `@a` 少很多 - 它包含只有  `@a` 中元素的个数 ( 因为列表环境 ). 要保存所有的信息, 你只能明确的指出它是一个引用: `$x = \@a`.
 
-在 Perl 6 中是反过来的: 默认你不会丢失任何东西, 标量会存储整个数组. 之所以能这样,  是因为有一个 item 的通用上下文( 在 Perl 5 中叫 _scalar_ )和其它更加专业的象数字, 整型, 和字符上下文. 空和列表上下文保持不变.
+在 Perl 6 中是反过来的: 默认你不会丢失任何东西, 标量会存储整个数组. 之所以能这样,  是因为有一个 item 的通用上下文 ( 在 Perl 5 中叫 _scalar_ ) 和其它更加特定的象数字, 整型和字符上下文. 空和列表上下文保持不变.
 
 你可以强制上下文环境, 通过下面的语法
 
@@ -794,24 +797,24 @@ Wed Sep 24 22:20:00 2008
     %( stuff )   Hash context
      stuff.tree  Tree context
 
-#### [Tree Context][100]
+#### Tree Context
 
-在Perl6的初期, 还有二个版本的原生内建, 一个返回简单列表, 一个返回数组列表(象是数组的数组).
+在 Perl 6 的初期, Tree 上下文在众多的 builtins 里有两个版本存在, 一个用于返回普通的列表 flat list, 一个返回 a list of arrays 数组列表 ( 象是数组的数组 ).
 
-现在是通过返回列表内部内容的对象, 通过返回的东西可能会和可能不会拉平这依赖于上下文.
+现在是通过返回 Parcel 的对象列表, 通过这个 Parcel 对象会根据上下文来返回可能会和可能不会拉平数组.
 
-考虑中缀操作 `Z` (它是 _aip_ 操作的简写)操作符, 交错从二个列表中取元素:
+第一种情况, 比如我们使用中缀操作 `Z` ( 它是 _zip_ 操作的简写 ) 操作符, 交错的从这二个列表中取元素:
 
     my @a = <a b c> Z <1 2 3>;
     say @a.join;                # a1b2c3
 
-这发生的事情是, 第一个语句的右边返回 `('a', 1), ('b', 2), ('c', 3)`, 并赋值给一个数组, 它提供列表上下文, 然后接下操作会拉平内部的元素.
+这所做的事情是, 第一个语句的右边返回 `('a', 1), ('b', 2), ('c', 3)`, 并赋值给一个数组, 它提供列表上下文, 然后接下操作会拉平内部的元素变成整个 @a 的元素成一个普通列表.
 
-其它可能发现的情况
+我们来看另一种情况, 这时是 tree 上下文
 
     my @t = (<a b c> Z <1 2 3>).tree;
 
-这个 `@t` 现在包含三个元素, 每个数组都没有拉平.
+这个 `@t` 现在包含三对元素, 整个数组都没有拉平到 @t 中, 还是保持着自己的结构, 然后才存入 `@t` 这时会是一个 Parcel 对象的数组列表.
 
     for @t -> @inner {
         say "first: @inner[0]  second: @inner[1]"
@@ -823,15 +826,15 @@ Wed Sep 24 22:20:00 2008
     first: b  second: 2
     first: c  second: 3
 
-### [MOTIVATION][101]
+### 动机
 
-更具体的上下文中是一种方法以延迟的设计选择. 例如. 我们要决定在标题上下文时要返回什么清单- 引用的列表需要保留所有的信息, 但在数字比较时没用. 另外,字符串表示形式也对于调试目的更别有用. 但每种选择总是会有人失望的.
+在设计 Perl 6 的上下文的时候, 这些开发人员选择了不要过在决定一个数据结构在不同上下文中的返回值. 例如, 一个列表在标量上下文中应该返回什么 ? 如果返回一个列表的引用, 好处就是能保留所有的信息, 但是坏处就是在需要做数字比较的时候用处不大. 如果返回一个字符串呢, 在调试阶段就会非常有用. 所以舍弃哪种都有相应的不好的地方。
 
 大多的时候, 你根本不要做这样的选择 - 它都会返回合理的值. 不需要你选择怎么样返回.
 
-对于一些事情, 象 Match 对象, 这种不同的上下文提升了实用性和美感.
+对于一些事情, 象 Match 对象, 这种不同的上下文也很大程度上提升了实用性和美感.
 
-### [SEE ALSO][102]
+### 另请参阅
 
 <http://perlcabal.org/syn/S02.html#Context> <http://perlgeek.de/blog-en/perl-6/immutable-sigils-and-context.html>
 
@@ -839,11 +842,11 @@ Wed Sep 24 22:20:00 2008
 
 Thu Sep 25 22:20:00 2008
 
-### [NAME][103]
+### NAME
 
-"Perl 5 to 6" Lesson 07 - Regexes 正则表达式 (also called "rules")
+"Perl 5 to 6" Lesson 07 - Regexes 正则表达式 (也叫 "rules")
 
-### [SYNOPSIS][104]
+### 概要
 
     grammar URL {
         token TOP {
@@ -875,80 +878,84 @@ Thu Sep 25 22:20:00 2008
     my $match = URL.parse('http://perl6.org/documentation/');
     say $match<hostname>;       # perl6.org
 
-### [DESCRIPTION][105]
+### 描述
 
-正则表达式已经大量改良和革新, 是 Perl 6 改进之一. 我们不叫它 _regular expressions_ 了. 因为它比起 Perl 5 更加不正规.
+译者注: 不同于传统的正则表达式, Perl 6 不需要你记住的元字符的列表. 它通过一个简单的规则进行分类字符. 比如扩展的元语法 metasyntax 形式是 ( <...> ) 这样包含着字符. 比如 <.ws> 是尖括号包着 .ws 表示匹配空格. 其中的 . 表示不要捕获到正则的变量名 $<ws> 中.
+
+正则表达式已经在 Perl 6 中改良和革新, 这是重大改进之一. 我们不叫它 _regular expressions_ 了. 因为它比起 Perl 5 更加不正规了.
 
 正则表达式有三个大的更改和改进
 
-[Syntax clean up][106]
+[语法更加干净]
 
-许多小变化使得规则更加容易编写. 例如, dot `.` 在匹配任何字符. 旧的语义是除了换行, 可以使用 `\N` 来实现.
+许多小变化使得规则更加容易编写. 例如, dot `.` 在匹配任何字符, 旧的 Perl 5 中的语义是要除去换行. 现在你可以使用 `\N` 来实现匹配零个或者多个非换行符.
 
-修饰符现在在一个正则表达式的起始, 并且非捕获组是 `[...]`, 这比起旧的 `(?:...)` 更加容易读取和写.
+修饰符现在是放在正则表达式的起始位置, 并且修改了非捕获组变成是 `[...]`, 这比起旧的 `(?:...)` 更加容易读取和写.
 
-[Nested captures and match object][107]
+[嵌套捕获和 match 对象]
 
 在 Perl 5 中, 正则 `(a(b))(c)` 会给 `ab` 存到 `$1`, `b` 会存到 `$2` 和 `c` 存到 `$3`. 这种情况现在改变, 现在 `$0` (枚举从零开始)包含 `ab`, `$0[0]` or `$/[0][0]` 包含 `b`, `$1` 存着 `c`. 所以括号中的每个嵌套级别反映在结果匹配对象的一个新的嵌套级别.
 
-所有匹配变量是别名为`$/`，也就是所谓的 _Match object_, 它实际上包含了一个完整的匹配树。
+所有匹配变量是别名为 `$/`，也就是所谓的 _Match object_, 它实际上是一个包含了完整的匹配树型结构的对象。
 
-[Named regexes and grammars][108]
+[命名的正则和 grammars]
 
-你可以定义你正则表达式的名字, 就象在 subs 和方法中. 你可以通过 `<name>` 来在其它地方使用这个. 你可以给多个正则表达式做成 grammars, 这就象类和支持继承和组合.
+在 Perl 6 中开始, 你可以给你所写的正则表达式一个名字, 就象在子函数和方法中一样有自己的名字. 通过 `<name>` 这种方式来在其它地方重新使用这个. 你可以给多个正则表达式做成 grammars, 这就象类和支持继承和组合.
 
 这些改变使得 Perl 6 的正则表达式和 grammars 比起 Perl 5 更加容易维护和编写.
 
 这些变化的东西比较深, 这个文章中, 我们只能见到表面的东西.
 
-#### [Syntax clean up][109]
+#### [Syntax clean up]
 
-字母字符 ( 如下划线, 数字和所有 Unicode 字母) 匹配从字面上看, 当使用反斜杠转义时具有特殊的意义( 这是 _metasyntactic_ ), 对于所有的其它字符是反过来的 - 除非它转义.
+字母字符 ( 如下划线, 数字和所有 Unicode 字符 [a-zA-Z0-9_] ) 是根据字面内容来匹配, 也就是指, 它是什么就是什么, 当使用反斜杠转义这些字符时就会具有特殊的意义 ( 这是元语法 _metasyntactic_ ).
 
-    literal         metasyntactic
-    a  b  1  2      \a \b \1 \2
-    \* \: \. \?     *  :  .  ? 
+对于所有的其它字符 ( 非 [a-zA-Z0-9_] ) 是反过来的 - 除非它转义(也就是说特殊字符 * 就是有特殊含义的，如果你想匹配一个 "星号"，那就要用 "\*").
 
-Not all metasyntactic tokens have a meaning (yet). It is illegal to use those without a defined meaning.
+     字面意思       元语法 
+    a  b  1  2      \a \b \1 \2     # 普通字符 [a-zA-Z0-9_]
+    \* \: \. \?     *  :  .  ?      # 其它字符 非 [a-zA-Z0-9_]
+
+并不是全部反斜杠转义的字符都是元语法 metasyntactic tokens 都有特别的含义. 除了 \a \b \1 \2 外, 可能其它的使用反斜杠转义的并没有确切的定义, 这时这些是非法的. 
 
 在正则表达式中还有另一种方法来转义字符串: 通过引号.
 
     m/'a literal text: $#@!!'/
 
-这改变了 `.` 的语义, 这提到过， 同时又有 `[...]` 现在构建非捕获组. 字符类是　`<[...]>`　和非字符类`<-[...]>`。　`^`　和　`$`　总是匹配开始和结束的字符串。　匹配行的开始和结束是使用　`^^`　和　`$$`.
+在 Perl 6 中这改变了 `.` 的语义, 这个前面提过, 同时改变的还有 `[...]` 现在用于构建非捕获组. 字符类是　`<[...]>`　和非字符类`<-[...]>`. `^`　和　`$`　总是匹配开始和结束的字符串. 匹配行的开始和结束是使用　`^^`　和　`$$`.
 
-这意味着`/ s的`和`/ M`修饰都没有了. 修饰符现在是在正则表达式的开始给出:
+这意味着原来的 `/s` 和`/m` 修饰都没有了. 修饰符现在是在正则表达式中, 是在一开始的位置来给出:
 
     if "abc" ~~ m:i/B/ {
         say "Match";
     }
 
-... 这又是使用的　_colon pair_　符号。　你可以使用这个象命名参数和子函数一样.
+... 这又是使用的 _colon pair_ 符号. 你可以使用起来象子函数给个命名参数一样.
 
 
 修饰符有一个短的和长的形式. 现在老 `/x` 修饰符是默认的, 即空格会被忽略.
 
-    short   long            meaning
+    简写    长的写法            意义
     -------------------------------
-    :i      :ignorecase     ignore case (formerly /i)
-    :m      :ignoremark     ignore marks (accents, diaeresis etc.)
-    :g      :global         match as often as possible (/g)
-    :s      :sigspace       Every white space in the regex matches
-                            (optional) white space
-    :P5     :Perl5          Fall back to Perl 5 compatible regex syntax
+    :i      :ignorecase     忽略大小写 ( 旧的 /i )
+    :m      :ignoremark     忽略一些标记 ( 重音, 分音符号等 )
+    :g      :global         全局替换 ( 旧的 /g )
+    :s      :sigspace       正则表达式匹配所有空格
+                            (可选) 空格 
+    :P5     :Perl5          退回到 Perl 5 所兼容正则表达式语法 
     :4x     :x(4)           Match four times (works for other numbers as well)
     :3rd    :nth(3)         Third match
-    :ov     :overlap        Like :g, but also consider overlapping matches
+    :ov     :overlap        很象 :g, 但这会考虑重叠的匹配
     :ex     :exhaustive     Match in all possible ways
-            :ratchet        Don't backtrack
+            :ratchet        不回溯 
 
-这的　`:sigspace` 需要更多的解释. 它通过　`<.ws>`　替换了模式中的空格　 (that is it calls the rule `ws` without keeping its result).　你可以覆盖该规则.
+这的 `:sigspace` 需要花些时间来解释. 它通过使用了 `<.ws>` 的有名字的正则替换了模式中的空格 ( 这是调用 rule `ws` 并不保存捕获的结果 ).　你可以覆盖该规则.
 
-By default it matches one or more whitespaces if it's enclosed in word characters, and zero or more otherwise.
+<ws> 的规则默认会匹配二个单词中间所包含的一个或者多个空格. 如果不是单词之间就是匹配零个或者多个空格.
 
-#### [The Match Object][110]
+#### Match 对象
 
-每个 match 会生成一个叫　match object　的东西, 会给这些存储到指定的变量　`$/`　中.　它是非常有用的. 如果匹配成功在布尔上下文中，返回 `Bool::True`. 在字符上下文会返回匹配到的字符,　作为一个列表时使用其中包含的位置捕获, 作为哈希使用时它包含命名捕获. 这　`.from`　和　`.to`　方法包含首先的和最后的字符位置上找到的内容.
+每个匹配会生成一个叫 match 对象的东西, 会给这些匹配到的内容存储到指定的变量 `$/` 中.　它是非常有用的. 如果匹配成功并且在布尔上下文中, 它返回 `Bool::True`. 在字符上下文会返回匹配到的字符, 作为一个列表时会返回其中包含的捕获位置, 作为哈希使用时它包含命名捕获. 这个对象有 `.from` 和 `.to` 方法, 会返回包含首先的和最后的字符位置上找到的内容.
 
     if 'abcdefg' ~~ m/(.(.)) (e | bla ) $<foo> = (.) / {
         say $/[0][0];           # d
@@ -957,35 +964,35 @@ By default it matches one or more whitespaces if it's enclosed in word character
         say $/<foo>             # f
     }
 
-这的　`$0`, `$1` 　只是　$/[0]`, `$/[1]`　的别名. 同样　`$/<x>`　和　`$/{'x'}`　也只是　`$<x>`　的别名.
+这的 `$0`, `$1` 只是 `$/[0]`, `$/[1]` 的别名. 同样 `$/<x>` 和 `$/{'x'}` 也只是 `$<x>` 的别名.
 
-注意, 任何你通过　`$/[...]`　和　`$/{...}`　访问的都是　match 对象( 或者是　match 对象的列表). 这可以让你通过规则创建真实的解析树。
+注意, 任何你通过 `$/[...]` 和 `$/{...}` 访问的都是 match 对象( 或者是 match 对象的列表 ). 这可以让你通过 rules 创建真实的解析树.
 
-#### [Named Regexes and Grammars][111]
+#### 命名正则和 Grammars
 
-正则表达式可以是与旧的风格 `m/.../`, 或者声明象子函数和方法.
+正则表达式可以使用旧的风格 `m/.../`, 或者可以使用名字来给他们声明成象子函数和方法一样.
 
     regex a { ... }
     token b { ... }
     rule  c { ... }
 
-所不同的是 `token` 隐含了 `:ratchet` 修饰符(这意味着没有回溯, 象　`(?> ... )` 组包含各自的部分)，　这个　`rule`　含了　`:ratchet`　和　`:sigspace`.
+所不同的是 `token` 隐含了 `:ratchet` 修饰符 ( 这意味着没有回溯, 象 `(?> ... )` 组包含各自的部分 ), 这个 `rule` 隐含了 `:ratchet` 和 `:sigspace` 二个修饰符.
 
-要调用这些规则 (我们会要调用的这些规则, 通过关键字声明后相互独立) 使用尖括号中的名称: `<a>`. 这隐含地锚定子规则的字符串中的当前位置, 存储结果到`$/<a>`　的对象中, 也就是说, 它是一个命名捕获. 你也可以调用规则通过点的前缀操作　`<.a>`　来调用.
+要调用这些规则 ( 我们会要调用的全部的这些规则, 通过关键字声明后会相互独立 ) 只要使用尖括号中加名称: `<a>` 就可以使用. 这隐含地规则的字符串会放到的当前位置, 存储匹配到的结果到 `$/<a>` 的对象中, 也就是说, 它是也是一个命名捕获. 你也可以使用 `<.a>` 来调用不做命名捕获的匹配 ( 不同处在于加了前缀点 ).
 
-grammar 是一系列规则的组, 这很象类 ( 看　SYNOPSIS　中的例子). Grammars 可以继承，重写规则等.
+grammar 是一系列规则的组合, 这很象对象中的类 ( 看　SYNOPSIS　中的例子). Grammars 可以继承, 重写规则等.
 
     grammar URL::HTTP is URL {
         token schema { 'http' }
     }
 
-### [MOTIVATION][112]
+### 动机
 
-Perl 5 的正则表达式常常不太可读, grammars 鼓励你把一个大的正则表达式表示成为更可读的, 短的片段. 命名捕获使规则更加能实现自我文档, 而且很多东西比起以前现在更加一致.
+Perl 5 的正则表达式常常不太可读, grammars 这个东西是鼓励你把一个大的正则表达式表示成为更可读的, 短的片段. 命名捕获使规则更加能实现自我文档, 而且很多东西比起以前现在更加一致.
 
-最后, grammars 是如此强大, 你可以用它分析了解每一种编程语言, 包括 Perl6 本身. 这使得 Perl 6 的语法比起 Perl 5 更易于维护和修改比Perl 5.
+最后, grammars 是如此强大, 你可以用它分析了解每一种编程语言, 包括 Perl6 本身. 这使得 Perl 6 的语法比起 Perl 5 更易于维护和修改.
 
-### [SEE ALSO][113]
+### 另请参阅在
 
 <http://perlcabal.org/syn/S05.html>
 
@@ -997,11 +1004,11 @@ Perl 5 的正则表达式常常不太可读, grammars 鼓励你把一个大的�
 
 Fri Sep 26 22:20:00 2008
 
-### [NAME][114]
+### NAME
 
 "Perl 5 to 6" Lesson 07 - Junctions
 
-### [SYNOPSIS][115]
+### 概要
 
     my $x = 4;
     if $x == 3|4 {
@@ -1009,13 +1016,13 @@ Fri Sep 26 22:20:00 2008
     }
     say ((2|3|4)+7).perl        # (9|10|11)
 
-### [DESCRIPTION][116]
+### 描述
 
-Junctions 是叠加的一堆无序的值. 操作 junctions 的时候是对各自己的元素分别进行　junction (甚至是并行的), 并且结果组装成相同类型.
+Junctions 是叠加的一堆无序的值. 操作 junctions 的时候是对各自己的元素分别执行 ( 甚至是并行的 ), 并且结果组装成原来相同的类型.
 
-在　junction　类型唯一的不同点在于计算布尔上下文时. 这类型有　`any`, `all`, `one` and `none`.
+在 junction 类型唯一的不同点在于计算布尔上下文时. junction 的中有类型 `any`, `all`, `one` 和 `none`, 不同的中缀运算符表示不同的 junction 类型.
 
-    Type    Infix operator
+    类型   中缀运算符 
     any     |
     one     ^
     all     &
@@ -1028,7 +1035,7 @@ Junctions 是叠加的一堆无序的值. 操作 junctions 的时候是对各自
         say "See you on $day";
     }
 
-在这个例子中　`eq` 的这个操作的会调用每个元素象　`$day, 'Monday'`, `$day, 'Tuesday'`　等等. 并将结果放入 `any`-junction 中来. 只要结果被确认了(在这个例子中, 只要有任意一个比较返回'真')　它可以会中止其他比较的执行.
+在这个例子中 `eq` 的这个操作因为 Junction 是 `any` 所以会调用每个元素象 `$day, 'Monday'`, `$day, 'Tuesday'` 等等. 并将结果放入 `any`-junction 中来. 在运行的过程中只要结果被确认了 ( 在这个例子中, 只要有任意一个比较返回 '真' ) 它可以会中止其他比较的执行.
 
 这不但对操作符有效, 对子函数也行:
 
@@ -1036,7 +1043,7 @@ Junctions 是叠加的一堆无序的值. 操作 junctions 的时候是对各自
         say "YaY";
     }
 
-为了做到这一点, junctions 是放在了正常的类型层次结构之外的:
+为了做到这一点, junction 是放在了正常的类型层次结构之外的:
 
                       Mu
                     /    \\
@@ -1046,7 +1053,7 @@ Junctions 是叠加的一堆无序的值. 操作 junctions 的时候是对各自
             All other types
 
 
-如果你想写一个函数使用这个 junction 并且不　autothread　这个子函数, 你可以声明这些的参数是　`Mu`　或者是 `Junction`
+如果你想写一个函数使用这个 junction 并且不 autothread　这个子函数, 你可以声明这些的参数是 `Mu` 或者是 `Junction`.
 
     sub dump_yaml(Junction $stuff) \{
         # we hope that YAML can represent junctions ;-)
@@ -1060,15 +1067,15 @@ Junctions 是叠加的一堆无序的值. 操作 junctions 的时候是对各自
     say "Yes" if   $a != $b ;       # Yes
     say "Yes" if !($a == $b);       # no output
 
-`2 != 3` 是为真, 这 `$a != 2|3` 也是为真. 在其它的时候象 `$a == $b` 比较会返回布尔值 (`True`), 然后在取反为 `False`.
+`2 != 3` 是为真, 这 `$a != 2|3` 也是为真. 在其它的时候象 `$a == $b` 比较会返回布尔值 ( `True` ), 然后在取反为 `False`.
 
-### [MOTIVATION][117]
+### 动机
 
-Perl 的目标是要接近自然语言, 自然语言中你常常会这样讲 "这如这个结果这样或者那样" 而不会讲 "如果这个结果是这样或者这个结果是那样". 很多编程语言都只能使用后者, 感觉有点奇怪. 所以还是 Perl 6 比较好.
+Perl 的目标是要接近自然语言, 自然语言中你常常会这样讲 "如果这个结果这样或者那样" 而不会讲 "如果这个结果是这样或者这个结果是那样". 很多编程语言都只能使用后者, 感觉有点奇怪. 所以还是 Perl 6 比较好.
 
-这个东西也让你容易多了, 不然要使用循环写很多比较.
+这个东西也让你做很多事情容易多了, 不然要使用循环实现同样的功能需要写很多比较.
 
-例如, 有个数组都是数字的, 你想知道如果全部的是不是都是非负数, 在 Perl 5 中, 你可能会写成下面这样:
+例如, 有个数组全部都是数字的, 你想知道如果全部的是不是都是非负数, 在 Perl 5 中, 你可能会写成下面这样:
 
     # Perl 5 code:
     my @items = get_data();
@@ -1081,7 +1088,7 @@ Perl 的目标是要接近自然语言, 自然语言中你常常会这样讲 "�
     }
     if ($all_non_neg) { ... }
 
-如果你知道 Perl  5 中的这个模块, `List::MoreUtils` 你可能会写成:
+如果你知道 Perl 5 中的这个模块, `List::MoreUtils` 你可能会写成:
 
     use List::MoreUtils qw(all);
     my @items = get_data;
@@ -1092,27 +1099,27 @@ Perl 的目标是要接近自然语言, 自然语言中你常常会这样讲 "�
     my @items = get_data();
     if all(@items) >= 0 { ... }
 
-### [A Word of Warning][118]
+### A Word of Warning
 
 很多人知道这个 junctions 非常高兴, 都会大量尝试使用这个.
 
-但要知道 Junctions 并不是一个 sets(集合); 所以你没法从 junction 中提取元素, 你这样做就错了, 所以你想要这样就要使用 `Set` 替代.
+但要知道 Junctions 并不是一个 sets ( 集合 ); 所以你没法从 junction 中提取元素, 你这样做就错了, 所以你想要这样就要使用 `Set` 替代.
 
 It is a good idea to use junctions as smart conditions, but trying to build a solver for equations based on the junction autothreading rules is on over-extortion and usually results in frustration.
 
-### [SEE ALSO][119]
+### 另请参阅
 
-[http://perlcabal.org/syn/S03.html#Junctive_operators][120]
+http://perlcabal.org/syn/S03.html#Junctive_operators
 
 ## Comparing and Matching
 
 Sat Sep 27 22:20:00 2008
 
-### [NAME][121]
+### NAME
 
-"Perl 5 to 6" Lesson 09 - Comparing and Matching 比较和匹配
+"Perl 5 to 6" Lesson 09 - 比较和匹配
 
-### [SYNOPSIS][122]
+### 概要
 
     "ab"    eq      "ab"    True
     "1.0"   eq      "1"     False
@@ -1134,37 +1141,37 @@ Sat Sep 27 22:20:00 2008
     1       ~~      0..4    True
     -3      ~~      0..4    False
 
-### [DESCRIPTION][123]
+### 描述
 
-Perl 6 仍有字符串比较操作符 (`eq`, `lt`, `gt`, `le`, `ge`, `ne`; `cmp` 现在叫 `leg`) 用于评估字符串上下文件的操作. 同样 Perl 5 中的所有数值运算符还是存在.
+Perl 6 仍有字符串比较操作符 ( `eq`, `lt`, `gt`, `le`, `ge`, `ne`; `cmp` 现在叫 `leg` ) 用于比较字符上下文件的操作. 同样 Perl 5 中的所有数值运算符还是存在.
 
 由于对象是 blessed 的引用, 需要新的方式来进行比较 `===` 只有当值都相同的时候才返回真. 对于数字和字符串是正常的相等性测试, 其它的东西都是比较二个变量是否引用同一个东西( 象 C++ 中的内存地址比较 );
 
-`eqv` 的测试是比较二个东西是不是等价的, 如果它们有相同的类型并也有相同的值. 在容器类型象数组和哈希, 使用 `eqv` 来进行比较. 二个结构相同的数组结构是不是等价.
+`eqv` 的测试是比较二个东西是不是等价的, 比较他们需要它们有相同的类型并也有相同的值. 在容器类型象数组和哈希, 使用 `eqv` 来进行比较. 二个结构相同的数组结构是不是等价.
 
-#### [Smart matching][124]
+#### 智能匹配 
 
-perl 6 有一个通用比较符, 叫 "智能匹配" 操作符, 拼写成 `~~`. 它是不对称对比的, 一般右边的操作数的类型决定使用哪种比较.
+perl 6 有一个通用比较符, 叫 "智能匹配" 操作符, 拼写成 `~~`. 它是不对称对比的, 一般右边的操作数的类型决定使用哪种比较. 在新版本的 Perl 5 中也存在.
 
-对于数字和字符串是进行简单的相等性比较.  智能匹配对于类型对象是检查类型是否一致. 智能匹配对一个正则表达式是检查是否匹配正则. 如果一个标量来对比一个 `Range` 对象是会检查这个是否在这个范围内能查找到.
+对于数字和字符串是进行简单的相等比较. 智能匹配对于类型和对象是检查类型是否一致. 智能匹配对一个正则表达式是检查是否匹配正则. 如果一个标量会对比 `Range` 是否在这个范围内能查找到.
 
-还有其它更加高级的匹配形式: 比如你可以检查一个参数列表 (`Capture`) 非常合适子函数参数或者文件测试操作.
+还有其它更加高级的匹配形式: 比如你可以检查一个参数列表 ( `Capture` ) 非常合适子函数参数或者文件测试操作.
 
 你只需要记住, 任何 "这个 $x 是否合适 $y?" 这种问题都可以使用 Perl 6 的智能匹配.
 
-### [SEE ALSO][125]
+### 另请参阅
 
-[http://perlcabal.org/syn/S03.html#Smart\_matching][126]
+[http://perlcabal.org/syn/S03.html#Smart_matching]
 
 ## Containers and Values
 
 Wed Oct 15 22:00:00 2008
 
-### [NAME][127]
+### NAME
 
-"Perl 5 to 6" Lesson 10 - Containers and Values 容器和值
+"Perl 5 to 6" Lesson 10 - 容器和值
 
-### [Synopsis][128]
+### Synopsis
 
     my ($x, $y);
     $x := $y;
@@ -1174,45 +1181,45 @@ Wed Oct 15 22:00:00 2008
         say '$x and $y are different names for the same thing'
     }
 
-### [DESCRIPTION][129]
+### 描述
 
 Perl 6 区分不同的容器和值能存到各自的容器中.
 
-标量变量是一个容器, 并能有像类型的限制, 访问限制（例如, 它可以是只读的）之类的一些属性，最后它可以被关联到其他容器.
+标量变量是一个容器, 并能有像类型的限制, 访问限制 ( 例如, 它可以是只读的 ) 之类的一些属性, 最后它可以被关联到其他容器.
 
-放入一个值到容器, 叫做分配 _assignment_, 和两个容器做别名被称为 '绑定'.
+放入值到容器, 叫做分配 _assignment_. 给两个容器做成别名被称为 '绑定'.
 
     my @a = 1, 2, 3;
     my Int $x = 4;
-    @a[0] := $x;     # 现在 @a[0] 和 $x 是相同的值 
+    @a[0] := $x;     # 绑定: 现在 @a[0] 和 $x 是相同的值 
     @a[0] = 'Foo';   # 错误 'Type check failed'
 
-类型 `Int` 和 `Str` 是不能改变的, 所以这些对象不能被改变, 但你可以修改这些东西的值(在容器中的值):
+类型 `Int` 和 `Str` 的类型是不能改变的, 所以这些对象不能被改变, 但你可以修改这些东西的值 ( 在容器中的值 ):
 
     my $a = 1;
     $a = 2;     # no surprise here
 
-绑定也可以在编译的时候就完成, 我们需要使用 `::=` 操作符.
+绑定也可以在编译的时候就完成, 我们需要使用 `::=` 操作符就可以了.
 
 你可以通过 `=:=` 的操作符来比较二个绑定在一起的东西.
 
-### [MOTIVATION][130]
+### 动机
 
-在子函数中的 Exporting 导出和 importing 导入, 这个类型和值都是通过别名. 用于替代 Perl 5 中难以理解的 typeglob 的语法, Perl 6 提供的这个简单多了.
+在子函数中的 Exporting 导出和 importing 导入类型和值都是通过别名的方式. 这用于替代 Perl 5 中难以理解的 typeglob 的语法, Perl 6 提供的这个简单多了.
 
-### [SEE ALSO][131]
+### 另请参阅
 
-[http://perlcabal.org/syn/S03.html#Item_assignment_precedence][132]
+[http://perlcabal.org/syn/S03.html#Item_assignment_precedence]
 
 ## Changes to Perl 5 Operators
 
 Thu Oct 16 22:00:00 2008
 
-### [NAME][133]
+### [NAME]
 
-"Perl 5 to 6" Lesson 11 - Changes to Perl 5 Operators 进化了以后的 Perl 5 中的操作符
+"Perl 5 to 6" Lesson 11 - 进化了以后的 Perl 5 中的操作符
 
-### [SYNOPSIS][134]
+### 概要
 
     # 位运算符 
     5   +| 3;       # 7
@@ -1238,15 +1245,15 @@ Thu Oct 16 22:00:00 2008
     my $angle = 1.41;
     if 0 <= $angle < 2 * pi { ... }
 
-### [DESCRIPTION][135]
+### 描述
 
-所有的数值运算符 (`+`, `-`, `/`, `*`, `**`, `%`) 保持不变.
+所有的数值运算符 (`+`, `-`, `/`, `*`, `**`, `%`) 在 Perl 6 中保持不变.
 
 由于 `|`, `^` 和 `&` 现在 junctions 在使用, 所以位算符改变了语法. 它们现在包含一个上下文前缀, 所以象 `+|` 是逐位的运算基于数字上下文. `~^` 是对字符串上下文的异或. 位移操作也有相同的上下文前缀. 
 
 字符串连接现在是使用的 `~`, 因为 `.` 现在被用于方法调用了.
 
-文件测试, 现在是使用 `Pair(字符:功能)` 符号, 在 Perl 5 中的 `-e`  现在是 `:e`. 如果你不是想对 `$_` 进行检查操作, 你可以使用  `$filename.path ~~ :e` 的方式来指定路径.
+文件测试, 现在是使用 `Pair ( 字符:功能 )` 符号, 在 Perl 5 中的 `-e`  现在是 `:e`. 如果你不是想对 `$_` 进行检查操作, 你可以使用  `$filename.path ~~ :e` 的方式来指定路径.
 
 这个重复操作 `x` 现在分开成二个操作符: `x` 是重复字符串, `xx` 是重复的列表.
 
@@ -1254,25 +1261,25 @@ Thu Oct 16 22:00:00 2008
 
 比较操作符现在可以做成一串的链, 所以你可以根据你的意思, 写成象 `$a < $b < $c`.
 
-### [MOTIVATION][136]
+### 动机
 
-这些操作符的改变, 主要是为了写出更加好读好看的代码, 比如给最常使用的东西使用比较短的名字( 比如 `.` 现在用于方法调用 ) 和对于比较少使用的操作使用比较长的名字 ( 比如 `~&` 对于子符串进行位操作 );
+这些操作符的改变, 主要是为了写出更加好读好看的代码, 比如给最常使用的东西使用比较短的名字 ( 比如 `.` 现在用于方法调用 ) 和对于比较少使用的操作使用比较长的名字 ( 比如 `~&` 对于子符串进行位操作 );
 
-比较操作之类都是为了使语言更加象自然语言一样. 
+这些操作符的改变之类都是为了使语言更加象自然语言一样. 
 
-### [SEE ALSO][137]
+### 另请参阅
 
-[http://perlcabal.org/syn/S03.html#Changes_to_Perl_5_operators][138]
+[http://perlcabal.org/syn/S03.html#Changes_to_Perl_5_operators]
 
 ## Laziness
 
 Fri Oct 17 22:00:00 2008
 
-### [NAME][139]
+### [NAME]
 
 "Perl 5 to 6" Lesson 12 - Laziness
 
-### [SYNOPSIS][140]
+### 概要
 
     my @integers = 0..*;
     for @integers -> $i {
@@ -1287,15 +1294,15 @@ Fri Oct 17 22:00:00 2008
         }
     }
 
-### [DESCRIPTION][141]
+### 描述
 
 对于象列表之类, 在 Perl 6 中都是 lazy 的.
 
 之所以叫 _lazy_ 意味着, 这个东西的生成都是尽可能延迟. 当你写象 `@a := map BLOCK, @b`, 这个块并不执行. 当有当你从 `@a` 中访问这个东西的时候, 这个 `map` 函数才开始根据需要一个个执行和填充所需要的数据.
 
-注意这个地方, 是使用的绑定操作符(:=), 而不是分配: 如果直接声明分配的函数会立即创建内容 ( 除非编译器知道这个列表是无限长的, 才不会生成 ), 而使用绑定并不会立即生成内容.
+注意这个地方, 是使用的绑定操作符 (:=), 而不是分配: 如果直接声明分配的函数会立即创建内容 ( 除非编译器知道这个列表是无限长的, 才不会生成 ), 而使用绑定并不会立即生成内容.
 
-Laziness 的特性可以让你处理无限长度的列表: 他们所占的空间就和你操作这个列表的长度一样大. 所以你没一个个操作完元素, 这些并不会生成.
+Laziness 的特性可以让你处理无限长度的列表: 他们所占的空间就和你操作这个列表的长度一样大. 所以你没一个个操作完元素之前, 这些并不会生成.
 
 但这存在一些缺陷, 比如列表的排序会失去 Laziness 的特性. 如果这个列表是无限的, 有可能容易出现无限循环.
 
@@ -1310,9 +1317,9 @@ Laziness 的特性可以防止不必要的计算, 所以可以提升性能, 同�
         say $line;
     }
 
-由于 `$file.lines`  在 Perl 6 中本身就是 lazy list, 所以只有物理读到文件时, 才会取到内存中来(当然除了 buffer 的需要外).
+由于 `$file.lines`  在 Perl 6 中本身就是 lazy list, 所以只有物理读到文件时, 才会取到内存中来 ( 当然除了 buffer 的需要外 ).
 
-#### [gather/take][142]
+#### gather/take
 
 创建 lazy lists 一个非常有用的方式是使用 `gather { take }`. 它象下面这样使用:
 
@@ -1343,9 +1350,9 @@ Laziness 的特性可以防止不必要的计算, 所以可以提升性能, 同�
         do_some_computation($_);
     }
 
-#### [Controlling Laziness][143]
+#### 控制 Laziness
 
-Laziness 特性有可能会产生其它副作用 ( 当你尝试和学习过 Haskell 时, 你会发现它们中的 IO 系统是如此的奇怪. 因为他们是使用的 lazy 特性并且没什么副作用), 当你不想使用这个特性的时候, 可以在前面加个 `eager` 的关键字.
+Laziness 特性有可能会产生其它副作用 ( 当你尝试和学习过 Haskell 时, 你会发现它们中的 IO 系统是有点奇怪. 因为他们是使用的 lazy 特性, 并且没发现什么副作用 ), 当你不想使用这个特性的时候, 可以在前面加个 `eager` 的关键字.
 
     my @list = eager map { $block_with_side_effects }, @list;
 
@@ -1353,16 +1360,15 @@ Laziness 特性有可能会产生其它副作用 ( 当你尝试和学习过 Hask
 
     my $ls = lazy { $expansive_computation };
 
-### [MOTIVATION][144]
+### 动机
 
-
-在计算机科学中, 大多数的问题都可以通过定义树来解决, 很常用的一个解决方案是进行高效的算法和有效的搜索, 并且, 构建树其实也是非常有趣的部分.
+在计算机科学中, 大多数的问题都可以通过定义树来解决现实中的问题, 常用的一个方案是进行高效的算法和有效的搜索, 并且, 构建树其实也是非常有趣的部分.
 
 通过 lazy 的列表, 你可以递归定义这个树并且查找它, 这个会特性会自动构造只有你实际使用过的部分.
 
 在一般的情况下, laziness 特性可以让你写程序更加容易, 因为这是透明的. 就算计算的所有结果都会被使用到, 你也不会失去什么. 如果他不使用, 就根本也不会执行.
 
-### [SEE ALSO][145]
+### 另请参阅
 
 <http://perlcabal.org/syn/S02.html#Lists>
 
@@ -1370,11 +1376,11 @@ Laziness 特性有可能会产生其它副作用 ( 当你尝试和学习过 Hask
 
 Sat Oct 18 22:00:00 2008
 
-### [NAME][146]
+### NAME
 
-"Perl 5 to 6" Lesson 13 - Custom Operators 定制操作符
+"Perl 5 to 6" Lesson 13 - 定制操作符
 
-### [SYNOPSIS][147]
+### 概要
 
     multi sub postfix:<!>(Int $x) {
         my $factorial = 1;
@@ -1384,19 +1390,19 @@ Sat Oct 18 22:00:00 2008
 
     say 5!;                     # 120
 
-### [DESCRIPTION][148]
+### 描述
 
-操作符其实是一个特别的名字的函数, 并且有一些额外的属性, 象优先级和结合性. 在 Perl 6 中通常的操作符的模式是 `term infix term(词语 中缀 词语)`, 词语能选择是前面使用前缀运算符,还是使用后缀或者 postcircumfix 操作符.
+操作符其实是一个有着特别的名字的函数, 并且有一些额外的属性, 象优先级和结合性. 在 Perl 6 中通常的操作符的模式是 `term infix term ( 词语 中缀 词语 )`, 词语能选择是前面使用前缀运算符,还是使用后缀或者 postcircumfix 操作符.
 
-    1 + 1               infix
-    +1                  prefix
-    $x++                postfix
-    <a b c>             circumfix
-    @a[1]               postcircumfix
+    1 + 1               infix         ( 中缀 )
+    +1                  prefix        ( 前缀 )
+    $x++                postfix       ( 后后缀 )
+    <a b c>             circumfix     ( 环缀 )
+    @a[1]               postcircumfix ( 后环缀 )
 
 操作符的名字并不限制使用特定的字符, 你可以包含使用任何东西, 除了空白.
 
-运算符的长的名字是它的类型, 后面跟着一个冒号和一个字符串文字或符号或符号的列表, 例如 `infix:<+>` 是 `1+2` 的运算. 其它的例子是 `postcircumfix:<[ ]>` 操作, 它是对 `@a[0]` 的操作.
+上面后面这个运算符的长的名字是它的类型, 操作符用于跟着一个冒号和一个字符串文字或符号或符号的列表, 例如 `infix:<+>` 是 `1+2` 的运算. 其它的例子是 `postcircumfix:<[ ]>` 操作, 它是对 `@a[0]` 的操作.
 
 当你知道这些知识, 你现在可以重新定义新运算符:
 
@@ -1405,7 +1411,7 @@ Sat Oct 18 22:00:00 2008
     }
     say €4;                         # 8
 
-#### [优先级]
+#### 优先级
 
 中缀表达式象 `$a + $b * $c`, 这中间的 `infix:<*>` 操作符优先级比 `infix:<+>` 高, 这也就是为什么可以计算 `$a + ($b * $c)`.
 
@@ -1415,7 +1421,7 @@ Sat Oct 18 22:00:00 2008
     mutli sub infix:<bar> is tighter(&infix:<+>) { ... }
     mutli sub infix:<baz> is looser(&infix:<+>) { ... }
 
-#### [结合性]
+#### 结合性
 
 很多的中缀操作符只有二个参数. 象执行 `1 / 2 / 4` 中的操作符的结合性是根据结合性顺序来的. 这个 `infix:</>` 操作符是左结合性, 所以执行的解析是 `(1 / 2) / 4` 的顺序来的. 如果是右结合性操作符, 象 `infix:<**>` 在执行 `2 ** 2 ** 4` 时执行的解析顺序是 `2 ** (2 ** 4)`.
 
@@ -1427,7 +1433,7 @@ Perl 6 中有着更加丰富的结合性: 如 `none` 是禁止优先级相同的
         ...
     }
 
-#### [Postcircumfix 和 Circumfix]
+#### Postcircumfix 和 Circumfix
 
 Postcircumfix 操作符是方法调用:
 
@@ -1449,7 +1455,7 @@ Circumfix 的调用意味着这有不同的语法  ( 象 `my @list = <a b c>;` )
 
 `Str.comb` 的给一个正则表达式, 并返回所有匹配的文本列表.
 
-#### ["重载" 现有的操作符]
+#### "重载" 现有的操作符
 
 很多 (不是全部) 现有的操作符是使用的 multi subs 和方法调用, 所以可以定制新的类型. 添加一个新的 multi sub 就能实现重载操作符了.
 
@@ -1458,13 +1464,13 @@ Circumfix 的调用意味着这有不同的语法  ( 象 `my @list = <a b c>;` )
 
 这也意味着你可以重写看起来是内置对象的特殊对象, 比如  `Str`, `Int` etc.
 
-### [MOTIVATION][153]
+### 动机
 
 允许用户声明新的操作符和 "重载" 现有的用户定义的类型这非常强大. 如果内置的不合适你使用, 你可以使用自己的新的操作符, 无需编译器本身做任何改变.
 
 它也消除使用语言和修改语言之间的差距.
 
-### [SEE ALSO]
+### 另请参阅
 
 [http://perlcabal.org/syn/S06.html#Operator_overloading][155]
 
@@ -1474,11 +1480,11 @@ Circumfix 的调用意味着这有不同的语法  ( 象 `my @list = <a b c>;` )
 
 Sun Oct 19 22:00:00 2008
 
-### [NAME][156]
+### [NAME]
 
-"Perl 5 to 6" Lesson 14 - The MAIN sub
+"Perl 5 to 6" Lesson 14 - MAIN 函数
 
-### [SYNOPSIS][157]
+### 概要
 
   # file doit.pl
 
@@ -1490,7 +1496,7 @@ Sun Oct 19 22:00:00 2008
   # command line
   $ ./doit.pl --force --home=/home/someoneelse file_to_process
 
-### [DESCRIPTION][158]
+### 描述
 
 调用子函数和运行一个类 Unix 的命令行程序从视觉上看, 其实非常相似: 你可以有选项, 可选参数和命名参数.
 
@@ -1515,13 +1521,13 @@ Sun Oct 19 22:00:00 2008
 
 这个地方的 `$x = $obj but False` 的意思是这个 `$x` 是复制的 `$obj`, 但是在布尔上下文时会给出 `Bool::False`.
 
-因此, 对于简单的 (和一些不是很简单的) 情况下, 你并不需要一个外部命令行参数的处理程序, 你可以直播使用 `MAIN` 函数实现这一点.
+因此, 对于简单的 ( 和一些不是很简单的 ) 情况下, 你并不需要一个外部命令行参数的处理程序, 你可以直播使用 `MAIN` 函数实现这一点.
 
-### [MOTIVATION][159]
+### 动机
 
 这背后的动机应该是很明显的: 它使简单的事情变得更加容易, 很多时候给命令行代码传参只需要简单的 `MAIN` 函数.
 
-### [SEE ALSO][160]
+### 另请参阅
 
 [http://perlcabal.org/syn/S06.html#Declaring_a_MAIN_subroutine][161] contains the specification.
 
@@ -1529,11 +1535,11 @@ Sun Oct 19 22:00:00 2008
 
 Mon Oct 20 22:00:00 2008
 
-### [NAME][162]
+### [NAME]
 
-"Perl 5 to 6" Lesson 15 - Twigils
+"Perl 5 to 6" Lesson 15 - Twigils 标记
 
-### [SYNOPSIS][163]
+### 概要
 
   class Foo {
       has $.bar;
@@ -1546,108 +1552,107 @@ Mon Oct 20 22:00:00 2008
 
   say "This is file $?FILE on line $?LINE"
 
-  say "A CGI script" if %\*ENV.exists('DOCUMENT\_ROOT');
+  say "A CGI script" if %*ENV.exists('DOCUMENT_ROOT');
 
-### [DESCRIPTION][164]
+### 描述
 
-Some variables have a second sigil, called _twigil_. It basically means that the variable isn't "normal", but differs in some way, for example it could be differently scoped.
+在 Perl 6 中有些变量有二个标记, 这个叫 _twigil_ 标记. 如果它存在, 意味着这个变量不是 "标准" 的变量, 它和普通的有些不同, 例如, %*ENV 这个中的 *  表示是全局的, 所以有不同的作用域, 因为默认都不是全局的.
 
-You've already seen that public and private object attributes have the `.` and `!` twigil respectively; they are not normal variables, they are tied to `self`.
+你见到在对象属性中公有和私有分别使用 `.` 和 `!` 的 twigil 标记; 这指出他们不是正常的变量, 他们在这是和 `self` 绑定在一起的变量.
 
 The `^` twigil removes a special case from perl 5. To be able to write
 
   # beware: perl 5 code
-  sort \{ $a <=> $b \} @array
+  sort { $a <=> $b } @array
 
-the variables `$a` and `$b` are special cased by the `strict` pragma. In Perl 6, there's a concept named _self-declared positional parameter_, and these parameters have the `^` twigil. It means that they are positional parameters of the current block, without being listed in a signature. The variables are filled in lexicographic (alphabetic) order:
+变量 `$a` 和 `$b` 在程序中使用了 `strict` 的时候来讲是个特例. 在 Perl 6 中, 有个概念叫 _self-declared positional parameter_, 这的参数有个 `^` 的标记. 它用于定位块中参数的位置, 它不是参数, 它只是用这些变量根据字母顺序填充位置.
 
-  my $block = \{ say "$^c $^a $^b" \};
+  my $block = { say "$^c $^a $^b" };
   $block(1, 2, 3);                # 3 1 2
 
-So now you can write
+所以你现在可以写成: 
 
-  @list = sort \{ $^b <=> $^a \}, @list;
+  @list = sort { $^b <=> $^a }, @list;
   # or:
-  @list = sort \{ $^foo <=> $^bar \}, @list;
+  @list = sort { $^foo <=> $^bar }, @list;
 
-Without any special cases.
+在正常的情况下, 用于保持定位和命令参数之间的对称, 在 `:` twigil 也是对命 名参数做同样的事情, 所以这些行相当于:
 
-And to keep the symmetry between positional and named arguments, the `:` twigil does the same for named parameters, so these lines are roughly equivalent:
+  my $block = { say $:stuff }
+  my $sub   = sub (:$stuff) { say $stuff }
 
-  my $block = \{ say $:stuff \}
-  my $sub   = sub (:$stuff) \{ say $stuff \}
+这的 `?` 的 twigil 标记表示在编译的时候就知道的变量和常量, 象 `$?LINE` 是指当前的行的行号( 原 `__LINE__` ), `$?DATA` 是指文件句柄中的 `DATA` 区.
 
-The `?` twigil stands for variables and constants that are known at compile time, like `$?LINE` for the current line number (formerly `__LINE__`), and `$?DATA` is the file handle to the `DATA` section.
+( Contextual variables )上下文变量它是用 `*` 的 twigil 标记来标识, 可以用 `$*` 来访问, 根据上下文的变化而变化的, 先会搜索当前上下文, 再搜索被调用函数的上下文, 以此类推, 所以 `$*IN` 和 `$*OUT` 的输出能动态的覆盖.
 
-Contextual variables can be accessed with the `*` twigil, so `$*IN` and `$*OUT` can be overridden dynamically.
+有个伪 twigil 是 `<`, 它是象 `$<capture>` 的一个结构, 这是 `$/<capture>` 的简写, 用于访问正则表达式匹配了对象后的 Match object.
 
-A pseudo twigil is `<`, which is used in a construct like `$<capture>`, where it is a shorthand for `$/<capture>`, which accesses the Match object after a regex match.
+### 动机
 
-### [MOTIVATION][165]
+当你读 Perl 5 中的 `perlvar` 文档的时候, 你可以知道, 这有很多的变量, 很多是全局变量, 会影响你的程序.
 
-When you read Perl 5's `perlvar` document, you can see that it has far too many variables, most of them global, that affect your program in various ways.
+这的 twigils 会尝试给指定的变量某种顺序, 在另一方面, 他们消除了一些必要的特例. 在对象属性中 twigil 主要用于缩短 `self.var` 到 `$.var`  (or `@.var` or whatever).
 
-The twigils try to bring some order in these special variables, and at the other hand they remove the need for special cases. In the case of object attributes they shorten `self.var` to `$.var` (or `@.var` or whatever).
-
-So all in all the increased "punctuation noise" actually makes the programs much more consistent and readable.
+所以, 这些虽然增加了一些 "标点符号的噪音" 但实际上使得程序更加一致和可读.
 
 ## Enums
 
 Wed Nov 26 23:00:00 2008
 
-### [NAME][166]
+### [NAME]
 
-"Perl 5 to 6" Lesson 16 - Enums
+"Perl 5 to 6" Lesson 16 - Enums 枚举类型
 
-### [SYNOPSIS][167]
+### 概要
 
   enum bit Bool <False True>;
-  my $value = $arbitrary\_value but True;
-  if $value \{
+  my $value = $arbitrary_value but True;
+  if $value {
       say "Yes, it's true";       # will be printed
-  \}
+  }
 
   enum Day ('Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun');
-  if custom\_get\_date().Day == Day::Sat | Day::Sun \{
+  if custom_get_date().Day == Day::Sat | Day::Sun {
       say "Weekend";
-  \}
+  }
 
-### [DESCRIPTION][168]
+### 描述
 
-Enums are versatile beasts. They are low-level classes that consist of an enumeration of constants, typically integers or strings (but can be arbitrary).
+枚举是通用的. 它是低层次类, 它可以包含常量, 整数和字符串.
 
-These constants can act as subtypes, methods or normal values. They can be attached to an object with the `but` operator, which "mixes" the enum into the value:
+这种常量可以当成子类型 (subtype), 方法和普通的值. 这些可以通过 `but` 操作符, 加入到对象, 看成混合了 enum 到变量:
 
   my $x = $today but Day::Tue;
 
-You can also use the type name of the Enum as a function, and supply the value as an argument:
+你也可以使用枚举类型的名字作为一个函数, 并提供一些值做为参数:
 
   $x = $today but Day($weekday);
 
-Afterwards that object has a method with the name of the enum type, here `Day`:
+之后这个对象有一个方法, 可以通过枚举类型的名字来调用, 在这是 `Day`:
 
   say $x.Day;             # 1
 
-The value of first constant is 0, the next 1 and so on, unless you explicitly provide another value with pair notation:
+第一个常量的值是 0, 接下来是 1 等等, 除非你明确的提供了键值对:
 
-  Enum Hackers (:Larry<Perl>, :Guido<Python>, :Paul<Lisp>);
+  enum Hackers (:Larry<Perl>, :Guido<Python>, :Paul<Lisp>);
 
-You can check if a specific value was mixed in by using the versatile smart match operator, or with `.does`:
+你可以使用智能匹配操作符来检查特定的值. 或者使用 `.does`:
 
-  if $today ~~ Day::Fri \{
+  if $today ~~ Day::Fri {
       say "Thank Christ it's Friday"
-  \}
-  if $today.does(Fri) \{ ... \}
+  }
 
-Note that you can specify the name of the value only (like `Fri`) if that's unambiguous, if it's ambiguous you have to provide the full name `Day::Fri`.
+  if $today.does(Fri) { ... }
 
-### [MOTIVATION][169]
+注意, 你可以指定唯一值的名字象 `Fri`. 如果你不确认你需要提供全名, 象 `Day::Fri`.
 
-Enums replace both the "magic" that is involved with tainted variables in Perl 5 and the `return "0 but True"` hack (a special case for which no warning is emitted if used as a number). Plus they give a `Bool` type.
+### 动机
 
-Enums also provide the power and flexibility of attaching arbitrary meta data for debugging or tracing.
+枚举在 perl6 中做了两件事, 一个是 tainted 变量 ( 污染检查相关? ), 另一个是函数返回值问题. 这个问题就是: 很多函数用 return 0 返回, 这个时候函数返回的是 true.
 
-### [SEE ALSO][170]
+Enums 也为 debuggin 和 tracing 提供强大和方便附加元数据的功能.
+
+### 另请参阅
 
 <http://perlcabal.org/syn/S12.html#Enumerations>
 
@@ -1655,61 +1660,62 @@ Enums also provide the power and flexibility of attaching arbitrary meta data fo
 
 Thu Nov 27 23:00:00 2008
 
-### [NAME][171]
+### [NAME]
 
-"Perl 5 to 6" Lesson 17 - Unicode
+"Perl 5 to 6" Lesson 17 - Perl 6 的 Unicode 字符编程
 
-### [SYNOPSIS][172]
+### 概要
 
   (none)
 
-### [DESCRIPTION][173]
+### 描述
 
-Perl 5's Unicode model suffers from a big weakness: it uses the same type for binary and for text data. For example if your program reads 512 bytes from a network socket, it is certainly a byte string. However when (still in Perl 5) you call `uc` on that string, it will be treated as text. The recommended way is to decode that string first, but when a subroutine receives a string as an argument, it can never surely know if it had been encoded or not, ie if it is to be treated as a blob or as a text.
+Perl 5 中的 Unicode 模型有个大问题: 它对于二进制和文本是使用的相同的类型. 例如, 你的程序从网络上的 socket 套接字上读取了 512 个字节, 它一定是一个 byte 串. 但是在 Perl 5 中对这个调用  `uc` 时, 就会被当成是文本. 推荐的方式是, 先对这个串进行解码, 但是做为子程序, 你接收一个串做为参数时, 你不能可靠的知道, 这到底是被解码了还是没有. 
 
-Perl 6 on the other hand offers the type `buf`, which is just a collection of bytes, and `Str`, which is a collection of logical characters.
+在 Perl 6 中提供了 `buf` 类型, 这只是 bytes 的集合, 也提供了 `Str`, 这些是 _logical character_ 字符集合.
 
-_Logical character_ is still a vague term. To be more precise a `Str` is an object that can be viewed at different levels: `Byte`, `Codepoint` (anything that the Unicode Consortium assigned a number to is a codepoint), `Grapheme` (things that visually appear as a character) and `CharLingua` (language defined characters).
 
-For example the string with the hex bytes `61 cc 80` consists of three bytes (obviously), but can also be viewed as being consisting of two codepoints with the names `LATIN SMALL LETTER A` (U+0041) and `COMBINING GRAVE ACCENT` (U+0300), or as one grapheme that, if neither my blog software nor your browser kill it, looks like this: `à`.
+_logical character_仍然是一个模糊的术语. 为了更加准确的解释 `Str`  的对象, 我们可以见到几个不同的层次: `Byte`, `Codepoint ( 任何 Unicode 的指定的数字都是一个 Codepoint )`, `Grapheme ( 在视觉上显示为一个字符 )` 和  `CharLingua` ( 语言上定义的字符 ).
 
-So you can't simply ask for the length of a string, you have to ask for a specific length:
+例如, 字符串通过十六进制表示 `61 cc 80` 是由三个字位元组组成, 但也可以二个 codepoints 组成的名为 `LATIN SMALL LETTER A` (U+0041) 和 `COMBINING GRAVE ACCENT` (U+0300), 或者一个 grapheme , 如果你的浏览器能显示, 它看起来象 `à`.
+
+所以你不能简单地取这个字符串的长度, 你要问一个特定类型的长度:
 
   $str.bytes;
   $str.codes;
   $str.graphs;
 
-There's also method named `chars`, which returns the length in the current Unicode level (which can be set by a pragma like `use bytes`, and which defaults to graphemes).
+这还有一个方法名为 `chars`, 这是返回当前 Unicode 级别的长度, 你可以通过在程序上给个 `use bytes` 的编译指示来设置为默认 graphemes.
 
-In Perl 5 you sometimes had the problem of accidentally concatenating byte strings and text strings. If you should ever suffer from that problem in Perl 6, you can easily identify where it happens by overloading the concatenation operator:
+在 Perl 5 中有时很容易错误的串联字符串流和文本字符串. 如果你在 Perl 6 也出现了这个问题, 你可以简单的通过重载连接运算符来简单的识别问题发生在哪.
 
-  sub GLOBAL::infix:<~> is deep (Str $a, buf $b)|(buf $b, Str $a) \{
+  sub GLOBAL::infix:<~> is deep (Str $a, buf $b)|(buf $b, Str $a) {
       die "Can't concatenate text string «"
           ~ $a.encode("UTF-8")
             "» with byte string «$b»\\n";
-  \}
+  }
 
-#### [Encoding and Decoding][174]
+#### 编码和解码
 
-The specification of the IO system is very basic and does not yet define any encoding and decoding layers, which is why this article has no useful SYNOPSIS section. I'm sure that there will be such a mechanism, and I could imagine it will look something like this:
+目前 spec 文档中对于 IO 系统非常的低层, 并没有任何的编码和解码层, 这也是为什么这篇文章没有介绍这个部分, 不过肯定, 很快会有下面这样的一种机制:
 
   my $handle = open($filename, :r, :encoding<UTF-8>);
 
-#### [Regexes and Unicode][175]
+#### 正则和 Unicode
 
-Regexes can take modifiers that specify their Unicode level, so `m:codes/./` will match exactly one codepoint. In the absence of such modifiers the current Unicode level will be used.
+正则表达式可以指定 Unicode level, 所以使用 `m:codes/./` 会匹配到 codepoint. 如果没有指定 Unicode level 会使用当前的 Unicode level.
 
-Character classes like `\w` (match a word character) behave accordingly to the Unicode standard. There are modifiers that ignore case (`:i`) and accents (`:a`), and modifiers for the substitution operators that can carry case information to the substitution string (`:samecase` and `:sameaccent`, short `:ii`, `:aa`).
+字符类象 `\w` ( 匹配单词字符 ) 会相应的使用 Unicode 标准. 象忽略大小写 (:i) 和重音符  (:a) 和一些会携带找到的模式的替换字符串操作  (`:samecase` and `:sameaccent`, short `:ii`, `:aa`) 都支持.
 
-### [MOTIVATION][176]
+### 动机
 
-It is quite hard to correctly process strings with most tools and most programming languages these days. Suppose you have a web application in perl 5, and you want to break long words automatically so that they don't mess up your layout. When you use naive `substr` to do that, you might accidentally rip graphemes apart.
+对于大多数编程语言和工具来讲, 能很正确的处理字符是十分困难的. 例如, 在 Perl 5 的 web 应用程序中, 你想使用象 `substr` 来进行字符的切割时, 很有可能它会撕裂整个字符, 变成半个.
 
-Perl 6 will be the first mainstream programming language with built in support for grapheme level string manipulation, which basically removes most Unicode worries, and which (in conjunction with regexes) makes Perl 6 one of the most powerful languages for string processing.
+Perl 6 会是第一个内置对 grapheme 级别的字符进行操作的编程语言, 这基本上消除了大部分的你对 Unicode 的担忧, 并和正则表达式相结合, 会成为最强大的字符串处理语言.
 
-The separate data types for text and byte strings make debugging and introspection quite easy.
+对于文本和 byte 字符的数据类型的调试和内省会容易多了.
 
-### [SEE ALSO][177]
+### 另请参阅
 
 <http://perlcabal.org/syn/S32/Str.html>
 
@@ -1717,103 +1723,104 @@ The separate data types for text and byte strings make debugging and introspecti
 
 Fri Nov 28 23:00:00 2008
 
-### [NAME][178]
+### [NAME]
 
-"Perl 5 to 6" Lesson 18 - Scoping
+"Perl 5 to 6" Lesson 18 - Scoping  作用域
 
-### [SYNOPSIS][179]
+### 概要[179]
 
-    for 1 .. 10 -> $a \{
-        # $a visible here
-    \}
-    # $a not visible here
+    for 1 .. 10 -> $a {
+        # $a 在这可用 
+    }
+    # $a 在这不可用 
 
-    while my $b = get\_stuff() \{
-        # $b visible here
-    \}
-    # $b still visible here
+    while my $b = get_stuff() {
+        # $b 在这可用 
+    }
+    # $b 在这仍然可用 
 
     my $c = 5;
-    \{
+    {
         my $c = $c;
-        # $c is undef here
-    \}
-    # $c is 5 here
+        # $c 在这是没有定义的 
+    }
+    # $c 在这是 5 
 
     my $y;
     my $x = $y + 2 while $y = calc();
-    # $x still visible
+    # $x 这仍然可用 
 
-### [DESCRIPTION][180]
+### 描述
 
-#### [Lexical Scoping][181]
+#### 语法作用域 
 
-Scoping in Perl 6 is quite similar to that of Perl 5. A Block introduces a new lexical scope. A variable name is searched in the innermost lexical scope first, if it's not found it is then searched for in the next outer scope and so on. Just like in Perl 5 a `my` variable is a proper lexical variable, and an `our` declaration introduces a lexical alias for a package variable.
+Perl 6 中的作用域和 Perl 5 中的比较相似, 一个块会生成一个新的词法范围. 变量名搜索是从最里面的词法范围开始, 如果没有找到, 就查找接下来的外部范围. 就象 Perl 5 中的 `my` 声明的变量是一个词法变量, 如果使用 `our` 声明的其实是引入一个包变量的别名的词法变量.
 
-But there are subtle differences: variables are exactly visible in the rest of the block where they are declared, variables declared in block headers (for example in the condition of a `while` loop) are not limited to the block afterwards.
+这也有一些细微的差别: 变量在一个代码块的开始位置声明的, 在块的其它位置都可以见到 ( 例如: 在一个 `while` 循环的条件中 ); 
 
-Also Perl 6 only ever looks up unqualified names (variables and subroutines) in lexical scopes.
+Perl 6 永远只能查找到词法范围内所限定名称 ( 名称包含变量和函数 ).
 
-If you want to limit the scope, you can use formal parameters to the block:
+如果你想限制作用域, 你可以在块上使用形式参数:
 
-    if calc() -> $result \{
-        # you can use $result here
-    \}
-    # $result not visible here
+    if calc() -> $result {
+        # 你可以在这使用 $result
+    }
+    # $result 在这就不可用了 
 
-Variables are visible immediately after they are declared, not at the end of the statement as in Perl 5.
+变量在生名后立即可用, 但是 Perl 5 需要在行结尾 ( 可能是分号处 ) 才能使用.
 
     my $x = .... ;
-
+            ^^^^^
             $x visible here in Perl 6
             but not in Perl 5
 
-#### [Dynamic scoping][182]
+#### 动态作用域 
 
-The `local` adjective is now called `temp`, and if it's not followed by an initialization the previous value of that variable is used (not `undef`).
+原来的 `local` 关键字, 现在叫 `temp`, 使用这个, 如果你没有对这个变量进行初始化, 它这个提供的值是上一个名字空间的原来的值 ( 并不会为 `undef` );
 
-There's also a new kind of dynamically scoped variable called a _hypothetical_ variable. If the block is left with an exception, then the previous value of the variable is restored. If not, it is kept.
+此外还有一种新的被称为 _hypothetical_ 的动态作用域的变量. 如果块中出现了异常, 接下来这个变量会先恢复先前的值, 如果没有, 就保持新的值.
 
-#### [Context variables][183]
+#### Context variables 上下文变量
 
-Some variables that are global in Perl 5 (`$!`, `$_`) are _context_ variables in Perl 6, that is they are passed between dynamic scopes.
+在 Perl 5 里, $!, $_ 是全局变量, 但在 Perl6 里就是上下文变量, 就是根据上下文的变化而变化的, 在 Perl6 中就是所谓的动态作用域 (dynamic scoping).
 
-This solves an old Problem in Perl 5. In Perl 5 an `DESTROY` sub can be called at a block exit, and accidentally change the value of a global variable, for example one of the error variables:
+这解决了一个在 Perl 5 中的老问题, 在 Perl 5 中的 `DESTROY` 的子函数可以在一个代码块中被调用来退出, 这个会改变全局的变量, 例如下面的错误.
 
    # Broken Perl 5 code here:
-   sub DESTROY \{ eval \{ 1 \}; \}
+   sub DESTROY { eval { 1 }; }
 
-   eval \{
-       my $x = bless \{\};
+   eval {
+       my $x = bless {};
        die "Death\\n";
-   \};
+   };
    print $@ if $@;         # No output here
 
-In Perl 6 this problem is avoided by not implicitly using global variables.
+在 Perl 6 中对于这个问题就不在使用隐式的全局变量了.
 
-(In Perl 5.14 there is a workaround that protects `$@` from being modified, thus averting the most harm from this particular example.)
 
-#### [Pseudo-packages][184]
+( 在 Perl 5.14 中, 有其它的方式来保护 `$@` 的修改, 可以避免这种危害 )
 
-If a variable is hidden by another lexical variable of the same name, it can be accessed with the `OUTER` pseudo package
+#### [伪包]
+
+对于一个块中, 想访问词法变量范围之外 ( 块内访问块外的词法变量 ) 相同名字变量, 可以使用 `OUTER` 这个伪包, 方法如下:
 
     my $x = 3;
-    \{
+    {
         my $x = 10;
         say $x;             # 10
         say $OUTER::x;      # 3
         say OUTER::<$x>     # 3
-    \}
+    }
 
-Likewise a function can access variables from its caller with the `CALLER` and `CONTEXT` pseudo packages. The difference is that `CALLER` only accesses the scope of the immediate caller, `CONTEXT` works like UNIX environment variables (and should only be used internally by the compiler for handling `$_`, `$!` and the like). To access variables from the outer dynamic scope they must be declared with `is context`.
+同样函数可以通过 `CALLER` 和 `CONTEXT` 来访问伪包的内容. 这不同之处在于 `CALLER` 只访问最接近的 caller 的命名空间的变量, `CONTEXT` 的工作方式很象 UNIX 的环境变量, 得到的是上下文变量的值. 当使用上下文的伪包调用时, 需要在变量声明的时候使用 `is context`.
 
-### [MOTIVATION][185]
+### 动机
 
-It is now common knowledge that global variables are really bad, and cause lots of problems. We also have the resources to implement better scoping mechanism. Therefore global variables are only used for inherently global data (like `%*ENV` or `$*PID`).
+我们知道操作和使用全局变量并不好, 会引起很多问题. 我们目前有很多更加好的作用域的机制来实现, 因此, 全局变量仅用于本质上是全局数据, 象 `%*ENV` 或者 `$*PID`.
 
-The block scoping rules haven been greatly simplified.
+代码块作用域规则可以极大的简化我们对这些的处理.
 
-Here's a quote from Perl 5's `perlsyn` document; we don't want similar things in Perl 6:
+下面引用了一段 Perl 5 中 `perlsyn` 的文档, 我不希望 Perl 6 中还有类似的东西:
 
  NOTE: The behaviour of a "my" statement modified with a statement
  modifier conditional or loop construct (e.g. "my $x if ...") is
@@ -1822,48 +1829,48 @@ Here's a quote from Perl 5's `perlsyn` document; we don't want similar things in
  it.  Future versions of perl might do something different from the
  version of perl you try it out on.  Here be dragons.
 
-### [SEE ALSO][186]
+### 另请参阅
 
-S04 discusses block scoping: <http://perlcabal.org/syn/S04.html>.
+S04 中有关变量范围: <http://perlcabal.org/syn/S04.html>.
 
-S02 lists all pseudo packages and explains context scoping: <http://perlcabal.org/syn/S02.html#Names>.
+S02 中所有有的伪包和说明上下文的范围的内容:  <http://perlcabal.org/syn/S02.html#Names>.
 
 ## Regexes strike back
 
 Sat Nov 29 23:00:00 2008
 
-### [NAME][187]
+### [NAME]
 
-"Perl 5 to 6" Lesson 19 - Regexes strike back
+"Perl 5 to 6" Lesson 19 - 正则的反击 
 
-### [SYNOPSIS][188]
+### 概要
 
     # normal matching:
-    if 'abc' ~~ m/../ \{
+    if 'abc' ~~ m/../ {
         say $/;                 # ab
-    \}
+    }
 
-    # match with implicit :sigspace modifier
-    if 'ab cd ef'  ~~ mm/ (..) \*\* 2 / \{
+    # 匹配通过隐含的 :sigspace 修饰符
+    if 'ab cd ef'  ~~ mm/ (..) ** 2 / {
         say $1;                 # cd
-    \}
+    }
 
     # substitute with the :sigspace modifier
     my $x = "abc     defg";
     $x ~~ ss/c d/x y/;
     say $x;                     # abx     yefg
 
-### [DESCRIPTION][189]
+### 描述
 
-Since the basics of regexes are already covered in lesson 07, here are some useful (but not very structured) additional facts about Regexes.
+由于正则表达式的基本知识都已经涵盖在 lesson 07, 这里有关于正则表达式一些有用的 ( 但不是很有条理 ) 补充.
 
-#### [Matching][190]
+#### 匹配 
 
-You don't need to write grammars to match regexes, the traditional form `m/.../` still works, and has a new brother, the `mm/.../` form, which implies the `:sigspace` modifier. Remember, that means that whitespaces in the regex are substituted by the `<.ws>` rule.
+匹配正则表达式时你并不一定需要编写 grammars, 传统的 `m/.../` 现在还是可以接着使用的, 并且还多了个新的兄弟使法, 就是使用 `mm/.../`, 这是隐含的是使用了 `:sigspace` 修饰符. 记住, 这意味着空格在正则表达式中由 `<.ws>` 规则代替的.
 
-The default for the rule is to match `\s+` if it is surrounded by two word-characters (ie those matching those `\w`), and `\s*` otherwise.
+`<.ws>` 是指, 如果在单词的中间有空格, 默认的规则是匹配 `\s+`, 其它的时候匹配 `\s*`.
 
-In substitutions the `:samespace` modifier takes care that whitespaces matched with the `ws` rule are preserved. Likewise the `:samecase` modifier, short `:ii` (since it's a variant of `:i`) preserve case.
+这的 `:samespace` 修饰符需要非常小心, 空格匹配的 `ws` 规则会做为象分割符一样的槽. 这个匹配空格被复制到右侧的相应位置, 然后给中间的字符按前后进行置换. 同样 `:samecase` 修饰符可以简写成 `:ii`, 并且会保存前大小写的信息.
 
     my $x = 'Abcd';
     $x ~~ s:ii/^../foo/;
@@ -1872,109 +1879,109 @@ In substitutions the `:samespace` modifier takes care that whitespaces matched w
     $x ~~ s:ii/^../foo/;
     say $x                      # FOO
 
-This is very useful if you want to globally rename your module `Foo`, to `Bar`, but for example in environment variables it is written as all uppercase. With the `:ii` modifier the case is automatically preserved.
+例如, 如果你环境变量中很多是大写, 这时你想替换象模块名 `Foo` 到 `Bar` 之类的场合非常有用, 因为使用 `:ii`  修饰符会自动保存大小写的信息.
 
-It copies case information on a character by character. But there's also a more intelligent version; when combined with the `:sigspace` (short `:s`) modifier, it tries to find a pattern in the case information of the source string. Recognized are `.lc`, `.uc`, `.lc.ucfirst`, `.uc.lcfirst` and `.lc.capitaliz` (`Str.capitalize` uppercases the first character of each word). If such a pattern is found, it is also applied to the substitution string.
+这种复制字符对应字符的情况, 这有很多智能的版本; 当绑定使用 `:sigspace` (短写 `:s`) 修饰符, 它会尝试发现原来字符的模式. 识别出`.lc`, `.uc`, `.lc.ucfirst`, `.uc.lcfirst` 和 `.lc.capitaliz` ( `Str.capitalize` 是每个单词的首字母大写 ). 只要识别出前面这几种模式就会给这些模式应用到后面替换的字符串上.
 
     my $x = 'The Quick Brown Fox';
     $x ~~ s :s :ii /brown.\*/perl 6 developer/;
     # $x is now 'The Quick Perl 6 Developer'
 
-#### [Alternations][191]
+#### Alternations 或匹配
 
-Alternations are still formed with the single bar `|`, but it means something else than in Perl 5. Instead of sequentially matching the alternatives and taking the first match, it now matches all alternatives in parallel, and takes the longest one.
+匹配多个条件交替 `|`, 但它和 Perl 5 比起来还是有些不同. 这个并不是按顺序匹配第一个, 它现在在正则中并行的去匹配, 并取匹配到的最长的一个.
 
     'aaaa' ~~ m/ a | aaa | aa /;
     say $/                          # aaa
 
-While this might seem like a trivial change, it has far reaching consequences, and is crucial for extensible grammars. Since Perl 6 is parsed using a Perl 6 grammar, it is responsible for the fact that in `++$a` the `++` is parsed as a single token, not as two `prefix:<+>` tokens.
+虽然这可能看起来像一个微不足道的变化, 它影响深远, 并且这对于 grammars 的可扩展性是至关重要的的. 自从 Perl 使用 grammar 来进行解析, 它对于象 `++$a` 这种会解析成单个 `++` 的标记, 不然会解析成二个 `prefix:<+>` 的标记.
 
-The old, sequential style is still available with `||`:
+对于旧的方式, 顺序匹配第一个找到的可以使用 `||`:
 
-    grammar Math::Expression \{
-        token value \{
+    grammar Math::Expression {
+        token value {
             | <number>
             | '('
               <expression>
-              [ ')' || \{ fail("Parenthesis not closed") \} ]
-        \}
+              [ ')' || { fail("Parenthesis not closed") } ]
+        }
 
         ...
-    \}
+    }
 
-The `{ ... }` execute a closure, and calling `fail` in that closure makes the expression fail. That branch is guaranteed to be executed only if the previous (here the `')'`) fails, so it can be used to emit useful error messages while parsing.
+这的 `{ ... }` 是执行的一个闭包, 并且它在表达式失败时调用闭包中的 `fail` 函数. 这个分支语句用于当前面的 `')'` 没找到时才执行, 所以可以使用它来做正则解析错误的提示.
 
-There are other ways to write alternations, for example if you "interpolate" an array, it will match as an alternation of its values:
+还有其它的方法来做或者的条件, 例如你想给一个数组做 "插值", 这时会使用或者的方式匹配它的值:
 
-    $\_ = '12 oranges';
+    $_ = '12 oranges';
     my @fruits = <apple orange banana kiwi>;
-    if m:i:s/ (\\d+) (@fruits)s? / \{
-        say "You've got $0 $1s, I've got \{ $0 + 2 \} of them. You lost.";
-    \}
+    if m:i:s/ (\d+) (@fruits)s? / {
+        say "You've got $0 $1s, I've got { $0 + 2 } of them. You lost.";
+    }
+这还有另一种结构来自动匹配最长的或者条件: multi regexes. 这可以写 `multi token name` 或者 `proto`:
 
-There is yet another construct that automatically matches the longest alternation: multi regexes. They can be either written as `multi token name` or with a `proto`:
-
-    grammar Perl \{
+    grammar Perl {
         ...
-        proto token sigil \{ \* \}
-        token sigil:sym<$> \{ <sym> \}
-        token sigil:sym<@> \{ <sym> \}
-        token sigil:sym<%> \{ <sym> \}
+        proto token sigil { * }
+        token sigil:sym<$> { <sym> }
+        token sigil:sym<@> { <sym> }
+        token sigil:sym<%> { <sym> }
         ...
 
-       token variable \{ <sigil> <twigil>? <identifier> \}
-   \}
+       token variable { <sigil> <twigil>? <identifier> }
+   }
 
-This example shows multiple tokens called `sigil`, which are parameterized by `sym`. When the short name, ie `sigil` is used, all of these tokens are matched in an alternation. You may think that this is a very inconvenient way to write an alternation, but it has a huge advantage over writing `'$'|'@'|'%'`: it is easily extensible:
+这个例子中的 multiple tokens 叫做 `sigil`, 会给 `sym` 做参数化. 当使用这个短名称, 如 `sigil` 时, 所有的这个标记会去找或者的条件. 你可能认为这个方式来写或者条件的匹配非常麻烦. 但它有个巨大的优势就是可以写 `'$'|'@'|'%'`: 这是非常容易扩展的:
 
-    grammar AddASigil is Perl \{
-        token sigil:sym<!> \{ <sym> \}
-    \}
+    grammar AddASigil is Perl {
+        token sigil:sym<!> { <sym> }
+    }
     # wow, we have a Perl 6 grammar with an additional sigil!
 
-Likewise you can override existing alternatives:
+你也可以覆盖现有的规则:
 
-    grammar WeirdSigil is Perl \{
-        token sigil:sym<$> \{ '°' \}
-    \}
+    grammar WeirdSigil is Perl {
+        token sigil:sym<$> { '°' }
+    }
 
-In this grammar the sigil for scalar variables is `°`, so whenever the grammar looks for a sigil it searches for a `°` instead of a `$`, but the compiler will still know that it was the regex `sigil:sym<$>` that matched it.
+在这个 grammar 中的 sigil 是一个标量变量 `°`, 所以每当 grammar 找到一个 sigil 它会查找 `°` 而不是 `$`, 但编译器会知道你是使用了正则 `sigil:sym<$>` 来匹配.
 
-In the next lesson you'll see the development of a real, working grammar with Rakudo.
+接下来你的课程, 给你看一个真实的实例, 这个例子在 Rakudo 是可以正常工作的.
 
 ## A grammar for (pseudo) XML
 
 Fri Dec 5 23:00:00 2008
 
-### [NAME][192]
+### NAME
 
-"Perl 5 to 6" Lesson 20 - A grammar for (pseudo) XML
+"Perl 5 to 6" Lesson 20 - 处理 XML 的 grammar
 
-### [SYNOPSIS][193]
+### 概要
 
-    grammar XML \{
-        token TOP   \{ ^ <xml> $ \};
-        token xml   \{ <text> [ <tag> <text> ]\* \};
-        token text \{  <-[<>&amp;]>\* \};
-        rule tag   \{
-            '<'(\\w+) <attributes>\*
+    grammar XML {
+        token TOP   { ^ <xml> $ };
+        token xml   { <text> [ <tag> <text> ]* };
+        token text {  <-[<>&]>* };
+        rule tag   {
+            '<'(\w+) <attributes>*
             [
                 | '/>'                 # a single tag
                 | '>'<xml>'</' $0 '>'  # an opening and a closing tag
             ]
-        \};
-        token attributes \{ \\w+ '="' <-["<>]>\* '"' \};
-    \};
+        };
+        token attributes { \w+ '="' <-["<>]>* '"' };
+    };
 
-### [DESCRIPTION][194]
 
-So far the focus of these articles has been the Perl 6 language, independently of what has been implemented so far. To show you that it's not a purely fantasy language, and to demonstrate the power of grammars, this lesson shows the development of a grammar that parses basic XML, and that runs with Rakudo.
+### 描述
 
-Please follow the instructions on <http://rakudo.org/how-to-get-rakudo/> to obtain and build Rakudo, and try it out yourself.
+到目前为止, 我们看到的都是 Perl 6 语言本身的一些实现的特性. 现在需要告诉你这不是一个纯粹 yy 的语言, 所以讲一些真实的应用, 来向你展示 Perl 强大的语法, 我们这课是使用 Rakudo 上的 grammar 来解析基本的 XML.
 
-#### [Our idea of XML][195]
+你可以看看 <http://rakudo.org/how-to-get-rakudo/> 来怎么样安装这个.
 
-For our purposes XML is quite simple: it consists of plain text and nested tags that can optionally have attributes. So here are few tests for what we want to parse as valid "XML", and what not:
+#### [Our idea of XML]
+
+对于我们的目标 XML 解析是非常简单的: 它是包含了一些纯文本和一些嵌套的的标签并能包含一些可选的属性. 所以我们先写几个可用和不可用的 "XML" 的测试.
 
     my @tests = (
         [1, 'abc'                       ],      # 1
@@ -1993,34 +2000,34 @@ For our purposes XML is quite simple: it consists of plain text and nested tags 
     );
 
     my $count = 1;
-    for @tests -> $t \{
+    for @tests -> $t {
         my $s = $t[1];
         my $M = XML.parse($s);
-        if !($M  xor $t[0]) \{
+        if !($M  xor $t[0]) {
             say "ok $count - '$s'";
-        \} else \{
+        } else {
             say "not ok $count - '$s'";
-        \}
+        }
         $count++;
-    \}
+    }
 
-This is a list of both "good" and "bad" XML, and a small test script that runs these tests by calling `XML.parse($string)`. By convention the rule that matches what the grammar should match is named `TOP`.
+这会列出 "good" 和 "bad" 的 XML. 只需要调用 `XML.parse($string)` 来运行这些测试的的列表. 根据惯例这些匹配的 grammar 的语法, 需要符合 "TOP" 的该规则才行.
 
-(As you can see from test 1 we don't require a single root tag, but it would be trivial to add this restriction).
+( 你可以看测试 1, 这个我们并没有 root 标签, 但我们会很容易来加入此限制 ).
 
-#### [Developing the grammar][196]
+#### grammar 开发
 
-The essence of XML is surely the nesting of tags, so we'll focus on the second test first. Place this at the top of the test script:
+XML 的本质必然是标签嵌套, 所以我们给重点放在了第二个测试上面. 这个上面能使用这个测试脚本中的 top .
 
-    grammar XML \{
-        token TOP   \{ ^ <tag> $ \}
-        token tag   \{
-            '<' (\\w+) '>'
+    grammar XML {
+        token TOP   { ^ <tag> $ }
+        token tag   {
+            '<' (\w+) '>'
             '</' $0   '>'
-        \}
-    \};
+        }
+    };
 
-Now run the script:
+现在运行测试脚本:
 
     $ ./perl6 xml-01.pl
     not ok 1 - 'abc'
@@ -2037,46 +2044,46 @@ Now run the script:
     not ok 12 - '<a/>'
     not ok 13 - '<a />'
 
-So this simple rule parses one pair of start tag and end tag, and correctly rejects all four examples of invalid XML.
+所以这是使用了简单的规则来解析出了开始标签和结束标签对, 也正确的拒绝掉了无效的 XML 中的四个例子.
 
-The first test should be easy to pass as well, so let's try this:
+第一个测试应该很容易通过，所以让我们试试这个:
 
-   grammar XML \{
-       token TOP   \{ ^ <xml> $ \};
-       token xml   \{ <text> | <tag> \};
-       token text  \{ <-[<>&amp;]>\*  \};
-       token tag   \{
-           '<' (\\w+) '>'
+   grammar XML {
+       token TOP   { ^ <xml> $ };
+       token xml   { <text> | <tag> };
+       token text  { <-[<>&]>*  };
+       token tag   {
+           '<' (\w+) '>'
            '</' $0   '>'
-       \}
-    \};
+       }
+    };
 
-(Remember, `<-[...]>` is a negated character class.)
+(记住, `<-[...]>` 是一个用于否定的字符类.)
 
-And run it:
+现在运行:
 
     $ ./perl6 xml-03.pl
     ok 1 - 'abc'
     not ok 2 - '<a></a>'
     (rest unchanged)
 
-Why in the seven hells did the second test stop working? The answer is that Rakudo doesn't do longest token matching yet (update 2013-01: it does now), but matches sequentially. `<text>` matches the empty string (and thus always), so `<text> | <tag>` never even tries to match `<tag>`. Reversing the order of the two alternations would help.
+为什么处理第第二个测试就工作了? 答案是因为 Rakudo 还不支持 token 的长匹配 ( update 2013=01: 现在支持 ), 这个匹配是顺序的. `<text>` 匹配空字符串命中, 所以 `<text> | <tag>` 从来没有尝试匹配 `<tag>`, 给这二个顺序修改一下会有所帮助.
 
-But we don't just want to match either plain text or a tag anyway, but random combinations of both of them:
+但我们并不只想无论怎么样都能匹配到纯文本或标签, 我们希望这二个能随机组合起来:
 
-    token xml   \{ <text> [ <tag> <text> ]\*  \};
+    token xml   { <text> [ <tag> <text> ]*  };
 
-(`[...]` are non-capturing groups, like `(?: ... )` is in Perl 5).
+(`[...]` 是不会捕捉内容, 象在 Perl 5 中的 `(?: ... )` ).
 
-And low and behold, the first two tests both pass.
+现在这前二个测试都能通过.
 
-The third test, `..<ab>foo</ab>dd`, has text between opening and closing tag, so we have to allow that next. But not only text is allowed between tags, but arbitrary XML, so let's just call `<xml>` there:
+第三个测试, `..<ab>foo</ab>dd`, 找有开头和结构标记之间的文本, 还要允许有多个标记, 因为不只是唯一中间可以放文本, 还要可以放任意的 XML. 因为这叫 `<xml>`.
 
-    token tag   \{
-        '<' (\\w+) '>'
+    token tag   {
+        '<' (\w+) '>'
         <xml>
         '</' $0   '>'
-    \}
+    }
 
     ./perl6 xml-05.pl
     ok 1 - 'abc'
@@ -2086,29 +2093,29 @@ The third test, `..<ab>foo</ab>dd`, has text between opening and closing tag, so
     not ok 5 - '<a href="foo"><b>c</b></a>'
     (rest unchanged)
 
-We can now focus on attributes (the `href="foo"` stuff):
+我们现在可以专注于属性的实现 ( `href="foo"` ):
 
-    token tag   \{
-        '<' (\\w+) <attribute>\* '>'
+    token tag   {
+        '<' (\w+) <attribute>* '>'
         <xml>
         '</' $0   '>'
-    \};
-    token attribute \{
-        \\w+ '="' <-["<>]>\* \\"
-    \};
+    };
+    token attribute {
+        \w+ '="' <-["<>]>* \"
+    };
 
-But this doesn't make any new tests pass. The reason is the blank between the tag name and the attribute. Instead of adding `\s+` or `\s*` in many places we'll switch from `token` to `rule`, which implies the `:sigspace` modifier:
+这并不会有新的测试通过. 原因是因为签名和属性之间的有空白. 我们不使用 `\s+` 或 `\s*` 而是使用 `token` 转到 `rule`, 所以这会有 `:sigspace` 的修饰符:
 
-    rule tag   \{
-        '<'(\\w+) <attribute>\* '>'
+    rule tag   {
+        '<'(\w+) <attribute>* '>'
         <xml>
         '</'$0'>'
-    \};
-    token attribute \{
-        \\w+ '="' <-["<>]>\* \\"
-    \};
+    };
+    token attribute {
+        \w+ '="' <-["<>]>* \"
+    };
 
-Now all tests pass, except the last two:
+现在，所有的测试都通过了，除了最后两个:
 
     ok 1 - 'abc'
     ok 2 - '<a></a>'
@@ -2124,18 +2131,18 @@ Now all tests pass, except the last two:
     not ok 12 - '<a/>'
     not ok 13 - '<a />'
 
-These contain un-nested tags that are closed with a single slash `/`. No problem to add that to rule `tag`:
+这些包含在封闭的标签中有单个斜线 `/`. 这个很容易, 我们只要在我们的 rule 的  `tag` 中加入这个就好:
 
-    rule tag   \{
-        '<'(\\w+) <attribute>\* [
+    rule tag   {
+        '<'(\w+) <attribute>* [
             | '/>'
             | '>' <xml> '</'$0'>'
         ]
-    \};
+    };
 
-All tests pass, we're happy, our first grammar works well.
+所有的测试都通过了, 我们很高兴, 我们的第一个 grammar 效果很好.
 
-#### [More hacking][197]
+#### [More hacking]
 
 Playing with grammars is much more fun that reading about playing, so here's what you could implement:
 
@@ -2149,11 +2156,11 @@ Playing with grammars is much more fun that reading about playing, so here's wha
 
 Have fun hacking.
 
-### [MOTIVATION][198]
+### 动机
 
-It's powerful and fun
+这个很强大并且有意思
 
-### [SEE ALSO][199]
+### 另请参阅
 
 Regexes are specified in great detail in S05: <http://perlcabal.org/syn/S05.html>.
 
@@ -2163,44 +2170,46 @@ More working examples for grammars can be found at <https://github.com/moritz/js
 
 Sat Dec 6 23:00:00 2008
 
-### [NAME][200]
+### NAME
 
-"Perl 5 to 6" Lesson 21 - Subset Types
+"Perl 5 to 6" Lesson 21 - Subset Types 子类型
 
-### [SYNOPSIS][201]
+### 概要
 
-    subset Squares of Int where \{ .sqrt.Int\*\*2 == $\_ \};
+    subset Squares of Int where { .sqrt.Int**2 == $_ };
 
-    multi sub square\_root(Squares $x --> Int) \{
+    multi sub square_root(Squares $x --> Int) {
         return $x.sqrt.Int;
-    \}
-    multi sub square\_root(Num $x --> Num) \{
+    }
+    multi sub square_root(Num $x --> Num) {
         return $x.sqrt;
-    \}
+    }
 
-### [DESCRIPTION][202]
+### 描述
 
-Java programmers tend to think of a type as either a class or an interface (which is something like a crippled class), but that view is too limited for Perl 6. A type is more generally a constraint of what a values a container can constraint. The "classical" constraint is _it is an object of a class `X` or of a class that inherits from `X`_. Perl 6 also has constraints like _the class or the object does role `Y`_, or _this piece of code returns true for our object_. The latter is the most general one, and is called a _subset_ type:
+Java 程序员倾向于认为类型就是一个类或者接口 ( 这有点像一个残缺的类 ), 但这种观点是因为对 Perl 6 的了解太有限了. 类型普通普通看法是对容器中可以放什么值进行约束. 
 
-    subset Even of Int where \{ $\_ % 2 == 0 \}
-    # Even can now be used like every other type name
+传统的一个约束是, 某个东西, 它是一个 X 类的对象或者它是从 X 继承, Perl 6 也有类似的限制象类或者对象 does role Y, 或者这一段代码返回 true 为我们的对象. 这个我们在这叫  _subset_ 类型.
+
+    subset Even of Int where { $_ % 2 == 0 }
+    # Even 现在是可以象其它类型一样使用了 
 
     my Even $x = 2;
-    my Even $y = 3; # type mismatch error
+    my Even $y = 3; # 类型不匹配错误 
 
-(Try it out, Rakudo implements subset types).
+( 试试, Rakudo 实现的子类型 ).
 
-You can also use anonymous subtypes in signatures:
+你也可以在子函数中使用匿名的子类型.
 
-    sub foo (Int where \{ ... \} $x) \{ ... \}
+    sub foo (Int where { ... } $x) { ... }
     # or with the variable at the front:
-    sub foo ($x of Int where \{ ... \} ) \{ ... \}
+    sub foo ($x of Int where { ... } ) { ... }
 
-### [MOTIVATION][203]
+### 动机
 
-Allowing arbitrary type constraints in the form of code allows ultimate extensibility: if you don't like the current type system, you can just roll your own based on subset types.
+代码的终极可扩展性就是许任意类型的约束形式: 如果你不喜欢现有的类型系统, 你可以使用基于自己创建的子类型.
 
-It also makes libraries easier to extend: instead of dying on data that can't be handled, the subs and methods can simply declare their types in a way that "bad" data is rejected by the multi dispatcher. If somebody wants to handle data that the previous implementation rejected as "bad", he can simple add a multi sub with the same name that accepts the data. For example a math library that handles real numbers could be enhanced this way to also handle complex numbers.
+这也使的 lib 库更加容易扩展: 用来替换 die 处理不正常的数据, 在子函数和方法上只需要声明所需要的类型的方式, 不正常的数据就会被 multi dispatcher 所拒绝. 如果其它人想处理提交要处理的坏数据时, 因只需要简单的指定所需要的子类型, 就可以正常的工作. 例如, 你可以写一个 lib 库用于处理实数, 你可以通过这种方式扩展, 让他可以处理其它复杂的数字.
 
 ## The State of the implementations
 
@@ -2210,21 +2219,21 @@ Sun Dec 7 23:00:00 2008
 
 "Perl 5 to 6" Lesson 22 - The State of the implementations
 
-### [SYNOPSIS][205]
+### 概要[205]
 
     (none)
 
-### [DESCRIPTION][206]
+### 描述[206]
 
-**Note:** This lesson is long outdated, and preserved for historical interest only. The best way to stay informed about various Perl 6 compilers is to follow the blogs at <http://planetsix.perl.org/>.
+**注:** 这节课是早已过时, 只保存历史仅供有兴趣的人随时了解各种的 Perl 6 的编译器, 你最好的方法是常看 <http://planetsix.perl.org/>.
 
-Perl 6 is a language specification, and multiple compilers are being written that aim to implement Perl 6, and partially they already do.
+Perl 6 其实是一个语言规范, 并且有多个正在开发中的编译器旨在实现 Perl 6 的功能, 并且部分已经做到了.
 
-#### [Pugs][207]
+#### Pugs
 
-Pugs is a Perl 6 compiler written in Haskell. It was started by Audrey Tang, and she also did most of the work. In terms of implemented features it might still be the most advanced implementation today (May 2009).
+Pugs 是一个使用 Haskell 实现的 Perl 6 编译器. 它的作者是 Audrey Tang,  它在这上面做了大量的工作, 到 2009 年 5 月时, 它在实现的特性方面是最先进的.
 
-To build and test pugs, you have to install GHC 6.10.1 first, and then run
+如果要构建和测试 pugs, 你需要先安装 GHC 6.10.1, 然后执行下面
 
     svn co http://svn.pugscode.org/pugs
     cd pugs
@@ -2240,19 +2249,23 @@ Since the specification is evolving and Pugs is not updated, it is slowly drifti
 
 Pugs can parse most common constructs, implements object orientation, basic regexes, nearly(?) all control structures, basic user defined operators and macros, many builtins, contexts (except slice context), junctions, basic multi dispatch and the reduction meta operator - based on the syntax of three years past.
 
-#### [Rakudo][208]
+#### Rakudo
 
-Rakudo is a parrot based compiler for Perl 6. The main architect is Patrick Michaud, many features were implemented by Jonathan Worthington.
+Rakudo 是一个基于 parrot 实现的 Perl 6. 主要的架构师是 Patrick Michaud, 很多的功能和特性是由 Jonathan Worthington 实现. 
 
-It is hosted on github, you can find build instructions on <http://rakudo.org/how-to-get-rakudo>.
+注: 它是 Perl 6 的实现, 它现在可以还可以基于 JVM 和 MoarVM 虚拟来运行.
 
-Rakudo development is very active, it's the most active Perl 6 compiler today. It passes a bit more than 17,000 tests from the official test suite (July 2009).
+它是托管在 github 上, 你可以从 <http://rakudo.org/how-to-get-rakudo> 来下载和安装.
 
-It implements most control structures, most syntaxes for number literals, interpolation of scalars and closures, chained operators, `BEGIN`- and `END` blocks, pointy blocks, named, optional and slurpy arguments, sophisticated multi dispatch, large parts of the object system, regexes and grammars, Junctions, generic types, parametric roles, typed arrays and hashes, importing and exporting of subroutines and basic meta operators.
+Rakudo 的开发非常的活跃, 它是当前最好的 Perl 6 的实现. 它可以通过超过 17,000 个官方的测试 ( 2009 年 7 月 );
 
-If you want to experiment with Perl 6 today, Rakudo is the recommended choice.
+它实现了大部分的控制结构, 大部分的数字, 文字, 标量, 闭包, 内插的语法. 
+支持 `BEGIN`- 和`END` 块, pointy 块, 可选的和slurpy 的参数, 复杂的多调度, 大量的原生对象系统, 正则和 grammars, Junctions, 各种类型, 角色. 
+导入导出和基本的元操作符.
 
-#### [Elf][209]
+如果你想尝试用 Perl 6, Rakudo 是你不二的选择.
+
+#### Elf
 
 Mitchell Charity started _elf_, a bootstrapping compiler written in Perl 6, with a grammar written in Ruby. Currently it has a Perl 5 backend, others are in planning.
 
@@ -2262,17 +2275,17 @@ It lives in the pugs repository, once you've checked it out you can go to `misc/
 
 It parses more than 70% of the test suite, but implements mostly features that are easy to emulate with Perl 5, and passes about 700 tests from the test suite.
 
-#### [KindaPerl6][210]
+#### KindaPerl6
 
 Flavio Glock started KindaPerl6 (short kp6), a mostly bootstrapped Perl 6 compiler. Since the bootstrapped version is much too slow to be fun to develop with, it is now waiting for a faster backend.
 
 Kp6 implements object orientation, grammars and a few distinct features like lazy gather/take. It also implements `BEGIN` blocks, which was one of the design goals.
 
-#### [v6.pm][211]
+#### v6.pm
 
 `v6` is a source filter for Perl 5. It was written by Flavio Glock, and supports basic Perl 6 plus grammars. It is fairly stable and fast, and is occasionally enhanced. It lives on the CPAN and in the pugs repository in `perl5/*/`.
 
-#### [SMOP][212]
+#### SMOP
 
 Smop stands for _Simple Meta Object Programming_ and doesn't plan to implement all of Perl 6, it is designed as a backend (a little bit like parrot, but very different in both design and feature set). Unlike the other implementations it aims explicitly at implementing Perl 6's powerful meta object programming facilities, ie the ability to plug in different object systems.
 
@@ -2280,8 +2293,8 @@ It is implemented in C and various domain specific languages. It was designed an
 
 It will then be used as a backend for either elf or kp6, and perhaps also for pugs.
 
-#### [STD.pm][213]
-
+#### STD.pm
+Larry Wall 为 Perl 6 实现而使用 Perl 6 的 grammar 的实现. 这还有个名字叫 `gimme5`, 它转换 grammar 到 Perl 5. 它可以解析 Perl6 书面的和我们所知道的有效的所有东西, 包括整个测试套件.
 Larry Wall wrote a grammar for Perl 6 in Perl 6. He also wrote a cheating script named `gimme5`, which translates that grammar to Perl 5. It can parse about every written and valid piece of Perl 6 that we know of, including the whole test suite (apart from a few failures now and then when Larry accidentally broke something).
 
 STD.pm lives in the pugs repository, and can be run and tested with perl-5.10.0 installed in `/usr/local/bin/perl` and a few perl modules (like `YAML::XS` and `Moose`):
@@ -2293,7 +2306,7 @@ STD.pm lives in the pugs repository, and can be run and tested with perl-5.10.0 
 
 It correctly parses custom operators and warns about non-existent subs, undeclared variables and multiple declarations of the same variable as well as about some Perl 5isms.
 
-### [MOTIVATION][214]
+### 动机
 
 Many people ask why we need so many different implementations, and if it wouldn't be better to focus on one instead.
 
@@ -2305,7 +2318,7 @@ The second possible answer is that the projects explore different areas of the v
 
 The third answer is that we don't want a single point of failure. If we had just one implementation, and had severe problems with one of them for unforeseeable reasons (technical, legal, personal, ...) we have possible fallbacks.
 
-### [SEE ALSO][215]
+### 另请参阅[215]
 
 Pugs: <http://www.pugscode.org/>, <http://pugs.blogs.com/pugs/2008/07/pugshs-is-back.html>, <http://pugs.blogspot.com>, source: <http://svn.pugscode.org/pugs>.
 
@@ -2323,69 +2336,69 @@ STD.pm: source: see pugs, `src/perl6/`.
 
 Mon Dec 8 23:00:00 2008
 
-### [NAME][216]
+### NAME
 
-"Perl 5 to 6" Lesson 23 - Quoting and Parsing
+"Perl 5 to 6" Lesson 23 - 引号和解析 
 
-### [SYNOPSIS][217]
+### 概要
 
     my @animals = <dog cat tiger>
     # or
     my @animals = qw/dog cat tiger/;
-    # or
-
-    my $interface = q\{eth0\};
+    # or 
+    
+    my $interface = q{eth0};
     my $ips = q :s :x /ifconfig $interface/;
 
     # -----------
 
-    sub if \{
-        warn "if() calls a sub\\n";
-    \}
+    sub if {
+        warn "if() calls a sub\n";
+    }
     if();
 
-### [DESCRIPTION][218]
+### 描述
 
-#### [Quoting][219]
+#### 引号 
 
-Perl 6 has a powerful mechanism of quoting strings, you have exact control over what features you want in your string.
+Perl 6 对引号字符的处理有强大的机制, 你可以对你想要处理的字符串的特性进行精确的控制.
 
-Perl 5 had single quotes, double quotes and `qw(...)` (single quotes, splitted on whitespaces) as well as the `q(..)` and `qq(...)` forms which are basically synonyms for single and double quotes.
+Perl 5 中有单引号, 双引号和 `qw(...)` ( 单引号, 按分割的空格 ) 和形式上就是单引号和双引号的同义的 `q(..)` 与  `qq(...)`. 
 
-Perl 6 in turn defines a quote operator named `Q` that can take various modifiers. The `:b` (_backslash_) modifier allows interpolation of backslash escape sequences like `\n`, the `:s` modifier allows interpolation of scalar variables, `:c` allows the interpolation of closures (`"1 + 2 = { 1 + 2 }"`) and so on, `:w` splits on words as `qw/.../` does.
+Perl 6 又定义了一个名为 `Q` 的引号操作来修饰变量. 这 `:b` ( _反斜杠_ ) 修饰符让 `\n` 之类可以让反斜杠插值, 这个  `:s` 修饰符可以让标量进行插值. 这个 `:c` 可以让闭包的函数进行插值 (`"1 + 2 = { 1 + 2 }"`), `:w` 用于象 `qw/.../` 一样分割单词.
 
-You can arbitrarily combine those modifiers. For example you might wish a form of `qw/../` that interpolates only scalars, but nothing else? No problem:
+你可以任意组合这些修饰符. 例如, 你也许想 `qw/../` 只插标量, 但没其它的? 没问题:
 
     my $stuff = "honey";
-    my @list = Q :w :s/milk toast $stuff with\\tfunny\\nescapes/;
-    say @list[\*-1];                     # prints with\\nfunny\\nescapes
+    my @list = Q :w :s/milk toast $stuff with\tfunny\nescapes/;
+    say @list[*-1];                     # prints with\nfunny\nescapes
 
-Here's a list of what modifiers are available, mostly stolen from S02 directly. All of these also have long names, which I omitted here.
+下面是修饰符可用的列表, 基本大部分直接来自 S02 , 所有的这些有很长的名字, 我这个地方省略了.
 
-    Features:
-        :q          Interpolate \\\\, \\q and \\'
-        :b          Other backslash escape sequences like \\n, \\t
-    Operations:
-        :x          Execute as shell command, return result
-        :w          Split on whitespaces
-        :ww         Split on whitespaces, with quote protection
-    Variable interpolation
-        :s          Interpolate scalars   ($stuff)
-        :a          Interpolate arrays    (@stuff[])
-        :h          Interpolate hashes    (%stuff\{\})
-        :f          Interpolate functions (&amp;stuff())
-    Other
-        :c          Interpolate closures  (\{code\})
-        :qq         Interpolate with :s, :a, :h, :f, :c, :b
-        :regex      parse as regex
+    特性:
+        :q          内插 \\, \q 和 \'
+        :b          其他的反斜杠转义序列 \n, \t
+    操作:
+        :x          执行 shell 命令, 返回其结果
+        :w          分割空格
+        :ww         分割空格, 使用引号保护
+    变量内插:
+        :s          内插值 scalars   ($stuff)
+        :a          内插值 arrays    (@stuff[])
+        :h          内插值 hashes    (%stuff{})
+        :f          内插值 functions (&stuff())
+    其它:
+        :c          内插闭包 closures  ({code})
+        :qq         插值下面这些 :s, :a, :h, :f, :c, :b
+        :regex      解析正则 
 
-There are some short forms which make life easier for you:
+还有一些短的形式:
 
     q       Q:q
     qq      Q:qq
     m       Q:regex
 
-You can also omit the first colon `:` if the quoting symbol is a short form, and write it as a singe word:
+你也可以省略第一个冒号 `:` 如果使用引号的简短形式:
 
     symbol      short for
     qw          q:w
@@ -2394,31 +2407,33 @@ You can also omit the first colon `:` if the quoting symbol is a short form, and
     Qc          Q:c
     # and so on.
 
-However there is one form that does not work, and some Perl 5 programmers will miss it: you can't write `qw(...)` with the round parenthesis in Perl 6. It is interpreted as a call to sub `qw`.
+注意, 有一种形式不能工作, 有些 Perl 5 的程序员容易搞错: 你并不能在 Perl 6 中写 `qw(...)` 这个圆括号. 它现在是插值调用子函数叫 `qw`.
 
-#### [Parsing][220]
+#### 解析 
 
-This is where parsing comes into play: Every construct of the form `identifier(...)` is parsed as sub call. Yes, every.
+这时解析开始发挥作用: 象 `identifier(...)` 这种都会解析成子函数调用. 
 
     if($x<3)
 
-is parsed as a call to sub `if`. You can disambiguate with whitespaces:
+它会解析成调用子函数 `if`. 你可以用空格来防止歧义:
 
-    if ($x < 3) \{ say '<3' \}
+    if ($x < 3) { say '<3' }
 
-Or just omit the parens altogether:
+或者干脆省略括号:
 
-    if $x < 3 \{ say '<3' \}
+    if $x < 3 { say '<3' }
 
-This implies that Perl 6 has no keywords. Actually there are keywords like `use` or `if`, but they are only special if used in a special syntax.
+这也意味着 Perl 6 没有关键字, 其它象 `use` 或 `if` 关键字, 这也只是特定作用的特殊的语法.
 
-### [MOTIVATION][221]
+### 动机
 
-Various combinations of the quoting modifiers are already used internally, for example `q:w` to parse `<...>`, and `:regex` for `m/.../`. It makes sense to expose these also to the user, who gains flexibility, and can very easily write macros that provide a shortcut for the exact quoting semantics he wants.
+引号修饰符的各种组合都已经在内部使用, 例如 `q:w` 用于解析 `<...>`, 和  `:regex` 用于 `m/.../`.
 
-And when you limit the specialty of keywords, you have far less troubles with backwards compatibility if you want to change what you consider a "keyword".
+这些暴露给用户, 可以获得非常好的灵活性, 并且可以非常容易的编写宏, 使用提供的引号的语义实现成快捷方式.
 
-### [SEE ALSO][222]
+当你限制关键字的特性, 你会有很多向后兼容的麻烦, 如果你想改变一个关键字的话.
+
+### 另请参阅
 
 <http://perlcabal.org/syn/S02.html#Literals>
 
@@ -2426,284 +2441,283 @@ And when you limit the specialty of keywords, you have far less troubles with ba
 
 Tue Dec 9 23:00:00 2008
 
-### [NAME][223]
+### NAME
 
-"Perl 5 to 6" Lesson 24 - The Reduction Meta Operator
+"Perl 5 to 6" Lesson 24 - Reduction 元操作 
 
-### [SYNOPSIS][224]
+### 概要
 
     say [+] 1, 2, 3;    # 6
     say [+] ();         # 0
     say [~] <a b>;      # ab
-    say [\*\*] 2, 3, 4;   # 2417851639229258349412352
+    say [**] 2, 3, 4;   # 2417851639229258349412352
 
-    [\\+] 1, 2, 3, 4     # 1, 3, 6, 10
-    [\\\*\*] 2, 3, 4       # 4, 81, 2417851639229258349412352
+    [\+] 1, 2, 3, 4     # 1, 3, 6, 10
+    [\**] 2, 3, 4       # 4, 81, 2417851639229258349412352
 
-    if [<=] @list \{
+    if [<=] @list {
         say "ascending order";
-    \}
+    }
 
-### [Description][225]
+### Description
 
-The reduction meta operator `[...]` can enclose any associative infix operator, and turn it into a list operator. This happens as if the operator was just put between the items of the list, so `[op] $i1, $i2, @rest` returns the same result as if it was written as `$i1 op $i2 op @rest[0] op @rest[1] ...`.
+这个 reduction 的元操作 `[...]` 可以放入所有的相关的缀操作符, 并把它变成一个列表操作符. 相当于给在这个操作符后面的列表中所有的元素进行前面的缀操作符的操作. 所以象 `[op] $i1, $i2, @rest` 返回的结果和你写的 `$i1 op $i2 op @rest[0] op @rest[1] ...` 是相同的.
 
-This is a very powerful construct that promotes the plus `+` operator into a `sum` function, `~` into a `join` (with empty separator) and so on. It is somewhat similar to the `List.reduce` function, and if you had some exposure to functional programming, you'll probably know about `foldl` and `foldr` (in Lisp or Haskell). Unlike those `[...]` respects the associativity of the enclosed operator, so `[/] 1, 2, 3` is interpreted as `(1 / 2) / 3` (left associative), `[**] 1, 2, 3` is handled correctly as `1 ** (2**3)` (right associative).
+这个东西非常强大, 你可要使用加 `+` 操作符就可以实现 `sum` 的功能, 使用 `~` 放到这个中就能实现 `join` ( 使用空分隔 ) 等等. 这个有点类似 `List.reduce` 的功能, 如果你有一些接触到函数式编程, 你可能知道 `foldl` 和 `foldr` ( 在 Lisp 和 Hashell 中有 ). 不同处在于 `[...]` 会涉及到其中的缀操作符的结合性, 所以 `[/] 1, 2, 3` 会解释成 `(1 / 2) / 3` ( 左结合性 ), `[**] 1, 2, 3` 可以正常的处理成 `1 ** (2**3)` ( 右结合性 ).
 
-Like all other operators whitespaces are forbidden, so you while you can write `[+]`, you can't say `[ + ]`.
+就象其它的操作符一样, 在操作符中间是禁止出现空格, 所以你可以写 `[+]`, 但你不能写 `[ + ]`.
 
-Since comparison operators can be chained, you can also write things like
+由于比较操作符可串连, 你也可以这样写
 
-    if    [==] @nums \{ say "all nums in @nums are the same" \}
-    elsif [<]  @nums \{ say "@nums is in strict ascending order" \}
-    elsif [<=] @nums \{ say "@nums is in ascending order"\}
+    if    [==] @nums { say "all nums in @nums are the same" }
+    elsif [<]  @nums { say "@nums is in strict ascending order" }
+    elsif [<=] @nums { say "@nums is in ascending order"}
 
-You can even reduce the assignment operator:
+你甚至可以没有赋值操作符:
 
     my @a = 1..3;
     [=] @a, 4;          # same as @a[0] = @a[1] = @a[2] = 4;
 
-Note that `[...]` always returns a scalar, so `[,] @list` is actually the same as `[@list]`.
+注意这个地方  `[...]` 总是返回标量, 所以 `[,] @list` 其实和 `[@list]` 是一样的.
 
-#### [Getting partial results][226]
+#### 取得过程中分片的结果 
 
-There's a special form of this operator that uses a backslash like this: `[\+]`. It returns a list of the partial evaluation results. So `[\+] 1..3` returns the list `1, 1+2, 1+2+3`, which is of course `1, 3, 6`.
+这个操作符有一种特殊形式使用反斜杠象 `[\+]`.  它会返回列表的运算的结果的列表的每一部分. 所以 `[\+] 1..3` 返回的列表是 `1, 1+2, 1+2+3`, 这个结果当然是 `1, 3, 6`.
 
-    [\\~] 'a' .. 'd'     # <a ab abc abcd>
+    [\~] 'a' .. 'd'     # <a ab abc abcd>
 
-Since right-associative operators evaluate from right to left, you also get the partial results that way:
+这个右结合性的操作符是从右到左的列表结果, 所以你可以取得象下面一样的结果:
 
-    [\\\*\*] 1..3;         # 3, 2\*\*3, 1\*\*(2\*\*3), which is 3, 8, 1
+    [\**] 1..3;         # 3, 2**3, 1**(2**3), which is 3, 8, 1
 
-Multiple reduction operators can be combined:
+多个 reduction 的操作符也可以绑定: 
 
-    [~] [\\\*\*] 1..3;     # "381"
+    [~] [\**] 1..3;     # "381" 
 
-### [MOTIVATION][227]
+### 动机
 
-Programmers are lazy, and don't want to write a loop just to apply a binary operator to all elements of a list. `List.reduce` does something similar, but it's not as terse as the meta operator (`[+] @list` would be `@list.reduce(&infix:<+>)`), and takes care of the associativity of the operator.
+程序员是懒惰的, 所以我们并不想我们花了很多时间写了个循环, 其中只放一行用于操作列表所有元素的二元运算符.
+
+`List.reduce` 也可以做类似的事情, 但它并不是简洁的元操作符 ( `[+] @list 比起 `@list.reduce(&infix:<+>)` ), 注意要小心的的运算符的结合性.
 
 If you're not convinced, play a bit with it (pugs mostly implements it), it's real fun.
 
-### [SEE ALSO][228]
+### 另请参阅
 
-[http://perlcabal.org/syn/S03.html#Reduction\_operators][229], [http://www.perlmonks.org/?node\_id=716497][230]
+[http://perlcabal.org/syn/S03.html#Reduction_operators], [http://www.perlmonks.org/?node_id=716497]
 
 ## The Cross Meta Operator
 
 Tue May 26 22:00:00 2009
 
-### [NAME][231]
+### [NAME]
 
-"Perl 5 to 6" Lesson 25 - The Cross Meta Operator
+"Perl 5 to 6" Lesson 25 - Cross 元操作符
 
-### [SYNOPSIS][232]
+### 概要
 
-    for <a b> X 1..3 -> $a, $b \{
+    for <a b> X 1..3 -> $a, $b {
         print "$a: $b   ";
-    \}
+    }
     # output: a: 1  a: 2  a: 3  b: 1  b: 2  b: 3
 
     .say for <a b c> X 1, 2;
-    # output: a1\\n a2\\n b1\\n b2\\n c1\\n c2\\n
-    # (with real newlines instead of \\n)
+    # output: a1\n a2\n b1\n b2\n c1\n c2\n
+    # (with real newlines instead of \n)
 
-### [DESCRIPTION][233]
+### 描述
 
-The cross operator `X` returns the Cartesian product of two or more lists, which means that it returns all possible tuples where the first item is an item of the first list, the second item is an item of second list etc.
+这个 cross 操作符 `X` 用于返回两个或多个列表的笛卡儿积, 这表示它会返回所有可能的元组, 其中第一个元素是第一个列表中的元素，第二元素是第二个列表中的元素等..
 
-If an operator follows the `X`, then this operator is applied to all tuple items, and the result is returned instead. So `1, 2 X+ 3, 6` will return the values `1+3, 1+6, 2+3, 2+6` (evaluated as `4, 7, 5, 8` of course).
+如果有另一个操作符放在 `X` 之后, 这个操作符会被运用到所有的元组元素上, 它的结果也会相应换成这样, 所以 `1, 2 X+ 3, 6` 会返回 `1+3, 1+6, 2+3, 2+6` 的操作结果 `4, 7, 5, 8`.
 
-### [MOTIVATION][234]
+### 动机
 
-It's quite common that one has to iterate over all possible combinations of two or more lists, and the cross operator can condense that into a single iteration, thus simplifying programs and using up one less indentation level.
+这个很常见的操作, 常常人们必须遍历两个或两个以上列表的所有可能的组合, 以及交叉其它操作符压缩成的单次迭代, 从而大大简化程序, 并只要使用一行缩进就搞定了.
 
-The usage as a meta operator can sometimes eliminate the loops altogether.
+使用这些元操作符有时不再需要进行循环.
 
-### [SEE ALSO][235]
+### 另请参阅
 
-[http://perlcabal.org/syn/S03.html#Cross\_operators][236],
+[http://perlcabal.org/syn/S03.html#Cross_operators]
 
 ## Exceptions and control exceptions
 
 Thu Jul 9 09:00:02 2009
 
-### [NAME][237]
+### NAME
 
-"Perl 5 to 6" Lesson 26 - Exceptions and control exceptions
+"Perl 5 to 6" Lesson 26 - 异常和异常控制 
 
-### [SYNOPSIS][238]
+### 概要
 
-    try \{
+    try {
         die "OH NOEZ";
 
-        CATCH \{
+        CATCH { 
             say "there was an error: $!";
-        \}
-    \}
+        }
+    }
 
-### [DESCRIPTION][239]
+### 描述
 
-Exceptions are, contrary to their name, nothing exceptional. In fact they are part of the normal control flow of programs in Perl 6.
+异常在 Perl 6 中是正常的正常控制流的一部分.
 
-Exceptions are generated either by implicit errors (for example dividing by zero, calling a non-existing method, type check failures) or by explicitly calling `die` or other functions.
+异常隐含着错误 ( 如除以零, 调用不存在的方法, 类型检查失败 ) 或者通过显示的调用 `die` 之类其它的产生的异常.
 
-When an exception is thrown, the program searches for `CATCH` statements or `try` blocks in the caller frames, unwinding the stack all the way (that means it forcibly returns from all routines called so far). If no `CATCH` or `try` is found, the program terminates, and prints out a hopefully helpful error message. If one was found, the error message is stored in the special variable `$!`, and the `CATCH` block is executed (or in the case of a `try` without a CATCH block the try block returns `undef`).
+当异常发生时, 程序会在所有的函数中寻找相关的 CATCH 关键字或 try 代码段. 如果没有 catch 和 try 被找到, 程序退出, 这个时候可能会打印出一些错误提示但更可能是不会的. 如果 catch 或 try 被找到了, 错误信息会被存在特殊变量 $! 中, catch 中的内容会被执行. 另外, 当只有一个 try 代码段而没有对应的 catch 的时候, try 代码段会返回 undef.
 
-So far exceptions might still sound exceptional, but error handling is integral part of each non-trivial application. But even more, normal `return` statements also throw exceptions!
+到目前为止讲的异常处理都还比较常规, 但错误处理对程序来说是很复杂的, 有的时候甚至一个普通的函数返回 "return" 也会抛出异常. 这种情况被叫做 "control exceptions"，可以用 CONTROL 块获取到, 或是在每个 routine 定义的时候捕获到。 
 
-They are called _control exceptions_, and can be caught with `CONTROL` blocks, or are implicitly caught at each routine declaration.
-
-Consider this example:
+看下面这个例子:
 
     use v6;
-    my $block = -> \{ return "block"; say "still here" \};
+    my $block = -> { return "block"; say "still here" };
 
-    sub s \{
+    sub s {
         $block.();
         return "sub";
-    \}
+    }
 
     say s();
 
-Here the `return "block"` throws a control exception, causing it to not only exit the current block (and thus not printing `still here` on the screen), but also exiting the subroutine, where it is caught by the `sub s...` declaration. The payload, here a string, is handed back as the return value, and the `say` in the last line prints it to the screen.
+这的 `return "block"` 会抛出一个控制异常, 使其不仅退出当前块 ( 因此不会在屏幕上打印 "still here" ), 还会退出子函数, 这时会补 `sub s...` 的声明捕捉. 这是有效返回是字符串, 它被做为返回值, 并在最后一行的 `say` 来打印出来.
 
-Embedding the call `$block.()` in a `try { ... }` block or adding a `CONTROL { ... }` block to the body of the routine causes it to catch the exception.
+嵌入调用 `$block.()` 中放入 `$block.()` 块或者增加 `CONTROL { ... }` 块到程序的主体中可以使其捕获到异常.
 
-Contrary to what other programming languages do, the `CATCH`/`CONTROL` blocks are within the scope in which the error is caught (not on the outside), giving it full access to the lexical variables, which makes it easier to generate useful error message, and also prevents DESTROY blocks from being run before the error is handled.
+和其它编程语言不一样的, 这个 `CATCH`/`CONTROL` 块是工作在错误被捕获( 不是在外面 ) 的范围内, 这会完全进入词法变量, 这使得更容易产生有用的错误信息, 并且可以防止在处理错误之前, 这个块就被 DESTROY 掉.
 
-#### [Unthrown exceptions][240]
+#### 不抛出异常
 
-Perl 6 embraces the idea of multi threading, and in particular automated parallelization. To make sure that not all threads suffer from the termination of a single thread, a kind of "soft" exception was invented.
+Perl 6  中全部包含了多线程的想法, 尤其是自动并行化. 为了确保不是所有的线程要遭受从一个单独的线程中止而中断, 发明了一种 "软" 异常.
 
-When a function calls `fail($obj)`, it returns a special value of `undef`, which contains the payload `$obj` (usually an error message) and the back trace (file name and line number). Processing that special undefined value without check if it's undefined causes a normal exception to be thrown.
+当一个函数调用 `fail($obj)`, 它会返回一个特定的 `undef` 的值, 其实是包含了 `$obj`  ( 通常是一个错误消息 ) 和 back trace ( 文件名和行号 ). 进程需要在外面对这个特定的未定义的值进行检查, 如果它是未定义的来由自己控制异常抛出.
 
     my @files = </etc/passwd /etc/shadow nonexisting>;
-    my @handles = hyper map \{ open($\_) \}, @files;
+    my @handles = hyper map { open($_) }, @files;
 
-In this example the `hyper` operator tells `map` to parallelize its actions as far as possible. When the opening of the `nonexisting` file fails, an ordinary `die "No such file or directory"` would also abort the execution of all other `open` operations. But since a failed open calls `fail("No such file or directory"` instead, it gives the caller the possibility to check the contents of `@handles`, and it _still has access to the full error message_.
+在这个例子中 `hyper` 操作会让 `map` 尽可能并行的做自己所要做的动作. 当打开一个不存在的文件失败时, 普通的  `die "No such file or directory"` 会中止所有其它的  `open` 操作. 但如果使用了失败的打开后启用 `fail("No such file or directory")` 来替换 die 操作, 它会给调用者让其来检查包含的 `@handles`, 并且仍然可以访问完整的错误消息.
 
-If you don't like soft exceptions, you say `use fatal;` at the start of the program and cause all exceptions from `fail()` to be thrown immediately.
+如果你不喜欢 "软" 异常的处理, 你可以 `use fatal;`  这会让程序从一开始就给全部的异常的  `fail()`  变成立即抛出的所有异常.
 
-### [MOTIVATION][241]
+### 动机
 
-A good programming language needs exceptions to handle error conditions. Always checking return values for success is a plague and easily forgotten.
+一个好的编程语言需要异常来处理错误的条件. 总是检查返回值是一种折磨也容易忘记.
 
-Since traditional exceptions can be poisonous for implicit parallelism, we needed a solution that combined the best of both worlds: not killing everything at once, and still not losing any information.
+由于传统的异常处理可能会影响隐式的并行性. 所以我们需要一个二全其美的解决方案: 不会立即 kill 掉一切, 并且仍然不会丢失任何信息.
 
 ## Common Perl 6 data processing idioms
 
 Thu Jul 22 13:34:26 2010
 
-### [NAME][242]
+### [NAME]
 
-"Perl 5 to 6" Lesson 27 - Common Perl 6 data processing idioms
+"Perl 5 to 6" Lesson 27 - 常用的 Perl 6 数据处理的习惯用法
 
-### [SYNOPSIS][243]
+### 概要
 
-  # create a hash from a list of keys and values:
-  # solution 1: slices
-  my %hash; %hash\{@keys\} = @values;
-  # solution 2: meta operators
+  # 从键和值的列表创建哈希 
+  # 方案 1: slices 切片
+  my %hash; %hash{@keys} = @values;
+  # 方案 2: meta operators 元操作
   my %hash = @keys Z=> @values;
 
-  # create a hash from an array, with
-  # true value for each array item:
-  my %exists = @keys Z=> 1 xx \*;
+  # 从数组创建哈希, 给每个数组元素 true 值:
+  my %exists = @keys Z=> 1 xx *;
 
-  # limit a value to a given range, here 0..10.
+  # 限制值的范围,  这是 0 .. 10.
   my $x = -2;
   say 0 max $x min 10;
 
-  # for debugging: dump the contents of a variable,
-  # including its name, to STDERR
+  # dubugging: 给容器中的值 dump 出来, 包含名字, 输出到标准错误
   note :$x.perl;
 
-  # sort case-insensitively
-  say @list.sort: \*.lc;
+  # 不区分大小写排序
+  say @list.sort: *.lc;
 
-  # mandatory attributes
-  class Something \{
+  # 强制属性 
+  class Something {
       has $.required = die "Attribute 'required' is mandatory";
-  \}
+  }
   Something.new(required => 2); # no error
   Something.new()               # BOOM
 
-### [DESCRIPTION][244]
 
-Learning the specification of a language is not enough to be productive with it. Rather you need to know how to solve specific problems. Common usage patterns, called _idioms_, helps you not having to re-invent the wheel every time you're faced with a problem.
+### 描述
 
-So here a some common Perl 6 idioms, dealing with data structures.
+学习一门语言只靠规范是不够的, 它必须在生产中使用. 相反, 你们需要知道如何解决具体问题. 常用的处理模式叫 _idioms_ 惯用用法, 可以帮助我们在每次有问题的时候不用重新发明轮子.
 
-#### [Hashes][245]
+所以这是一些常用的 Perl 6 的习惯用法来操作数据结构.
 
-  # create a hash from a list of keys and values:
-  # solution 1: slices
-  my %hash; %hash\{@keys\} = @values;
-  # solution 2: meta operators
+####  哈希
+
+  # 从键和值的列表创建哈希 
+  # 方案 1: slices 切片
+  my %hash; %hash{@keys} = @values;
+  # 方案 2: meta operators 元操作
   my %hash = @keys Z=> @values;
 
-The first solution is the same you'd use in Perl 5: assignment to a slice. The second solution uses the zip operator `Z`, which joins to list like a zip fastener: `1, 2, 3 Z 10, 20, 30` is `1, 10, 2, 20, 3, 30`. The `Z=>` is a meta operator, which combines zip with `=>` (the Pair construction operator). So `1, 2, 3 Z=> 10, 20, 30` evaluates to `1 => 10, 2 => 20, 3 => 30`. Assignment to a hash variable turns that into a Hash.
+这个第一个方案和你的 Perl 5 是基本相同的: 使用切片来分配. 第二个方案是使用的 zip 操作符的 `Z` 操作, 这会 zip 成一个列表象:  `1, 2, 3 Z 10, 20, 30` 变成  `1, 10, 2, 20, 3, 30`. 这的 `Z=>` 是元操作, 在这通过 `=>` ( Pair 创建的操作 ) 来绑定 zip . 所以 `1, 2, 3 Z=> 10, 20, 30` 相当于 `1, 2, 3 Z=> 10, 20, 30`. 赋值给哈希一个数组列表变量.
 
-For existence checks, the values in a hash often doesn't matter, as long as they all evaluate to `True` in boolean context. In that case, a nice way to initialize the hash from a given array or list of keys is
+对于存在检查, 这个哈希的值是不什么重要, 主要他们在布尔上下文返回 `True`. 在这种情况下, 有一个不错的方式来初始化哈希, 给 keys 一个数组或者列表
 
-  my %exists = @keys Z=> 1 xx \*;
+  my %exists = @keys Z=> 1 xx *;
 
-which uses a lazy, infinite list of 1s on the right-hand side, and relies on the fact that `Z` ends when the shorter list is exhausted.
+这是一个 lazy, 在右侧 1 组成无穷列表, 并依赖 `Z` 来结束这个列表.
 
-#### [Numbers][246]
+#### [Numbers]
 
-Sometimes you want to get a number from somewhere, but clip it into a predefined range (for example so that it can act as an array index).
+有时你从一些其它的地方取得一个数字, 但这个数字有一个自己预先定义的范围 ( 例如, 这样它可以作为一个数组索引 ).
 
-In Perl 5 you often end up with things like `$a = $b > $upper ? $upper : $b`, and another conditional for the lower limit. With the `max` and `min` infix operators, that simplifies considerably to
+在 Perl 5 中, 你常常会遇到什么 `$a = $b > $upper ? $upper : $b`, 其它的限制是 lower. 在这个地方我们使用 `max` 和 `min` 的中缀运算符, 可以简化成
 
   my $in-range = $lower max $x min $upper;
 
-because `$lower max $x` returns the larger of the two numbers, and thus clipping to the lower end of the range.
+因为  `$lower max $x` 返回两个数中较大的, 因此切出了这个范围的下端.
 
-Since `min` and `max` are infix operators, you can also clip infix:
+这为 `min` 和 `max` 是中缀运算符, 你也可以这样使用:
 
  $x max= 0;
  $x min= 10;
 
-#### [Debugging][247]
+#### [Debugging]
 
-Perl 5 has Data::Dumper, Perl 6 objects have the `.perl` method. Both generate code that reproduces the original data structure as faithfully as possible.
+Perl 5 中我们常常使用 Data::Dumper, 在 Perl 6 的中我们使用对象的 `.perl` 方法. 这二个都能尽可能生成, 真实的原始数据结构.
 
-`:$var` generates a Pair ("colonpair"), using the variable name as key (but with sigil stripped). So it's the same as `var => $var`. `note()` writes to the standard error stream, appending a newline. So `note :$var.perl` is quick way of obtaining the value of a variable for debugging; purposes, along with its name.
+这个 `:$var`  生成 => 的键值对 ("colonpair"), 使用变量名做为关键字 ( 但前标记会剥离开 ). 因些, 它们会是 `var => $var` 一样的结构. `note()` 是用于写入标准错误, 并追加一个换行. 所以 `:$var.perl 是一个获得用于调试, 名称, 目标的变量的值的快捷方式.
 
-#### [Sorting][248]
+#### [Sorting]
 
-Like in Perl 5, the `sort` built-in can take a function that compares two values, and then sorts according to that comparison. Unlike Perl 5, it's a bit smarter, and automatically does a transformation for you if the function takes only one argument.
+象 Perl 5 中一样, 这个 `sort` 是内置的. 它可根据所采取的比较函数来比较两个值, 然后排序. 不同于 Perl 5 的是, 这更加智能, 如果你的参数只有一个值会自动使用 transformation.
 
-In general, if you want to compare by a transformed value, in Perl 5 you can do:
+如果你想过一个 transformed 对值进行比较, 在 Perl 5 中你可以这样:
 
     # WARNING: Perl 5 code ahead
-    my @sorted = sort \{ transform($a) cmp transform($b) \} @values;
+    my @sorted = sort { transform($a) cmp transform($b) } @values;
 
     # or the so-called Schwartzian Transform:
-    my @sorted = map \{ $\_->[1] \}
-                 sort \{ $a->[0] cmp $b->[0] \}
-                 map \{ [transform($\_), $\_] \}
+    my @sorted = map { $_->[1] }
+                 sort { $a->[0] cmp $b->[0] }
+                 map { [transform($_), $_] }
                  @values
 
-The former solution requires repetitive typing of the transformation, and executes it for each comparison. The second solution avoids that by storing the transformed value along with the original value, but it's quite a bit of code to write.
+上面二个的解决方案的在进行比较的时候, 第一个需要不断重复转换的输入. 第二个方案通过存储原始值转化后的值避免了重复输入, 但它多写了相当多的代码.
 
-Perl 6 automates the second solution (and a bit more efficient than the naiive Schwartzian transform, by avoiding an array for each value) when the transformation function has arity one, ie accepts one argument only:
+Perl 6 会自动使用第二种方案 ( 使用更加有效的 Schwartzian 转换, 避免数组的每个值重复转换 ), 这个转换函数只有一个参数:
 
-    my @sorted = sort &amp;transform, @values;
+    my @sorted = sort &transform, @values;
 
-#### [Mandatory Attributes][249]
+#### 强制属性 
 
-The typical way to enforce the presence of an attribute is to check its presence in the constructor - or in all constructors, if there are many.
+通常我们强制一些属性必须存在, 是为了检查其构造函数中是否存在.
 
-That works in Perl 6 too, but it's easier and safer to require the presence at the level of each attribute:
+在 Perl 6 中也是这样工作的, 但它更加容易, 更加安全, 当请求每个需要存在属性时:
 
     has $.attr = die "'attr' is mandatory";
 
-This exploits the default value mechanism. When a value is supplied, the code for generating the default value is never executed, and the `die` never triggers. If any constructor fails to set it, an exception is thrown.
+这利用了默认值的机制. 当提供一个值, 这个就永远不会执行, 会用于生成默认值, 这个 `die` 不会触发. 如果有任何构造函数没设置这个值, 就会抛出异常.
 
-### [MOTIVATION][250]
+### 动机
 
 N/A
 
@@ -2711,340 +2725,94 @@ N/A
 
 Sun Jul 25 09:17:10 2010
 
-### [NAME][251]
+### [NAME]
 
-"Perl 5 to 6" Lesson 28 - Currying
+"Perl 5 to 6" Lesson 28 - Currying 柯里化
 
-### [SYNOPSIS][252]
+### 概要
 
   use v6;
-
-  my &amp;f := &amp;substr.assuming('Hello, World');
+  
+  my &f := &substr.assuming('Hello, World');
   say f(0, 2);                # He
   say f(3, 2);                # lo
   say f(7);                   # World
+  
+  say <a b c>.map: * x 2;     # aabbcc
+  say <a b c>.map: *.uc;      # ABC
+  for ^10 {
+      print <R G B>.[$_ % *]; # RGBRGBRGBR
+  }
 
-  say <a b c>.map: \* x 2;     # aabbcc
-  say <a b c>.map: \*.uc;      # ABC
-  for ^10 \{
-      print <R G B>.[$\_ % \*]; # RGBRGBRGBR
-  \}
+### 描述
 
-### [DESCRIPTION][253]
+Currying 和 partial application 用于用一个函数产生新的函数, 或是用一个方法提供一些参数再产生新的方法. 因为可以动态产生很多函数, 这样就省去很多码字的时间, 当函数需要返回一个回调的时候也会非常有用.
 
-_Currying_ or _partial application_ is the process of generating a function from another function or method by providing only some of the arguments. This is useful for saving typing, and when you want to pass a callback to another function.
+假设你想要一个函数用于从 `"Hello, World"` 做各种提取子串操作, 这样做的经典方法是写自己的函数:
 
-Suppose you want a function that lets you extract substrings from `"Hello, World"` easily. The classical way of doing that is writing your own function:
-
-  sub f(\*@a) \{
+  sub f(*@a) {
       substr('Hello, World', |@a)
-  \}
+  }
 
-#### [Currying with `assuming`][254]
+#### 通过 `assuming` 方法来实现柯里化
 
-Perl 6 provides a method `assuming` on code objects, which applies the arguments passed to it to the invocant, and returns the partially applied function.
+Perl 6 提供了一个方法 `assuming` 在代码的对象上, 它可以传递参数给它的调用者成为一体, 并返回调用者的功能的函数.
 
-  my &amp;f := &amp;substr.assuming('Hello, World');
+    my &f := &substr.assuming('Hello, World');
 
-Now `f(1, 2)` is the same as `substr('Hello, World', 1, 2)`.
+现在 `f(1, 2)` 相当于 `substr('Hello, World', 1, 2)`.
 
-`assuming` also works on operators, because operators are just subroutines with weird names. To get a subroutine that adds 2 to whatever number gets passed to it, you could write
+这个 `assuming` 方法也可以工作在操作符上, 因为操作符只是一个奇怪名字的函数. 你想实现一个子函数, 给任何传递给它的数值都增加 2 , 你可以这样写.
 
-  my &amp;add\_two := &amp;infix:<+>.assuming(2);
+    my &add_two := &infix:<+>.assuming(2);
 
-But that's tedious to write, so there's another option.
+但这是一种很无聊的写法, 所以有另一种选择.
 
-#### [Currying with the Whatever-Star][255]
+#### 通过 Whatever-Star ( * 号 ) 来实现柯里化
 
-  my &amp;add\_two := \* + 2;
-  say add\_two(4);         # 6
+  my &add_two := * + 2;
+  say add_two(4);         # 6
 
-The asterisk, called _Whatever_, is a placeholder for an argument, so the whole expression returns a closure. Multiple Whatevers are allowed in a single expression, and create a closure that expects more arguments, by replacing each term `*` by a formal parameter. So `* * 5 + *` is equivalent to `-> $a, $b { $a * 5 + $b }`.
+星号, 叫 _Whatever_, 是一个占位符参数, 所以整个表达式返回一个闭包. 多个星号 "Whatevers" 在单个表达式中也是可以的, 这样也会创建闭包, 但希望提供更多的参数, 通过形参替换每个 "*" 元素. 所以 `* * 5 + *` 相当于 `-> $a, $b { $a * 5 + $b }`.
 
-  my $c = \* \* 5 + \*;
+  my $c = * * 5 + *;
   say $c(10, 2);                # 52
 
-Note that the second `*` is an infix operator, not a term, so it is not subject to Whatever-currying.
+注意第二个 `*` 是一个中缀运算符, 不是术语, 所以不会被 Whatever-currying 影响.
 
-The process of lifting an expression with Whatever stars into a closure is driven by syntax, and done at compile time. This means that
+这的东西是由星号和闭包组成, 直接在语法驱动层实现的, 所以这些是在编译时完成, 所以:
 
-  my $star = \*;
+  my $star = *;
   my $code = $star + 2
 
-does not construct a closure, but instead dies with a message like
+如果这不构造成一个闭包的话, 就会出现 die 并给出一个信息, 必须由这个来做为占位符并返回闭包
 
   Can't take numeric value for object of type Whatever
 
-Whatever currying is more versatile than `.assuming`, because it allows to curry something else than the first argument very easily:
+Whatever-Star ( * 号 ) 的柯里化比起 `.assuming` 更加灵活, 因为它可以有其它的东西做为第一个参数:
 
-  say  ~(1, 3).map: 'hi' x \*    # hi hihihi
+    say  ~(1, 3).map: 'hi' x *    # hi hihihi
 
-This curries the second argument of the string repetition operator infix `x`, so it returns a closure that, when called with a numeric argument, produces the string `hi` as often as that argument specifies.
+这的柯里化的第二个参数是一个字符重复中缀操作 `x`, 所以它在这个地方返回一个闭包. 然后调用前面的数字做为参数, 根据参数生成指定数量的字符.
 
-The invocant of a method call can also be Whatever star, so
+这对象的方法的调用者也可以是星号.
 
-  say <a b c>.map: \*.uc;      # ABC
+      say <a b c>.map: *.uc;      # ABC
 
-involves a closure that calls the `uc` method on its argument.
+涉及一个闭包, 给其内容做为参数为其调用 `uc` 的方法.
 
-### [MOTIVATION][256]
+### 动机[256]
 
-Perl 5 could be used for functional programming, which has been demonstrated in Mark Jason Dominus' book _Higher Order Perl_.
+Perl 5 中也可用于函数式编程, 你可以看看 Jason Dominus' book _Higher Order Perl_.
 
-Perl 6 strives to make it even easier, and thus provides tools to make typical constructs in functional programming easily available. Currying and easy construction of closures is a key to functional programming, and makes it very easy to write transformation for your data, for example together with `map` or `grep`.
+Perl 6 努力使用这些更加容易, 从而提供工作让你更加容易构造函数式编程. Currying 和容易的构造闭包是函数式编程的关键. 并且可以很容易的与 map 或者 grep 之类一起使用.
 
-### [SEE ALSO][257]
+### 另请参阅[257]
 
-[http://perlcabal.org/syn/S02.html#Built-In\_Data\_Types][258]
+[http://perlcabal.org/syn/S02.html#Built-In_Data_Types]
 
 <http://hop.perl.plover.com/>
 
 <http://en.wikipedia.org/wiki/Currying>
 
- Copyright 2008 - 2013: Moritz Lenz<br /> This page may be used under the terms of the [Creative Commons Attribution 3.0 Germany License][259]. Please place a link to the pages you use for your derivative work. <br /> Layout based on [YAML][260], powered by [mowyw][261]
 
-  [17]: #post_00
-  [18]: #post_01
-  [19]: #post_02
-  [20]: #post_03
-  [21]: #post_04
-  [22]: #post_05
-  [23]: #post_06
-  [24]: #post_07
-  [25]: #post_08
-  [26]: #post_09
-  [27]: #post_10
-  [28]: #post_11
-  [29]: #post_12
-  [30]: #post_13
-  [31]: #post_14
-  [32]: #post_15
-  [33]: #post_16
-  [34]: #post_17
-  [35]: #post_18
-  [36]: #post_19
-  [37]: #post_20
-  [38]: #post_21
-  [39]: #post_22
-  [40]: #post_23
-  [41]: #post_24
-  [42]: #post_25
-  [43]: #post_26
-  [44]: #post_27
-  [45]: #post_28
-  [46]: 
-  [47]: 
-  [48]: 
-  [49]: 
-  [50]: 
-  [51]: 
-  [52]: 
-  [53]: 
-  [54]: 
-  [55]: 
-  [56]: 
-  [57]: 
-  [58]: 
-  [59]: 
-  [60]: 
-  [61]: 
-  [62]: 
-  [63]: 
-  [64]: 
-  [65]: 
-  [66]: 
-  [67]: 
-  [68]: 
-  [69]: 
-  [70]: http://perlcabal.org/syn/S02.html#Built-In_Data_Types
-  [71]: 
-  [72]: 
-  [73]: 
-  [74]: 
-  [75]: 
-  [76]: 
-  [77]: http://perlcabal.org/syn/S04.html#Conditional_statements
-  [78]: 
-  [79]: 
-  [80]: 
-  [81]: 
-  [82]: 
-  [83]: 
-  [84]: 
-  [85]: 
-  [86]: http://en.wikipedia.org/wiki/Schwartzian_transform
-  [87]: 
-  [88]: 
-  [89]: 
-  [90]: 
-  [91]: 
-  [92]: 
-  [93]: 
-  [94]: 
-  [95]: 
-  [96]: http://en.wikipedia.org/wiki/Perl_6#Roles
-  [97]: 
-  [98]: 
-  [99]: 
-  [100]: 
-  [101]: 
-  [102]: 
-  [103]: 
-  [104]: 
-  [105]: 
-  [106]: 
-  [107]: 
-  [108]: 
-  [109]: 
-  [110]: 
-  [111]: 
-  [112]: 
-  [113]: 
-  [114]: 
-  [115]: 
-  [116]: 
-  [117]: 
-  [118]: 
-  [119]: 
-  [120]: http://perlcabal.org/syn/S03.html#Junctive_operators
-  [121]: 
-  [122]: 
-  [123]: 
-  [124]: 
-  [125]: 
-  [126]: http://perlcabal.org/syn/S03.html#Smart_matching
-  [127]: 
-  [128]: 
-  [129]: 
-  [130]: 
-  [131]: 
-  [132]: http://perlcabal.org/syn/S03.html#Item_assignment_precedence
-  [133]: 
-  [134]: 
-  [135]: 
-  [136]: 
-  [137]: 
-  [138]: http://perlcabal.org/syn/S03.html#Changes_to_Perl_5_operators
-  [139]: 
-  [140]: 
-  [141]: 
-  [142]: 
-  [143]: 
-  [144]: 
-  [145]: 
-  [146]: 
-  [147]: 
-  [148]: 
-  [149]: 
-  [150]: 
-  [151]: 
-  [152]: 
-  [153]: 
-  [154]: 
-  [155]: http://perlcabal.org/syn/S06.html#Operator_overloading
-  [156]: 
-  [157]: 
-  [158]: 
-  [159]: 
-  [160]: 
-  [161]: http://perlcabal.org/syn/S06.html#Declaring_a_MAIN_subroutine
-  [162]: 
-  [163]: 
-  [164]: 
-  [165]: 
-  [166]: 
-  [167]: 
-  [168]: 
-  [169]: 
-  [170]: 
-  [171]: 
-  [172]: 
-  [173]: 
-  [174]: 
-  [175]: 
-  [176]: 
-  [177]: 
-  [178]: 
-  [179]: 
-  [180]: 
-  [181]: 
-  [182]: 
-  [183]: 
-  [184]: 
-  [185]: 
-  [186]: 
-  [187]: 
-  [188]: 
-  [189]: 
-  [190]: 
-  [191]: 
-  [192]: 
-  [193]: 
-  [194]: 
-  [195]: 
-  [196]: 
-  [197]: 
-  [198]: 
-  [199]: 
-  [200]: 
-  [201]: 
-  [202]: 
-  [203]: 
-  [204]: 
-  [205]: 
-  [206]: 
-  [207]: 
-  [208]: 
-  [209]: 
-  [210]: 
-  [211]: 
-  [212]: 
-  [213]: 
-  [214]: 
-  [215]: 
-  [216]: 
-  [217]: 
-  [218]: 
-  [219]: 
-  [220]: 
-  [221]: 
-  [222]: 
-  [223]: 
-  [224]: 
-  [225]: 
-  [226]: 
-  [227]: 
-  [228]: 
-  [229]: http://perlcabal.org/syn/S03.html#Reduction_operators
-  [230]: http://www.perlmonks.org/?node_id=716497
-  [231]: 
-  [232]: 
-  [233]: 
-  [234]: 
-  [235]: 
-  [236]: http://perlcabal.org/syn/S03.html#Cross_operators
-  [237]: 
-  [238]: 
-  [239]: 
-  [240]: 
-  [241]: 
-  [242]: 
-  [243]: 
-  [244]: 
-  [245]: 
-  [246]: 
-  [247]: 
-  [248]: 
-  [249]: 
-  [250]: 
-  [251]: 
-  [252]: 
-  [253]: 
-  [254]: 
-  [255]: 
-  [256]: 
-  [257]: 
-  [258]: http://perlcabal.org/syn/S02.html#Built-In_Data_Types
-  [259]: http://creativecommons.org/licenses/by/3.0/de/
-  [260]: http://www.yaml.de/
-  [261]: /en/software/mowyw
