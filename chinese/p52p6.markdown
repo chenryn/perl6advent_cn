@@ -2604,7 +2604,7 @@ Perl 6  中全部包含了多线程的想法, 尤其是自动并行化. 为了�
 
 一个好的编程语言需要异常来处理错误的条件. 总是检查返回值是一种折磨也容易忘记.
 
-由于传统的异常处理可能会影响隐式的并行性. 所以我们需要一个全其美的解决方案: 不会立即 kill 掉一切, 并且仍然不会丢失任何信息.
+由于传统的异常处理可能会影响隐式的并行性. 所以我们需要一个二全其美的解决方案: 不会立即 kill 掉一切, 并且仍然不会丢失任何信息.
 
 ## Common Perl 6 data processing idioms
 
@@ -2754,21 +2754,21 @@ Currying 和 partial application 用于用一个函数产生新的函数, 或是
       substr('Hello, World', |@a)
   }
 
-#### [Currying with `assuming`]
+#### 通过 `assuming` 方法来实现柯里化
 
-Perl 6 提供了一个方法 `assuming` 在代码的对象上, 它可以传递给它参数给调用者, 并返回的部分的功能的函数.
+Perl 6 提供了一个方法 `assuming` 在代码的对象上, 它可以传递参数给它的调用者成为一体, 并返回调用者的功能的函数.
 
     my &f := &substr.assuming('Hello, World');
 
-现在  `f(1, 2)` 相当于 `substr('Hello, World', 1, 2)`.
+现在 `f(1, 2)` 相当于 `substr('Hello, World', 1, 2)`.
 
-这个  `assuming` 方法也可以工作在操作符上, 因为操作符只是一个奇怪名字的函数. 你想写一个子函数, 给任何传递给它的数都增加 2 , 你可以这样写.
+这个 `assuming` 方法也可以工作在操作符上, 因为操作符只是一个奇怪名字的函数. 你想实现一个子函数, 给任何传递给它的数值都增加 2 , 你可以这样写.
 
     my &add_two := &infix:<+>.assuming(2);
 
 但这是一种很无聊的写法, 所以有另一种选择.
 
-#### [Currying with the Whatever-Star]
+#### 通过 Whatever-Star ( * 号 ) 来实现柯里化
 
   my &add_two := * + 2;
   say add_two(4);         # 6
@@ -2780,23 +2780,22 @@ Perl 6 提供了一个方法 `assuming` 在代码的对象上, 它可以传递�
 
 注意第二个 `*` 是一个中缀运算符, 不是术语, 所以不会被 Whatever-currying 影响.
 
-在进程中这些都是语法驱动成 
-The process of lifting an expression with Whatever stars into a closure is driven by syntax, and done at compile time. This means that
+这的东西是由星号和闭包组成, 直接在语法驱动层实现的, 所以这些是在编译时完成, 所以:
 
   my $star = *;
   my $code = $star + 2
 
-does not construct a closure, but instead dies with a message like
+如果这不构造成一个闭包的话, 就会出现 die 并给出一个信息, 必须由这个来做为占位符并返回闭包
 
   Can't take numeric value for object of type Whatever
 
-Whatever currying is more versatile than `.assuming`, because it allows to curry something else than the first argument very easily:
+Whatever-Star ( * 号 ) 的柯里化比起 `.assuming` 更加灵活, 因为它可以有其它的东西做为第一个参数:
 
     say  ~(1, 3).map: 'hi' x *    # hi hihihi
 
-This curries the second argument of the string repetition operator infix `x`, so it returns a closure that, when called with a numeric argument, produces the string `hi` as often as that argument specifies.
+这的柯里化的第二个参数是一个字符重复中缀操作 `x`, 所以它在这个地方返回一个闭包. 然后调用前面的数字做为参数, 根据参数生成指定数量的字符.
 
-The invocant of a method call can also be Whatever star, so
+这对象的方法的调用者也可以是星号.
 
       say <a b c>.map: *.uc;      # ABC
 
@@ -2816,5 +2815,4 @@ Perl 6 努力使用这些更加容易, 从而提供工作让你更加容易构�
 
 <http://en.wikipedia.org/wiki/Currying>
 
- Copyright 2008 - 2013: Moritz Lenz<br /> This page may be used under the terms of the [Creative Commons Attribution 3.0 Germany License][259]. Please place a link to the pages you use for your derivative work. <br /> Layout based on [YAML][260], powered by [mowyw][261]
 
